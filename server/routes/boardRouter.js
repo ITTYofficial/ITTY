@@ -41,7 +41,7 @@ router.post("/write", async (req, res) => {
     let obj;
 
     obj = {
-      writer: req.body._id,
+      writer: req.body.writer,
       title: req.body.title,
       content: req.body.content
     };
@@ -72,10 +72,10 @@ router.post("/getBoardList", async (req, res) => {
 
 
 // 글 조회
-router.post("/detail", async (req, res) => {
+router.get("/detail", async (req, res) => {
   try {
-    const _id = req.body._id;
-    const board = await Board.find({ _id });
+    const board = await Board.find();
+    console.log('진입했슴');
     res.json({ board });
   } catch (err) {
     console.log(err);

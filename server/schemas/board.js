@@ -8,9 +8,9 @@ const {
 
 const boardSchema = new Schema({
   writer: {
-    type: ObjectId,
-    required: true,
-    ref: "User"
+    type: String,
+    // required: true,
+    // ref: "User"
   },
   title: {
     type: String,
