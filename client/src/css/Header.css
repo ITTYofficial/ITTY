@@ -1,0 +1,15 @@
+.Navigation{
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-between;
+
+    background-color: purple;
+}
+.Category > ul{
+    display: flex;
+}
+
+.Member > ul{
+    display: flex;
+}
