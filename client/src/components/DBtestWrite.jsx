@@ -15,10 +15,12 @@ const DBtestWrite = () => {
     setBoard({ ...board, [name]: value });
   };
 
+
+  // 게시글 업로드 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(board);
     try {
+      console.log('보드 잘 찍혔나 확인'. board);
       const response = await axios.post("http://localhost:8088/board/write", board);
       if (response.data.message === "게시글이 업로드 되었습니다.") {
         // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행

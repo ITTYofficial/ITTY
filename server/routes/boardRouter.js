@@ -3,10 +3,13 @@ const router = express.Router();
 const Board = require("../schemas/board");
 
 // 글 삭제
-router.post("/delete", async (req, res) => {
+// :_id값 받아오는거 확인
+router.post("/delete/:_id", async (req, res) => {
+  console.log('delete진입');
   try {
-    await Board.remove({
-      _id: req.body._id
+    const id = req.params._id;
+    await Board.deleteOne({
+      _id: id
     });
     res.json({ message: true });
   } catch (err) {
@@ -16,18 +19,18 @@ router.post("/delete", async (req, res) => {
 });
 
 // 글 수정
-router.post("/update", async (req, res) => {
+router.post("/update/:_id", async (req, res) => {
   try {
-    await Board.update(
-      { _id: req.body._id },
+    const id = req.params._id;
+    await Board.updateOne(
+      { _id: id },
       {
         $set: {
-          title: req.body.title,
           content: req.body.content
         }
       }
     );
-    res.json({ message: "게시글이 수정 되었습니다." });
+    res.json({ message: true});
   } catch (err) {
     console.log(err);
     res.json({ message: false });
@@ -56,7 +59,7 @@ router.post("/write", async (req, res) => {
 });
 
 
-// 내가 쓴 글 목록
+// 내가 쓴 글 목록 (사용 안했음)
 router.post("/getBoardList", async (req, res) => {
   try {
     const _id = req.body._id;
@@ -72,11 +75,24 @@ router.post("/getBoardList", async (req, res) => {
 
 
 // 글 조회
-router.get("/detail", async (req, res) => {
+router.get("/boardlist", async (req, res) => {
   try {
     const board = await Board.find();
-    console.log('진입했슴');
     res.json({ board });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
+
+// id값으로 글 조회
+router.get("/detail/:_id", async (req, res) => {
+  try {
+    const id = req.params._id;
+    const detailBoard = await Board.find({
+      _id: id
+    });
+    res.json({detailBoard});
   } catch (err) {
     console.log(err);
     res.json({ message: false });

@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import DBtestMain from "./components/DBtestMain";
 import DBtestWrite from "./components/DBtestWrite";
+import DBtestDetail from "./components/DBtestDetail";
 
 function DBtestApp() {
   return (
@@ -9,6 +10,7 @@ function DBtestApp() {
       <Routes>
         <Route path="/" element={<DBtestMain />}></Route>
         <Route path="/write" element={<DBtestWrite />}></Route>
+        <Route path="/detail/:id" element={<DBtestDetail />}></Route>
 
       </Routes>
 
