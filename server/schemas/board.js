@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const {
-  Types: { ObjectId }
-} = Schema;
+// 무슨 의미인지 모름, 일단 주석 처리
+// const {
+//   Types: { ObjectId }
+// } = Schema;
 
 const boardSchema = new Schema({
   writer: {
