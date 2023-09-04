@@ -3,7 +3,7 @@
 }
 .Main_container {
   max-width: 1320px;
-  margin: 0 auto;
+  margin: 30px auto;
   display: flex;
   justify-content: space-between;
 }

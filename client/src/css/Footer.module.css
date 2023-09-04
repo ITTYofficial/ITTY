@@ -1,0 +1,16 @@
+.Wrap_footer{
+    width: 100%;
+    background-color: whitesmoke;
+    height: 300px;
+    display: flex;
+}
+.Wrap_footer_left{
+    background-color: gray;
+    width: 30%;
+    height: 300px;
+}
+.Wrap_footer_right{
+    background-color: aqua;
+    width: 70%;
+    height: 300px;
+}
