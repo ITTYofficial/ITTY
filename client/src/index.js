@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './css/reset.css';
-import './css/Main.css';
-import './css/Community.css';
-import './css/Header.css';
-// import App from './App';
-import App from './DBtestApp';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./css/reset.css";
+import "./css/Main.css";
+import "./css/Community.css";
+import "./css/Header.css";
+import App from "./App";
+// import App from './DBtestApp';
+import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <App />
