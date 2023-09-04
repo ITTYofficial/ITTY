@@ -26,8 +26,7 @@ const Main = () => {
         </div>
 
         <div className="right_container">
-          <div className="Main_container_banner">banner</div>
-          <div>영역나눔</div>
+          <div></div>
         </div>
       </div>
     </div>

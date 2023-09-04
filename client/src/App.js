@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
 import ProjectList from "./components/ProjectList";
+import ProjectDetail from "./components/ProjectDetail";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/projectList" element={<ProjectList />}></Route>
+        <Route path="/projectDetail" element={<ProjectDetail />}></Route>
+        
 
       </Routes>
       <Footer />

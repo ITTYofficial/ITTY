@@ -6,7 +6,7 @@ const Header = () => {
         <img src="#" />
         <div className='Category'>
             <ul>
-                <li><a href='#'>Community🕹</a></li>
+                <li><a href='projectList'>Community🕹</a></li>
                 <li><a href='#'>QnA👋</a></li>
                 <li><a href='#'>Share</a></li>
                 <li><a href='#'>Private</a></li>
