@@ -1,4 +1,6 @@
-#Main_container {
+.Main_container {
+  max-width: 1320px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
 }
