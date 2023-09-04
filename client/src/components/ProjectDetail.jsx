@@ -21,6 +21,9 @@ const ProjectDetail = () => {
                         <Button variant="success">스터디</Button>
                         <Button variant="primary">모집중</Button>
                     </div>
+                    <h4>공공기관 프로젝트 함께할 사람 모집중!</h4>
+                    <p>💌기간 2023-09-08 ~ 2023-10-21</p>
+                    <p></p>
 
                 </div>
             </div>

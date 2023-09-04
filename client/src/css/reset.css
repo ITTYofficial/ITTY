@@ -52,3 +52,7 @@ table {
 	outline: none;
 	box-sizing: border-box;
 }
+
+.Button_margin Button{
+    margin: 8px 8px 8px 0px;
+  }

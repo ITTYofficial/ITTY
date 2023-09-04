@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import ProjectList from "./components/ProjectList";
 import ProjectDetail from "./components/ProjectDetail";
 
+
 function App() {
   return (
     <div className="Container">
