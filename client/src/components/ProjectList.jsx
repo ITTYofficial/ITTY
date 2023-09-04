@@ -1,7 +1,6 @@
 import React from "react";
 import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
-import "../css/Main.css";
 import "../css/Community.css";
 
 const ProjectList = () => {

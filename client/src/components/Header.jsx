@@ -4,7 +4,9 @@ import "../css/Header.css";
 const Header = () => {
   return (
     <div className="Navigation">
-      <img src="#" />
+      <div className="logo_image">
+        <img src="img/logo.png" alt="Logo" />
+      </div>
       <div className="Category">
         <ul>
           <li>
@@ -20,7 +22,7 @@ const Header = () => {
             <a href="#">Private</a>
           </li>
         </ul>
-        <button>&#128100;</button>
+        <button className="Category_mobile">&#128100;</button>
       </div>
       <div className="Member">
         <ul>
@@ -31,7 +33,7 @@ const Header = () => {
             <a href="#">회원가입</a>
           </li>
         </ul>
-        <button>&#128100;</button>
+        <button className="Member_mobile">&#128100;</button>
       </div>
     </div>
   );
