@@ -36,7 +36,19 @@
 .Member > ul > li {
   margin: 8px 16px 8px 0;
 }
-.Member > ul > li > a {
+.Member > ul > li:first-child > a {
+  text-decoration: none;
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #efefef;
+  padding: 12px 20px;
+}
+
+.Member > ul > li:last-child > a {
   text-decoration: none;
   color: #eeeeee;
   font-weight: 600;
@@ -45,9 +57,8 @@
   border-radius: 10px;
   display: inline-block;
   background-color: #2a72ff;
-  padding: 8px 16px;
+  padding: 12px 20px;
 }
-
 .Category_mobile {
   display: none;
 }

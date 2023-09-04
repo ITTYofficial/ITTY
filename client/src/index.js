@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./css/reset.css";
 import App from "./App";
 // import App from './DBtestApp';
 import reportWebVitals from "./reportWebVitals";
