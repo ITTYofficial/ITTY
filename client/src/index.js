@@ -4,8 +4,8 @@ import './css/reset.css';
 import './css/Main.css';
 import './css/Community.css';
 import './css/Header.css';
-// import App from './App';
-import App from './DBtestApp';
+import App from './App';
+// import App from './DBtestApp';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 
