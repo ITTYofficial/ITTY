@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Board = require("../schemas/board");
 
+//  DAO 
+
 // 글 삭제
 // :_id값 받아오는거 확인
 router.post("/delete/:_id", async (req, res) => {

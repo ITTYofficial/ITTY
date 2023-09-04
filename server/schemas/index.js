@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// 몽고DB랑 연결하는 곳 (-> myBatis-config랑 유사)
 
 module.exports = () => {
     const connect = () => {

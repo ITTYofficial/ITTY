@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+// board스키마 정의(컬렉션 구조) DTO와 비슷함
 const { Schema } = mongoose;
 
 // 무슨 의미인지 모름, 일단 주석 처리
