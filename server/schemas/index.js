@@ -34,4 +34,6 @@ module.exports = () => {
 
     //require("./user");
     require("./board");
+    require("./community/study");
+    require("./community/project");
 };

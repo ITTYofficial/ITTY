@@ -21,9 +21,12 @@ const DBtestWrite = () => {
     e.preventDefault();
     try {
       console.log('보드 잘 찍혔나 확인'. board);
-      const response = await axios.post("http://localhost:8088/board/write", board);
+      const response = await axios.post("http://localhost:8088/study/write", board); // 경로 테스트 중...
       if (response.data.message === "게시글이 업로드 되었습니다.") {
         // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
+        window.location.href = '/'
+        // 글 작성 완료시 메인페이지로 이동(새로고침)
+        
       } else {
         // 오류 처리
         console.error("삽입에 실패했습니다.");
