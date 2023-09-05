@@ -35,7 +35,7 @@ const studySchema = new Schema({
     },
 
     // 게시판마다 달라지는 부분
-    postCatogory: {
+    postCategory: {
         // 글카테고리
         type: String,
         // required : true
