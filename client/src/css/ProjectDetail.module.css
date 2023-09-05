@@ -29,7 +29,7 @@
 
 .right_container {
   width: 80%;
-  
+
   padding: 16px;
 }
 
@@ -120,6 +120,7 @@
   border-radius: 70%;
   width: 50px;
   height: 50px;
+  margin-right: 8px;
   overflow: hidden;
 }
 
@@ -134,4 +135,19 @@
 
 .Detail_comment_content {
   margin: 12px;
+}
+
+.Comment_write {
+  background-color: #7fc3f0;
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+}
+
+.Comment_write_button {
+
+  margin: 8px;
+  display: flex;
+  justify-content: end;
+
 }
