@@ -131,6 +131,7 @@ table {
 * {
   outline: none;
   box-sizing: border-box;
+  color: #333333;
 }
 @font-face {
   font-family: "suit";
