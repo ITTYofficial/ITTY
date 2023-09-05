@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Study = require('../../schemas/community/study')
+const Project = require('../../schemas/community/project')
 
 // 글 작성
 router.post('/write', async (req, res) => {
@@ -26,8 +26,8 @@ router.post('/write', async (req, res) => {
             // recruit: req.body.recruit
         };
         
-        const study = new Study(obj);
-        await Study.insertMany(study);
+        const project = new Project(obj);
+        await Project.insertMany(project);
         res.json({ message: "게시글이 업로드 되었습니다." });
       } catch (err) {
         console.log(err);
@@ -60,7 +60,7 @@ router.post("/update/:_id", async(req, res) =>{
       // recruit: req.body.recruit
     };
 
-    await Study.updateOne(
+    await Project.updateOne(
       { _id: id },
       {
         $set: obj
@@ -78,7 +78,7 @@ router.post("/delete/:_id", async (req, res) => {
   console.log('delete진입');
   try {
     const id = req.params._id;
-    await Study.deleteOne({
+    await Project.deleteOne({
       _id: id
     });
     res.json({ message: true });
@@ -89,10 +89,10 @@ router.post("/delete/:_id", async (req, res) => {
 });
 
 // 글 조회
-router.get("/studylist", async (req, res) => {
+router.get("/projectList", async (req, res) => {
   try {
-    const study = await Study.find();
-    res.json({ study });
+    const project = await Project.find();
+    res.json({ project });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
@@ -103,10 +103,10 @@ router.get("/studylist", async (req, res) => {
 router.get("/detail/:_id", async (req, res) => {
   try {
     const id = req.params._id;
-    const detailStudy = await Study.find({
+    const detailProject = await Project.find({
       _id: id
     });
-    res.json({detailStudy});
+    res.json({detailProject});
   } catch (err) {
     console.log(err);
     res.json({ message: false });
