@@ -20,7 +20,7 @@
 .Category > ul > li {
   display: inline-block;
   padding: 8px 16px;
-  margin: 8px 16px 8px 0;
+  margin: 8px 16px;
 }
 .Category > ul > li > a {
   text-decoration: none;
