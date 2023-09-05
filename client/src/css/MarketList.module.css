@@ -2,7 +2,7 @@
   max-width: 1320px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .left_container {
@@ -40,10 +40,11 @@
   margin-bottom: 16px;
 }
 
-.right_container h2 {
+h1 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 16px;
+  text-align: center;
 }
 
 .Main_container_list_detail {
@@ -79,77 +80,38 @@
   font-weight: 600;
 }
 
-/* 기본에서 추가된 css들 */
+.Market_list {}
 
-.Button_margin Button {
-  margin: 8px 8px 8px 0;
+.Market_list>div {
+  background-color: aqua;
+  width: 300px;
+  height: 350px;
+  margin: 20px;
+  display: inline-grid;
 }
 
-.Top_container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+.Market_content {
+  border-radius: 12px;
 }
 
-.Profile_img {
-  border-radius: 70%;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
+.Market_content_img {
+  width: 300px;
+  height: 250px;
 }
 
-.Profile_img img {
+.Market_content_img img {
   width: 100%;
   height: 100%;
+  border-radius: 12px 12px 0 0;
+  object-fit: cover;
 }
 
-.Top_right_container {
-  margin-left: auto;
+.text1 {
+  padding: 8px 0 0 8px;
 }
 
-.Detail_content {
-  margin: 12px 12px 12px 0;
-}
-
-.Detail_comment {
-  background-color: #d8daf7;
-  margin: 16px;
-  border-radius: 8px;
-  padding: 12px;
-}
-
-.Profile_img_comment {
-  border-radius: 70%;
-  width: 50px;
-  height: 50px;
-  margin-right: 8px;
-  overflow: hidden;
-}
-
-.Profile_img_comment img {
-  width: 100%;
-  height: 100%;
-}
-
-.Comment_flex {
-  display: flex;
-}
-
-.Detail_comment_content {
-  margin: 12px;
-}
-
-.Comment_write {
-  background-color: #7fc3f0;
-  border-radius: 6px;
-  padding: 8px;
-  width: 100%;
-}
-
-.Comment_write_button {
-
-  margin: 8px;
-  display: flex;
-  justify-content: end;
-
+.text2 {
+  padding-right: 8px;
+  text-align: right;
 }
