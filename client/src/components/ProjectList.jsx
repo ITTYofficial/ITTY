@@ -10,12 +10,14 @@ const ProjectList = () => {
   const [projectList, setProjectList] = useState([]);
 
   // 게시글 리스트 조회함수
+  // 작성자 정보는 아직 없어서 나중에 추가할 것
   const updateData = async () => {
     const response = await axios.get("http://localhost:8088/project/projectList");
     console.log('response 어떻게오는지 확인', response);
     setProjectList(response.data.project);
   };
   
+  // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     updateData();
   }, []);
