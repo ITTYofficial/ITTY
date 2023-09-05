@@ -43,8 +43,21 @@ const ProjectDetail = () => {
                     </div>
 
 
-                    <span>댓글 1</span>
                     <hr />
+                    <span>댓글 2개</span>
+                    <div className={style.Comment_flex}>
+                        <div className={style.Profile_img_comment}>
+                            <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEJWYPn7R2QRCgdY9qvfJWZhyggOTcSF5bcA&usqp=CAU'></img>
+                        </div>
+                        <div className={style.Comment_write}>
+                            <p>댓글 작성부분</p>
+                        </div>
+                    </div>
+                    <div className={style.Comment_write_button}>
+                    <Button variant="primary">작성하기</Button>
+                    </div>
+                    <hr />
+                    {/* 댓글 반복 시작 */}
                     <div className={style.Detail_comment}>
                         <div className={style.Comment_flex}>
                             <div className={style.Profile_img_comment}>
@@ -53,6 +66,23 @@ const ProjectDetail = () => {
                             <div>
                                 <p>빅데이터분석반</p>
                                 <p>언제취뽀</p>
+                                <p>2시간 전</p>
+                            </div>
+                        </div>
+                        <div className={style.Detail_comment_content}>
+                            <p>댓글입니다 낄낄</p>
+                        </div>
+                    </div>
+                    {/* 댓글 반복 끝 */}
+                    <div className={style.Detail_comment}>
+                        <div className={style.Comment_flex}>
+                            <div className={style.Profile_img_comment}>
+                                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6k4KSEWGAq157LW3wCKU2DJmvoQyrfRfcA&usqp=CAU'></img>
+                            </div>
+                            <div>
+                                <p>빅데이터분석반</p>
+                                <p>언제취뽀</p>
+                                <p>2시간 전</p>
                             </div>
                         </div>
                         <div className={style.Detail_comment_content}>
