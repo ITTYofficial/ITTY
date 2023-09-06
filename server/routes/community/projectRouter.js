@@ -106,6 +106,15 @@ router.get("/projectDetail/:_id", async (req, res) => {
     const detailProject = await Project.find({
       _id: id
     });
+    // 조회수 업데이트 기능
+    await Project.updateOne(
+      { _id: id },
+      {
+        $set:{
+          views: detailProject[0].views+1
+        }
+      }
+    );
     res.json({detailProject});
   } catch (err) {
     console.log(err);
