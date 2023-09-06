@@ -35,7 +35,7 @@ const studySchema = new Schema({
     },
 
     // 게시판마다 달라지는 부분
-    postCatogory: {
+    postCategory: {
         // 글카테고리
         type: String,
         // required : true
@@ -44,13 +44,19 @@ const studySchema = new Schema({
         // 이미지 주소
         type: String
     },
-    recruitPeriod: {
-        // 모집기간
-        type: Date
-    },
     recruit: {
         // 모집인원
         type: Number
+    }, 
+    periodStart: {
+        // 모집기간 시작
+        // 기본값으로 현재 날짜 == 글 작성 시간
+        type: Date,
+        default: Date.now
+    },
+    periodEnd: {
+        // 모집기간 끝
+        type: Date,
     }
 })
 

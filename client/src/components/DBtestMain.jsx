@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 const DBtestMain = () => {
 
-    const [boardList, setBoardList] = useState([]);
+    const [studyList, setStudyList] = useState([]);
 
     // 게시글 리스트 조회함수
     const updateData = async () => {
-        const response = await axios.get("http://localhost:8088/board/boardlist");
+        const response = await axios.get("http://localhost:8088/study/studylist");
         console.log('response 어떻게오는지 확인', response);
-        setBoardList(response.data.board);
+        setStudyList(response.data.study);
     };
 
 
@@ -22,7 +22,7 @@ const DBtestMain = () => {
     // 게시글 삭제 함수
     const deleteData = async (id) => {
         try {
-            const response = await axios.post(`http://localhost:8088/board/delete/${id}`);
+            const response = await axios.post(`http://localhost:8088/study/delete/${id}`);
             if (response.data.message) {
                 // 삭제가 성공하면 게시글 목록을 다시 불러옴
                 updateData();
@@ -40,7 +40,7 @@ const DBtestMain = () => {
     return (
         <div>
             <h1>게시글조회</h1>
-            {boardList.map((item) => (
+            {studyList.map((item) => (
                 <div key={item._id}>
                     <div>작성자 : {item.writer}</div>
                     <div>제목 : <Link to={`/detail/${item._id}`}> {item.title}</Link></div>

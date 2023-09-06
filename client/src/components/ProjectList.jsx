@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 // import "../css/Community.css";
 import styles from "../css/Community.module.css";
 
 const ProjectList = () => {
+
+  const [projectList, setProjectList] = useState([]);
+
+  // 게시글 리스트 조회함수
+  // 작성자 정보는 아직 없어서 나중에 추가할 것
+  const updateData = async () => {
+    const response = await axios.get("http://localhost:8088/project/projectList");
+    console.log('response 어떻게오는지 확인', response);
+    setProjectList(response.data.project);
+  };
+  
+  // 페이지 렌더링시 조회함수 실행
+  useEffect(() => {
+    updateData();
+  }, []);
+
   return (
     <div className={styles.Main_container}>
       <LeftContainer />
@@ -15,25 +32,27 @@ const ProjectList = () => {
 
         <div className={styles.Main_container_list}>
           {/* 글 반복 시작 */}
-          <div className={styles.Main_container_list_detail}>
+          {projectList.map((item)=>(            
+            <div className={styles.Main_container_list_detail}>
             <div>
-              <p className={styles.b_date}>1일 전</p>
-              <Link to={"/projectDetail"}>
-                <h4>공공기관 프로젝트 함께 진행할 사람 모집중!</h4>
+              <p className={styles.b_date}>{item.createdAt}</p>
+              <Link to={`/projectDetail`}>
+                <h4>{item.title}</h4>
               </Link>
               <p>
-                데이터디자인반 2명, 앱 개발 가능자 1명, 데이터관리 1명 총 4명...
+                {item.content}
               </p>
             </div>
 
             <div>
               <div>
                 <p className={styles.b_date}>데이터 디자인</p>
-                <h4>수업중 몰래롤</h4>
+                <h4>{item.writer}</h4>
               </div>
               <img src="#" />
             </div>
           </div>
+          ))}
           {/* 글 반복 끝 */}
         </div>
       </div>

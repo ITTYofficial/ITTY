@@ -13,7 +13,7 @@ const DBtestDetail = () => {
 
     const updateData = async () => {
         console.log('id확인', id);
-        const response = await axios.get(`http://localhost:8088/board/detail/${id}`);
+        const response = await axios.get(`http://localhost:8088/study/detail/${id}`);
         console.log('response 데이터 형태 확인 ', response);
         setDetailBoard(response.data.detailBoard[0])
         console.log(detailBoard);
@@ -33,7 +33,7 @@ const DBtestDetail = () => {
         try {
             // 수정 내용을 서버에 전송하고 저장
             console.log('editedContent 확인', editedContent);
-            const response = await axios.post(`http://localhost:8088/board/update/${id}`, {
+            const response = await axios.post(`http://localhost:8088/study/update/${id}`, {
                 content: editedContent
             });
 
