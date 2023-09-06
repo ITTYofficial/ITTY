@@ -26,7 +26,7 @@ const Main = () => {
   return (
     <div className={style.Wrap_container}>
       {/* 메인 이미지슬라이드 시작 */}
-      <div className={style.Wrap_main_imageSlide}>BANNER</div>
+      <div className={style.Wrap_main_imageSlide}></div>
       {/* 메인 이미지슬라이드 끝 */}
 
       <div className={style.Main_container}>
