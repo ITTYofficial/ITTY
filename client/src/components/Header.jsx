@@ -28,10 +28,10 @@ const Header = () => {
       <div className={Nav.Member}>
         <ul>
           <li>
-            <a href="#">로그인</a>
+          <Link to={'/login'}>로그인</Link>
           </li>
           <li>
-            <a href="#">회원가입</a>
+          <Link to={'/join'}>회원가입</Link>
           </li>
         </ul>
         <button className={Nav.Member_mobile}>&#128100;</button>

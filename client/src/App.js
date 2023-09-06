@@ -7,6 +7,8 @@ import ProjectDetail from "./components/ProjectDetail";
 import "./css/reset.css";
 import MarketList from "./components/MarketList";
 import MarketDetail from "./components/MarketDetail";
+import Join from "./components/Join";
+import Login from "./components/Login";
 
 
 function App() {
@@ -19,7 +21,8 @@ function App() {
         <Route path="/projectDetail" element={<ProjectDetail />}></Route>
         <Route path="/marketList" element={<MarketList />}></Route>
         <Route path="/marketDetail" element={<MarketDetail />}></Route>
-        
+        <Route path="/join" element={<Join />}></Route>
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
       <Footer />
     </div>
