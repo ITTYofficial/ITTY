@@ -6,7 +6,6 @@ import axios from 'axios';
 import styles from "../css/Community.module.css";
 
 const ProjectList = () => {
-
   const [projectList, setProjectList] = useState([]);
 
   // 게시글 리스트 조회함수
@@ -16,7 +15,7 @@ const ProjectList = () => {
     console.log('response 어떻게오는지 확인', response);
     setProjectList(response.data.project);
   };
-  
+
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     updateData();
@@ -32,26 +31,26 @@ const ProjectList = () => {
 
         <div className={styles.Main_container_list}>
           {/* 글 반복 시작 */}
-          {projectList.map((item)=>(            
+          {projectList.map((item) => (
             <div className={styles.Main_container_list_detail}>
-            <div>
-              <p className={styles.b_date}>{item.createdAt}</p>
-              <Link to={`/projectDetail`}>
-                <h4>{item.title}</h4>
-              </Link>
-              <p>
-                {item.content}
-              </p>
-            </div>
-
-            <div>
               <div>
-                <p className={styles.b_date}>데이터 디자인</p>
-                <h4>{item.writer}</h4>
+                <p className={styles.b_date}>{item.createdAt}</p>
+                <Link to={`/projectDetail/${item._id}`}>
+                  <h4>{item.title}</h4>
+                </Link>
+                <p>
+                  {item.content}
+                </p>
               </div>
-              <img src="#" />
+
+              <div>
+                <div>
+                  <p className={styles.b_date}>데이터 디자인</p>
+                  <h4>{item.writer}</h4>
+                </div>
+                <img src="#" />
+              </div>
             </div>
-          </div>
           ))}
           {/* 글 반복 끝 */}
         </div>

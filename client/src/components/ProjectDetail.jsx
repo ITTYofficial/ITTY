@@ -1,16 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LeftContainer from './LeftContainer'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import style from "../css/ProjectDetail.module.css";
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 const ProjectDetail = () => {
+
+    // 특정 게시글 조회하기 위한 id값 가져오기
+    const { id } = useParams();
+
+    // 게시글정보 저장할 State
+    const [projectDetail, setProjectDetail] = useState([]);
+
+    // 게시글 조회함수
+    // 작성자 정보는 아직 없어서 나중에 추가할 것
+    const updateData = async () => {
+        // projectRouter랑 통신해서 response에 결과값 저장
+        const response = await axios.get(`http://localhost:8088/project/projectDetail/${id}`);
+        // respnse에서 데이터 꺼내서 State에 저장
+        setProjectDetail(response.data.detailProject[0]);
+    };
+
+    // 페이지 렌더링시 조회함수 실행
+    useEffect(() => {
+        updateData();
+    }, []);
+
     return (
 
         <div className={style.Main_container}>
             <LeftContainer />
-
+            {/* 아래 쪽에 projectDetail에서 꺼내쓰는 부분은 위 State에서 꺼내는 부분입니당 */}
             <div className={style.right_container}>
                 <h2>조회페이지</h2>
                 <div>
@@ -22,9 +45,9 @@ const ProjectDetail = () => {
                     <div className={style.Top_container}>
 
                         <div>
-                            <h4>공공기관 프로젝트 함께할 사람 모집중!</h4>
-                            <p>💌기간 2023-09-08 ~ 2023-10-21</p>
-                            <p>🥷인원 5명</p>
+                            <h4>{projectDetail.title}</h4>
+                            <p>모집기간 : 💌{projectDetail.periodStart}~{projectDetail.periodEnd}</p>
+                            <p>모집인원 : {projectDetail.recruit}명</p>
                         </div>
 
                         <div className={style.Top_right_container}>
@@ -35,11 +58,11 @@ const ProjectDetail = () => {
                             <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5ZKUupoYLVbtqmNq-SpaZxNv8n0r9X1Ga5M3CCZB6Vw&s'></img>
                         </div>
                     </div>
-                    <p>조회수 : 10  댓글수 : 10</p>
+                    <p>조회수 : {projectDetail.views}  댓글수 : 10</p>
 
                     <hr />
                     <div className={style.Detail_content}>
-                        <p>안녕하세요 내용이 나올 부분입니다</p>
+                        <p>{projectDetail.content}</p>
                     </div>
 
 
@@ -54,7 +77,7 @@ const ProjectDetail = () => {
                         </div>
                     </div>
                     <div className={style.Comment_write_button}>
-                    <Button variant="primary">작성하기</Button>
+                        <Button variant="primary">작성하기</Button>
                     </div>
                     <hr />
                     {/* 댓글 반복 시작 */}

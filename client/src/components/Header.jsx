@@ -14,7 +14,7 @@ const Header = () => {
       <div className={Nav.Category}>
         <ul>
           <li>
-            <a href="projectList">Community &#127758;</a>
+            <Link to={'/projectList'}>Community &#127758;</Link>
           </li>
           <li>
             <a href="#">지식공유 &#128173;</a>

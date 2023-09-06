@@ -100,7 +100,7 @@ router.get("/projectList", async (req, res) => {
 });
 
 // id값으로 글 조회
-router.get("/detail/:_id", async (req, res) => {
+router.get("/projectDetail/:_id", async (req, res) => {
   try {
     const id = req.params._id;
     const detailProject = await Project.find({
