@@ -3,6 +3,8 @@
   max-width: 1320px;
   margin: 0 auto;
   justify-content: space-between;
+  position: relative;
+  z-index: 10;
 }
 
 .logo_image {
@@ -13,6 +15,9 @@
 .logo_image img {
   width: 100%;
 }
+/* .Category {
+  position: relative;
+} */
 .Category > ul {
   display: flex;
   margin: 8px 0;
@@ -27,6 +32,11 @@
   color: #333333;
   font-weight: 600;
   font-size: 16px;
+}
+
+.nav_hover:hover a {
+  color: #2a72ff;
+  transition-duration: 200ms;
 }
 
 .Member > ul {
@@ -64,4 +74,81 @@
 }
 .Member_mobile {
   display: none;
+}
+
+/* ===== 카테고리(소) ===== */
+.sub_Community {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: -80%;
+  width: 100%;
+  background-color: #efefef;
+  border-radius: 0 0 20px 20px;
+}
+.sub_Community li {
+  float: left;
+  margin: 8px 16px;
+}
+.sub_Community li a {
+  text-decoration: none;
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+
+  border-radius: 10px;
+  display: inline-block;
+  padding: 12px 20px;
+}
+
+.sub_share {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: -80%;
+  width: 100%;
+  background-color: #efefef;
+  border-radius: 0 0 20px 20px;
+}
+.sub_share li {
+  float: left;
+  margin: 8px 16px;
+}
+.sub_share li a {
+  text-decoration: none;
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+
+  border-radius: 10px;
+  display: inline-block;
+  padding: 12px 20px;
+}
+
+.sub_job {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: -80%;
+  width: 100%;
+  background-color: #efefef;
+  border-radius: 0 0 20px 20px;
+}
+.sub_job li {
+  float: left;
+  margin: 8px 16px;
+}
+.sub_job li a {
+  text-decoration: none;
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+
+  border-radius: 10px;
+  display: inline-block;
+  padding: 12px 20px;
+}
+
+.sub_Community.active {
+  display: block;
 }
