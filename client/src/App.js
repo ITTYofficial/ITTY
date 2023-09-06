@@ -9,6 +9,7 @@ import MarketList from "./components/MarketList";
 import MarketDetail from "./components/MarketDetail";
 import Join from "./components/Join";
 import Login from "./components/Login";
+import ToastTest from "./components/ToastTest";
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
         <Route path="/marketDetail" element={<MarketDetail />}></Route>
         <Route path="/join" element={<Join />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/toast" element={<ToastTest />}></Route>
+        
       </Routes>
       <Footer />
     </div>
