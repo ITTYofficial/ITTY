@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
-const jwt = require("jsonwebtoken");
 // board스키마 정의(컬렉션 구조) DTO와 비슷함
 const { Schema } = mongoose;
 
@@ -80,8 +77,8 @@ memberSchema.pre("save", function (next) {
 });
 
 memberSchema.methods.comparePw = function (plainPw, cb) {
-  // plainPw : 123456 / 암호화된 비번 : #!@#1241@$1~!asd
-  // plainPw 암호화 해서 비교한다
+  // plainPassword : 123456 / 암호화된 비번 : #!@#1241@$1~!asd
+  //plainPassword 암호화 해서 비교한다
   bcrypt.compare(plainPw, this.pw, function (err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
@@ -90,10 +87,10 @@ memberSchema.methods.comparePw = function (plainPw, cb) {
 
 memberSchema.methods.makeToken = function (cb) {
   var member = this;
-  //jsonwebToken을 이용하여 토큰 생성 member._id는 mongo id(자동생성해주는 pk값?)
-  // member._id + 'secretToken' = token
+  //jsonwebToken을 이용하여 토큰 생성 user._id는 mongo id
+  // user._id + 'secretToken' = token
   //jwt.sign(payload, secretKey)이 기대값
-  //member._id는 문자열이 아니기 때문에 .toHexString으로 24바이트 16진수 문자열로 바꿔줌?
+  //user_.id는 문자열이 아니기 때문에 .toHexString으로 24바이트 16진수 문자열로 바꿔줌?
   var token = jwt.sign(member._id.toHexString(), "secretToken");
   member.token = token;
   member.save(function (err, member) {
@@ -116,7 +113,7 @@ memberSchema.statics.findByToken = function (token, cb) {
   });
 };
 
-const Member = mongoose.model("Member", memberSchema,"Member");
+const Member = mongoose.model("Member", memberSchema);
 
 
-module.exports = {Member};
+module.exports = mongoose.model("Member", memberSchema,"Member");

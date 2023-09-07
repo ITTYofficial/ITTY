@@ -32,7 +32,7 @@ module.exports = () => {
         connect();
     });
 
-    require("./member/member");
+    //require("./user");
     require("./board");
     require("./community/study");
     require("./community/project");
