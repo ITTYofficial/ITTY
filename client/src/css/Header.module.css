@@ -15,9 +15,9 @@
 .logo_image img {
   width: 100%;
 }
-/* .Category {
-  position: relative;
-} */
+.Category {
+  overflow: hidden;
+}
 .Category > ul {
   display: flex;
   margin: 8px 0;
@@ -34,7 +34,7 @@
   font-size: 16px;
 }
 
-.nav_hover:hover a {
+.nav_hover:hover > a {
   color: #2a72ff;
   transition-duration: 200ms;
 }
@@ -78,7 +78,7 @@
 
 /* ===== 카테고리(소) ===== */
 .sub_Community {
-  display: block;
+  display: none;
   position: absolute;
   left: 0;
   bottom: -80%;
@@ -101,6 +101,15 @@
   padding: 12px 20px;
 }
 
+.sub_share {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: -80%;
+  width: 100%;
+  background-color: #efefef;
+  border-radius: 0 0 20px 20px;
+}
 .sub_share {
   display: none;
   position: absolute;
@@ -149,6 +158,6 @@
   padding: 12px 20px;
 }
 
-.sub_Community_hide {
-  display: none;
+.active {
+  display: block;
 }
