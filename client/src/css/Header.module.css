@@ -78,7 +78,7 @@
 
 /* ===== 카테고리(소) ===== */
 .sub_Community {
-  display: block;
+  display: none;
   position: absolute;
   left: 0;
   bottom: -80%;
@@ -149,6 +149,6 @@
   padding: 12px 20px;
 }
 
-.sub_Community_hide {
-  display: none;
+.sub_Community.active {
+  display: block;
 }

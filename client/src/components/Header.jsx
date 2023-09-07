@@ -27,7 +27,7 @@ const Header = () => {
 
           {/* 카테고리(소) */}
           <ul
-            className={hover ? Nav.sub_Community : Nav.sub_Community_hide}
+            className={hover ? `${Nav.sub_Community}active` : Nav.sub_Community}
           >
             <li>
               <a href="#">스터디 구해요🐣</a>
