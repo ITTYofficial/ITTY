@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const Member = require('../../schemas/member/member')
+const {Member} = require('../../schemas/member/member')
+const {auth} = require("./schemas/member/auth")
 
 // 회원가입
 router.post('/join', async (req, res) => {
@@ -28,14 +29,15 @@ router.post('/join', async (req, res) => {
       }
 })
 
+
 // 로그인
 router.post("/login", (req, res) => {
-  //1. 요청된 이메일이 데이터베이스에 있는 지 찾는다.
+  //1. 요청된 id가 데이터베이스에 있는 지 찾는다.
   Member.findOne({ id: req.body.id }, (err, member) => {
     if (!member) {
       return res.json({
         loginSuccess: false,
-        message: "이메일에 해당하는 유저가 없습니다.",
+        message: "id가 일치하는 회원이 없습니다.",
       });
     }
     //2. 1조건 충족 시, 비번 맞는 지 확인
@@ -56,6 +58,15 @@ router.post("/login", (req, res) => {
           .json({ loginSuccess: true, id: member.id });
       });
     });
+  });
+});
+
+
+// 로그아웃
+router.get("/logout", auth, (req, res) => {
+  Member.findOneAndUpdate({ _id: req.member._id }, { token: "" }, (err, member) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({ success: true });
   });
 });
 
