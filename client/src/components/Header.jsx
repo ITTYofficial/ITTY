@@ -22,7 +22,7 @@ const Header = () => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            <a href="projectList">Community 🌐</a>
+            <a href="/projectList">Community 🌐</a>
           </li>
 
           {/* 카테고리(소) */}
