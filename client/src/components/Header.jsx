@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const [hover, setHover] = useState(false);
-
+  if (window.location.pathname === '/Join') return null;
   return (
     <div className={Nav.Navigation}>
       <div className={Nav.logo_image}>

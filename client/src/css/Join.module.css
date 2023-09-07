@@ -1,0 +1,53 @@
+.Join_content_box1{
+
+width:30%;
+background-color: #ffffff;
+height: 1000px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto;
+margin-top: 4%;
+}
+.Join_content_box_font{
+
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin: 20%;
+}
+
+.Join_content_box2{
+    width:60%
+}
+
+
+.Join.logo_image{
+    display: inline-block;
+    margin-left: 30%;
+}
+
+#Join_input_box{
+  width:100px;
+  }
+
+  .Join_radio_box{
+
+    display: inline-block;
+    margin-left: 20%;
+
+  }
+
+.Join_radio_box2{
+
+    display: inline-block;
+    width: 100px;
+
+}
+
+
+.Join.font_box{
+    text-align: center;
+
+
+}

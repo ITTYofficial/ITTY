@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
@@ -11,10 +11,19 @@ import Join from "./components/Join";
 import Login from "./components/Login";
 
 
+
 function App() {
+   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
+
+   const location = useLocation();
+
+   const RenderHeaderAndFooter = () => {
+    return location.pathname !== "/join" && location.pathname !== "/login";
+  };
+
   return (
     <div className="Container">
-      <Header />
+      {RenderHeaderAndFooter() && <Header />}
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/projectList" element={<ProjectList />}></Route>
@@ -24,7 +33,7 @@ function App() {
         <Route path="/join" element={<Join />}></Route>
         <Route path="/login" element={<Login />}></Route>
       </Routes>
-      <Footer />
+      {RenderHeaderAndFooter() && <Footer />}
     </div>
   );
 }
