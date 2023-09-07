@@ -71,6 +71,6 @@ router.get("/logout", auth, (req, res) => {
 });
 
 
-// 밑으로 로그인,수정, 탈퇴 등등 작성할 것
+// 밑으로 수정, 탈퇴 등등 작성할 것
 
 module.exports = router
