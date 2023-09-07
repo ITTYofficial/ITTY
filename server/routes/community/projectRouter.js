@@ -52,7 +52,7 @@ router.post("/update/:_id", async(req, res) =>{
       // 글 수정시에 기존의 입력값이 그대로 남아 있을 수 있도록 조치할 것
 
       // postNum: req.body.postNum,
-      // views: req.body.views,
+      // views: 0,
       
       // postCategory: req.body.categotry,
       // imgPath: req.body.imgPath,
@@ -88,7 +88,7 @@ router.post("/delete/:_id", async (req, res) => {
   }
 });
 
-// 글 리스트 조회
+// 글 조회
 router.get("/projectList", async (req, res) => {
   try {
     const project = await Project.find();
@@ -99,23 +99,13 @@ router.get("/projectList", async (req, res) => {
   }
 });
 
-// id값으로 특정 글 조회
+// id값으로 글 조회
 router.get("/projectDetail/:_id", async (req, res) => {
   try {
     const id = req.params._id;
     const detailProject = await Project.find({
       _id: id
     });
-    // 조회수 업데이트 기능
-    // 메모리 많이 처먹으니까 나중에 활성화 시킬 것
-    // await Project.updateOne(
-    //   { _id: id },
-    //   {
-    //     $set:{
-    //       views: detailProject[0].views+1
-    //     }
-    //   }
-    // );
     res.json({detailProject});
   } catch (err) {
     console.log(err);
