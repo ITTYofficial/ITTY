@@ -28,7 +28,7 @@ const MarketList = () => {
         try {
           const response = await axios.post("http://localhost:8088/market/write");
         } catch (error) {
-            
+
         }
       };
 
@@ -38,24 +38,24 @@ const MarketList = () => {
     }, [])
 
     // 각 장터 게시글 정보를 담을 내부 컴포넌트
-    const MarketItem = () => (
+    // 날짜 바꾸기
+    const MarketItem = ({props}) => (
         <div className={style.Market_content}>
             <div className={style.Market_content_img}>
-                <Link to={'/marketDetail'}>
-                    <img src='https://mblogthumb-phinf.pstatic.net/MjAyMjAyMDZfMjM4/MDAxNjQ0MTMyMjY5NTE5.9QiJKAEWRxcFEPApSkt2s2jpl_ptooODuxaGYSrcJs0g.2Rb0qjSn6xzCYYOGzaeg2dtCA3f2YdhpEApxSdGjpBQg.JPEG.hformula/SE-ba9ade28-f21a-4e39-a0b7-4aca0c9acc65.jpg?type=w800'></img>
+                <Link to={`/marketDetail/${props._id}`}>
+                    <img src={props.imgPath}></img>
                 </Link>
                 <div className={style.text1}>
-                    <Link to={'/marketDetail'}>
-                        <p>정보처리기사 실기책</p>
+                    <Link to={`/marketDetail/${props._id}`}>
+                        <p>{props.title}</p>
                     </Link>
-                    <p>8,000원</p>
+                    <p>{props.price}원</p>
                 </div>
                 <div className={style.text2}>
-                    <p>2시간전</p>
-                    <p>조회수 30 댓글 2</p>
+                    <p>{props.createdAt}</p>
+                    <p>조회수 {props.views} 댓글 2</p>
                 </div>
             </div>
-
         </div>
     )
 
@@ -68,13 +68,9 @@ const MarketList = () => {
                 <h1>중고장터</h1>
                 <div className={style.Market_list}>
 
-                    <MarketItem />
-                    <MarketItem />
-                    <MarketItem />
-                    <MarketItem />
-                    <MarketItem />
-                    <MarketItem />
-
+                    {marketList.map((item)=>(
+                        <MarketItem key={item._id} props={item}/>
+                    ))}
 
                 </div>
             </div>
