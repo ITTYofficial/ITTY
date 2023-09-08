@@ -1,10 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LeftContainer from './LeftContainer'
 import style from '../css/MarketList.module.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 const MarketList = () => {
 
+    // 장터리스트 담을 State
+    const [marketList, setMarketList] = useState([]);
+
+    // 장터 리스트 조회 함수
+    const readMarketList = async () => {
+        await axios.get('http://localhost:8088/market/marketList')
+            .then((res) => {
+                console.log(res);
+                setMarketList(res.data.market)
+            })
+            .catch((err) => {
+                alert('통신에 실패했습니다.')
+                console.log(err);
+            })
+    }
+
+    // 임시 게시글 등록 함수
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axios.post("http://localhost:8088/market/write");
+        } catch (error) {
+            
+        }
+      };
+
+    // 페이지 렌더링시 조회 함수 실행
+    useEffect(() => {
+        readMarketList();
+    }, [])
+
+    // 각 장터 게시글 정보를 담을 내부 컴포넌트
     const MarketItem = () => (
         <div className={style.Market_content}>
             <div className={style.Market_content_img}>

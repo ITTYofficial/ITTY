@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/board", require("./routes/boardRouter"));
 app.use("/study", require("./routes/community/studyRouter"));
 app.use("/project", require("./routes/community/projectRouter"));
+app.use("/market", require("./routes/community/marketRouter"))
 
 app.listen(8088, () => {
     console.log("8088 진입");
