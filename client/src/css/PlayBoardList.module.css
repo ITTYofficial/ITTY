@@ -4,24 +4,6 @@
   display: flex;
   justify-content: space-between;
 }
-.left_container {
-  width: 20%;
-  padding: 16px;
-}
-.left_container_box1 {
-  background-color: gray;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-.left_container_box2 {
-  padding: 16px;
-  background-color: gray;
-  margin-bottom: 16px;
-}
-.left_container_box3 {
-  padding: 16px;
-  background-color: gray;
-}
 
 .right_container {
   width: 80%;

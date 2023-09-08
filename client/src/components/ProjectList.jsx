@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 // import "../css/Community.css";
 import styles from "../css/Community.module.css";
 
@@ -11,8 +11,10 @@ const ProjectList = () => {
   // 게시글 리스트 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것
   const updateData = async () => {
-    const response = await axios.get("http://localhost:8088/project/projectList");
-    console.log('response 어떻게오는지 확인', response);
+    const response = await axios.get(
+      "http://localhost:8088/project/projectList"
+    );
+    console.log("response 어떻게오는지 확인", response);
     setProjectList(response.data.project);
   };
 
@@ -26,8 +28,11 @@ const ProjectList = () => {
       <LeftContainer />
 
       <div className={styles.right_container}>
-        <div className={styles.Main_container_banner}>banner</div>
-        <h2>Communaty</h2>
+        <div className={styles.Main_container_banner}></div>
+        <div className={styles.right_container_button}>
+          <h2>프로젝트 같이해요🛵</h2>
+          <a href="#">작성하기</a>
+        </div>
 
         <div className={styles.Main_container_list}>
           {/* 글 반복 시작 */}
@@ -38,9 +43,7 @@ const ProjectList = () => {
                 <Link to={`/projectDetail/${item._id}`}>
                   <h4>{item.title}</h4>
                 </Link>
-                <p>
-                  {item.content}
-                </p>
+                <p>{item.content}</p>
               </div>
 
               <div>

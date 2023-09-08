@@ -4,20 +4,19 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import ProjectList from "./components/ProjectList";
 import ProjectDetail from "./components/ProjectDetail";
+import PlayBoardList from "./components/PlayBoardList";
 import "./css/reset.css";
 import MarketList from "./components/MarketList";
 import MarketDetail from "./components/MarketDetail";
 import Join from "./components/Join";
 import Login from "./components/Login";
 
-
-
 function App() {
-   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
+  // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
 
-   const location = useLocation();
+  const location = useLocation();
 
-   const RenderHeaderAndFooter = () => {
+  const RenderHeaderAndFooter = () => {
     return location.pathname !== "/join" && location.pathname !== "/login";
   };
 
@@ -26,6 +25,7 @@ function App() {
       {RenderHeaderAndFooter() && <Header />}
       <Routes>
         <Route path="/" element={<Main />}></Route>
+        <Route path="/playboardList" element={<PlayBoardList />}></Route>
         <Route path="/projectList" element={<ProjectList />}></Route>
         <Route path="/projectDetail/:id" element={<ProjectDetail />}></Route>
         <Route path="/marketList" element={<MarketList />}></Route>

@@ -33,6 +33,36 @@
   padding: 16px;
 }
 
+.right_container h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 16px;
+  line-height: 40px;
+}
+.right_container_button {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 2px solid #eeeeee;
+}
+.right_container_button a {
+  text-decoration: none;
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+
+  border-radius: 10px;
+  display: inline-block;
+  border: 2px solid gray;
+  padding: 12px 20px;
+  margin: 0 8px;
+}
+.right_container_button a:hover {
+  background-color: #2a72ff;
+  color: #eeeeee;
+  transition-duration: 200ms;
+  border: 2px solid white;
+}
 .Main_container_banner {
   width: 100%;
   background-color: #333333;
@@ -61,35 +91,35 @@ h1 {
   font-weight: 500;
 }
 
-.Main_container_list_detail>div:first-child>h4 {
+.Main_container_list_detail > div:first-child > h4 {
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 8px;
 }
 
-.Main_container_list_detail>div:first-child>p:last-child {
+.Main_container_list_detail > div:first-child > p:last-child {
   font-size: 14px;
 }
 
-.Main_container_list_detail>div:last-child {
+.Main_container_list_detail > div:last-child {
   display: flex;
 }
 
-.Main_container_list_detail>div:last-child>div:first-child>h4 {
+.Main_container_list_detail > div:last-child > div:first-child > h4 {
   font-size: 1.1rem;
   font-weight: 600;
 }
 
-.Market_list {}
+.Market_list {
+}
 
-.Market_list>div {
+.Market_list > div {
   background-color: aqua;
   width: 300px;
   height: 350px;
   margin: 20px;
   display: inline-grid;
 }
-
 
 .Market_content {
   border-radius: 12px;
