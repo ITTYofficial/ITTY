@@ -51,12 +51,14 @@ const ProjectList = () => {
                 <p>{item.content}</p>
               </div>
 
-              <div>
-                <div>
-                  <p className={styles.b_date}>데이터 디자인</p>
+              <div className={styles.Main_grid_profile}>
+                <span className={styles.profile_text}>
+                  <p>데이터 디자인</p>
                   <h4>{item.writer}</h4>
-                </div>
-                <img src="#" />
+                </span>
+                <span className={styles.profile_pic}>
+                  <img src="#" />
+                </span>
               </div>
             </div>
           ))}

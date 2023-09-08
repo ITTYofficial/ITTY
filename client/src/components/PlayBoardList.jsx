@@ -25,12 +25,14 @@ const PlayBoardList = () => {
               <p>글 내용 영역</p>
             </div>
 
-            <div>
-              <div>
-                <p className={PlayBoard.b_date}>데이터 디자인</p>
-                <h4>{PlayBoard.writer}작성자 이름</h4>
-              </div>
-              <img src="#" />
+            <div className={PlayBoard.Main_grid_profile}>
+              <span className={PlayBoard.profile_text}>
+                <p>데이터 디자인</p>
+                <h4>작성자 이름</h4>
+              </span>
+              <span className={PlayBoard.profile_pic}>
+                <img src="#" />
+              </span>
             </div>
           </div>
           {/* 글 반복 끝 */}

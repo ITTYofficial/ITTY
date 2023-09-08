@@ -4,10 +4,28 @@
   display: flex;
   justify-content: space-between;
 }
+.left_container {
+  width: 20%;
+  padding: 16px;
+}
+.left_container_box1 {
+  background-color: gray;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.left_container_box2 {
+  padding: 16px;
+  background-color: gray;
+  margin-bottom: 16px;
+}
+.left_container_box3 {
+  padding: 16px;
+  background-color: gray;
+}
 
 .right_container {
   width: 80%;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   padding: 16px;
 }
 .Main_container_banner {
@@ -25,6 +43,7 @@
 .right_container_button {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 12px;
   border-bottom: 2px solid #eeeeee;
 }
@@ -46,31 +65,72 @@
   transition-duration: 200ms;
   border: 2px solid white;
 }
+
+/*===== Main_container_list =====*/
+.Main_container_list {
+  padding: 8px 16px;
+}
 .Main_container_list_detail {
   display: flex;
   justify-content: space-between;
   background-color: white;
   padding: 12px;
+  border-bottom: 2px solid #eeeeee;
 }
 .b_date {
-  font-size: 8px;
   color: #999999;
+  font-size: 12px;
   margin-bottom: 8px;
   font-weight: 500;
 }
-.Main_container_list_detail > div:first-child > h4 {
-  font-size: 1.2rem;
-  font-weight: 500;
+.Main_container_list_detail > div:first-child > a {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333333;
+  text-decoration: none;
+}
+.Main_container_list_detail > div:first-child > a:hover {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #2474ff;
+  text-decoration: none;
+}
+.Main_container_list_detail > div:first-child > a > h4 {
   margin-bottom: 8px;
 }
 .Main_container_list_detail > div:first-child > p:last-child {
+  color: #999999;
   font-size: 14px;
 }
 
-.Main_container_list_detail > div:last-child {
-  display: flex;
-}
 .Main_container_list_detail > div:last-child > div:first-child > h4 {
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+.Main_grid_profile {
+  display: flex;
+  align-items: center;
+}
+.profile_text {
+  margin-right: 8px;
+}
+.profile_text > p {
+  font-size: 12px;
+  margin-bottom: 4px;
+  text-align: right;
+  color: #999999;
+}
+.profile_text > h4 {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+.profile_pic {
+  width: 50px;
+  height: 50px;
+  background-color: #2474ff;
+  border-radius: 50%;
 }
