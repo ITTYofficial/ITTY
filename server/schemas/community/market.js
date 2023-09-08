@@ -32,9 +32,24 @@ const marketSchema = new Schema({
     views: {
         // 조회수
         type: Number
-    }
+    },
     
     // 게시판마다 달라지는 부분
+    itemCatogory: {
+        // 글카테고리
+        type: String,
+        // required : true
+    },
+    imgPath: {
+        // 이미지 주소
+        type: String
+    },
+    price: {
+        type: Number,
+        required: true
+    }
+
+    
 })
 
 module.exports = mongoose.model('Market', marketSchema, 'Market')

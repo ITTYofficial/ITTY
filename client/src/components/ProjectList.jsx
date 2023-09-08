@@ -6,19 +6,27 @@ import axios from 'axios';
 import styles from "../css/Community.module.css";
 
 const ProjectList = () => {
+
+  // 게시글 리스트 담을 State
   const [projectList, setProjectList] = useState([]);
 
   // 게시글 리스트 조회함수
-  // 작성자 정보는 아직 없어서 나중에 추가할 것
-  const updateData = async () => {
-    const response = await axios.get("http://localhost:8088/project/projectList");
-    console.log('response 어떻게오는지 확인', response);
-    setProjectList(response.data.project);
+  // 작성자 정보는 아직 없어서 나중에 추가할 것ㄴ
+  const readProjectList = async () => {
+    await axios.get("http://localhost:8088/project/projectList")
+      .then((res) => {
+        setProjectList(res.data.project)
+      })
+      .catch((err) => {
+        alert('통신에 실패했습니다.')
+        console.log(err);
+      })
+
   };
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
-    updateData();
+    readProjectList();
   }, []);
 
   return (
