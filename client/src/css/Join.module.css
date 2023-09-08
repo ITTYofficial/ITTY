@@ -1,25 +1,29 @@
-.Join_content_box1{
+/* join.jsx + login.jsx 함께 관리 */
 
+
+.Join_content_box1{
 width:30%;
 background-color: #ffffff;
-height: 1000px;
+height: 800px;
 display: flex;
 align-items: center;
 justify-content: center;
 margin: 0 auto;
 margin-top: 4%;
 }
+
+.Join_content_box2{
+    width:60%
+}
+
 .Join_content_box_font{
 
     font-size: 30px;
     text-align: center;
     font-weight: bold;
-    margin: 20%;
+    margin: 7%;
 }
 
-.Join_content_box2{
-    width:60%
-}
 
 
 .Join.logo_image{
@@ -41,7 +45,15 @@ margin-top: 4%;
 .Join_radio_box2{
 
     display: inline-block;
-    width: 100px;
+    width: 30px;
+
+}
+
+
+.Join_radio_box3{
+
+    display: inline-block;
+    width: 2cqb;
 
 }
 

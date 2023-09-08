@@ -35,7 +35,7 @@ const projectSchema = new Schema({
     },
 
     // 게시판마다 달라지는 부분
-    itemCatogory: {
+    postCatogory: {
         // 글카테고리
         type: String,
         // required : true

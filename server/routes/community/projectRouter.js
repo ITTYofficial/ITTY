@@ -4,7 +4,6 @@ const Project = require('../../schemas/community/project')
 
 // 글 작성
 router.post('/write', async (req, res) => {
-    console.log('Study 글 작성');
     try {
         let obj;
 
@@ -25,7 +24,6 @@ router.post('/write', async (req, res) => {
             // recruitPeriod: req.body.recruitPeriod,
             // recruit: req.body.recruit
         };
-        
         const project = new Project(obj);
         await Project.insertMany(project);
         res.json({ message: "게시글이 업로드 되었습니다." });

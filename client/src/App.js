@@ -10,6 +10,7 @@ import MarketList from "./components/MarketList";
 import MarketDetail from "./components/MarketDetail";
 import Join from "./components/Join";
 import Login from "./components/Login";
+import QuillTest from "./components/QuillTest";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -29,9 +30,11 @@ function App() {
         <Route path="/projectList" element={<ProjectList />}></Route>
         <Route path="/projectDetail/:id" element={<ProjectDetail />}></Route>
         <Route path="/marketList" element={<MarketList />}></Route>
-        <Route path="/marketDetail" element={<MarketDetail />}></Route>
+        <Route path="/marketDetail/:id" element={<MarketDetail />}></Route>
         <Route path="/join" element={<Join />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/quillTest" element={<QuillTest />}></Route>
+        
       </Routes>
       {RenderHeaderAndFooter() && <Footer />}
     </div>

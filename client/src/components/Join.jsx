@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import style from "../css/Join.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dropdown from 'react-bootstrap/Dropdown';
+import Dropdown from "bootstrap/js/dist/dropdown";
 
 
 
@@ -17,7 +17,7 @@ const Join = () => {
       <div className={style.Join_content_box1}>
         <div className={style.Join_content_box2}>
           <div>
-            <div>
+            <div className={style.Join_content_box_font}>
               <Link to={"/"}>
                 <img src="img/logo.png" alt="Logo" width='100px' />
               </Link>
@@ -56,13 +56,13 @@ const Join = () => {
             <div className="mb-3">
               <label className="form-label" htmlFor="itclass">소속</label>
               <div className="dropdown">
-                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button style={{width:'100%'}} onSelect={(eventKey)=> console.log(eventKey)} className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   소속 선택
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a className="dropdown-item" href="#">데이터디자인반</a></li>
-                  <li><a className="dropdown-item" href="#">빅데이터분석반</a></li>
-                  <li><a className="dropdown-item" href="#">풀스택반</a></li>
+                  <li eventKey="item1" className="dropdown-item">데이터디자인반</li>
+                  <li eventKey="item1" className="dropdown-item">빅데이터분석반</li>
+                  <li className="item1">풀스택반</li>
                 </ul>
               </div>
             </div>
@@ -75,6 +75,7 @@ const Join = () => {
                 <label className="form-check-label" for="flexRadioDefault2">
                   남
                 </label>
+                <div className={style.Join_radio_box3}></div>
                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
               </div>
               <div className={style.Join_radio_box2}></div>
@@ -82,6 +83,7 @@ const Join = () => {
                 <label className="form-check-label" for="flexRadioDefault2">
                   여
                 </label>
+                <div className={style.Join_radio_box3}></div>
                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
               </div>
             </div>
@@ -89,7 +91,7 @@ const Join = () => {
 
 
 
-            <button className="btn btn-primary btn-ml" type="submit">회원가입</button>
+            <button className="btn btn-primary active btn-ml" type="submit" style={{width:'100%'}}>회원가입</button>
           </form>
         </div>
       </div>
