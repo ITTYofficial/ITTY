@@ -26,11 +26,11 @@ const Login = () => {
 
           <form>
             <div className="mb-3">
-              <label className="form-label" htmlFor="id">아이디</label>
+              <label className="form-label">아이디</label>
               <input className="form-control" type="text" name="id" id="id" placeholder='아이디를 입력해주세요.' />
             </div>
             <div className="mb-3">
-              <label className="form-label" htmlFor="pwd">비밀번호</label>
+              <label className="form-label">비밀번호</label>
               <input className="form-control" type="password" name="pw" id="pw" placeholder='비밀번호를 입력해주세요' />
             </div>
 
@@ -38,15 +38,17 @@ const Login = () => {
 
 
             <div className="mb-3">
-              <button className="btn btn-primary btn-ml" type="submit">로그인</button>
+              <button className="btn btn-primary btn-ml" type="submit" style = {{ width: '100%' }}>로그인</button>
             </div>
 
+            <div>
             <div className="mb-3">
               <div className={style.Join.font_box}>아직 회원이 아니시라구요? <a href='/Join'>회원가입하기</a></div>
             </div>
 
             <div className="mb-3">
               <div className={style.Join.font_box}>SNS 간편 로그인</div>
+            </div>
             </div>
             <img src=''></img>
             <img src=''></img>
