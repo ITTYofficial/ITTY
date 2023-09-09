@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import style from "../css/Join.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from "bootstrap/js/dist/dropdown";
+
 
 /* 
 회원가입 form태그 
@@ -16,6 +17,14 @@ import Dropdown from "bootstrap/js/dist/dropdown";
 */
 
 const Join = () => {
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  const handleDropdownClick = (value) => {
+    setSelectedValue(value);
+    console.log(value);
+    // 여기에서 필요한 로직을 수행하거나 백엔드로 선택된 값을 전송할 수 있습니다.
+  };
+
 
 
   return (
@@ -67,13 +76,13 @@ const Join = () => {
             <div className="mb-3">
               <label className="form-label" htmlFor="classname">소속</label>
               <div className="dropdown">
-                <button style={{width:'100%'}}onSelect={(eventKey)=> console.log(eventKey)} className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button style={{ width: '100%' }} onSelect={(value) => console.log(value)} className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   소속 선택
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li eventKey="datadesign" className="dropdown-item">데이터디자인반</li>
-                  <li eventKey="bigdata" className="dropdown-item">빅데이터분석반</li>
-                  <li eventKey="fullstack" className="dropdown-item">풀스택반</li>
+                  <li onClick={() => handleDropdownClick("datadesign")} className="dropdown-item">데이터디자인반</li>
+                  <li onClick={() => handleDropdownClick("bigdata")} className="dropdown-item">빅데이터분석반</li>
+                  <li onClick={() => handleDropdownClick("fullstack")} className="dropdown-item">풀스택반</li>
                 </ul>
               </div>
             </div>
@@ -84,24 +93,24 @@ const Join = () => {
             <label className="form-label" htmlFor="gender">성별</label>
             <div className="mb-3">
 
-              <div className="form-check" className={style.Join_radio_box}>
-                <label className="form-check-label" for="flexRadioDefault2">
+              <div className={style.Join_radio_box}>
+                <label className="form-check-label" htmlFor="flexRadioDefault2">
                   남
                 </label>
                 <div className={style.Join_radio_box3}></div>
-                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="male" checked />
+                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="male" defaultChecked />
               </div>
               <div className={style.Join_radio_box2}></div>
-              <div className="form-check" className={style.Join_radio_box}>
-                <label className="form-check-label" for="flexRadioDefault2">
+              <div className={style.Join_radio_box}>
+                <label className="form-check-label" htmlFor="flexRadioDefault2">
                   여
                 </label>
                 <div className={style.Join_radio_box3}></div>
-                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  value="female" checked />
+                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="female" defaultChecked />
               </div>
             </div>
 
-            <button className="btn btn-primary active btn-ml" type="submit" style={{width:'100%'}}>회원가입</button>
+            <button className="btn btn-primary active btn-ml" type="submit" style={{ width: '100%' }}>회원가입</button>
           </form>
         </div>
       </div>
