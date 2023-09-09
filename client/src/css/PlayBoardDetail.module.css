@@ -1,0 +1,45 @@
+.Main_container {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.right_container {
+  width: 80%;
+  padding: 16px;
+}
+.right_container_banner {
+  width: 90%;
+  background-color: #333333;
+  margin: 0 auto;
+  height: 200px;
+  margin-bottom: 16px;
+}
+.right_container h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* 상단 구분선 시작*/
+.division_line {
+  position: relative;
+  display: flex;
+}
+.division_line > div {
+  background-color: white;
+  display: inline-block;
+  margin-left: 1.5rem;
+  z-index: 9;
+  padding: 0 4px;
+}
+.division_line::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 50% 0;
+  background-color: #999999;
+  height: 0.5px;
+}
+/* 상단 구분선 끝 */

@@ -54,7 +54,7 @@ const Header = () => {
               onMouseLeave={cateHoverOut}
             >
               <li>
-                <a href="#">스터디 구해요🐣</a>
+                <a href="/studyList">스터디 구해요🐣</a>
               </li>
               <li>
                 <a href="/projectList">프로젝트 같이해요🛵</a>

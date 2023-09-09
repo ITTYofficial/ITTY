@@ -5,9 +5,11 @@ import Footer from "./components/Footer";
 import ProjectList from "./components/ProjectList";
 import ProjectDetail from "./components/ProjectDetail";
 import PlayBoardList from "./components/PlayBoardList";
+import PlayBoardDetail from "./components/PlayBoardDetail";
 import "./css/reset.css";
 import MarketList from "./components/MarketList";
 import MarketDetail from "./components/MarketDetail";
+import StudyList from "./components/StudyList";
 import Join from "./components/Join";
 import Login from "./components/Login";
 import QuillTest from "./components/QuillTest";
@@ -27,6 +29,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/playboardList" element={<PlayBoardList />}></Route>
+        <Route path="/playboardDetail" element={<PlayBoardDetail />}></Route>
+        <Route path="/studyList" element={<StudyList />}></Route>
         <Route path="/projectList" element={<ProjectList />}></Route>
         <Route path="/projectDetail/:id" element={<ProjectDetail />}></Route>
         <Route path="/marketList" element={<MarketList />}></Route>
@@ -34,7 +38,6 @@ function App() {
         <Route path="/join" element={<Join />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/quillTest" element={<QuillTest />}></Route>
-        
       </Routes>
       {RenderHeaderAndFooter() && <Footer />}
     </div>
