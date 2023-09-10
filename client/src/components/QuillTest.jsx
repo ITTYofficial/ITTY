@@ -1,8 +1,9 @@
 import React, { useMemo, useRef, useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
+import ImageResize from "quill-image-resize";
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-
+Quill.register("modules/ImageResize", ImageResize);
 const QuillTest = () => {
     const quillRef = useRef(null); // useRef로 ref 생성
 
@@ -53,6 +54,10 @@ const QuillTest = () => {
             image: imageHandler,
           },
         },
+        ImageResize: {
+          parchment : Quill.import("parchment"),
+          mopdules:["Resize", "DisplaySize"]
+        }
       };
     }, []);
   
@@ -67,6 +72,8 @@ const QuillTest = () => {
     ];
   
     const [value, setValue] = useState('');
+
+    console.log(value);
   
     return (
       <div>
