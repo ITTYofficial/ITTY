@@ -3,7 +3,11 @@ import ReactQuill, { Quill } from 'react-quill';
 import ImageResize from "quill-image-resize";
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
+import QuillImageDropAndPaste from 'quill-image-drop-and-paste'
+
 Quill.register("modules/ImageResize", ImageResize);
+Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste)
+
 const QuillTest = () => {
     const quillRef = useRef(null); // useRef로 ref 생성
 
@@ -41,6 +45,27 @@ const QuillTest = () => {
         }
       });
     };
+
+    const imageDropHandler = async (imageDataUrl, type, imageData) => {
+      const formData = new FormData()
+      const blob = imageData.toBlob()
+  
+      formData.append('img', blob)
+  
+      try {
+        const result = await axios.post('http://localhost:8088/img', formData);
+        console.log('성공 시, 백엔드가 보내주는 데이터', result.data.url);
+        const IMG_URL = result.data.url;
+  
+        const editor = quillRef.current.getEditor(); // 에디터 객체 가져오기
+  
+        const range = editor.getSelection();
+        // 가져온 위치에 이미지를 삽입한다
+        editor.insertEmbed(range.index, 'image', IMG_URL);
+      } catch (error) {
+        console.log('실패했어요ㅠ');
+      }
+    }
   
     const modules = useMemo(() => {
       return {
@@ -50,13 +75,18 @@ const QuillTest = () => {
             [{ header: [1, 2, 3, false] }],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
           ],
+  
           handlers: {
             image: imageHandler,
           },
+  
+        },
+        imageDropAndPaste: {
+          handler: imageDropHandler,
         },
         ImageResize: {
-          parchment : Quill.import("parchment"),
-          mopdules:["Resize", "DisplaySize"]
+          parchment: Quill.import("parchment"),
+          mopdules: ["Resize", "DisplaySize"]
         }
       };
     }, []);
