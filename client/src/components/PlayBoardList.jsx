@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PlayBoard from "../css/PlayBoardList.module.css";
 import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const PlayBoardList = () => {
+
+  // 장터리스트 담을 State
+  const [playList, setPlayList] = useState([]);
+
+  // 장터 리스트 조회 함수
+  const readPlayList = async () => {
+    await axios
+      .get("http://localhost:8088/play/playList")
+      .then((res) => {
+        console.log(res);
+        setPlayList(res.data.play);
+      })
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
+  };
+
+
+  // 페이지 렌더링시 조회 함수 실행
+  useEffect(() => {
+    readPlayList();
+  }, []);
+
   return (
     <div className={PlayBoard.Main_container}>
       <LeftContainer />
@@ -11,30 +36,32 @@ const PlayBoardList = () => {
         <div className={PlayBoard.Main_container_banner}></div>
         <div className={PlayBoard.right_container_button}>
           <h2>자유게시판⚽</h2>
-          <a href="#">작성하기</a>
+          <a href="/playBoardWrite">작성하기</a>
         </div>
 
         <div className={PlayBoard.Main_container_list}>
           {/* 글 반복 시작 */}
-          <div className={PlayBoard.Main_container_list_detail}>
-            <div>
-              <p className={PlayBoard.b_date}>1일 전</p>
-              <Link to={`/playboardDetail`}>
-                <h4>제목 영역</h4>
-              </Link>
-              <p>글 내용 영역</p>
-            </div>
+          {playList.map((item) => (
+            <div className={PlayBoard.Main_container_list_detail}>
+              <div>
+                <p className={PlayBoard.b_date}>{item.createdAt}</p>
+                <Link to={`/playboardDetail/${item._id}`}>
+                  <h4>{item.title}</h4>
+                </Link>
+                <p>조회수 : {item.views}</p>
+              </div>
 
-            <div className={PlayBoard.Main_grid_profile}>
-              <span className={PlayBoard.profile_text}>
-                <p>데이터 디자인</p>
-                <h4>작성자 이름</h4>
-              </span>
-              <span className={PlayBoard.profile_pic}>
-                <img src="#" />
-              </span>
+              <div className={PlayBoard.Main_grid_profile}>
+                <span className={PlayBoard.profile_text}>
+                  <p>데이터 디자인</p>
+                  <h4>{item.writer}</h4>
+                </span>
+                <span className={PlayBoard.profile_pic}>
+                  <img src="#" />
+                </span>
+              </div>
             </div>
-          </div>
+          ))}
           {/* 글 반복 끝 */}
         </div>
       </div>

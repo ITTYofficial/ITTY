@@ -18,25 +18,26 @@ app.use("/board", require("./routes/boardRouter"));
 app.use("/study", require("./routes/community/studyRouter"));
 app.use("/project", require("./routes/community/projectRouter"));
 app.use("/market", require("./routes/community/marketRouter"))
+app.use("/play", require("./routes/community/playRouter"))
 
-// multer 설정
-const upload = multer({
-    storage: multer.diskStorage({
-        // 저장할 장소
-        destination(req, file, cb) {
-            cb(null, 'public/uploads');
-        },
-        // 저장할 이미지의 파일명
-        filename(req, file, cb) {
-            const ext = path.extname(file.originalname); // 파일의 확장자
-            console.log('file.originalname', file.originalname);
-            // 파일명이 절대 겹치지 않도록 해줘야한다.
-            // 파일이름 + 현재시간밀리초 + 파일확장자명
-            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
-        },
-    }),
-    // limits: { fileSize: 5 * 1024 * 1024 } // 파일 크기 제한
-});
+// // multer 설정
+// const upload = multer({
+//     storage: multer.diskStorage({
+//         // 저장할 장소
+//         destination(req, file, cb) {
+//             cb(null, 'public/uploads');
+//         },
+//         // 저장할 이미지의 파일명
+//         filename(req, file, cb) {
+//             const ext = path.extname(file.originalname); // 파일의 확장자
+//             console.log('file.originalname', file.originalname);
+//             // 파일명이 절대 겹치지 않도록 해줘야한다.
+//             // 파일이름 + 현재시간밀리초 + 파일확장자명
+//             cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+//         },
+//     }),
+//     // limits: { fileSize: 5 * 1024 * 1024 } // 파일 크기 제한
+// });
 
 // 하나의 이미지 파일만 가져온다.
 // app.post('/img', upload.single('img'), (req, res) => {

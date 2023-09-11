@@ -31,10 +31,11 @@ const playSchema = new Schema({
     },
     views: {
         // 조회수
-        type: Number
+        type: Number,
+        default: 0
     }
     
     // 게시판마다 달라지는 부분
 })
 
-module.exports = mongoose.model('Market', playSchema, 'Market')
+module.exports = mongoose.model('Play', playSchema, 'Play')
