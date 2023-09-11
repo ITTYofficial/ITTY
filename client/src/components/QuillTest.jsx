@@ -32,6 +32,8 @@ const QuillTest = () => {
         const formData = new FormData();
         formData.append('img', file); // formData는 키-밸류 구조
         // 백엔드 multer라우터에 이미지를 보낸다.
+        console.log("테스트",formData.file);
+        console.log("테스트",formData.file.filename);
         try {
           const result = await axios.post('http://localhost:8088/project/write', formData);
           console.log('성공 시, 백엔드가 보내주는 데이터', result.data.url);

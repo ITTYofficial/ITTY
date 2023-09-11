@@ -30,6 +30,9 @@ router.post('/write', upload.single('img'), async (req, res) => {
     // 해당 라우터가 정상적으로 작동하면 public/uploads에 이미지가 업로드된다.
     // 업로드된 이미지의 URL 경로를 프론트엔드로 반환한다.
     console.log("전달받은 태그", req.body.value);
+    console.log("title", req.body.title);
+    // console.log('전달받은 파일', req.file);
+    // console.log('저장된 파일의 이름', req.file.filename);
 
     let obj;
 
@@ -39,7 +42,7 @@ router.post('/write', upload.single('img'), async (req, res) => {
       // content: req.body.content,
 
       writer: "gg",
-      title: "gg",
+      title: req.body.title,
       content: "gg",
 
       // 페이지 만들어지면 수정할 것
