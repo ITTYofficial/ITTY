@@ -29,7 +29,11 @@ const Join = () => {
 
 
 
-
+  // 라디오 버튼값 관리 useState
+  const [gender, setGender] = useState("");
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
 
   return (
 
@@ -92,14 +96,24 @@ const Join = () => {
             </div>
 
             {/* 성별 선택 */}
-            <label className="form-label" htmlFor="gender">성별</label>
+            <label className="form-label" htmlFor="gender">
+              성별
+            </label>
             <div className="mb-3">
               <div className={style.Join_radio_box}>
                 <label className="form-check-label">
                   남
                 </label>
                 <div className={style.Join_radio_box3}></div>
-                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="male" defaultChecked />
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="male"
+                  checked={gender === "male"}
+                  onChange={handleGenderChange}
+                />
               </div>
               <div className={style.Join_radio_box2}></div>
               <div className={style.Join_radio_box}>
@@ -107,7 +121,15 @@ const Join = () => {
                   여
                 </label>
                 <div className={style.Join_radio_box3}></div>
-                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="female" />
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="female"
+                  checked={gender === "female"}
+                  onChange={handleGenderChange}
+                />
               </div>
             </div>
 
