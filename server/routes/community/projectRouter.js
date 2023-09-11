@@ -1,40 +1,67 @@
 const express = require('express')
 const router = express.Router()
 const Project = require('../../schemas/community/project')
+const multer = require("multer")
+const path = require("path");
+
+// multer 설정
+const upload = multer({
+  storage: multer.diskStorage({
+    // 저장할 장소
+    destination(req, file, cb) {
+      cb(null, 'public/uploads');
+    },
+    // 저장할 이미지의 파일명
+    filename(req, file, cb) {
+      const ext = path.extname(file.originalname); // 파일의 확장자
+      console.log('file.originalname', file.originalname);
+      // 파일명이 절대 겹치지 않도록 해줘야한다.
+      // 파일이름 + 현재시간밀리초 + 파일확장자명
+      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+    },
+  }),
+  // limits: { fileSize: 5 * 1024 * 1024 } // 파일 크기 제한
+});
 
 // 글 작성
-router.post('/write', async (req, res) => {
-    try {
-        let obj;
+router.post('/write', upload.single('img'), async (req, res) => {
+  try {
 
-        obj = {
-            writer: req.body.writer,
-            title: req.body.title,
-            content: req.body.content,
+    let obj;
 
-            // 페이지 만들어지면 수정할 것
-            // 글 번호는 어떤식으로 생성할 건지, 이미지 주소는 어떻게 줄일 건지 방법 찾기
-            // 글 수정과 함께 동작할 수 있도록 작성할 것
+    obj = {
+      // writer: req.body.writer,
+      // title: req.body.title,
+      // content: req.body.content,
 
-            // postNum: req.body.postNum,
-            // views: 0,
-            
-            // postCategory: req.body.categotry,
-            // imgPath: req.body.imgPath,
-            // recruitPeriod: req.body.recruitPeriod,
-            // recruit: req.body.recruit
-        };
-        const project = new Project(obj);
-        await Project.insertMany(project);
-        res.json({ message: "게시글이 업로드 되었습니다." });
-      } catch (err) {
-        console.log(err);
-        res.json({ message: false });
-      }
+      writer: "gg",
+      title: "gg",
+      content: "gg",
+
+      // 페이지 만들어지면 수정할 것
+      // 글 번호는 어떤식으로 생성할 건지, 이미지 주소는 어떻게 줄일 건지 방법 찾기
+      // 글 수정과 함께 동작할 수 있도록 작성할 것
+
+      // postNum: req.body.postNum,
+      // views: 0,
+
+      // postCategory: req.body.categotry,
+      // imgPath: req.body.imgPath,
+      // recruitPeriod: req.body.recruitPeriod,
+      // recruit: req.body.recruit
+    };
+
+    const project = new Project(obj);
+    await Project.insertMany(project);
+    // res.json({ message: "게시글이 업로드 되었습니다." });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
 });
 
 // 글 수정
-router.post("/update/:_id", async(req, res) =>{
+router.post("/update/:_id", async (req, res) => {
   try {
     const id = req.params._id;
 
@@ -51,7 +78,7 @@ router.post("/update/:_id", async(req, res) =>{
 
       // postNum: req.body.postNum,
       // views: req.body.views,
-      
+
       // postCategory: req.body.categotry,
       // imgPath: req.body.imgPath,
       // recruitPeriod: req.body.recruitPeriod,
@@ -64,7 +91,7 @@ router.post("/update/:_id", async(req, res) =>{
         $set: obj
       }
     );
-    res.json({ message: true});
+    res.json({ message: true });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
@@ -104,7 +131,7 @@ router.get("/projectDetail/:_id", async (req, res) => {
     const detailProject = await Project.find({
       _id: id
     });
-    
+
     // 조회수 업데이트 기능
     // 메모리 많이 처먹으니까 나중에 활성화 시킬 것
     // await Project.updateOne(
@@ -116,7 +143,7 @@ router.get("/projectDetail/:_id", async (req, res) => {
     //   }
     // );
 
-    res.json({detailProject});
+    res.json({ detailProject });
   } catch (err) {
     console.log(err);
     res.json({ message: false });

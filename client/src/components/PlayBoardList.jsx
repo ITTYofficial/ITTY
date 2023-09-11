@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PlayBoard from "../css/PlayBoardList.module.css";
 import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const PlayBoardList = () => {
   const PlayItem = () => (
@@ -33,7 +34,7 @@ const PlayBoardList = () => {
         <div className={PlayBoard.Main_container_banner}></div>
         <div className={PlayBoard.right_container_button}>
           <h2>자유게시판⚽</h2>
-          <a href="#">작성하기</a>
+          <a href="/playBoardWrite">작성하기</a>
         </div>
 
         <div className={PlayBoard.Main_container_list}>
