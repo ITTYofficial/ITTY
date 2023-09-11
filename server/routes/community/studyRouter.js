@@ -25,7 +25,6 @@ router.post('/write', async (req, res) => {
             // recruitPeriod: req.body.recruitPeriod,
             // recruit: req.body.recruit
         };
-        
         const study = new Study(obj);
         await Study.insertMany(study);
         res.json({ message: "게시글이 업로드 되었습니다." });

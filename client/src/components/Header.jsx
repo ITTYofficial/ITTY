@@ -3,33 +3,32 @@ import Nav from "../css/Header.module.css";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const [hoverCate, setHoverCate] = useState(false);
-  const [hoverShare, setHoverShare] = useState(false);
-  const [hoverJob, setHoverJob] = useState(false);
+  
+  const [hoverStates, setHoverStates] = useState({
+    cate: false,
+    share: false,
+    job: false,
+  });
 
-  const cateHoverIn = () => {
-    setHoverCate(true);
-    console.log("Mouse In");
+  let cateHoverTimer;
+
+  const handleHoverIn = (target) => {
+    clearTimeout(cateHoverTimer);
+    setHoverStates({
+      cate: target === "cate",
+      share: target === "share",
+      job: target === "job",
+    });
   };
-  const cateHoverOut = () => {
-    setHoverCate(false);
-    console.log("Mouse Out");
+
+  const handleHoverOut = (target) => {
+    cateHoverTimer = setTimeout(() => {
+      setHoverStates((prev) => ({ ...prev, [target]: false }));
+    }, 300);
   };
-  const shareHoverIn = () => {
-    setHoverShare(true);
-    console.log("Mouse In");
-  };
-  const shareHoverOut = () => {
-    setHoverShare(false);
-    console.log("Mouse Out");
-  };
-  const jobHoverIn = () => {
-    setHoverJob(true);
-    console.log("Mouse In");
-  };
-  const jobHoverOut = () => {
-    setHoverJob(false);
-    console.log("Mouse Out");
+
+  const handleHoverOut_im = (target) => {
+    setHoverStates((prev) => ({ ...prev, [target]: false }));
   };
 
   return (
@@ -42,19 +41,22 @@ const Header = () => {
 
       <div className={Nav.Category}>
         <ul>
-          <li className={Nav.nav_hover} onMouseEnter={cateHoverIn}>
+          <li
+            className={`${Nav.nav_hover} ${
+              hoverStates.cate ? Nav.active : ""
+            }`}
+            onMouseEnter={() => handleHoverIn("cate")}
+            onMouseLeave={() => handleHoverOut("cate")}
+          >
             <a href="#">Community 🌐</a>
-            {/* 카테고리(소) */}
             <ul
-              className={
-                hoverCate
-                  ? `${Nav.sub_Community} ${Nav.active}`
-                  : Nav.sub_Community
-              }
-              onMouseLeave={cateHoverOut}
+              className={`${Nav.sub_Community} ${
+                hoverStates.cate ? Nav.active : ""
+              }`}
+              onMouseLeave={() => handleHoverOut_im("cate")}
             >
               <li>
-                <a href="#">스터디 구해요🐣</a>
+                <a href="/studyList">스터디 구해요🐣</a>
               </li>
               <li>
                 <a href="/projectList">프로젝트 같이해요🛵</a>
@@ -63,22 +65,24 @@ const Header = () => {
                 <a href="/MarketList">교환 장터🥕</a>
               </li>
               <li>
-                <a href="#">자유게시판⚽</a>
+                <a href="/playboardList">자유게시판⚽</a>
               </li>
             </ul>
           </li>
 
-          {/* 카테고리(소) */}
-
-          <li className={Nav.nav_hover} onMouseEnter={shareHoverIn}>
+          <li
+            className={`${Nav.nav_hover} ${
+              hoverStates.share ? Nav.active : ""
+            }`}
+            onMouseEnter={() => handleHoverIn("share")}
+            onMouseLeave={() => handleHoverOut("share")}
+          >
             <a href="#">지식공유 💭</a>
-            {/* 카테고리(소) */}
-
             <ul
-              className={
-                hoverShare ? `${Nav.sub_share} ${Nav.active}` : Nav.sub_share
-              }
-              onMouseLeave={shareHoverOut}
+              className={`${Nav.sub_share} ${
+                hoverStates.share ? Nav.active : ""
+              }`}
+              onMouseLeave={() => handleHoverOut("share")}
             >
               <li>
                 <a href="#">Development Tip🧷</a>
@@ -87,24 +91,30 @@ const Header = () => {
                 <a href="#">Knowledge Drop⛅</a>
               </li>
             </ul>
-            {/* 카테고리(소) */}
           </li>
 
-          {/* 카테고리(소) */}
-          <li className={Nav.nav_hover} onMouseEnter={jobHoverIn}>
-            <a href="#">Job 👩‍💻</a>
-          </li>
-          <ul
-            className={hoverJob ? `${Nav.sub_job} ${Nav.active}` : Nav.sub_job}
-            onMouseLeave={jobHoverOut}
+          <li
+            className={`${Nav.nav_hover} ${
+              hoverStates.job ? Nav.active : ""
+            }`}
+            onMouseEnter={() => handleHoverIn("job")}
+            onMouseLeave={() => handleHoverOut("job")}
           >
-            <li>
-              <a href="#">포트폴리오🔍</a>
-            </li>
-            <li>
-              <a href="#">수료생 후기👨‍🎓</a>
-            </li>
-          </ul>
+            <a href="#">Job 👩‍💻</a>
+            <ul
+              className={`${Nav.sub_job} ${
+                hoverStates.job ? Nav.active : ""
+              }`}
+              onMouseLeave={() => handleHoverOut("job")}
+            >
+              <li>
+                <a href="#">포트폴리오🔍</a>
+              </li>
+              <li>
+                <a href="#">수료생 후기👨‍🎓</a>
+              </li>
+            </ul>
+          </li>
         </ul>
         <button className={Nav.Category_mobile}>&#128100;</button>
       </div>

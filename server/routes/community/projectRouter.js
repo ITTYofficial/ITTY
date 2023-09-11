@@ -4,7 +4,6 @@ const Project = require('../../schemas/community/project')
 
 // 글 작성
 router.post('/write', async (req, res) => {
-    console.log('Study 글 작성');
     try {
         let obj;
 
@@ -25,7 +24,6 @@ router.post('/write', async (req, res) => {
             // recruitPeriod: req.body.recruitPeriod,
             // recruit: req.body.recruit
         };
-        
         const project = new Project(obj);
         await Project.insertMany(project);
         res.json({ message: "게시글이 업로드 되었습니다." });
@@ -106,6 +104,7 @@ router.get("/projectDetail/:_id", async (req, res) => {
     const detailProject = await Project.find({
       _id: id
     });
+    
     // 조회수 업데이트 기능
     // 메모리 많이 처먹으니까 나중에 활성화 시킬 것
     // await Project.updateOne(
@@ -116,6 +115,7 @@ router.get("/projectDetail/:_id", async (req, res) => {
     //     }
     //   }
     // );
+
     res.json({detailProject});
   } catch (err) {
     console.log(err);

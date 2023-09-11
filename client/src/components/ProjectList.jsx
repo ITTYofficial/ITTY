@@ -6,21 +6,26 @@ import axios from "axios";
 import styles from "../css/Community.module.css";
 
 const ProjectList = () => {
+  // 게시글 리스트 담을 State
   const [projectList, setProjectList] = useState([]);
 
   // 게시글 리스트 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것
-  const updateData = async () => {
-    const response = await axios.get(
-      "http://localhost:8088/project/projectList"
-    );
-    console.log("response 어떻게오는지 확인", response);
-    setProjectList(response.data.project);
+  const readProjectList = async () => {
+    await axios
+      .get("http://localhost:8088/project/projectList")
+      .then((res) => {
+        setProjectList(res.data.project);
+      })
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
   };
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
-    updateData();
+    readProjectList();
   }, []);
 
   return (
@@ -28,8 +33,11 @@ const ProjectList = () => {
       <LeftContainer />
 
       <div className={styles.right_container}>
-        <div className={styles.Main_container_banner}>banner</div>
-        <h2>프로젝트 같이해요🛵</h2>
+        <div className={styles.Main_container_banner}></div>
+        <div className={styles.right_container_button}>
+          <h2>프로젝트 같이해요🛵</h2>
+          <a href="#">작성하기</a>
+        </div>
 
         <div className={styles.Main_container_list}>
           {/* 글 반복 시작 */}
@@ -43,12 +51,14 @@ const ProjectList = () => {
                 <p>{item.content}</p>
               </div>
 
-              <div>
-                <div>
-                  <p className={styles.b_date}>데이터 디자인</p>
+              <div className={styles.Main_grid_profile}>
+                <span className={styles.profile_text}>
+                  <p>데이터 디자인</p>
                   <h4>{item.writer}</h4>
-                </div>
-                <img src="#" />
+                </span>
+                <span className={styles.profile_pic}>
+                  <img src="#" />
+                </span>
               </div>
             </div>
           ))}
