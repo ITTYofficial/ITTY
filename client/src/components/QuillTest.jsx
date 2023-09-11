@@ -1,10 +1,11 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import ImageResize from "quill-image-resize";
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import QuillImageDropAndPaste from 'quill-image-drop-and-paste'
 import '../css/Quill.css';
+import { PlayBoardContext } from '../context/PlayBoardContext';
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste)
@@ -32,7 +33,7 @@ const QuillTest = () => {
         formData.append('img', file); // formData는 키-밸류 구조
         // 백엔드 multer라우터에 이미지를 보낸다.
         try {
-          const result = await axios.post('http://localhost:8088/img', formData);
+          const result = await axios.post('http://localhost:8088/project/write', formData);
           console.log('성공 시, 백엔드가 보내주는 데이터', result.data.url);
           const IMG_URL = result.data.url;
   
@@ -54,7 +55,7 @@ const QuillTest = () => {
       formData.append('img', blob)
   
       try {
-        const result = await axios.post('http://localhost:8088/img', formData);
+        const result = await axios.post('http://localhost:8088/project/write', formData);
         console.log('성공 시, 백엔드가 보내주는 데이터', result.data.url);
         const IMG_URL = result.data.url;
   
@@ -102,9 +103,9 @@ const QuillTest = () => {
       'image',
     ];
   
-    const [value, setValue] = useState('');
+    const {value, setValue} = useContext(PlayBoardContext);
 
-    console.log(value);
+    console.log("여기서 출력되는거에용",value);
   
     return (
       <div>
@@ -119,7 +120,6 @@ const QuillTest = () => {
           modules={modules}
           formats={formats}
         />
-
       </div>
     )
   }
