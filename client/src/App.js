@@ -42,7 +42,7 @@ function App() {
           <Route path="/projectList" element={<ProjectList />}></Route>
           <Route path="/projectDetail/:id" element={<ProjectDetail />}></Route>
           <Route path="/marketList" element={<MarketList />}></Route>
-          <Route path="/marketDetail/:id" element={<MarketDetail />}></Route>
+          <Route path="/marketDetail" element={<MarketDetail />}></Route>
           <Route path="/join" element={<Join />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/quillTest" element={<QuillTest />}></Route>
