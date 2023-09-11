@@ -13,6 +13,7 @@ import StudyList from "./components/StudyList";
 import Join from "./components/Join";
 import Login from "./components/Login";
 import QuillTest from "./components/QuillTest";
+import PlayBoardWrite from "./components/PlayBoardWrite";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -38,6 +39,8 @@ function App() {
         <Route path="/join" element={<Join />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/quillTest" element={<QuillTest />}></Route>
+        <Route path="/playBoardWrite" element={<PlayBoardWrite />}></Route>
+        
       </Routes>
       {RenderHeaderAndFooter() && <Footer />}
     </div>

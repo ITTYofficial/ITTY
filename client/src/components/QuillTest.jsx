@@ -4,6 +4,7 @@ import ImageResize from "quill-image-resize";
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import QuillImageDropAndPaste from 'quill-image-drop-and-paste'
+import '../css/Quill.css';
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste)
@@ -107,7 +108,7 @@ const QuillTest = () => {
   
     return (
       <div>
-        <h1>Quill 에디터 입니다.</h1>
+        
   
         <ReactQuill
           ref={quillRef} // useRef로 생성한 ref를 연결
