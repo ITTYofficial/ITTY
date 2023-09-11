@@ -51,6 +51,7 @@
 .Main_grid_detail > div {
   display: grid;
   grid-template-columns: minmax(34px, 8%) minmax(34px, 8%) minmax(34px, 8%) 1fr;
+  align-items: end;
 }
 .Main_grid_detail > h4 {
   font-size: 16px;

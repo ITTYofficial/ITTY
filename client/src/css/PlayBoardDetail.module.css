@@ -9,13 +9,6 @@
   width: 80%;
   padding: 16px;
 }
-.right_container_banner {
-  width: 90%;
-  background-color: #333333;
-  margin: 0 auto;
-  height: 200px;
-  margin-bottom: 16px;
-}
 .right_container h2 {
   font-size: 2rem;
   font-weight: bold;
@@ -26,9 +19,11 @@
 .division_line {
   position: relative;
   display: flex;
+  margin: 32px 0;
 }
 .division_line > div {
   background-color: white;
+  color: #999999;
   display: inline-block;
   margin-left: 1.5rem;
   z-index: 9;
@@ -42,4 +37,141 @@
   background-color: #999999;
   height: 0.5px;
 }
+.division_line div a {
+  color: #999999;
+  text-decoration: none;
+  font-size: 14px;
+}
+.division_line div a:hover {
+  color: #2474ff;
+}
+.division_line div a:nth-child(2) {
+  color: #2474ff;
+}
+.division_line div a:nth-child(2):hover {
+  color: #7cacff;
+}
 /* 상단 구분선 끝 */
+.play_wrap_content {
+  padding: 4px 16px;
+}
+.play_wrap_top::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  margin: 16px auto;
+  background-color: #eeeeee;
+}
+.play_top_title {
+  margin: 16px 0;
+}
+.play_title {
+  padding: 4px 8px;
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-right: 8px;
+  cursor: pointer;
+  box-shadow: 2px 2px 6px gray;
+}
+.frontend {
+  background-color: pink;
+  color: palevioletred;
+}
+.backend {
+  background-color: rgb(139, 139, 228);
+  color: rgb(65, 65, 212);
+}
+.db {
+  background-color: rgb(165, 165, 165);
+  color: #eeeeee;
+}
+.uxui {
+  background-color: greenyellow;
+  color: rgb(13, 167, 13);
+}
+.fullstack {
+  background-color: gold;
+  color: rgb(156, 141, 55);
+}
+/*  */
+.play_profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+}
+.play_profile > span > h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+.play_profile > span > p {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 8px 0;
+  color: #999999;
+}
+.play_detail_profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.profile_text {
+  margin-right: 8px;
+}
+.profile_text > p {
+  font-size: 12px;
+  margin-bottom: 4px;
+  text-align: right;
+  color: #999999;
+}
+.profile_text > h4 {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+.profile_pic {
+  width: 50px;
+  height: 50px;
+  background-color: #2474ff;
+  border-radius: 50%;
+}
+.play_profile > div > span:nth-child(2) p {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  color: #999999;
+}
+/* profile 끝~! */
+.play_content {
+  padding: 16px;
+}
+/* 댓글 시작 */
+.division_line_commant {
+  position: relative;
+}
+.division_line_commant > div {
+  background-color: white;
+  color: #999999;
+  display: inline-block;
+  margin-left: 1.5rem;
+  z-index: 9;
+  padding: 0 4px;
+}
+.division_line_commant::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 50% 0;
+  background-color: #999999;
+  height: 0.5px;
+}
+.division_line_commant div h4 {
+  color: #333333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+/* 댓글 끝 */

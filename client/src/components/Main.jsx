@@ -10,7 +10,7 @@ const Main = () => {
       <h4>핵심끝나고 너무 힘들어요.. 다들 어떠세요</h4>
       <div>
         <p>1일전 </p>
-        <p>👁28 </p>
+        <p>👁‍🗨28 </p>
         <p>💬4</p>
         <div className={style.Main_grid_profile}>
           <span className={style.profile_text}>
