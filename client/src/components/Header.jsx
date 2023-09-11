@@ -3,7 +3,6 @@ import Nav from "../css/Header.module.css";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  
   const [hoverStates, setHoverStates] = useState({
     cate: false,
     share: false,
@@ -42,9 +41,7 @@ const Header = () => {
       <div className={Nav.Category}>
         <ul>
           <li
-            className={`${Nav.nav_hover} ${
-              hoverStates.cate ? Nav.active : ""
-            }`}
+            className={`${Nav.nav_hover} ${hoverStates.cate ? Nav.active : ""}`}
             onMouseEnter={() => handleHoverIn("cate")}
             onMouseLeave={() => handleHoverOut("cate")}
           >
@@ -94,17 +91,13 @@ const Header = () => {
           </li>
 
           <li
-            className={`${Nav.nav_hover} ${
-              hoverStates.job ? Nav.active : ""
-            }`}
+            className={`${Nav.nav_hover} ${hoverStates.job ? Nav.active : ""}`}
             onMouseEnter={() => handleHoverIn("job")}
             onMouseLeave={() => handleHoverOut("job")}
           >
             <a href="#">Job 👩‍💻</a>
             <ul
-              className={`${Nav.sub_job} ${
-                hoverStates.job ? Nav.active : ""
-              }`}
+              className={`${Nav.sub_job} ${hoverStates.job ? Nav.active : ""}`}
               onMouseLeave={() => handleHoverOut("job")}
             >
               <li>
