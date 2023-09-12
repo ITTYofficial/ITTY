@@ -19,7 +19,7 @@ app.use("/study", require("./routes/community/studyRouter"));
 app.use("/project", require("./routes/community/projectRouter"));
 app.use("/market", require("./routes/community/marketRouter"))
 app.use("/play", require("./routes/community/playRouter"))
-app.use("/member", require("./routes/member/member"))
+//app.use("/member", require("./routes/member/member"))
 // // multer 설정
 // const upload = multer({
 //     storage: multer.diskStorage({
