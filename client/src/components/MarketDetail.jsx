@@ -4,6 +4,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import LeftContainer from './LeftContainer';
 import style from "../css/MarketDetail.module.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 
 const MarketDetail = () => {
   const settings = {
@@ -32,7 +35,7 @@ const MarketDetail = () => {
             </div>
           </Slider>
         </div>
-        <br /><br /><br />
+
         <div className={style.right_middle_container}>
           <div>
             <div>
@@ -46,11 +49,55 @@ const MarketDetail = () => {
           <div style={{ backgroundColor: '#F0F0F0' }}>
             <p>👁‍🗨 28 💬 4</p>
             <p>2 일전</p>
+            <p>14,000 원</p>
           </div>
         </div>
+        <hr />
+        <div className={style.sub_content}>
+          <p>제목나올부분</p>
+          <p>내용나올부분</p>
+        </div>
 
+        <div className={style.division_line}>
+          <div>
+            <p>댓글 2</p>
+          </div>
+        </div>
+        <div className={style.sub_comment}>
+          <div className={style.Comment_flex}>
+            <div className={style.Profile_img_comment}>
+              <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
 
+            </div>
+            <div className={style.Comment_write}>
+              <p>댓글 작성부분</p>
+            </div>
+          </div>
+          <div className={style.Comment_write_button}>
+            <Button variant="primary">작성하기</Button>
+          </div>
+          <hr />
+          {/* 댓글 반복 시작 */}
+          <div className={style.Detail_comment}>
+            <div className={style.Comment_flex}>
+              <div className={style.Profile_img_comment}>
+                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6k4KSEWGAq157LW3wCKU2DJmvoQyrfRfcA&usqp=CAU'></img>
+              </div>
+              <div>
+                <p>빅데이터분석반</p>
+                <p>언제취뽀</p>
+                <p>2시간 전</p>
+              </div>
+            </div>
+            <div className={style.Detail_comment_content}>
+              <p>댓글입니다 낄낄</p>
+            </div>
+          </div>
+          {/* 댓글 반복 끝 */}
+
+        </div>
       </div>
+
     </div>
   )
 }

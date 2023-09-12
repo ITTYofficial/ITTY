@@ -4,6 +4,8 @@ import style from "../css/Join.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from "bootstrap/js/dist/dropdown";
 
+/* 지홍 작업 09.11 */
+
 
 /* 
 회원가입 form태그 

@@ -16,6 +16,8 @@ import QuillTest from "./components/QuillTest";
 import PlayBoardWrite from "./components/PlayBoardWrite";
 import { PlayBoardContext } from "./context/PlayBoardContext";
 import { useState } from "react";
+import TestPage from "./components/TestPage";
+import ProjectWrite from "./components/ProjectWrite";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -47,6 +49,10 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/quillTest" element={<QuillTest />}></Route>
           <Route path="/playBoardWrite" element={<PlayBoardWrite />}></Route>
+          <Route path="/testPage" element={<TestPage />}></Route>
+          <Route path="/projectWrite" element={<ProjectWrite />}></Route>
+          
+          
 
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}
