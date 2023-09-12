@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import style from "../css/Join.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from "bootstrap/js/dist/dropdown";
+import axios from 'axios';
 
 /* 지홍 작업 09.11 */
 
@@ -20,22 +21,65 @@ import Dropdown from "bootstrap/js/dist/dropdown";
 
 const Join = () => {
 
-
   // 회원가입 '소속선택' 드롭다운 useState 관리
   const [selectedValue, setSelectedValue] = useState(null);
-
+  
   const handleDropdownClick = (value) => {
     setSelectedValue(value);
     console.log(value);
   };
-
-
-
+  
+  
+  
   // 라디오 버튼값 관리 useState
   const [gender, setGender] = useState("");
   const handleGenderChange = (e) => {
     setGender(e.target.value);
   };
+ 
+  // DB에 보낼 회원정보 관리 useState
+    const [member, setMember] = useState({
+      id: '',
+      pw: '',
+      sex: '',
+      nickname: '',
+      name: '',
+      role: '',
+      skill: '',
+      profileImg:'',
+
+    });
+  
+    const { id, pw, sex, name, role, skill, profileImg,  } = member; // 변수를 추출하여 사용
+  
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setMember({ ...member, [name]: value });
+    };
+  
+ // ******************************************************** 
+    // 게시글 업로드 함수
+    const joinMember = async (e) => {
+      e.preventDefault();
+      try {
+        console.log('제발 들어와주라'. member);
+        const response = await axios.post("http://localhost:8088/member/join", member); // 경로 테스트 중...
+        if (response.data.message === "회원가입에 성공했습니다") {
+          // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
+          window.location.href = '/login'
+          
+          
+        } else {
+          // 오류 처리
+          console.error("회원가입에 실패했습니다.");
+        }
+      } catch (error) {
+        console.error("오류 발생:", error);
+      }
+  
+    };
+// ***************************************************
+
 
   return (
 
@@ -59,7 +103,7 @@ const Join = () => {
 
 
           {/* 회원가입 양식 form태그 부트스트랩 양식으로 여백 조정 */}
-          <form>
+          <form onSubmit={joinMember}>
             <div className="mb-3">
               <label className="form-label" htmlFor="id">아이디</label>
               <input className="form-control" type="text" name="id" id="id" placeholder='4~15자 이내로 입력해주세요.' />
