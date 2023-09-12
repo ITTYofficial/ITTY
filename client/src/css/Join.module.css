@@ -58,8 +58,34 @@
 }
 
 
-.Join.font_box {
+.Join_font_box {
     text-align: center;
 
 
+}
+
+.Join_font_box2 {
+
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    
+
+}
+
+
+.Join_font_box3 {
+
+ margin-left: 5%;
+ width: 10%;
+
+}
+
+.Join_font_box4 {
+
+    display: inline-block;
+    vertical-align: middle;
+    justify-content: center;
+    margin-bottom: 5%;
+    
 }

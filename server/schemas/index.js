@@ -37,4 +37,5 @@ module.exports = () => {
     require("./community/study");
     require("./community/project");
     require("./community/market");
+    require("./member/member")
 };

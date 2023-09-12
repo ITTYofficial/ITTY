@@ -50,7 +50,11 @@ const memberSchema = new Schema({
   date:{// 가입 날짜 
     type: Date,
     default: Date.now   
-  }
+  },
+  tokenExp:{
+    type: Number,
+  },
+
 
 });
 
