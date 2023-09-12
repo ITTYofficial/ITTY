@@ -9,7 +9,7 @@ const PlayBoardList = () => {
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>1일 전</p>
-        <Link to={`/playboardDetail`}>
+        <Link to={`/playboardDetail/:id`}>
           <h4>제목 영역</h4>
         </Link>
         <p>글 내용 영역</p>
