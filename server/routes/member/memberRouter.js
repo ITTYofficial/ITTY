@@ -11,8 +11,9 @@ router.post('/join', async (req, res) => {
         obj = {
             id: req.body.id,
             pw: req.body.pw,
-            sex: req.body.sex,
+            gender: req.body.gender,
             name: req.body.name,
+            nickname:req.body.name,
             role: req.body.role,
             skill: req.body.skill,
             point: req.body.point,

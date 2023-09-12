@@ -17,10 +17,10 @@ const memberSchema = new Schema({
     type: String,
     required: true
   },
-  sex: { // <성별> 
+  gender: { // <성별> 
     type: String,
     required: true,
-    enum : ['Male', 'Female']  // 둘중 하나만 들어가게 끔 하는 코드인데 저장하는 txt는 추후 변경해도 될듯
+    enum : ['male', 'female']  // 둘중 하나만 들어가게 끔 하는 코드인데 저장하는 txt는 추후 변경해도 될듯
   },
   name: { // <이름>  -> 근데 닉네임은 필요없나..?
     type: String,
@@ -56,7 +56,7 @@ const memberSchema = new Schema({
     type: Date,
     default: Date.now   
   },
-  tokenExp:{
+  tokenExp:{ //토큰 만료기한
     type: Number,
   },
 
@@ -122,7 +122,7 @@ const memberSchema = new Schema({
 //   });
 // };
 
-const Member = mongoose.model("Member", memberSchema);
+//const Member = mongoose.model("Member", memberSchema);
 
 
 module.exports = mongoose.model("Member", memberSchema,"Member");
