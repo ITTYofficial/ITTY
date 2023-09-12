@@ -36,7 +36,9 @@ const ProjectList = () => {
         <div className={styles.Main_container_banner}></div>
         <div className={styles.right_container_button}>
           <h2>프로젝트 같이해요🛵</h2>
-          <a href="#">작성하기</a>
+          <Link to={"/projectWrite"}>
+          <p>작성하기</p>
+          </Link>
         </div>
 
         <div className={styles.Main_container_list}>
