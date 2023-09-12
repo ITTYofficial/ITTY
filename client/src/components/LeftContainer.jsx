@@ -8,7 +8,7 @@ const LeftContainer = () => {
         <h3>반이름</h3>
         <h4>포트폴리오</h4>
         <div>
-          <img src="img/portfolio.gif"></img>
+          <img src="img/portfolio.gif" alt="portfolio"></img>
         </div>
       </div>
       <div className={style.left_container_box2}>
