@@ -20,7 +20,7 @@ router.post('/join', async (req, res) => {
         };
         
         const member = new Member(obj);
-        await Study.insertMany(obj);
+        await Member.insertMany(member);
         res.json({ message: "회원가입이 완료되었습니다." });
       } catch (err) {
         console.log(err);
@@ -61,5 +61,33 @@ router.post("/login", (req, res) => {
 
 
 // 밑으로 로그인,수정, 탈퇴 등등 작성할 것
+//Authentication 자격 (관리자화면, 비회원화면)
+
+
+//auth는 미들웨어
+app.get("/member/auth", auth, (req, res) => {
+  //여기까지 오면 미들웨어를 통과했다는 거임
+  //그렇다면 Auth가 True라는 뜻
+  res.status(200).json({
+    _id: req.member._id,
+    // 0> 일반 유저 ^ 나머지 관리자
+    isAdmin: req.member.role === 0 ? false : true,
+    isAuth: true,
+    id: req.member.email,
+    name: req.member.name,
+    lastname: req.member.lastname,
+    role: req.member.role,
+    image: req.member.image,
+  });
+});
+
+//LogOut
+app.get("/api/users/logout", auth, (req, res) => {
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({ success: true });
+  });
+});
+
 
 module.exports = router
