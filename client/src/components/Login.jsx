@@ -38,27 +38,26 @@ const Login = () => {
 
 
             <div className="mb-3">
-              <button className="btn btn-primary btn-ml" type="submit" style = {{ width: '100%' }}>로그인</button>
+              <button className="btn btn-primary btn-ml" type="submit" style={{ width: '100%' }}>로그인</button>
             </div>
 
-            <div>
-            <div className="mb-3">
-              <div className={style.Join.font_box}>아직 회원이 아니시라구요? <a href='/Join'>회원가입하기</a></div>
-            </div>
 
             <div className="mb-3">
-              <div className={style.Join.font_box}>SNS 간편 로그인</div>
+              <div className={style.Join_font_box}>아직 회원이 아니시라구요? <a href='/Join'>회원가입하기</a></div>
             </div>
+
+            <div className={style.Join_font_box2}>
+            <div className={style.Join_font_box4}>SNS 간편 로그인</div>
+              <img className={style.Join_font_box3} src='img/naverlogo.png'></img>
+              <img src='img/kakaologo.png' className={style.Join_font_box3} ></img>
             </div>
-            <img src=''></img>
-            <img src=''></img>
-            <img src=''></img>
+
 
           </form>
         </div>
       </div>
 
-    </div>
+    </div >
 
   )
 }

@@ -59,6 +59,16 @@ router.post("/login", (req, res) => {
   });
 });
 
+// 커밋
+
+// 로그아웃
+router.get("/logout", auth, (req, res) => {
+  Member.findOneAndUpdate({ _id: req.member._id }, { token: "" }, (err, member) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({ success: true });
+  });
+});
+
 
 // 밑으로 로그인,수정, 탈퇴 등등 작성할 것
 //Authentication 자격 (관리자화면, 비회원화면)
@@ -88,6 +98,7 @@ app.get("/api/users/logout", auth, (req, res) => {
     return res.status(200).send({ success: true });
   });
 });
+
 
 
 module.exports = router
