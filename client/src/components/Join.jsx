@@ -23,62 +23,62 @@ const Join = () => {
 
   // 회원가입 '소속선택' 드롭다운 useState 관리
   const [selectedValue, setSelectedValue] = useState(null);
-  
+
   const handleDropdownClick = (value) => {
     setSelectedValue(value);
     console.log(value);
   };
-  
-  
-  
+
+
+
   // 라디오 버튼값 관리 useState
   // const [gender, setGender] = useState("");
   // const handleGenderChange = (e) => {
   //   setGender(e.target.value);
   // };
- 
-  // DB에 보낼 회원정보 관리 useState
-    const [member, setMember] = useState({
-      id: '',
-      pw: '',
-      gender: '',
-      nickname: '',
-      name: '',
-      role: '',
-      skill: '',
-      profileImg:'',
 
-    });
-  
-    const { id, pw, gender, name, nickname ,role, skill, profileImg,  } = member; // 변수를 추출하여 사용
-  
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setMember({ ...member, [name]: value });
-    };
-  
- // ******************************************************** 
-    // 회원가입 함수
-    const joinMember = async (e) => {
-      e.preventDefault();
-      try {
-        console.log('제발 들어와주라', member);
-        const response = await axios.post("http://localhost:8088/member/join", member); // 경로 테스트 중...
-        if (response.data.message === "회원가입이 완료되었습니다.") {
-          // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
-          window.location.href = '/login'
-          
-          
-        } else {
-          // 오류 처리
-          console.error("회원가입에 실패했습니다.");
-        }
-      } catch (error) {
-        console.error("오류 발생:", error);
+  // DB에 보낼 회원정보 관리 useState
+  const [member, setMember] = useState({
+    id: '',
+    pw: '',
+    gender: '',
+    nickname: '',
+    name: '',
+    role: '',
+    skill: '',
+    profileImg: '',
+
+  });
+
+  const { id, pw, gender, name, nickname, role, skill, profileImg, } = member; // 변수를 추출하여 사용
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMember({ ...member, [name]: value });
+  };
+
+  // ******************************************************** 
+  // 회원가입 함수
+  const joinMember = async (e) => {
+    e.preventDefault();
+    try {
+      console.log('제발 들어와주라', member);
+      const response = await axios.post("http://localhost:8088/member/join", member); // 경로 테스트 중...
+      if (response.data.message === "회원가입이 완료되었습니다.") {
+        // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
+        window.location.href = '/login'
+
+
+      } else {
+        // 오류 처리
+        console.error("회원가입에 실패했습니다.");
       }
-  
-    };
-// ***************************************************
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+
+  };
+  // ***************************************************
 
 
   return (
@@ -126,20 +126,40 @@ const Join = () => {
             </div>
 
 
-            {/* 소속 */}
+            {/* 역할 */}
             <div className="mb-3">
-              <label className="form-label" htmlFor="classname">소속</label>
-              <div className="dropdown">
-                <button style={{ width: '100%' }} className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  {selectedValue || '소속 선택'} {/* 선택한 값 또는 초기 텍스트를 버튼 안에 표시 */}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li onClick={() => handleDropdownClick("데이터디자인반")} className="dropdown-item">데이터디자인반</li>
-                  <li onClick={() => handleDropdownClick("빅데이터반")} className="dropdown-item">빅데이터분석반</li>
-                  <li onClick={() => handleDropdownClick("풀스택반")} className="dropdown-item">풀스택반</li>
-                </ul>
+              <div className="mb-3">
+                <h2 className={style.Join_font_box5}>포지션</h2>
               </div>
+              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}}>
+               <option value="none">포지션을 선택해주세요</option>
+                <option value="back">Back-End 백앤드</option>
+                <option value="front">Front-End 프론트엔드</option>
+                <option value="full">Full-Stack 풀스택</option>
+                <option value="db">DB 데이터베이스</option>
+                <option value="design">UI/UX 디자인</option>
+              </select>
             </div>
+
+
+            {/* 스킬 */}
+            <div className="mb-3">
+              <div className="mb-3">
+                <h2 className={style.Join_font_box5}>스킬</h2>
+                <h5 className={style.Join_font_box6}>*선택사항입니다</h5>
+              </div>
+              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="skill">
+              <option value="none">스킬을 선택해주세요</option>
+                <option value="java">Java</option>
+                <option value="javascript">JavaScript</option>
+                <option value="htmlcss">HTML/CSS</option>
+                <option value="jquery">jquery</option>
+                <option value="spring">spring</option>
+
+              </select>
+            </div>
+
+
 
             {/* 성별 선택 */}
             <label className="form-label" htmlFor="gender">
