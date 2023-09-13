@@ -38,37 +38,85 @@ const Join = () => {
   // };
 
   // DB에 보낼 회원정보 관리 useState
-  const [member, setMember] = useState({
-    id: '',
-    pw: '',
-    gender: '',
-    nickname: '',
-    name: '',
-    role: '',
-    skill: '',
-    profileImg: '',
+  // const [member, setMember] = useState({
+  //   id: '',
+  //   pw: '',
+  //   gender: '',
+  //   nickname: '',
+  //   name: '',
+  //   role: '',
+  //   skill: '',
+  //   profileImg: '',
 
-  });
+  // });
 
-  const { id, pw, gender, name, nickname, role, skill, profileImg, } = member; // 변수를 추출하여 사용
+  // const { id, pw, gender, name, nickname, role, skill, profileImg, } = member; // 변수를 추출하여 사용
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setMember({ ...member, [name]: value });
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setMember({ ...member, [name]: value });
+  // };
+
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [name, setName] = useState("");
+  const [checkPw, setCheckPw] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [role, setRole] = useState("");
+  const [skill, setSkill] = useState("");
+  const [gender, setGender] = useState("");
+  
+  
+  const onIdHandler = (e) => {
+    setId(e.target.value);
   };
+  const onNameHandler = (e) => {
+    setName(e.target.value);
+  };
+  const onPwHandler = (e) => {
+    setPw(e.target.value);
+  };
+  const onCheckPwHandler = (e) => {
+    setCheckPw(e.target.value);
+  };
+  const onRole =(e) =>{
+    setRole(e.target.value);
+  }
+  const onNicknameHandler =(e) =>{
+    setNickname(e.target.value);
+  }
+  
+  const onGenderHandler =(e) =>{
+    setGender(e.target.value);
+  }
+  const onSkill =(e) =>{
+    setSkill(e.target.value);
+  }
 
   // ******************************************************** 
   // 회원가입 함수
   const joinMember = async (e) => {
     e.preventDefault();
+if (pw !== checkPw) {
+  return alert("비밀번호가 일치하지 않습니다..");
+}
+let member = {
+  id: id,
+  name: name,
+  pw: pw,
+  gender: gender,
+  nickname: nickname,
+  role: role,
+  skill: skill,
+};
     try {
       console.log('제발 들어와주라', member);
       const response = await axios.post("http://localhost:8088/member/join", member); // 경로 테스트 중...
       if (response.data.message === "회원가입이 완료되었습니다.") {
         // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
         window.location.href = '/login'
-
-
+        
+        
       } else {
         // 오류 처리
         console.error("회원가입에 실패했습니다.");
@@ -106,23 +154,23 @@ const Join = () => {
           <form onSubmit={joinMember}>
             <div className="mb-3">
               <label className="form-label" htmlFor="id">아이디</label>
-              <input className="form-control" type="text" name="id" value={member.id} id="id" onChange={handleChange} placeholder='4~15자 이내로 입력해주세요.' />
+              <input className="form-control" type="text" name="id" value={id} id="id" onChange={onIdHandler} placeholder='4~15자 이내로 입력해주세요.' />
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="pw">비밀번호</label>
-              <input className="form-control" type="password" name="pw" id="pw" value={member.pw} onChange={handleChange} placeholder='비밀번호를 입력해주세요(8자리 이상)' />
+              <input className="form-control" type="password" name="pw" id="pw" value={pw} onChange={onPwHandler} placeholder='비밀번호를 입력해주세요(8자리 이상)' />
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="pw_check">비밀번호 확인</label>
-              <input className="form-control" type="text" name="pw_check" id="pw_check" placeholder='비림번호를 한번 더 입력해주세요.' />
+              <input className="form-control" type="password" name="pw_check" id="pw_check" value={checkPw} onChange={onCheckPwHandler} placeholder='비림번호를 한번 더 입력해주세요.' />
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="name">이름</label>
-              <input className="form-control" type="text" name="name" id="name" value={member.name} onChange={handleChange} placeholder='이름을 입력해주세요' />
+              <input className="form-control" type="text" name="name" id="name" value={name} onChange={onNameHandler} placeholder='이름을 입력해주세요' />
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="nickname">닉네임</label>
-              <input className="form-control" type="text" name="nickname" id="nickname" value={member.nickname} onChange={handleChange} placeholder='닉네임을 입력해주세요' />
+              <input className="form-control" type="text" name="nickname" id="nickname" value={nickname} onChange={onNicknameHandler} placeholder='닉네임을 입력해주세요' />
             </div>
 
 
@@ -131,7 +179,7 @@ const Join = () => {
               <div className="mb-3">
                 <h2 className={style.Join_font_box5}>포지션</h2>
               </div>
-              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}}>
+              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="role" >
                <option value="none">포지션을 선택해주세요</option>
                 <option value="back">Back-End 백앤드</option>
                 <option value="front">Front-End 프론트엔드</option>
@@ -148,7 +196,7 @@ const Join = () => {
                 <h2 className={style.Join_font_box5}>스킬</h2>
                 <h5 className={style.Join_font_box6}>*선택사항입니다</h5>
               </div>
-              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="skill">
+              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="skill" >
               <option value="none">스킬을 선택해주세요</option>
                 <option value="java">Java</option>
                 <option value="javascript">JavaScript</option>
@@ -178,7 +226,7 @@ const Join = () => {
                   id="male"
                   value="male"
                   checked={gender === "male"}
-                  onChange={handleChange}//{handleGenderChange}
+                  onChange={onGenderHandler}//{handleGenderChange}
                 />
               </div>
               <div className={style.Join_radio_box2}></div>
@@ -194,7 +242,7 @@ const Join = () => {
                   id="female"
                   value="female"
                   checked={gender === "female"}
-                  onChange={handleChange} //{handleGenderChange}
+                  onChange={onGenderHandler} //{handleGenderChange}
                 />
               </div>
             </div>
