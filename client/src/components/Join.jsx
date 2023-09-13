@@ -5,8 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from "bootstrap/js/dist/dropdown";
 import axios from 'axios';
 
-/* 지홍 작업 09.11 */
-
 
 /* 
 회원가입 form태그 
@@ -28,34 +26,6 @@ const Join = () => {
     setSelectedValue(value);
     console.log(value);
   };
-
-
-
-  // 라디오 버튼값 관리 useState
-  // const [gender, setGender] = useState("");
-  // const handleGenderChange = (e) => {
-  //   setGender(e.target.value);
-  // };
-
-  // DB에 보낼 회원정보 관리 useState
-  // const [member, setMember] = useState({
-  //   id: '',
-  //   pw: '',
-  //   gender: '',
-  //   nickname: '',
-  //   name: '',
-  //   role: '',
-  //   skill: '',
-  //   profileImg: '',
-
-  // });
-
-  // const { id, pw, gender, name, nickname, role, skill, profileImg, } = member; // 변수를 추출하여 사용
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setMember({ ...member, [name]: value });
-  // };
 
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
@@ -92,9 +62,37 @@ const Join = () => {
   const onSkill =(e) =>{
     setSkill(e.target.value);
   }
+// ****************************
+// 아이디 중복체크 + 영문숫자 조합확인
+const engNum =  /^[A-Za-z0-9]{5,}$/; // 영문-숫자 + 5글자이상으로 제한
+
+const idCheck = async(e) => {
+  e.preventDefault();
+  if(engNum.test(id)){
+    alert("올바른 양식입니다");
+  }else {
+    alert("아이디는 영문, 숫자 조합입니다");
+  }
+  const idChecking ={id:id};
+  try {
+    //  라우트로 POST 요청 보내기
+    const response = await axios.post('http://localhost:8088/member/idCheck', idChecking);
+    if (response.data.idCheckingSuccess) {
+      // 중복체크 중복: memberId를 콘솔에 출력하고 로그인 페이지로 이동
+      console.log('아이디 중복체크 성공:', response.data.idCheckingId);
+    } else {
+      // 중복체크 중복x: 서버에서 받은 메시지를 알림으로 표시
+      alert(response.data.message);
+    }
+  } catch (error) {
+    console.error('오류 발생:', error);
+  }
+}
+
 
   // ******************************************************** 
   // 회원가입 함수
+
   const joinMember = async (e) => {
     e.preventDefault();
 if (pw !== checkPw) {
@@ -126,8 +124,6 @@ let member = {
     }
 
   };
-  // ***************************************************
-
 
   return (
 
@@ -149,12 +145,12 @@ let member = {
             <h2>회원가입</h2>
           </div>
 
-
           {/* 회원가입 양식 form태그 부트스트랩 양식으로 여백 조정 */}
           <form onSubmit={joinMember}>
             <div className="mb-3">
               <label className="form-label" htmlFor="id">아이디</label>
               <input className="form-control" type="text" name="id" value={id} id="id" onChange={onIdHandler} placeholder='4~15자 이내로 입력해주세요.' />
+              <button onClick={idCheck}>중복체크</button>
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="pw">비밀번호</label>
@@ -173,7 +169,6 @@ let member = {
               <input className="form-control" type="text" name="nickname" id="nickname" value={nickname} onChange={onNicknameHandler} placeholder='닉네임을 입력해주세요' />
             </div>
 
-
             {/* 역할 */}
             <div className="mb-3">
               <div className="mb-3">
@@ -188,7 +183,6 @@ let member = {
                 <option value="design">UI/UX 디자인</option>
               </select>
             </div>
-
 
             {/* 스킬 */}
             <div className="mb-3">
@@ -226,7 +220,7 @@ let member = {
                   id="male"
                   value="male"
                   checked={gender === "male"}
-                  onChange={onGenderHandler}//{handleGenderChange}
+                  onChange={onGenderHandler}
                 />
               </div>
               <div className={style.Join_radio_box2}></div>
@@ -242,7 +236,7 @@ let member = {
                   id="female"
                   value="female"
                   checked={gender === "female"}
-                  onChange={onGenderHandler} //{handleGenderChange}
+                  onChange={onGenderHandler} 
                 />
               </div>
             </div>

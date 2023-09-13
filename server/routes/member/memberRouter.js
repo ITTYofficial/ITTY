@@ -29,10 +29,32 @@ router.post('/join', async (req, res) => {
       }
 })
 
+router.post('/idCheck',async(req,res)=>{
+  try { 
+  // 요청된 아이디를 데이터베이스에서 찾는다.
+    const idChecking = await Member.findOne({ id: req.body.id });
+    if (!idChecking) {
+      return res.json({
+        idCheckingSuccess: false,
+        message: '사용가능한 아이디입니다.',
+      });
+    }else{
+      return res.json({
+        idCheckingfail: true,
+        message: '아이디가 중복됩니다.',
+      });
+    }
+    } catch (err) {
+      console.log(err);
+      res.json({ message: false });
+    }
+});
+
+
 //로그인(토큰화 x 버전)
 router.post('/login', async (req, res) => {
   try {
-    // 요청된 이메일을 데이터베이스에서 찾는다.
+    // 요청된 아이디를 데이터베이스에서 찾는다.
     const member = await Member.findOne({ id: req.body.id });
     if (!member) {
       return res.json({
