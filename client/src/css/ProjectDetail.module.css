@@ -111,6 +111,10 @@
   margin: 12px 12px 12px 0;
 }
 
+.Detail_content>p img {
+  max-width: 100%;
+}
+
 .Detail_comment {
   background-color: #d8daf7;
   margin: 16px;
