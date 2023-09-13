@@ -29,31 +29,29 @@ router.post('/write', upload.single('img'), async (req, res) => {
 
     let obj;
 
+    console.log(req.body);
+
     obj = {
-      // writer: req.body.writer,
-      // title: req.body.title,
-      // content: req.body.content,
 
+      title: req.body.title,
       writer: "gg",
-      title: "gg",
-      content: "gg",
-
-      // 페이지 만들어지면 수정할 것
-      // 글 번호는 어떤식으로 생성할 건지, 이미지 주소는 어떻게 줄일 건지 방법 찾기
-      // 글 수정과 함께 동작할 수 있도록 작성할 것
-
-      // postNum: req.body.postNum,
-      // views: 0,
-
-      // postCategory: req.body.categotry,
-      // imgPath: req.body.imgPath,
-      // recruitPeriod: req.body.recruitPeriod,
-      // recruit: req.body.recruit
+      content: req.body.content,
+      // createdAt: "알아서 들어감",
+      // views: "알아서 들어감",
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
+      persons: req.body.persons,
+      recruit: req.body.recruit,
+      position: req.body.position,
+      frameWork_front: req.body.frameWork_front,
+      frameWork_back: req.body.frameWork_back,
+      frameWork_db: req.body.frameWork_db,
+      
     };
 
     const project = new Project(obj);
     await Project.insertMany(project);
-    // res.json({ message: "게시글이 업로드 되었습니다." });
+    res.json({ message: "게시글이 업로드 되었습니다." });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
@@ -134,14 +132,14 @@ router.get("/projectDetail/:_id", async (req, res) => {
 
     // 조회수 업데이트 기능
     // 메모리 많이 처먹으니까 나중에 활성화 시킬 것
-    // await Project.updateOne(
-    //   { _id: id },
-    //   {
-    //     $set:{
-    //       views: detailProject[0].views+1
-    //     }
-    //   }
-    // );
+    await Project.updateOne(
+      { _id: id },
+      {
+        $set:{
+          views: detailProject[0].views+1
+        }
+      }
+    );
 
     res.json({ detailProject });
   } catch (err) {

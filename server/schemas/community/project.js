@@ -20,10 +20,10 @@ const projectSchema = new Schema({
         type: String,
         required: true
     },
-    postNum: {
-        // 글넘버
-        type: Number
-    },
+    // postNum: {
+    //     // 글넘버
+    //     type: Number
+    // },
     createdAt: {
         // 작성시간
         type: Date,
@@ -31,26 +31,48 @@ const projectSchema = new Schema({
     },
     views: {
         // 조회수
-        type: Number
+        type: Number,
+        default: 0
     },
 
     // 게시판마다 달라지는 부분
-    postCatogory: {
-        // 글카테고리
-        type: String,
-        // required : true
-    },
-    imgPath: {
-        // 이미지 주소
-        type: String
-    },
-    recruitPeriod: {
-        // 모집기간
+    // postCatogory: {
+    //     // 글카테고리
+    //     type: String,
+    //     // required : true
+    // },
+
+    startDate: {
+        // 프로젝트 시작일
         type: Date
     },
-    recruit: {
+    endDate: {
+        // 프로젝트 종료일
+        type: Date
+    },
+    persons: {
         // 모집인원
         type: Number
+    },
+    recruit:{
+        // 모집상태
+        type: Number
+    },
+    position: { 
+        // 모집하는 포지션
+        type: String
+    },
+    frameWork_front: {
+        // 사용할 프레임워크
+        type: String
+    },
+    frameWork_back: {
+        // 사용할 프레임워크
+        type: String
+    },
+    frameWork_db: {
+        // 사용할 프레임워크
+        type: String
     }
 })
 
