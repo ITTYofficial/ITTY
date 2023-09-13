@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import style from "../css/ProjectWrite.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import QuillTest from './QuillTest';
 
 
 
@@ -9,34 +12,45 @@ const ProjectWrite = () => {
 
     const [selectedValues, setSelectedValues] = useState([]);
 
-    // 버튼 클릭 시 호출되는 함수
+    // 포지션 함수
     function changeColor(value) {
         if (selectedValues.includes(value)) {
-            // 이미 선택된 버튼인 경우, 선택 해제합니다.
+            // 이미 선택된 버튼인 경우 선택 해제
             setSelectedValues(selectedValues.filter(item => item !== value));
         } else {
-            // 새로운 버튼을 선택한 경우, 추가합니다.
+            // 누른 버튼 값 추가
             setSelectedValues([...selectedValues, value]);
         }
     }
 
+    // 날짜관련 스테이트
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
     // 폼 전송 시 호출되는 함수
     function handleSubmit(event) {
         event.preventDefault();
-        // 선택한 값(selectedValues)을 사용하여 작업을 수행하거나 서버로 전송할 수 있습니다.
-        console.log('선택한 값:', selectedValues);
+
+        // 작성된 값 확인할수 있는곳
+        console.log('선택한 포지션:', selectedValues);
+        console.log('프로젝트 시작일:', startDate);
+        console.log('프로젝트 종료일:', endDate);
+        const formData = new FormData(event.target);
+
+        formData.forEach((value, key) => {
+            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+        });
     }
 
     return (
         <div className={style.Main_container}>
             <h2>프로젝트</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                <input type="text" />
+                <input type="text" name='title' />
 
                 <p>포지션</p>
 
-                {/* 여러 개의 버튼을 생성 */}
                 <button
                     type="button"
                     onClick={() => changeColor('1')}
@@ -73,15 +87,73 @@ const ProjectWrite = () => {
                     UI / UX
                 </button>
 
-                {/* 선택한 값을 저장하는 hidden input */}
                 <input type="hidden" name="selectedValue" value={selectedValues.join(',')} />
 
+                <div className={style.second_block}>
+                    <div>
+                        <p>프로젝트 시작일</p>
+                        <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+                    </div>
+                    <div>
+                        <p>프로젝트 종료일</p>
+                        <DatePicker selected={startDate} onChange={date => setEndDate(date)} />
 
-                <p>프로젝트 시작일</p>
+                    </div>
+                    <div className={style.frame_work_container}>
+                        <div>
+                            <p>프론트</p>
+                            <select name='framework_front'>
+                                <option value={1}>React</option>
+                                <option value={2}>Next.js</option>
+                                <option value={3}>Vue.js</option>
+                                <option value={4}>기타</option>
+
+                            </select>
+                        </div>
+                        <div>
+                            <p>백엔드</p>
+                            <select name='framework_back'>
+                                <option>Spring / Spring Boot</option>
+                                <option>Node.js</option>
+                                <option>Django</option>
+                                <option>Flask</option>
+                                <option>기타</option>
+                            </select>
+                        </div>
+                        <div>
+                            <p>DB</p>
+                            <select name='framework_db'>
+                                <option>MySQL</option>
+                                <option>Oracle</option>
+                                <option>MariaDB</option>
+                                <option>MongoDB</option>
+                                <option>기타</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <p>인원</p>
+                        <input type="text" name='persons' placeholder='인원을 입력해주세요' />
+                    </div>
+                    <div>
+                        <p>상태</p>
+                        <select name='recruit'>
+                            <option>모집중</option>
+                            <option>모집완료</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div>
+                    <QuillTest />
+                </div>
 
 
                 {/* 전송 버튼 */}
                 <input type="submit" value="전송" />
+
+
             </form>
         </div>
     )
