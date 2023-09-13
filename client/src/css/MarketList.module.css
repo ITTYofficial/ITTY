@@ -33,7 +33,7 @@
   padding: 16px;
 }
 
-.right_container h2 {
+.right_container_button>h2 {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0 16px;
@@ -70,12 +70,6 @@
   margin-bottom: 16px;
 }
 
-h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 16px;
-  text-align: center;
-}
 
 .Main_container_list_detail {
   display: flex;
