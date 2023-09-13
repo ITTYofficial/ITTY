@@ -31,6 +31,7 @@ const loginMember =async (e) => {
     if (response.data.loginSuccess) {
       // 로그인 성공: memberId를 콘솔에 출력하고 로그인 페이지로 이동
       console.log('로그인 성공:', response.data.memberId);
+      sessionStorage.setItem('memberId',response.data.memberId)
       window.location.href = '/';
     } else {
       // 로그인 실패: 서버에서 받은 메시지를 알림으로 표시
