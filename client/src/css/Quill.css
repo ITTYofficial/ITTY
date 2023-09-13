@@ -640,7 +640,7 @@
     overflow: visible;
   }
   .ql-snow .ql-editor img {
-    max-width: 100%;
+    max-width: 800px;
   }
   .ql-snow .ql-picker {
     color: #444;

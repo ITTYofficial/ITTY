@@ -56,7 +56,7 @@
     background-color: #1a611e;
 } */
 
-.second_block>div:not(:nth-child(3)) {
+.second_block>div {
     width: 450px;
     height: 50px;
     display: inline-grid;

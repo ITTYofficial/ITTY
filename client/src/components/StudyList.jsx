@@ -35,7 +35,9 @@ const StudyList = () => {
         <div className={styles.Main_container_banner}></div>
         <div className={styles.right_container_button}>
           <h2>스터디 구해요🐣</h2>
-          <a href="#">작성하기</a>
+          <Link to={'/studyWrite'}>
+          작성하기
+          </Link>
         </div>
 
         <div className={styles.Main_container_list}>

@@ -19,6 +19,9 @@ import { useState } from "react";
 import TestPage from "./components/TestPage";
 import ProjectWrite from "./components/ProjectWrite";
 import MarketWrite from "./components/MarketWrite";
+import StudyWrite from "./components/StudyWrite";
+import StudyDetail from "./components/StudyDetail";
+import PortDetail from "./components/PortDetail";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -56,6 +59,9 @@ function App() {
           <Route path="/playBoardWrite" element={<PlayBoardWrite />}></Route>
           <Route path="/testPage" element={<TestPage />}></Route>
           <Route path="/projectWrite" element={<ProjectWrite />}></Route>
+          <Route path="/studyWrite" element={<StudyWrite />}></Route>
+          <Route path="/studyDetail" element={<StudyDetail />}></Route>
+          <Route path="/portDetail" element={<PortDetail />}></Route>
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}
       </PlayBoardContext.Provider>
