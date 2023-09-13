@@ -63,7 +63,7 @@ const MarketList = () => {
       <div className={style.right_container}>
         <div className={style.right_container_button}>
           <h2>교환 장터🥕</h2>
-          <a href="#">작성하기</a>
+          <a href="/marketWrite">작성하기</a>
         </div>
         <div className={style.Market_list}>
           {marketList.map((item) => (

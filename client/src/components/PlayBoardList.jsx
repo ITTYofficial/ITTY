@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const PlayBoardList = () => {
-
   // 장터리스트 담을 State
   const [playList, setPlayList] = useState([]);
 
@@ -23,13 +22,12 @@ const PlayBoardList = () => {
       });
   };
 
-
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     readPlayList();
   }, []);
 
-  const PlayItem = ({props}) => (
+  const PlayItem = ({ props }) => (
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{props.createdAt}</p>
@@ -37,6 +35,7 @@ const PlayBoardList = () => {
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
+        <p>👁‍🗨28 💬4</p>
       </div>
 
       <div className={PlayBoard.Main_grid_profile}>
@@ -63,8 +62,8 @@ const PlayBoardList = () => {
 
         <div className={PlayBoard.Main_container_list}>
           {/* 글 반복 시작 */}
-          {playList.map((item)=>(
-            <PlayItem key={item._id} props={item}/>
+          {playList.map((item) => (
+            <PlayItem key={item._id} props={item} />
           ))}
           {/* 글 반복 끝 */}
         </div>

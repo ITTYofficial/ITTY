@@ -217,6 +217,7 @@
 
   border-radius: 10px;
   border: none;
+  display: inline-block;
   background-color: #999999;
   padding: 12px 20px;
   margin-right: 16px;
