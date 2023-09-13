@@ -40,9 +40,10 @@ router.post('/login', async (req, res) => {
         message: '제공된 이메일에 해당하는 유저가 없습니다.',
       });
     }
-
+    console.log("db속 비밀번호 :",member.pw);
+    console.log("페이지 입력한 비밀번호 :",req.body.pw);
     // 요청된 이메일이 데이터베이스에 있다면 비밀번호가 맞는지 확인.
-    if (member.password !== req.body.password) {
+    if (member.pw !== req.body.pw) {
       return res.json({
         loginSuccess: false,
         message: '비밀번호가 틀렸습니다.',
