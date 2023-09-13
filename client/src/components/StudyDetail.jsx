@@ -63,9 +63,6 @@ const StudyDetail = () => {
                         <p>내용들어갈부분</p>
                     </div>
 
-
-                    <hr />
-
                     <div className={style.division_line}>
                         <div>
                             <p>댓글 3</p>
