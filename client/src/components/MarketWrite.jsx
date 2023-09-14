@@ -14,18 +14,23 @@ const MarketWrite = () => {
     // 파일 입력 엘리먼트에서 클릭 이벤트를 트리거합니다.
     if (fileInputRef.current) {
       fileInputRef.current.click();
+      console.log("Click check");
     }
   };
 
-  //   const saveImgFile = () => {
-  //     const file = imgRef.current.value;
-  //     console.log(file);
-  //     // const reader = new FileReader();
-  //     // reader.readAsDataURL(file);
-  //     // reader.onloadend = () => {
-  //     //   setImgFile(reader.result);
-  //     // };
-  //   };
+  const saveImgFile = (fileBlob) => {
+    // let file = e.target.files[0];
+
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImgFile(reader.result);
+        console.log("확인 ", imgFile);
+        resolve();
+      };
+    });
+  };
 
   return (
     <div className={styles.Main_container}>
@@ -55,7 +60,9 @@ const MarketWrite = () => {
                 required
                 multiple
                 ref={fileInputRef}
-                // onChange={saveImgFile}
+                onChange={(e) => {
+                  saveImgFile(e.target.files[0]);
+                }}
               />
               <div
                 className={styles.fake_upload}
