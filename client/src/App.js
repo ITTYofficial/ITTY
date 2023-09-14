@@ -19,6 +19,8 @@ import { useState } from "react";
 import TestPage from "./components/TestPage";
 import ProjectWrite from "./components/ProjectWrite";
 import StudyWrite from "./components/StudyWrite";
+import TipList from "./components/TipList";
+import TipDetail from "./components/TipDetail";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -53,6 +55,8 @@ function App() {
           <Route path="/testPage" element={<TestPage />}></Route>
           <Route path="/projectWrite" element={<ProjectWrite />}></Route>
           <Route path="/studyWrite" element={<StudyWrite />}></Route>
+          <Route path="/tipList" element={<TipList />}></Route>
+          <Route path="/tipDetail" element={<TipDetail />}></Route>
 
 
         </Routes>

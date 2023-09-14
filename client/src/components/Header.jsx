@@ -82,7 +82,7 @@ const Header = () => {
               onMouseLeave={() => handleHoverOut("share")}
             >
               <li>
-                <a href="#">Development Tip🧷</a>
+                <a href="/tipList">Development Tip🧷</a>
               </li>
               <li>
                 <a href="#">Knowledge Drop⛅</a>
