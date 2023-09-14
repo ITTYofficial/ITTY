@@ -140,7 +140,12 @@ const goLogout = () =>{
             ) }
           </li>
           <li>
-            <Link to={"/join"}>회원가입</Link>
+            {loginOk?(
+              <Link to={"/join"}>마이페이지</Link>
+              ):(
+              <Link to={"/mypage"}>회원가입</Link>
+              )
+            }
           </li>
         </ul>
         <button className={Nav.Member_mobile}>&#128100;</button>
