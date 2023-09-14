@@ -31,7 +31,7 @@ const PlayBoardList = () => {
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{props.createdAt}</p>
-        <Link to={`/playboardDetail/:id`}>
+        <Link to={`/playboardDetail/${props._id}`}>
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}

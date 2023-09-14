@@ -7,25 +7,40 @@ import { useRef } from "react";
 
 const MarketWrite = () => {
   const fileInputRef = useRef(null);
-  const [imgFile, setImgFile] = useState("");
+  const [imgFiles, setImgFiles] = useState([]);
   const imgRef = useRef();
 
   const handleFakeUploadClick = () => {
     // 파일 입력 엘리먼트에서 클릭 이벤트를 트리거합니다.
     if (fileInputRef.current) {
       fileInputRef.current.click();
+      console.log("Click check");
     }
   };
 
-  //   const saveImgFile = () => {
-  //     const file = imgRef.current.value;
-  //     console.log(file);
-  //     // const reader = new FileReader();
-  //     // reader.readAsDataURL(file);
-  //     // reader.onloadend = () => {
-  //     //   setImgFile(reader.result);
-  //     // };
-  //   };
+  /*   const saveImgFile = (fileBlob) => {
+      // let file = e.target.files[0];
+  
+      const reader = new FileReader();
+      reader.readAsDataURL(fileBlob);
+      return new Promise((resolve) => {
+        reader.onload = () => {
+          setImgFile(reader.result);
+          console.log("확인 ", imgFile);
+          resolve();
+        };
+      });
+    }; */
+
+  // 이미지 업로드 input의 onChange
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFiles([...imgFiles, reader.result]); // 새 이미지를 배열에 추가
+    };
+  };
 
   return (
     <div className={styles.Main_container}>
@@ -55,15 +70,33 @@ const MarketWrite = () => {
                 required
                 multiple
                 ref={fileInputRef}
-                // onChange={saveImgFile}
+                onChange={(e) => {
+                  saveImgFile(e.target.files[0]);
+                }}
               />
               <div
                 className={styles.fake_upload}
                 onClick={handleFakeUploadClick}
-                style={{ backgroundImage: `${imgFile}` }}
+                style={{ backgroundImage: `${imgFiles}` }}
               ></div>
             </div>
             <p>상품의 이미지는 1:1 비율로 보여집니다.</p>
+          </div>
+
+          <div lassName={styles.market_pic}>
+            <input
+              type="file"
+              accept="image/*"
+              id="profileImg"
+              onChange={saveImgFile}
+              ref={imgRef}
+            />
+
+            {imgFiles.map((img, index) => (
+              <img key={index} src={img} alt={`이미지 ${index}`} />
+            ))}
+
+
           </div>
 
           <div className={styles.market_sale}>

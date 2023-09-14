@@ -20,10 +20,6 @@ const playSchema = new Schema({
         type: String,
         required: true
     },
-    postNum: {
-        // 글넘버
-        type: Number
-    },
     createdAt: {
         // 작성시간
         type: Date,

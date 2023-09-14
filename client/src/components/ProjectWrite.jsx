@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import style from "../css/ProjectWrite.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from "react-datepicker";
@@ -6,14 +6,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import QuillTest from './QuillTest';
 import axios from 'axios';
 import { PlayBoardContext } from '../context/PlayBoardContext';
+import { useLocation, useParams } from 'react-router-dom';
 
 
 
 
 const ProjectWrite = () => {
 
+    // // 특정 게시글 조회하기 위한 id값 가져오기
+    // const { id } = useParams();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id');
+
     const [position, setposition] = useState([]);
-    const { value } = useContext(PlayBoardContext);
+    const { value, setValue } = useContext(PlayBoardContext);
 
     // 포지션 함수
     function changeColor(value) {
@@ -35,40 +42,68 @@ const ProjectWrite = () => {
         event.preventDefault();
 
         // 작성된 값 확인할수 있는곳
-        console.log('선택한 포지션:', position);
-        console.log('프로젝트 시작일:', startDate);
-        console.log('프로젝트 종료일:', endDate);
+        // console.log('선택한 포지션:', position);
+        // console.log('프로젝트 시작일:', startDate);
+        // console.log('프로젝트 종료일:', endDate);
         const formData = new FormData(event.target);
 
         const obj = {};
         formData.forEach((value, key) => {
-            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+            // console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj['startDate'] = startDate;
         obj['endDate'] = endDate;
         obj['content'] = value;
-        console.log(obj);
+        // console.log(obj);
+        if(id){
+            obj['_id'] = id
+        }
 
         axios.post('http://localhost:8088/project/write', obj)
-        .then((res)=>{
-            console.log("통신 완료");
-        })
-        .catch((err)=>{
-            console.log("통신 실패");
-            console.log(err);
-        })
+            .then((res) => {
+                alert("게시글이 등록되었습니다.")
+                window.location.href = "/projectList"
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("게시글 작성 실패")
+                window.location.href = "/projectList"
+            })
     }
+
+    // 게시글정보 저장할 State
+    const [projectDetail, setProjectDetail] = useState([]);
+
+    // 수정 요청시 기존 게시글 데이터 가져올 함수
+    const getProject = async () => {
+        if (id) {
+            // projectRouter랑 통신해서 response에 결과값 저장
+            await axios.get(`http://localhost:8088/project/projectDetail/${id}`)
+                .then((res) => {
+                    console.log(res);
+                    setProjectDetail(res.data.detailProject[0]);
+                    setStartDate(new Date(res.data.detailProject[0].startDate));
+                    setEndDate(new Date(res.data.detailProject[0].endDate));
+                    setValue(res.data.detailProject[0].content)
+                });
+            // respnse에서 데이터 꺼내서 State에 저장
+        }
+    };
+
+    useEffect(() => {
+        getProject();
+    }, []);
+
 
     return (
         <div className={style.Main_container}>
             <h2>프로젝트</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                <input type="text" name='title' />
+                {id? <input type="text" name='title' defaultValue={projectDetail.title}/> : <input type="text" name='title' />}
 
                 <p>포지션</p>
-
                 <button
                     type="button"
                     onClick={() => changeColor('1')}
@@ -110,12 +145,11 @@ const ProjectWrite = () => {
                 <div className={style.second_block}>
                     <div>
                         <p>프로젝트 시작일</p>
-                        <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+                        {id? <DatePicker defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} />:<DatePicker selected={startDate} onChange={date => setStartDate(date)} />}
                     </div>
                     <div>
                         <p>프로젝트 종료일</p>
-                        <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
-
+                        {id? <DatePicker defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> :<DatePicker selected={endDate} onChange={date => setEndDate(date)} /> }
                     </div>
                     <div className={style.frame_work_container}>
                         <div>
@@ -125,7 +159,6 @@ const ProjectWrite = () => {
                                 <option>Next.js</option>
                                 <option>Vue.js</option>
                                 <option>기타</option>
-
                             </select>
                         </div>
                         <div>
@@ -152,7 +185,7 @@ const ProjectWrite = () => {
                     </div>
                     <div>
                         <p>인원</p>
-                        <input type="text" name='persons' placeholder='인원을 입력해주세요' />
+                        {id ? <input type="text" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons}/> : <input type="text" name='persons' placeholder='인원을 입력해주세요' />}
                     </div>
                     <div>
                         <p>상태</p>
