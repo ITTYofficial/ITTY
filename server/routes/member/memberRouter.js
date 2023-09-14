@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
     }
 
     // 비밀번호까지 맞다면 로그인 성공
-    res.status(200).json({ loginSuccess: true, memberId: member._id });
+    res.status(200).json({ loginSuccess: true, memberId: member.id });
 
   } catch (err) {
     console.log(err);

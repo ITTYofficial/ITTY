@@ -17,7 +17,7 @@ const ProjectDetail = () => {
 
     // 게시글 조회함수
     // 작성자 정보는 아직 없어서 나중에 추가할 것
-    const updateData = async () => {
+    const getProject = async () => {
         // projectRouter랑 통신해서 response에 결과값 저장
         const response = await axios.get(`http://localhost:8088/project/projectDetail/${id}`);
         // respnse에서 데이터 꺼내서 State에 저장
@@ -26,8 +26,13 @@ const ProjectDetail = () => {
 
     // 페이지 렌더링시 조회함수 실행
     useEffect(() => {
-        updateData();
+        getProject();
     }, []);
+
+    // 수정 페이지 이동
+    const moveUpdate = ()=>{
+        window.location.href = `/projectWrite?id=${id}`
+    }
 
     return (
 
@@ -57,6 +62,7 @@ const ProjectDetail = () => {
                         <div className={style.Profile_img}>
                             <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5ZKUupoYLVbtqmNq-SpaZxNv8n0r9X1Ga5M3CCZB6Vw&s'></img>
                         </div>
+                        <button onClick={moveUpdate}> 수정 </button>
                     </div>
                     <p>조회수 : {projectDetail.views}  댓글수 : 10</p>
 
