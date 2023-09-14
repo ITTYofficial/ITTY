@@ -35,12 +35,12 @@ router.post('/idCheck',async(req,res)=>{
     const idChecking = await Member.findOne({ id: req.body.id });
     if (!idChecking) {
       return res.json({
-        idCheckingSuccess: false,
+        idCheckingSuccess: true,
         message: '사용가능한 아이디입니다.',
       });
     }else{
       return res.json({
-        idCheckingfail: true,
+        idCheckingfail: false,
         message: '아이디가 중복됩니다.',
       });
     }
