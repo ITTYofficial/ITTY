@@ -56,18 +56,21 @@ const ProjectWrite = () => {
         obj['endDate'] = endDate;
         obj['content'] = value;
         // console.log(obj);
+        if(id){
+            obj['_id'] = id
+        }
 
         axios.post('http://localhost:8088/project/write', obj)
             .then((res) => {
-                console.log("통신 완료");
+                alert("게시글이 등록되었습니다.")
+                window.location.href = "/projectList"
             })
             .catch((err) => {
-                console.log("통신 실패");
                 console.log(err);
+                alert("게시글 작성 실패")
+                window.location.href = "/projectList"
             })
     }
-
-
 
     // 게시글정보 저장할 State
     const [projectDetail, setProjectDetail] = useState([]);

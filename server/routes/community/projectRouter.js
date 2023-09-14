@@ -29,8 +29,34 @@ router.post('/write', upload.single('img'), async (req, res) => {
 
     let obj;
 
-    console.log(req.body);
+    if(req.body._id){
+      // 글 수정 시
+      obj = {
 
+        title: req.body.title,
+        writer: "gg",
+        content: req.body.content,
+        // createdAt: "알아서 들어감",
+        // views: "알아서 들어감",
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        persons: req.body.persons,
+        recruit: req.body.recruit,
+        position: req.body.position,
+        frameWork_front: req.body.frameWork_front,
+        frameWork_back: req.body.frameWork_back,
+        frameWork_db: req.body.frameWork_db,
+  
+      };
+  
+      await Project.updateOne(
+        { _id: req.body._id },
+        {
+          $set: obj
+        }
+      );
+    }else{
+    // 글 작성 시
     obj = {
 
       title: req.body.title,
@@ -51,54 +77,13 @@ router.post('/write', upload.single('img'), async (req, res) => {
 
     const project = new Project(obj);
     await Project.insertMany(project);
+  }
     res.json({ message: "게시글이 업로드 되었습니다." });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
   }
 });
-
-// 글 수정
-router.post("/update/:_id", async (req, res) => {
-  try {
-    const id = req.params._id;
-
-    let obj;
-
-    // 글 작성과 함께 동작할 수 있도록 수정할 것
-    // 글 수정 페이지가 작성과 함께 동작할 수 있도록 할 것
-    // 글 수정시에 기존의 입력값이 그대로 남아 있을 수 있도록 조치할 것
-
-    obj = {
-
-      title: req.body.title,
-      writer: "gg",
-      content: req.body.content,
-      // createdAt: "알아서 들어감",
-      // views: "알아서 들어감",
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-      persons: req.body.persons,
-      recruit: req.body.recruit,
-      position: req.body.position,
-      frameWork_front: req.body.frameWork_front,
-      frameWork_back: req.body.frameWork_back,
-      frameWork_db: req.body.frameWork_db,
-
-    };
-
-    await Project.updateOne(
-      { _id: id },
-      {
-        $set: obj
-      }
-    );
-    res.json({ message: true });
-  } catch (err) {
-    console.log(err);
-    res.json({ message: false });
-  }
-})
 
 // 글 삭제
 router.post("/delete/:_id", async (req, res) => {

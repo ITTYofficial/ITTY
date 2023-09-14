@@ -48,27 +48,27 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="/playboardList" element={<PlayBoardList />}></Route>
+          <Route path="/playBoardWrite" element={<PlayBoardWrite />}></Route>
           <Route
             path="/playboardDetail/:id"
             element={<PlayBoardDetail />}
           ></Route>
           <Route path="/studyList" element={<StudyList />}></Route>
+          <Route path="/studyWrite" element={<StudyWrite />}></Route>
+          <Route path="/studyDetail" element={<StudyDetail />}></Route>
           <Route path="/projectList" element={<ProjectList />}></Route>
+          <Route path="/projectWrite" element={<ProjectWrite />}></Route>
           <Route path="/projectDetail/:id" element={<ProjectDetail />}></Route>
           <Route path="/marketList" element={<MarketList />}></Route>
-          <Route path="/marketDetail" element={<MarketDetail />}></Route>
           <Route path="/marketWrite" element={<MarketWrite />}></Route>
-          <Route path="/join" element={<Join />}></Route>
-          <Route path="/login" element={<Login />}></Route>
+          <Route path="/marketDetail" element={<MarketDetail />}></Route>
           <Route path="/quillTest" element={<QuillTest />}></Route>
-          <Route path="/playBoardWrite" element={<PlayBoardWrite />}></Route>
           <Route path="/testPage" element={<TestPage />}></Route>
-          <Route path="/projectWrite" element={<ProjectWrite />}></Route>
-          <Route path="/studyWrite" element={<StudyWrite />}></Route>
           <Route path="/tipList" element={<TipList />}></Route>
           <Route path="/tipDetail" element={<TipDetail />}></Route>
-          <Route path="/studyDetail" element={<StudyDetail />}></Route>
           <Route path="/portDetail" element={<PortDetail />}></Route>
+          <Route path="/join" element={<Join />}></Route>
+          <Route path="/login" element={<Login />}></Route>
 
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}

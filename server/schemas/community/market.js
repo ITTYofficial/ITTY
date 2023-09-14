@@ -20,10 +20,6 @@ const marketSchema = new Schema({
         type: String,
         required: true
     },
-    postNum: {
-        // 글넘버
-        type: Number
-    },
     createdAt: {
         // 작성시간
         type: Date,
@@ -31,7 +27,8 @@ const marketSchema = new Schema({
     },
     views: {
         // 조회수
-        type: Number
+        type: Number,
+        default: 0
     },
     
     // 게시판마다 달라지는 부분

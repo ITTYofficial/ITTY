@@ -62,6 +62,7 @@ const ProjectDetail = () => {
                         <div className={style.Profile_img}>
                             <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5ZKUupoYLVbtqmNq-SpaZxNv8n0r9X1Ga5M3CCZB6Vw&s'></img>
                         </div>
+                        {/* 수정 테스트용 버튼, 나중에 삭제 요망 */}
                         <button onClick={moveUpdate}> 수정 </button>
                     </div>
                     <p>조회수 : {projectDetail.views}  댓글수 : 10</p>
