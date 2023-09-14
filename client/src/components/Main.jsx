@@ -5,6 +5,8 @@ import style from "../css/Main.module.css";
 // import "../css/Community.css";
 
 const Main = () => {
+  console.log(sessionStorage.getItem("id"));
+
   const Main_detail = () => (
     <div className={style.Main_grid_detail}>
       <h4>핵심끝나고 너무 힘들어요.. 다들 어떠세요</h4>

@@ -96,6 +96,7 @@ const idCheck = async(e) => {
   const joinMember = async (e) => {
     e.preventDefault();
 if (pw !== checkPw) {
+  // 비밀번호 글자수 혹은 영문 숫자 제한 추가해야함!!
   return alert("비밀번호가 일치하지 않습니다..");
 }
 let member = {
