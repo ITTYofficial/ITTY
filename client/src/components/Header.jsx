@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../css/Header.module.css";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  /* 세션스토리지에서 id값을 불러옴 */
+ 
+  const [loginOk,setLoginOk] = useState(false);
   const [hoverStates, setHoverStates] = useState({
     cate: false,
     share: false,
     job: false,
   });
+
+useEffect(()=>{
+
+  const id =sessionStorage.getItem("memberId");
+  if(id){
+    setLoginOk(true);
+  }
+},[])
+
+const goLogout = () =>{
+  sessionStorage.removeItem("memberId");
+  console.log(sessionStorage.getItem("memberId"));
+  setLoginOk(false)
+}
 
   let cateHoverTimer;
 
@@ -101,7 +118,9 @@ const Header = () => {
               onMouseLeave={() => handleHoverOut("job")}
             >
               <li>
-                <a href="#">포트폴리오🔍</a>
+                <Link to={'/portDetail'}>
+                포트폴리오🔍
+                </Link>
               </li>
               <li>
                 <a href="#">수료생 후기👨‍🎓</a>
@@ -114,7 +133,11 @@ const Header = () => {
       <div className={Nav.Member}>
         <ul>
           <li>
-            <Link to={"/login"}>로그인</Link>
+            {loginOk?(
+              <button onClick={goLogout}>로그아웃</button>
+              ) :(
+              <Link to={"/login"}>로그인</Link>
+            ) }
           </li>
           <li>
             <Link to={"/join"}>회원가입</Link>

@@ -5,8 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from "bootstrap/js/dist/dropdown";
 import axios from 'axios';
 
-/* 지홍 작업 09.11 */
-
 
 /* 
 회원가입 form태그 
@@ -29,46 +27,95 @@ const Join = () => {
     console.log(value);
   };
 
-
-
-  // 라디오 버튼값 관리 useState
-  // const [gender, setGender] = useState("");
-  // const handleGenderChange = (e) => {
-  //   setGender(e.target.value);
-  // };
-
-  // DB에 보낼 회원정보 관리 useState
-  const [member, setMember] = useState({
-    id: '',
-    pw: '',
-    gender: '',
-    nickname: '',
-    name: '',
-    role: '',
-    skill: '',
-    profileImg: '',
-
-  });
-
-  const { id, pw, gender, name, nickname, role, skill, profileImg, } = member; // 변수를 추출하여 사용
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setMember({ ...member, [name]: value });
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [name, setName] = useState("");
+  const [checkPw, setCheckPw] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [role, setRole] = useState("");
+  const [skill, setSkill] = useState("");
+  const [gender, setGender] = useState("");
+  
+  
+  const onIdHandler = (e) => {
+    setId(e.target.value);
   };
+  const onNameHandler = (e) => {
+    setName(e.target.value);
+  };
+  const onPwHandler = (e) => {
+    setPw(e.target.value);
+  };
+  const onCheckPwHandler = (e) => {
+    setCheckPw(e.target.value);
+  };
+  const onRole =(e) =>{
+    setRole(e.target.value);
+  }
+  const onNicknameHandler =(e) =>{
+    setNickname(e.target.value);
+  }
+  
+  const onGenderHandler =(e) =>{
+    setGender(e.target.value);
+  }
+  const onSkill =(e) =>{
+    setSkill(e.target.value);
+  }
+// ****************************
+// 아이디 중복체크 + 영문숫자 조합확인
+const engNum =  /^[A-Za-z0-9]{5,}$/; // 영문-숫자 + 5글자이상으로 제한
+
+const idCheck = async(e) => {
+  e.preventDefault();
+  if(engNum.test(id)){
+    alert("올바른 양식입니다");
+  }else {
+    alert("아이디는 영문, 숫자 조합입니다");
+  }
+  const idChecking ={id:id};
+  try {
+    //  라우트로 POST 요청 보내기
+    const response = await axios.post('http://localhost:8088/member/idCheck', idChecking);
+    if (response.data.idCheckingSuccess) {
+      // 중복체크 중복: memberId를 콘솔에 출력하고 로그인 페이지로 이동
+      console.log('아이디 중복체크 성공:', response.data.idCheckingId);
+    } else {
+      // 중복체크 중복x: 서버에서 받은 메시지를 알림으로 표시
+      alert(response.data.message);
+    }
+  } catch (error) {
+    console.error('오류 발생:', error);
+  }
+}
+
 
   // ******************************************************** 
   // 회원가입 함수
+
   const joinMember = async (e) => {
     e.preventDefault();
+if (pw !== checkPw) {
+  // 비밀번호 글자수 혹은 영문 숫자 제한 추가해야함!!
+  return alert("비밀번호가 일치하지 않습니다..");
+}
+let member = {
+  id: id,
+  name: name,
+  pw: pw,
+  gender: gender,
+  nickname: nickname,
+  role: role,
+  skill: skill,
+};
     try {
       console.log('제발 들어와주라', member);
       const response = await axios.post("http://localhost:8088/member/join", member); // 경로 테스트 중...
       if (response.data.message === "회원가입이 완료되었습니다.") {
         // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
         window.location.href = '/login'
-
-
+        
+        
       } else {
         // 오류 처리
         console.error("회원가입에 실패했습니다.");
@@ -78,8 +125,6 @@ const Join = () => {
     }
 
   };
-  // ***************************************************
-
 
   return (
 
@@ -101,37 +146,36 @@ const Join = () => {
             <h2>회원가입</h2>
           </div>
 
-
           {/* 회원가입 양식 form태그 부트스트랩 양식으로 여백 조정 */}
           <form onSubmit={joinMember}>
             <div className="mb-3">
               <label className="form-label" htmlFor="id">아이디</label>
-              <input className="form-control" type="text" name="id" value={member.id} id="id" onChange={handleChange} placeholder='4~15자 이내로 입력해주세요.' />
+              <input className="form-control" type="text" name="id" value={id} id="id" onChange={onIdHandler} placeholder='4~15자 이내로 입력해주세요.' />
+              <button onClick={idCheck}>중복체크</button>
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="pw">비밀번호</label>
-              <input className="form-control" type="password" name="pw" id="pw" value={member.pw} onChange={handleChange} placeholder='비밀번호를 입력해주세요(8자리 이상)' />
+              <input className="form-control" type="password" name="pw" id="pw" value={pw} onChange={onPwHandler} placeholder='비밀번호를 입력해주세요(8자리 이상)' />
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="pw_check">비밀번호 확인</label>
-              <input className="form-control" type="text" name="pw_check" id="pw_check" placeholder='비림번호를 한번 더 입력해주세요.' />
+              <input className="form-control" type="password" name="pw_check" id="pw_check" value={checkPw} onChange={onCheckPwHandler} placeholder='비림번호를 한번 더 입력해주세요.' />
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="name">이름</label>
-              <input className="form-control" type="text" name="name" id="name" value={member.name} onChange={handleChange} placeholder='이름을 입력해주세요' />
+              <input className="form-control" type="text" name="name" id="name" value={name} onChange={onNameHandler} placeholder='이름을 입력해주세요' />
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="nickname">닉네임</label>
-              <input className="form-control" type="text" name="nickname" id="nickname" value={member.nickname} onChange={handleChange} placeholder='닉네임을 입력해주세요' />
+              <input className="form-control" type="text" name="nickname" id="nickname" value={nickname} onChange={onNicknameHandler} placeholder='닉네임을 입력해주세요' />
             </div>
-
 
             {/* 역할 */}
             <div className="mb-3">
               <div className="mb-3">
                 <h2 className={style.Join_font_box5}>포지션</h2>
               </div>
-              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}}>
+              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="role" >
                <option value="none">포지션을 선택해주세요</option>
                 <option value="back">Back-End 백앤드</option>
                 <option value="front">Front-End 프론트엔드</option>
@@ -141,14 +185,13 @@ const Join = () => {
               </select>
             </div>
 
-
             {/* 스킬 */}
             <div className="mb-3">
               <div className="mb-3">
                 <h2 className={style.Join_font_box5}>스킬</h2>
                 <h5 className={style.Join_font_box6}>*선택사항입니다</h5>
               </div>
-              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="skill">
+              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="skill" >
               <option value="none">스킬을 선택해주세요</option>
                 <option value="java">Java</option>
                 <option value="javascript">JavaScript</option>
@@ -178,7 +221,7 @@ const Join = () => {
                   id="male"
                   value="male"
                   checked={gender === "male"}
-                  onChange={handleChange}//{handleGenderChange}
+                  onChange={onGenderHandler}
                 />
               </div>
               <div className={style.Join_radio_box2}></div>
@@ -194,7 +237,7 @@ const Join = () => {
                   id="female"
                   value="female"
                   checked={gender === "female"}
-                  onChange={handleChange} //{handleGenderChange}
+                  onChange={onGenderHandler} 
                 />
               </div>
             </div>

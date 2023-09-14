@@ -29,7 +29,61 @@ router.post('/join', async (req, res) => {
       }
 })
 
-// 로그인
+router.post('/idCheck',async(req,res)=>{
+  try { 
+  // 요청된 아이디를 데이터베이스에서 찾는다.
+    const idChecking = await Member.findOne({ id: req.body.id });
+    if (!idChecking) {
+      return res.json({
+        idCheckingSuccess: false,
+        message: '사용가능한 아이디입니다.',
+      });
+    }else{
+      return res.json({
+        idCheckingfail: true,
+        message: '아이디가 중복됩니다.',
+      });
+    }
+    } catch (err) {
+      console.log(err);
+      res.json({ message: false });
+    }
+});
+
+
+//로그인(토큰화 x 버전)
+router.post('/login', async (req, res) => {
+  try {
+    // 요청된 아이디를 데이터베이스에서 찾는다.
+    const member = await Member.findOne({ id: req.body.id });
+    if (!member) {
+      return res.json({
+        loginSuccess: false,
+        message: '제공된 이메일에 해당하는 유저가 없습니다.',
+      });
+    }
+    console.log("db속 비밀번호 :",member.pw);
+    console.log("페이지 입력한 비밀번호 :",req.body.pw);
+    // 요청된 이메일이 데이터베이스에 있다면 비밀번호가 맞는지 확인.
+    if (member.pw !== req.body.pw) {
+      return res.json({
+        loginSuccess: false,
+        message: '비밀번호가 틀렸습니다.',
+      });
+    }
+
+    // 비밀번호까지 맞다면 로그인 성공
+    res.status(200).json({ loginSuccess: true, memberId: member.id });
+
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
+
+
+
+// 로그인( 토큰화 버전)
 // router.post("/login", (req, res) => {
 //   //1. 요청된 이메일이 데이터베이스에 있는 지 찾는다.
 //   Member.findOne({ id: req.body.id }, (err, member) => {

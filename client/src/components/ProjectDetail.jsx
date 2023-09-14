@@ -62,7 +62,7 @@ const ProjectDetail = () => {
 
                     <hr />
                     <div className={style.Detail_content}>
-                        <p>{projectDetail.content}</p>
+                        <p dangerouslySetInnerHTML={{__html: projectDetail.content}}></p>
                     </div>
 
 
