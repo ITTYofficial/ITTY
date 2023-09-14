@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import LeftContainer from "./LeftContainer";
 import PlayBoard from "../css/PlayBoardDetail.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const PlayBoardDetail = () => {
   const Frontend = () => (
@@ -62,6 +63,15 @@ const PlayBoardDetail = () => {
     </div>
   );
 
+  const [meat, setMeat] = useState(false);
+
+  const Dropdown = () => (
+    <div className={PlayBoard.meat_dropdown}>
+      <li>수정</li>
+      <li>삭제</li>
+    </div>
+  );
+
   return (
     <div className={PlayBoard.Main_container}>
       <LeftContainer />
@@ -113,6 +123,15 @@ const PlayBoardDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 END!!!!! */}
 
           {/* 게시글 content 시작 */}
+          <div className={PlayBoard.meatball}>
+            <ul>
+              <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+              </svg>
+              {meat && <Dropdown />}
+            </ul>
+          </div>
+
           <div className={PlayBoard.play_content}>
             <span>
               안녕하세요 데이터디자인반 김초롱입니다.
@@ -163,7 +182,7 @@ const PlayBoardDetail = () => {
           <CommantItem />
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
