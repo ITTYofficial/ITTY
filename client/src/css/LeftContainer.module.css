@@ -67,3 +67,10 @@
   background-color: #b9b9b9;
   margin: 18px auto;
 }
+
+@media (max-width:1024px) {
+  .left_container{
+    display: none;
+  }
+  
+}

@@ -106,11 +106,13 @@ const TipDetail = () => {
               <p>데이터 디자인</p>
               <h4>수업중몰래롤</h4>
             </span>
+
           </span>
 
           {/* 자유게시판 상세페이지 상단 제목부분 START */}
           <div className={style.play_wrap_top}>
             <div className={style.play_profile}>
+
               <span>
                 <span className={style.play_top_title}>
                   <Develope />
@@ -118,11 +120,16 @@ const TipDetail = () => {
                 <h4>
                   자바 별찍기 문제 꿀팁
                 </h4>
-                <span className={style.tip_comment_box}>
-                  👁‍🗨 28 💬 4
-                </span>
+               
+
               </span>
+              <span className={style.tip_comment_box}>
+                👁‍🗨 28 💬 4
+              </span>
+
             </div>
+              <hr className={style.division_line_2}>
+                </hr>
           </div>
           {/* 자유게시판 상세페이지 상단 제목부분 Finish */}
 
