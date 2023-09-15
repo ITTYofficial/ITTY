@@ -56,19 +56,20 @@ const ProjectWrite = () => {
         obj['endDate'] = endDate;
         obj['content'] = value;
         // console.log(obj);
-        if(id){
+        if (id) {
             obj['_id'] = id
         }
 
         axios.post('http://localhost:8088/project/write', obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
-                window.location.href = "/projectList"
+                console.log(res);
+                window.location.href = `/projectDetail/${res.data._id}`
             })
             .catch((err) => {
                 console.log(err);
                 alert("게시글 작성 실패")
-                window.location.href = "/projectList"
+                window.location.href = `/projectList`
             })
     }
 
@@ -101,7 +102,7 @@ const ProjectWrite = () => {
             <h2>프로젝트</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                {id? <input type="text" name='title' defaultValue={projectDetail.title}/> : <input type="text" name='title' />}
+                {id ? <input type="text" name='title' defaultValue={projectDetail.title} /> : <input type="text" name='title' />}
 
                 <p>포지션</p>
                 <button
@@ -145,11 +146,11 @@ const ProjectWrite = () => {
                 <div className={style.second_block}>
                     <div>
                         <p>프로젝트 시작일</p>
-                        {id? <DatePicker defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} />:<DatePicker selected={startDate} onChange={date => setStartDate(date)} />}
+                        {id ? <DatePicker defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker selected={startDate} onChange={date => setStartDate(date)} />}
                     </div>
                     <div>
                         <p>프로젝트 종료일</p>
-                        {id? <DatePicker defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> :<DatePicker selected={endDate} onChange={date => setEndDate(date)} /> }
+                        {id ? <DatePicker defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> : <DatePicker selected={endDate} onChange={date => setEndDate(date)} />}
                     </div>
                     <div className={style.frame_work_container}>
                         <div>
@@ -185,7 +186,7 @@ const ProjectWrite = () => {
                     </div>
                     <div>
                         <p>인원</p>
-                        {id ? <input type="text" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons}/> : <input type="text" name='persons' placeholder='인원을 입력해주세요' />}
+                        {id ? <input type="text" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input type="text" name='persons' placeholder='인원을 입력해주세요' />}
                     </div>
                     <div>
                         <p>상태</p>

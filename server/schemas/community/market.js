@@ -44,6 +44,9 @@ const marketSchema = new Schema({
     price: {
         type: Number,
         required: true
+    },
+    condition: {
+        type: Number
     }
 
     

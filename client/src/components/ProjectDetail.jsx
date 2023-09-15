@@ -30,7 +30,7 @@ const ProjectDetail = () => {
     }, []);
 
     // 수정 페이지 이동
-    const moveUpdate = ()=>{
+    const moveUpdate = () => {
         window.location.href = `/projectWrite?id=${id}`
     }
 
@@ -50,7 +50,7 @@ const ProjectDetail = () => {
                     <div className={style.Top_container}>
 
                         <div>
-                            <h4>{projectDetail.title}</h4>
+                            <h2>{projectDetail.title}</h2>
                             <p>모집기간 : 💌{projectDetail.periodStart}~{projectDetail.periodEnd}</p>
                             <p>모집인원 : {projectDetail.recruit}명</p>
                         </div>
@@ -62,14 +62,12 @@ const ProjectDetail = () => {
                         <div className={style.Profile_img}>
                             <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5ZKUupoYLVbtqmNq-SpaZxNv8n0r9X1Ga5M3CCZB6Vw&s'></img>
                         </div>
-                        {/* 수정 테스트용 버튼, 나중에 삭제 요망 */}
-                        <button onClick={moveUpdate}> 수정 </button>
                     </div>
                     <p>조회수 : {projectDetail.views}  댓글수 : 10</p>
 
                     <hr />
                     <div className={style.Detail_content}>
-                        <p dangerouslySetInnerHTML={{__html: projectDetail.content}}></p>
+                        <p dangerouslySetInnerHTML={{ __html: projectDetail.content }}></p>
                     </div>
 
 

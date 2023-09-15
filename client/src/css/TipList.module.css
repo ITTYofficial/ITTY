@@ -6,7 +6,7 @@
 
 .Main_container_banner {
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid rgb(180, 153, 153);
     height: 230px;
     margin-bottom: 16px;
 }
@@ -42,7 +42,6 @@
     color: #333333;
     font-weight: 600;
     font-size: 16px;
-
     border-radius: 10px;
     display: inline-block;
     border: 2px solid gray;
@@ -60,8 +59,10 @@
 
 
 .Main_container_3 {
+
     align-items: center;
     justify-content: center;
     display: inline-block;
     margin-left: 10%;
+
 }

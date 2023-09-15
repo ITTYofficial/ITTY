@@ -23,7 +23,7 @@ import StudyWrite from "./components/StudyWrite";
 
 import TipList from "./components/TipList";
 import TipDetail from "./components/TipDetail";
-
+import TipWrite from "./components/TipWrite";
 import StudyDetail from "./components/StudyDetail";
 import PortDetail from "./components/PortDetail";
 import PortList from "./components/PortList";
@@ -62,7 +62,7 @@ function App() {
           <Route path="/projectDetail/:id" element={<ProjectDetail />}></Route>
           <Route path="/marketList" element={<MarketList />}></Route>
           <Route path="/marketWrite" element={<MarketWrite />}></Route>
-          <Route path="/marketDetail" element={<MarketDetail />}></Route>
+          <Route path="/marketDetail/:id" element={<MarketDetail />}></Route>
           <Route path="/quillTest" element={<QuillTest />}></Route>
           <Route path="/testPage" element={<TestPage />}></Route>
           <Route path="/tipList" element={<TipList />}></Route>
@@ -71,7 +71,7 @@ function App() {
           <Route path="/join" element={<Join />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/portList" element={<PortList />}></Route>
-          
+          <Route path="/tipWrite" element={<TipWrite />}></Route>
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}
       </PlayBoardContext.Provider>

@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import LeftContainer from "./LeftContainer";
 import styles from "../css/MarketWrite.module.css";
 import QuillTest from "./QuillTest";
 import { useState } from "react";
 import { useRef } from "react";
+import { PlayBoardContext } from "../context/PlayBoardContext";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const MarketWrite = () => {
+
   const fileInputRef = useRef(null);
   const [imgFiles, setImgFiles] = useState([]);
   const imgRef = useRef();
+
+  // 특정 게시글 조회하기 위한 id값 가져오기
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get('id');
 
   const handleFakeUploadClick = () => {
     // 파일 입력 엘리먼트에서 클릭 이벤트를 트리거합니다.
@@ -42,13 +51,64 @@ const MarketWrite = () => {
     };
   };
 
+  const { value, setValue } = useContext(PlayBoardContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const obj = {};
+    formData.forEach((value, key) => {
+      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+      obj[key] = value;
+    });
+    obj['content'] = value;
+    if (id) {
+      obj['_id'] = id
+    }
+
+    axios.post('http://localhost:8088/market/write', obj)
+      .then((res) => {
+        alert("게시글이 등록되었습니다.")
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("게시글 작성 실패")
+      })
+
+  }
+
+  // 게시글정보 저장할 State
+  const [marketDetail, setmarketDetail] = useState([]);
+
+  // 수정 요청시 기존 게시글 데이터 가져올 함수
+  const getMarket = async () => {
+    if (id) {
+      // projectRouter랑 통신해서 response에 결과값 저장
+      await axios.get(`http://localhost:8088/market/marketDetail/${id}`)
+        .then((res) => {
+          console.log(res);
+          setmarketDetail(res.data.detailMarket[0]);
+          setValue(res.data.detailMarket[0].content)
+        });
+      // respnse에서 데이터 꺼내서 State에 저장
+    }
+  };
+
+  useEffect(() => {
+    getMarket();
+  }, []);
+
+  // 수정 요청시 데이터 가져오는거 까지 완료했고 이제 반영만 해주면 된다
+
   return (
     <div className={styles.Main_container}>
       <LeftContainer />
 
       <div className={styles.right_container}>
         <h2>교환 장터🛒</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* 상품명 */}
           <div>
             <h4>상품명</h4>
@@ -111,8 +171,8 @@ const MarketWrite = () => {
             <div>
               <h4>판매 상태</h4>
               <select name="market_condition">
-                <option value="ing">판매중</option>
-                <option value="end">판매완료</option>
+                <option value={0}>판매중</option>
+                <option value={1}>판매완료</option>
               </select>
             </div>
           </div>
