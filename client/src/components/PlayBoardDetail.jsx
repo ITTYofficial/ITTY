@@ -14,29 +14,42 @@ const PlayBoardDetail = () => {
 
   // 게시글정보 저장할 State
   const [playDetail, setplayDetail] = useState([]);
-  
+
   // 게시글 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것
   const getPlay = async () => {
-      // projectRouter랑 통신해서 response에 결과값 저장
-      await axios.get(`http://localhost:8088/play/playboardDetail/${id}`)
-      .then((res)=>{
+    // projectRouter랑 통신해서 response에 결과값 저장
+    await axios.get(`http://localhost:8088/play/playboardDetail/${id}`)
+      .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
         setplayDetail(res.data.detailPlay[0]);
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err);
       })
   };
-  
+
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
-      getPlay();
+    getPlay();
   }, []);
-  
+
   // 수정 페이지 이동
-  const moveUpdate = ()=>{
-      window.location.href = `/playBoardWrite?id=${id}`
+  const moveUpdate = () => {
+    window.location.href = `/playBoardWrite?id=${id}`
+  }
+
+  // 게시글 삭제
+  const deletePlay = async () => {
+    await axios.post(`http://localhost:8088/play/delete/${id}`)
+    .then((res)=>{
+      alert("삭제 완료")
+      window.location.href = '/playBoardList'
+    })
+    .catch((err)=>{
+      alert("삭제 실패")
+      console.log(err);
+    })
   }
 
   // 내부 컴포넌트
@@ -102,7 +115,7 @@ const PlayBoardDetail = () => {
   const Dropdown = () => (
     <div className={PlayBoard.meat_dropdown}>
       <li onClick={moveUpdate}>수정</li>
-      <li>삭제</li>
+      <li onClick={deletePlay}>삭제</li>
     </div>
   );
 

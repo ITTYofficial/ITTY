@@ -61,7 +61,7 @@ function App() {
           <Route path="/projectDetail/:id" element={<ProjectDetail />}></Route>
           <Route path="/marketList" element={<MarketList />}></Route>
           <Route path="/marketWrite" element={<MarketWrite />}></Route>
-          <Route path="/marketDetail" element={<MarketDetail />}></Route>
+          <Route path="/marketDetail/:id" element={<MarketDetail />}></Route>
           <Route path="/quillTest" element={<QuillTest />}></Route>
           <Route path="/testPage" element={<TestPage />}></Route>
           <Route path="/tipList" element={<TipList />}></Route>

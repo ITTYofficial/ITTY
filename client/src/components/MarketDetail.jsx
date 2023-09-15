@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -7,8 +7,37 @@ import style from "../css/MarketDetail.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const MarketDetail = () => {
+
+  // 특정 게시글 조회하기 위한 id값 가져오기
+  const { id } = useParams();
+
+  // 게시글정보 저장할 State
+  const [marketDetail, setmarketDetail] = useState([]);
+
+  // 게시글 조회함수
+  // 작성자 정보는 아직 없어서 나중에 추가할 것
+  const getMarket = async () => {
+    // projectRouter랑 통신해서 response에 결과값 저장
+    await axios.get(`http://localhost:8088/market/marketDetail/${id}`)
+      .then((res) => {
+        // respnse에서 데이터 꺼내서 State에 저장
+        console.log(res.data);
+        setmarketDetail(res.data.detailMarket[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
+
+  // 페이지 렌더링시 조회함수 실행
+  useEffect(() => {
+    getMarket();
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,

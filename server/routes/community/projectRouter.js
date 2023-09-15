@@ -28,6 +28,7 @@ router.post('/write', upload.single('img'), async (req, res) => {
   try {
 
     let obj;
+    let _id;
 
     if(req.body._id){
       // 글 수정 시
@@ -48,6 +49,7 @@ router.post('/write', upload.single('img'), async (req, res) => {
         frameWork_db: req.body.frameWork_db,
   
       };
+      _id = req.body._id
   
       await Project.updateOne(
         { _id: req.body._id },
@@ -76,9 +78,14 @@ router.post('/write', upload.single('img'), async (req, res) => {
     };
 
     const project = new Project(obj);
+    _id = project._id;
     await Project.insertMany(project);
   }
-    res.json({ message: "게시글이 업로드 되었습니다." });
+    console.log(_id);
+    res.json({ 
+      message: true,
+      _id : _id
+     });
   } catch (err) {
     console.log(err);
     res.json({ message: false });

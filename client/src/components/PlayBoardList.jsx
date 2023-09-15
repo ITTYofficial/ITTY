@@ -35,7 +35,7 @@ const PlayBoardList = () => {
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
-        <p>👁‍🗨28 💬4</p>
+        <p>👁‍🗨{props.views} 💬4</p>
       </div>
 
       <div className={PlayBoard.Main_grid_profile}>
