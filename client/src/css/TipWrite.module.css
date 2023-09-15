@@ -1,0 +1,47 @@
+.Tip_content_box1 {
+    width: 60%;
+    background-color: #ffffff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 4%;
+}
+
+.Tip_content_box2 {
+    width: 80%;
+    background-color: #ffffff;
+
+}
+
+.Tip_content_box_font {
+
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin: 7%;
+}
+
+.Tip_button_box{
+
+    margin-top: 3%;
+    text-align: right;
+}
+
+
+
+.Tip_button_container{
+
+    width: 120px;
+    height:50px;
+    border-radius: 80px;
+    margin-bottom: 3%;
+    margin-right: 5%;
+}
+
+.Tip_space_box{
+
+    display: inline-block;
+    margin-right: 3%;
+}

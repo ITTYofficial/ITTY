@@ -23,7 +23,7 @@ import StudyWrite from "./components/StudyWrite";
 
 import TipList from "./components/TipList";
 import TipDetail from "./components/TipDetail";
-
+import TipWrite from "./components/TipWrite";
 import StudyDetail from "./components/StudyDetail";
 import PortDetail from "./components/PortDetail";
 
@@ -69,6 +69,7 @@ function App() {
           <Route path="/portDetail" element={<PortDetail />}></Route>
           <Route path="/join" element={<Join />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/tipWrite" element={<TipWrite />}></Route>
 
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}
