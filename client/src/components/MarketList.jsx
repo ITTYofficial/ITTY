@@ -38,23 +38,22 @@ const MarketList = () => {
   // 각 장터 게시글 정보를 담을 내부 컴포넌트
   // 날짜 바꾸기
   const MarketItem = ({ props }) => (
-    <div className={style.Market_content}>
+    <Link
+      to={`/marketDetail/${props._id}`}
+      className={style.Market_content_item}
+    >
       <div className={style.Market_content_img}>
-        <Link to={`/marketDetail/${props._id}`}>
-          <img src={props.imgPath}></img>
-        </Link>
-        <div className={style.text1}>
-          <Link to={`/marketDetail/${props._id}`}>
-            <p>{props.title}</p>
-          </Link>
-          <p>{props.price}원</p>
-        </div>
-        <div className={style.text2}>
+        <img src={props.imgPath}></img>
+      </div>
+      <div className={style.Market_content_text}>
+        <h4>{props.title}</h4>
+        <p>{props.price} 원</p>
+        <div className={style.Market_content_text2}>
           <p>{props.createdAt}</p>
-          <p>조회수 {props.views} 댓글 2</p>
+          <p>👁‍🗨 {props.views} 💬 2</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 
   return (
@@ -65,7 +64,11 @@ const MarketList = () => {
           <h2>교환 장터🥕</h2>
           <a href="/marketWrite">작성하기</a>
         </div>
+
         <div className={style.Market_list}>
+          {marketList.map((item) => (
+            <MarketItem key={item._id} props={item} />
+          ))}
           {marketList.map((item) => (
             <MarketItem key={item._id} props={item} />
           ))}
