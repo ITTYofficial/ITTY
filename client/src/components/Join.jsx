@@ -218,18 +218,18 @@ if (idCheckResult && pwCheckResult && name && nickname&& gender) {
             <div className="mb-3">
               <label className="form-label" htmlFor="id">아이디</label>
               <input className="form-control" type="text" name="id" value={id} id="id" onChange={onIdHandler} onInput={engNumCheck} onBlur={idCheck} placeholder='5~15자 이내로 입력해주세요.' />
-              <div id="iDmessage"></div>
+              <div className={style.Join_content_test} id="iDmessage"></div>
               {/* <button onClick={idCheck}>중복체크</button> */}
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="pw">비밀번호</label>
               <input className="form-control" type="password" name="pw" id="pw" value={pw} onChange={onPwHandler} onInput={engNumPwCheck}  placeholder='비밀번호를 입력해주세요(8자리 이상)' />
-              <div id="pWmessage"></div>
+              <div className={style.Join_content_test} id="pWmessage"></div>
             </div>
-            <div className="mb-3">
+            <div  className="mb-3">
               <label className="form-label" htmlFor="pw_check">비밀번호 확인</label>
               <input className="form-control" type="password" name="pw_check" id="pw_check" value={checkPw} onChange={onCheckPwHandler} onBlur={pwCheck} placeholder='비밀번호를 한번 더 입력해주세요.' />
-              <div id="pWCheckmessage"></div>
+              <div className={style.Join_content_test} id="pWCheckmessage"></div>
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="name">이름</label>
