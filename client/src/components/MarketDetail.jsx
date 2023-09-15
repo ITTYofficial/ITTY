@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const MarketDetail = () => {
 
@@ -38,6 +38,25 @@ const MarketDetail = () => {
     getMarket();
   }, []);
 
+  // 수정 페이지 이동
+  const nav = useNavigate();
+  const moveUpdate = () => {
+    nav(`/marketWrite?id=${id}`)
+  }
+
+  // 게시글 삭제
+  const deleteMarket = async () => {
+    await axios.post(`http://localhost:8088/market/delete/${id}`)
+      .then((res) => {
+        alert("삭제 완료")
+        window.location.href = '/MarketList'
+      })
+      .catch((err) => {
+        alert("삭제 실패")
+        console.log(err);
+      })
+  }
+
   const settings = {
     dots: true,
     infinite: true,
@@ -54,13 +73,13 @@ const MarketDetail = () => {
         <div className={style.Img_slide}>
           <Slider {...settings}>
             <div>
-              <img src='https://www.ilovepc.co.kr/news/photo/202207/44037_107077_5412.jpg' alt="Slide 1" />
+              <img src={marketDetail.imgPath} alt="Slide 1" />
             </div>
             <div>
-              <img src='https://m.locknlockmall.com/data/goods/1/2021/05/68766_tmp_d41d8cd98f00b204e9800998ecf8427e8167large.jpeg' alt="Slide 2" />
+              <img src={marketDetail.imgPath} alt="Slide 2" />
             </div>
             <div>
-              <img src='https://blog.kakaocdn.net/dn/JG1wO/btrxwYJmjk8/PMA5CkoMv0HgXJq3kHS5HK/img.png' alt="Slide 3" />
+              <img src={marketDetail.imgPath} alt="Slide 3" />
             </div>
           </Slider>
         </div>
@@ -76,17 +95,17 @@ const MarketDetail = () => {
             </div>
           </div>
           <div style={{ backgroundColor: '#F0F0F0' }}>
-            <p>👁‍🗨 28 💬 4</p>
-            <p>2 일전</p>
-            <p>14,000 원</p>
+            <p>👁‍🗨 {marketDetail.views} 💬 4</p>
+            <p>{marketDetail.createdAt}</p>
+            <p>{marketDetail.price} 원</p>
           </div>
         </div>
         <hr />
         <div className={style.sub_content}>
-          <p>제목나올부분</p>
-          <p>내용나올부분</p>
+          <p>{marketDetail.title}</p>
+          <p dangerouslySetInnerHTML={{ __html: marketDetail.content }}></p>
         </div>
-
+        <button onClick={moveUpdate}>임시수정</button>
         <div className={style.division_line}>
           <div>
             <p>댓글 2</p>

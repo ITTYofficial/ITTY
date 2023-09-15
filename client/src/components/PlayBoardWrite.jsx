@@ -8,8 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 const PlayBoardWrite = () => {
 
-        // // 특정 게시글 조회하기 위한 id값 가져오기
-    // const { id } = useParams();
+    // 특정 게시글 조회하기 위한 id값 가져오기
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');

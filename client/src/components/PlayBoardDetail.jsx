@@ -4,7 +4,7 @@ import PlayBoard from "../css/PlayBoardDetail.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const PlayBoardDetail = () => {
@@ -35,8 +35,9 @@ const PlayBoardDetail = () => {
   }, []);
 
   // 수정 페이지 이동
+  const nav = useNavigate();
   const moveUpdate = () => {
-    window.location.href = `/playBoardWrite?id=${id}`
+    nav(`/playBoardWrite?id=${id}`)
   }
 
   // 게시글 삭제
