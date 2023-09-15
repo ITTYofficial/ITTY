@@ -15,10 +15,11 @@
 }
 .right_container {
   width: 80%;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   padding: 16px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 32px;
 }
 .Main_container_banner {
   width: 100%;
@@ -27,7 +28,7 @@
   margin-bottom: 16px;
 }
 .Main_grid_1 {
-  width: 90%;
+  width: 100%;
 }
 .Main_grid_1 h3 {
   background-color: #2474ff;
@@ -87,7 +88,7 @@
   border-radius: 50%;
 }
 .Main_grid_2 {
-  width: 90%;
+  width: 100%;
 }
 .Main_grid_2 h3 {
   background-color: #ffa329;

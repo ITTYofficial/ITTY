@@ -21,13 +21,13 @@ import ProjectWrite from "./components/ProjectWrite";
 import MarketWrite from "./components/MarketWrite";
 import StudyWrite from "./components/StudyWrite";
 
+import ReviewList from "./components/ReviewList";
 import TipList from "./components/TipList";
 import TipDetail from "./components/TipDetail";
 import TipWrite from "./components/TipWrite";
 import StudyDetail from "./components/StudyDetail";
 import PortDetail from "./components/PortDetail";
 import PortList from "./components/PortList";
-
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -72,6 +72,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/portList" element={<PortList />}></Route>
           <Route path="/tipWrite" element={<TipWrite />}></Route>
+          <Route path="/reviewList" element={<ReviewList />}></Route>
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}
       </PlayBoardContext.Provider>

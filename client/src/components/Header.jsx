@@ -4,27 +4,26 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   /* 세션스토리지에서 id값을 불러옴 */
- 
-  const [loginOk,setLoginOk] = useState(false);
+
+  const [loginOk, setLoginOk] = useState(false);
   const [hoverStates, setHoverStates] = useState({
     cate: false,
     share: false,
     job: false,
   });
 
-useEffect(()=>{
+  useEffect(() => {
+    const id = sessionStorage.getItem("memberId");
+    if (id) {
+      setLoginOk(true);
+    }
+  }, []);
 
-  const id =sessionStorage.getItem("memberId");
-  if(id){
-    setLoginOk(true);
-  }
-},[])
-
-const goLogout = () =>{
-  sessionStorage.removeItem("memberId");
-  console.log(sessionStorage.getItem("memberId"));
-  setLoginOk(false)
-}
+  const goLogout = () => {
+    sessionStorage.removeItem("memberId");
+    console.log(sessionStorage.getItem("memberId"));
+    setLoginOk(false);
+  };
 
   let cateHoverTimer;
 
@@ -70,16 +69,16 @@ const goLogout = () =>{
               onMouseLeave={() => handleHoverOut_im("cate")}
             >
               <li>
-                <a href="/studyList">스터디 구해요🐣</a>
+                <Link to={"/studyList"}>스터디 구해요🐣</Link>
               </li>
               <li>
-                <a href="/projectList">프로젝트 같이해요🛵</a>
+                <Link to={"/projectList"}>프로젝트 같이해요🛵</Link>
               </li>
               <li>
-                <a href="/MarketList">교환 장터🥕</a>
+                <Link to={"/MarketList"}>교환 장터🥕</Link>
               </li>
               <li>
-                <a href="/playboardList">자유게시판⚽</a>
+                <Link to={"/playboardList"}>자유게시판⚽</Link>
               </li>
             </ul>
           </li>
@@ -99,10 +98,10 @@ const goLogout = () =>{
               onMouseLeave={() => handleHoverOut("share")}
             >
               <li>
-                <a href="/tipList">Development Tip🧷</a>
+                <Link to={"/tipList"}>Development Tip🧷</Link>
               </li>
               <li>
-                <a href="#">Knowledge Drop⛅</a>
+                <Link to={"#"}>Knowledge Drop⛅</Link>
               </li>
             </ul>
           </li>
@@ -118,12 +117,10 @@ const goLogout = () =>{
               onMouseLeave={() => handleHoverOut("job")}
             >
               <li>
-                <Link to={'/portDetail'}>
-                포트폴리오🔍
-                </Link>
+                <Link to={"/portDetail"}>포트폴리오🔍</Link>
               </li>
               <li>
-                <a href="#">수료생 후기👨‍🎓</a>
+                <Link to={"/reviewList"}>수료생 후기👨‍🎓</Link>
               </li>
             </ul>
           </li>
@@ -133,19 +130,18 @@ const goLogout = () =>{
       <div className={Nav.Member}>
         <ul>
           <li>
-            {loginOk?(
+            {loginOk ? (
               <button onClick={goLogout}>로그아웃</button>
-              ) :(
+            ) : (
               <Link to={"/login"}>로그인</Link>
-            ) }
+            )}
           </li>
           <li>
-            {loginOk?(
+            {loginOk ? (
               <Link to={"/mypage"}>마이페이지</Link>
-              ):(
-                <Link to={"/join"}>회원가입</Link>
-              )
-            }
+            ) : (
+              <Link to={"/join"}>회원가입</Link>
+            )}
           </li>
         </ul>
         <button className={Nav.Member_mobile}>&#128100;</button>
