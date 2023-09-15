@@ -136,4 +136,5 @@ table {
 @font-face {
   font-family: "suit";
   src: url("../../public/fonts/SUIT-Medium.ttf");
+  src: url("../../public/fonts/SUIT-Regular.ttf");
 }

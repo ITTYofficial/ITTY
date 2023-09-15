@@ -9,7 +9,6 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const MarketWrite = () => {
-
   const fileInputRef = useRef(null);
   const [imgFiles, setImgFiles] = useState([]);
   const imgRef = useRef();
@@ -17,39 +16,41 @@ const MarketWrite = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get('id');
+  const id = searchParams.get("id");
 
   const handleFakeUploadClick = () => {
     // 파일 입력 엘리먼트에서 클릭 이벤트를 트리거합니다.
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+    if (imgRef.current) {
+      imgRef.current.click();
       console.log("Click check");
     }
   };
 
-  /*   const saveImgFile = (fileBlob) => {
-      // let file = e.target.files[0];
-  
-      const reader = new FileReader();
-      reader.readAsDataURL(fileBlob);
-      return new Promise((resolve) => {
-        reader.onload = () => {
-          setImgFile(reader.result);
-          console.log("확인 ", imgFile);
-          resolve();
-        };
-      });
-    }; */
-
   // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
-    const file = imgRef.current.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImgFiles([...imgFiles, reader.result]); // 새 이미지를 배열에 추가
-    };
+    let file = imgRef.current.files[0];
+    if (
+      file.type !== "image/jpg" &&
+      file.type !== "image/jpeg" &&
+      file.type !== "image/png"
+    ) {
+      alert("jpg, jpeg, png 이미지 파일만 업로드가 가능합니다.");
+      file = null;
+    } else {
+      console.log(file.type);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        if (imgFiles.length >= 3) {
+          alert("최대 3개의 이미지 등록이 가능합니다.");
+          console.log(imgFiles); // 3개 이상 등록시 alert 메세지
+        } else {
+          setImgFiles([...imgFiles, reader.result]); // 새 이미지를 배열에 추가
+        }
+      };
+    }
   };
+  //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
   const { value, setValue } = useContext(PlayBoardContext);
 
@@ -62,22 +63,22 @@ const MarketWrite = () => {
       console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
-    obj['content'] = value;
+    obj["content"] = value;
     if (id) {
-      obj['_id'] = id
+      obj["_id"] = id;
     }
 
-    axios.post('http://localhost:8088/market/write', obj)
+    axios
+      .post("http://localhost:8088/market/write", obj)
       .then((res) => {
-        alert("게시글이 등록되었습니다.")
+        alert("게시글이 등록되었습니다.");
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
-        alert("게시글 작성 실패")
-      })
-
-  }
+        alert("게시글 작성 실패");
+      });
+  };
 
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);
@@ -86,11 +87,12 @@ const MarketWrite = () => {
   const getMarket = async () => {
     if (id) {
       // projectRouter랑 통신해서 response에 결과값 저장
-      await axios.get(`http://localhost:8088/market/marketDetail/${id}`)
+      await axios
+        .get(`http://localhost:8088/market/marketDetail/${id}`)
         .then((res) => {
           console.log(res);
           setmarketDetail(res.data.detailMarket[0]);
-          setValue(res.data.detailMarket[0].content)
+          setValue(res.data.detailMarket[0].content);
         });
       // respnse에서 데이터 꺼내서 State에 저장
     }
@@ -110,7 +112,7 @@ const MarketWrite = () => {
         <h2>교환 장터🛒</h2>
         <form onSubmit={handleSubmit}>
           {/* 상품명 */}
-          <div>
+          <div className={styles.market_title}>
             <h4>상품명</h4>
             <input
               type="text"
@@ -123,40 +125,31 @@ const MarketWrite = () => {
           <div className={styles.market_pic}>
             <h4>상품 이미지</h4>
             <div className={styles.input_pic}>
+              <div
+                className={styles.fake_upload}
+                onClick={handleFakeUploadClick}
+              >
+                <img
+                  src="./img/upload.png"
+                  alt="upload"
+                  className={styles.upload_icon}
+                />
+              </div>
               <input
                 type="file"
                 className={styles.real_upload}
                 accept="image/*"
                 required
                 multiple
-                ref={fileInputRef}
-                onChange={(e) => {
-                  saveImgFile(e.target.files[0]);
-                }}
+                onChange={saveImgFile}
+                ref={imgRef}
               />
-              <div
-                className={styles.fake_upload}
-                onClick={handleFakeUploadClick}
-                style={{ backgroundImage: `${imgFiles}` }}
-              ></div>
+
+              {imgFiles.map((img, index) => (
+                <img key={index} src={img} alt={`이미지 ${index}`} />
+              ))}
             </div>
             <p>상품의 이미지는 1:1 비율로 보여집니다.</p>
-          </div>
-
-          <div lassName={styles.market_pic}>
-            <input
-              type="file"
-              accept="image/*"
-              id="profileImg"
-              onChange={saveImgFile}
-              ref={imgRef}
-            />
-
-            {imgFiles.map((img, index) => (
-              <img key={index} src={img} alt={`이미지 ${index}`} />
-            ))}
-
-
           </div>
 
           <div className={styles.market_sale}>
