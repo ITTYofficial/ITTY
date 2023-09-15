@@ -1,5 +1,8 @@
 /* join.jsx + login.jsx 함께 관리 */
-
+.Join_content_test{
+    font-size: 15px;
+    margin-top: 3%;
+}
 
 .Join_content_box1 {
     width: 30%;

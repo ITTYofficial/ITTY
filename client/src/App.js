@@ -28,6 +28,7 @@ import TipWrite from "./components/TipWrite";
 import StudyDetail from "./components/StudyDetail";
 import PortDetail from "./components/PortDetail";
 import PortList from "./components/PortList";
+import ReviewDetail from "./components/ReviewDetail";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -73,6 +74,7 @@ function App() {
           <Route path="/portList" element={<PortList />}></Route>
           <Route path="/tipWrite" element={<TipWrite />}></Route>
           <Route path="/reviewList" element={<ReviewList />}></Route>
+          <Route path="/reviewDetail" element={<ReviewDetail />}></Route>
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}
       </PlayBoardContext.Provider>
