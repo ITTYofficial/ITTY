@@ -4,11 +4,14 @@ import style from "../css/TipDetail.module.css"
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import styles from "../css/Community.module.css";
 import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
+/* css는 project etail css 내용만 가져와서 추가해서 사용 중~ */
+
 const TipDetail = () => {
+  /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
   const Develope = () => (
     <span className={`${style.play_title} ${style.develope}`}>
       개발🔨
@@ -38,6 +41,7 @@ const TipDetail = () => {
           />
         </span>
         <span>
+          {/* 댓글 프로필 */}
           <p>빅데이터분석</p>
           <h4>수업시간에롤</h4>
         </span>
@@ -45,12 +49,11 @@ const TipDetail = () => {
       {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
       <div>
         <p>
-          데이터디자인반 프론트엔드 희망하는 26살입니다.
+          정말 꿀팁이라고 생각합니다.
           <br />
-          같이하면 재밋게 열심히 잘 할수 있을것같아요. 연락처는 쪽지로
-          보내드렸습니다.
+          정말 큰 도움이 되었다고 생각합니다
           <br />
-          확인하시고 연락부탁드려요~!
+          tip 게시판을 이래서 사용하나봐요
         </p>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
@@ -61,12 +64,34 @@ const TipDetail = () => {
     </div>
   );
 
+  /* 미트볼 수정삭제 수환이가 만든거 가져옴 */
+  const [meat, setMeat] = useState(false);
+
+  const Dropdown = () => (
+    <div className={style.meat_dropdown}>
+      <li onClick={moveUpdate}>수정</li>
+      <li onClick={deleteTip}>삭제</li>
+    </div>
+  );
+
+
+  // 수정 페이지 이동
+  const moveUpdate = () => {
+  }
+
+  // 게시글 삭제
+  const deleteTip = async () => {
+
+  }
+
+
   return (
+
     <div className={style.Main_container}>
       <LeftContainer />
       <div className={style.right_container}>
         <div className={style.tip_font}>
-        <p>Tip 💡</p>
+          <p>Tip 💡</p>
         </div>
         <div className={style.division_line}>
         </div>
@@ -76,14 +101,16 @@ const TipDetail = () => {
             <span className={style.profile_pic}>
               <img src="#" />
             </span>
+            {/* 글 작성 프로필 */}
             <span className={style.profile_text}>
               <p>데이터 디자인</p>
               <h4>수업중몰래롤</h4>
             </span>
-          </span>
-          {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
-          <div className={style.play_wrap_top}>
 
+          </span>
+
+          {/* 자유게시판 상세페이지 상단 제목부분 START */}
+          <div className={style.play_wrap_top}>
             <div className={style.play_profile}>
 
               <span>
@@ -93,47 +120,58 @@ const TipDetail = () => {
                 <h4>
                   자바 별찍기 문제 꿀팁
                 </h4>
-                <div>
-                  <span className={style.tip_comment_box}>
-                    <p>👁‍🗨 28 💬 4</p>
-                  </span>
-                </div>
+               
+
+              </span>
+              <span className={style.tip_comment_box}>
+                👁‍🗨 28 💬 4
               </span>
 
-
-
-
             </div>
+              <hr className={style.division_line_2}>
+                </hr>
           </div>
-          {/* 자유게시판 상세페이지 상단 제목부분 END!!!!! */}
+          {/* 자유게시판 상세페이지 상단 제목부분 Finish */}
+
+
 
           {/* 게시글 content 시작 */}
           <div className={style.play_content}>
+            <div className={style.meatball}>
+              <ul>
+                <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                </svg>
+                {meat && <Dropdown />}
+              </ul>
+            </div>
+
             <span>
-              안녕하세요 데이터디자인반 김초롱입니다.
+              꿀팁 하나 알려드릴까요
               <br />
               <br />
-              이번 공공기관 프로젝트 함께할 사람을 찾고 있는데
+              for문 별찍기 다들 어려워하시잖아요
               <br />
               <br />
-              혹시 생각 있으시면
+              그거 이중포문쓰면 헷갈리잖아요
               <br />
               <br />
-              댓글 달아주시면 감사하겠습니다.
+              그때 꿀팁입니다
               <br />
               <br />
-              현재 프론트 1명만 구한 상황이구요
+              유튜브 검색하시면
               <br />
               <br />
-              백/프론트/DB 쪽 담당해줄 사람을 찾고있습니다.
+              유용한정보 진짜 많아요 ㅋ
               <br />
               <br />
-              같이 배우면서 하는거니까 부담갖지말고 편하게 연락주세요.
+              서칭해서 별찍기문제 이해해보세용
               <br />
               <br />
             </span>
           </div>
           {/* 게시글 content 끝 */}
+
 
           {/* 댓글달기 시작 */}
           <div className={style.division_line_commant}>
@@ -153,7 +191,6 @@ const TipDetail = () => {
           </div>
           {/* 댓글달기 끝 */}
 
-          <CommentItem />
           <CommentItem />
           <CommentItem />
         </div>

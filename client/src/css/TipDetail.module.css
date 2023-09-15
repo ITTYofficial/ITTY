@@ -1,9 +1,29 @@
+/* playdetail에서 css가져옴 */
+
+.tip_comment_box {
+
+  display: inline-block;
+
+}
+
+.tip_font {
+
+  font-size: 21px;
+  font-weight: bold;
+  margin-left: 1%;
+  color: #999999;
+
+}
+
+/* ============================================================ */
+
 .clearfix::before,
 .clearfix::after {
   display: block;
   content: "";
   clear: both;
 }
+
 .Main_container {
   max-width: 1320px;
   margin: 0 auto;
@@ -14,7 +34,9 @@
 .right_container {
   width: 80%;
   padding: 16px;
+  margin-top: 4%;
 }
+
 .right_container h2 {
   font-size: 2rem;
   font-weight: bold;
@@ -27,7 +49,9 @@
   display: flex;
   margin: 20px 0;
 }
-.division_line > div {
+
+
+.division_line>div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -35,6 +59,7 @@
   z-index: 9;
   padding: 0 4px;
 }
+
 .division_line::after {
   content: "";
   display: block;
@@ -43,27 +68,37 @@
   background-color: #999999;
   height: 0.5px;
 }
+
 .division_line div a {
   color: #999999;
   text-decoration: none;
   font-size: 14px;
 }
 
+
+.division_line_2 {
+  width: 100%;
+  
+}
+
 /* 상단 구분선 끝 */
 .play_wrap_content {
   padding: 4px 16px;
 }
+
 .play_wrap_top::after {
   content: "";
-  display: block;
+  display: inline;
   height: 2px;
   width: 100%;
   margin: 16px auto;
   background-color: #eeeeee;
 }
+
 .play_top_title {
   margin: 16px 0;
 }
+
 .play_title {
   padding: 5px 8px;
   font-weight: bold;
@@ -73,43 +108,35 @@
   cursor: pointer;
   box-shadow: 1px 1px 2px rgb(144, 144, 144);
 }
+
 .develope {
   background-color: rgb(192, 255, 199);
   color: rgb(0, 93, 48);
 }
+
 .study {
   background-color: rgb(194, 194, 255);
   color: rgb(55, 0, 123);
 }
+
 .job {
   background-color: rgb(255, 201, 201);
   color: #ca1384;
 }
+
 .life {
   background-color: rgb(163, 249, 255);
   color: rgb(2, 119, 140);
 }
 
-/* playdetail에서 css가져옴 */
 
-.tip_comment_box{
-  
-}
-
-.tip_font{
-
-  font-size: 21px;
-  font-weight: bold;
-  margin-left: 1%;
-  color: #999999;
-
-}
 .play_profile {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: px 0;
 }
+
 .play_profile2 {
   display: inline-block;
   justify-content: space-between;
@@ -117,61 +144,70 @@
   margin: 16px 0;
 }
 
-.play_profile > span > h4 {
+.play_profile>span>h4 {
   font-size: 20px;
   font-weight: bold;
   margin: 8px 0;
   display: inline-block
-
 }
-.play_profile > span > p {
+
+.play_profile>span>p {
   font-size: 14px;
   font-weight: bold;
   margin: 8px 0;
   color: #999999;
 
 }
+
 .play_detail_profile {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
 }
+
 .profile_text {
   margin-right: 8px;
 }
-.profile_text > p {
+
+.profile_text>p {
   font-size: 12px;
   margin-bottom: 4px;
   text-align: left;
   color: #999999;
 }
-.profile_text > h4 {
+
+.profile_text>h4 {
   font-size: 16px;
   font-weight: bold;
   text-align: right;
 }
+
 .profile_pic {
-  width:  40px;
+  width: 40px;
   height: 40px;
   background-color: #4f8fff;
   border-radius: 50%;
   margin-right: 5px;
 }
-.play_profile > div > span:nth-child(2) p {
+
+.play_profile>div>span:nth-child(2) p {
   font-size: 14px;
   font-weight: bold;
   text-align: right;
   color: #999999;
 }
+
 /* profile 끝~! */
 .play_content {
   padding: 16px;
 }
+
 /* 댓글 시작 */
 .division_line_commant {
   position: relative;
 }
-.division_line_commant > div {
+
+.division_line_commant>div {
   position: relative;
   background-color: white;
   color: #999999;
@@ -179,6 +215,7 @@
   z-index: 9;
   padding: 0 8px;
 }
+
 .division_line_commant::after {
   content: "";
   display: block;
@@ -187,28 +224,33 @@
   background-color: #eeeeee;
   height: 0.5px;
 }
+
 .division_line_commant div h4 {
   color: #333333;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
 }
+
 /* 댓글 끝 */
 .commant_write {
   margin: 32px 0 5rem 0;
 }
+
 .commant_write div {
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin-bottom: 12px;
 }
-.commant_write > div > div {
+
+.commant_write>div>div {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   background-color: #999999;
 }
+
 .commant_write textarea {
   width: 90%;
   height: 100px;
@@ -221,6 +263,7 @@
   /* box-shadow: 2px 2px 8px #cdcdcd; */
   line-height: 1.5rem;
 }
+
 .play_wrap_content button {
   text-decoration: none;
   float: right;
@@ -234,6 +277,7 @@
   padding: 12px 20px;
   margin-right: 16px;
 }
+
 .play_wrap_content button:hover {
   background-color: #2474ff;
 }
@@ -244,7 +288,7 @@
   border-radius: 10px;
   padding: 16px;
   background-color: #f0f9ff;
-  box-shadow: 2px 2px 8px #cdcdcd;
+  box-shadow: 1px 1px 4px #cacaca;
   line-height: 1.5rem;
   margin-top: 2rem;
 
@@ -257,35 +301,64 @@
   align-items: center;
   margin-bottom: 8px;
 }
+
 .play_commant_profile span:first-child {
   width: 50px;
   height: 50px;
   margin-right: 8px;
 }
+
 .play_commant_profile span img {
   width: 100%;
   height: 100%;
 }
+
 .play_commant_profile span:last-child p {
   font-size: 12px;
   margin-bottom: 4px;
   color: #999999;
   line-height: 12px;
 }
+
 .play_commant_profile span:last-child h4 {
   font-size: 20px;
   font-weight: bold;
 }
+
 .commant_list div:nth-child(2) {
   padding: 8px 16px;
   line-height: 1.3rem;
-  font-size: 14px;
+  font-size: 16px;
 }
-.commant_list div:nth-child(3) > p {
+
+.commant_list div:nth-child(3)>p {
   font-size: 14px;
-  font-weight: bold;
   color: #999999;
   position: absolute;
   top: 12px;
   right: 16px;
+}
+
+
+.meatball {
+  text-align: end;
+}
+
+.meatball>ul {
+  position: relative;
+}
+
+.meat_dropdown {
+  font-size: 14px;
+  position: absolute;
+  right: 0;
+  box-shadow: 1px 1px 8px gray;
+  padding: 4px 8px;
+  width: 100px;
+  text-align: left;
+  border-radius: 8px;
+}
+
+.meat_dropdown li {
+  margin: 8px;
 }
