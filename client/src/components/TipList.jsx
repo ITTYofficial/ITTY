@@ -15,9 +15,6 @@ const TipList = () => {
 
     }, []);
 
-
-
-
     return (
         <div className={styles.Main_container}>
         <LeftContainer />

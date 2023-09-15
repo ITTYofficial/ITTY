@@ -1,3 +1,21 @@
+
+/* playdetail에서 css가져옴 */
+
+.tip_comment_box{
+
+  display:inline-block;
+}
+
+.tip_font{
+
+  font-size: 21px;
+  font-weight: bold;
+  margin-left: 1%;
+  color: #999999;
+
+}
+/* ============================================================ */
+
 .clearfix::before,
 .clearfix::after {
   display: block;
@@ -14,6 +32,7 @@
 .right_container {
   width: 80%;
   padding: 16px;
+  margin-top: 4%;
 }
 .right_container h2 {
   font-size: 2rem;
@@ -55,7 +74,7 @@
 }
 .play_wrap_top::after {
   content: "";
-  display: block;
+  display: inline;
   height: 2px;
   width: 100%;
   margin: 16px auto;
@@ -90,20 +109,7 @@
   color: rgb(2, 119, 140);
 }
 
-/* playdetail에서 css가져옴 */
 
-.tip_comment_box{
-  
-}
-
-.tip_font{
-
-  font-size: 21px;
-  font-weight: bold;
-  margin-left: 1%;
-  color: #999999;
-
-}
 .play_profile {
   display: flex;
   justify-content: space-between;
@@ -244,7 +250,7 @@
   border-radius: 10px;
   padding: 16px;
   background-color: #f0f9ff;
-  box-shadow: 2px 2px 8px #cdcdcd;
+  box-shadow: 1px 1px 4px #cacaca;
   line-height: 1.5rem;
   margin-top: 2rem;
 
@@ -279,13 +285,36 @@
 .commant_list div:nth-child(2) {
   padding: 8px 16px;
   line-height: 1.3rem;
-  font-size: 14px;
+  font-size: 16px;
 }
 .commant_list div:nth-child(3) > p {
   font-size: 14px;
-  font-weight: bold;
   color: #999999;
   position: absolute;
   top: 12px;
   right: 16px;
+}
+
+
+.meatball {
+  text-align: end;
+}
+
+.meatball>ul {
+  position: relative;
+}
+
+.meat_dropdown {
+  font-size: 14px;
+  position: absolute;
+  right: 0;
+  box-shadow: 1px 1px 8px gray;
+  padding: 4px 8px;
+  width: 100px;
+  text-align: left;
+  border-radius: 8px;
+}
+
+.meat_dropdown li {
+  margin: 8px;
 }
