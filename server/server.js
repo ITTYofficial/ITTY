@@ -19,7 +19,8 @@ app.use("/project", require("./routes/community/projectRouter"));
 app.use("/market", require("./routes/community/marketRouter"));
 app.use("/play", require("./routes/community/playRouter"));
 app.use("/comment", require("./routes/community/commentRouter"));
-app.use("/member", require("./routes/member/memberRouter"))
+app.use("/member", require("./routes/member/memberRouter"));
+app.use("/save", require("./routes/community/imgUpload"));
 
 
 app.listen(8088, () => {

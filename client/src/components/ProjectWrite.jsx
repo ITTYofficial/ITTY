@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import QuillTest from './QuillTest';
 import axios from 'axios';
 import { PlayBoardContext } from '../context/PlayBoardContext';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 

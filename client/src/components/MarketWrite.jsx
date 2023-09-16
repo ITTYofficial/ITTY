@@ -40,12 +40,31 @@ const MarketWrite = () => {
       console.log(file.type);
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         if (imgFiles.length >= 3) {
           alert("최대 3개의 이미지 등록이 가능합니다.");
           console.log(imgFiles); // 3개 이상 등록시 alert 메세지
         } else {
           setImgFiles([...imgFiles, reader.result]); // 새 이미지를 배열에 추가
+          // input에 변화가 생긴다면 = 이미지를 선택
+          // const file2 = imgRef.files[0];
+          // multer에 맞는 형식으로 데이터 만들어준다.
+          const formData = new FormData();
+          formData.append("img", reader.result); // formData는 키-밸류 구조
+          // 백엔드 multer라우터에 이미지를 보낸다.
+          await axios.post(
+            "http://localhost:8088/save/marketsave",
+            formData
+          )
+            .then((res) => {
+              console.log("뭐야");
+            })
+            .catch((err) => {
+              console.log("실패했어요ㅠ");
+              console.log(err);
+
+            })
+
         }
       };
     }
@@ -67,7 +86,8 @@ const MarketWrite = () => {
     if (id) {
       obj["_id"] = id;
     }
-
+    console.log(imgFiles);
+    console.log(obj);
     axios
       .post("http://localhost:8088/market/write", obj)
       .then((res) => {

@@ -12,11 +12,6 @@ Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
 const QuillTest = ({ update }) => {
-  // // 특정 게시글 조회하기 위한 id값 가져오기
-  // const { id } = useParams();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get("id");
 
   const quillRef = useRef(null); // useRef로 ref 생성
 
@@ -35,15 +30,17 @@ const QuillTest = ({ update }) => {
     input.addEventListener("change", async () => {
       console.log("온체인지");
       console.log(input);
+      console.log(input.files);
       const file = input.files[0];
       // multer에 맞는 형식으로 데이터 만들어준다.
       const formData = new FormData();
+      console.log("file: ",file);
       formData.append("img", file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 이미지를 보낸다.
       console.log("테스트", formData);
       try {
         const result = await axios.post(
-          "http://localhost:8088/play/save",
+          "http://localhost:8088/save/save",
           formData
         );
         console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
@@ -69,7 +66,7 @@ const QuillTest = ({ update }) => {
 
     try {
       const result = await axios.post(
-        "http://localhost:8088/play/save",
+        "http://localhost:8088/save/save",
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
