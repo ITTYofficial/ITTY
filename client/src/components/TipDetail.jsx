@@ -14,7 +14,7 @@ const TipDetail = () => {
   /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
   const Develope = () => (
     <span className={`${style.play_title} ${style.develope}`}>
-      개발🔨
+      개발 🙋🏻‍♀️
     </span>
   );
   const Study = () => (
@@ -120,16 +120,18 @@ const TipDetail = () => {
                 <h4>
                   자바 별찍기 문제 꿀팁
                 </h4>
-               
-
               </span>
-              <span className={style.tip_comment_box}>
-                👁‍🗨 28 💬 4
+
+              <span>
+                <div className={style.tip_time_box}>1시간 전</div>
+                <span className={style.tip_comment_box}>
+                  👁‍🗨 28 💬 4
+                </span>
               </span>
 
             </div>
-              <hr className={style.division_line_2}>
-                </hr>
+            <hr className={style.division_line_2}>
+            </hr>
           </div>
           {/* 자유게시판 상세페이지 상단 제목부분 Finish */}
 

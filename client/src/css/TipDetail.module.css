@@ -12,7 +12,18 @@
   font-weight: bold;
   margin-left: 1%;
   color: #999999;
+}
 
+.tip_time_box {
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #999999;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.tip_space_box {
+  display: inline-block;
 }
 
 /* ============================================================ */
@@ -75,12 +86,6 @@
   font-size: 14px;
 }
 
-
-.division_line_2 {
-  width: 100%;
-  
-}
-
 /* 상단 구분선 끝 */
 .play_wrap_content {
   padding: 4px 16px;
@@ -110,8 +115,8 @@
 }
 
 .develope {
-  background-color: rgb(192, 255, 199);
-  color: rgb(0, 93, 48);
+  background-color: rgb(224, 255, 166);
+  color: rgb(0, 86, 44);
 }
 
 .study {
@@ -128,6 +133,7 @@
   background-color: rgb(163, 249, 255);
   color: rgb(2, 119, 140);
 }
+
 
 
 .play_profile {
@@ -148,7 +154,9 @@
   font-size: 20px;
   font-weight: bold;
   margin: 8px 0;
-  display: inline-block
+  display: inline-block;
+  vertical-align: middle;
+
 }
 
 .play_profile>span>p {
@@ -319,6 +327,9 @@
   color: #999999;
   line-height: 12px;
 }
+
+
+
 
 .play_commant_profile span:last-child h4 {
   font-size: 20px;
