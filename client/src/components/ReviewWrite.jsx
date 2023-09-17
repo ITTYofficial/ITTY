@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import LeftContainer from './LeftContainer'
 import styles from '../css/ReviewWrite.module.css'
 import QuillTest from './QuillTest';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ReviewWrite = () => {
 
@@ -35,7 +36,7 @@ const ReviewWrite = () => {
             <h2>수료생 후기🧑‍🎓</h2>
             <form>
                 <p>제목</p>
-                <input type='text' placeholder='제목을 입력해주세요'></input>
+                <input className="form-control" type="text"placeholder='제목을 입력해주세요' />
                 <p>만족도</p>
                 <div className={styles.review_star}>
                 <span className={styles.star}>
