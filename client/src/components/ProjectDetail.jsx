@@ -1,13 +1,70 @@
 import React, { useEffect, useState } from 'react'
 import LeftContainer from './LeftContainer'
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import style from "../css/ProjectDetail.module.css";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import Image from 'react-bootstrap/Image';
 
 
 const ProjectDetail = () => {
+
+    /* 키워드 컴포넌트 */
+    const Type = () => (
+        <span className={`${style.play_title} ${style.type}`}>
+            프로젝트🖥️
+        </span>
+    );
+    const Purpose = () => (
+        <span className={`${style.play_title} ${style.purpose}`}>
+            스터디✍️
+        </span>
+    );
+    const Deadline = () => (
+        <span className={`${style.play_title} ${style.deadline}`}>
+            마감❌
+        </span>
+    );
+    /* 키워드 컴포넌트 */
+
+    /* 댓글 컴포넌트 */
+    const CommentItem = () => (
+        <div className={style.comment_list}>
+            <div className={style.play_comment_profile}>
+                <span>
+                    <Image
+                        src="https://i.pinimg.com/736x/24/d2/97/24d2974e5cd0468587422e38c8aab210.jpg"
+                        roundedCircle
+                    />
+                </span>
+                <span>
+                    <p>빅데이터분석</p>
+                    <h4>수업시간에롤</h4>
+                </span>
+            </div>
+            {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
+            <div>
+                <p>
+                    데이터디자인반 프론트엔드 희망하는 26살입니다.
+                    <br />
+                    같이하면 재밋게 열심히 잘 할수 있을것같아요. 연락처는 쪽지로
+                    보내드렸습니다.
+                    <br />
+                    확인하시고 연락부탁드려요~!
+                </p>
+            </div>
+            {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
+
+            <div>
+                <p>3시간 전</p>
+            </div>
+        </div>
+    );
+    /* 댓글 컴포넌트 */
+
+
+
+
 
     // 특정 게시글 조회하기 위한 id값 가져오기
     const { id } = useParams();
@@ -40,15 +97,19 @@ const ProjectDetail = () => {
             <LeftContainer />
             {/* 아래 쪽에 projectDetail에서 꺼내쓰는 부분은 위 State에서 꺼내는 부분입니당 */}
             <div className={style.right_container}>
-                <h2>조회페이지</h2>
-                <div>
-                    <div className={style.Button_margin}>
-                        <Button variant="success">프로젝트</Button>
-                        <Button variant="success">스터디</Button>
-                        <Button variant="primary">모집중</Button>
+                <div className={style.division_line}>
+                    <div className={style.division_top_line}>
+                        <Link>Community🌐</Link>
+                        <Link to={'/projectList'}>프로젝트 같이해요🛵</Link>
                     </div>
+                </div>
+                <div className={style.keyworld_buttons}>
+                    <Type />
+                    <Purpose />
+                    <Deadline />
+                </div>
+                <div>
                     <div className={style.Top_container}>
-
                         <div>
                             <h2>{projectDetail.title}</h2>
                             <p>모집기간 : 💌{projectDetail.periodStart}~{projectDetail.periodEnd}</p>
@@ -60,7 +121,7 @@ const ProjectDetail = () => {
                             <p>수업중몰래롤</p>
                         </div>
                         <div className={style.Profile_img}>
-                            <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5ZKUupoYLVbtqmNq-SpaZxNv8n0r9X1Ga5M3CCZB6Vw&s'></img>
+                            <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
                         </div>
                     </div>
                     <p>조회수 : {projectDetail.views}  댓글수 : 10</p>
@@ -71,52 +132,26 @@ const ProjectDetail = () => {
                     </div>
 
 
-                    <hr />
-                    <span>댓글 2개</span>
-                    <div className={style.Comment_flex}>
-                        <div className={style.Profile_img_comment}>
-                            <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEJWYPn7R2QRCgdY9qvfJWZhyggOTcSF5bcA&usqp=CAU'></img>
-                        </div>
-                        <div className={style.Comment_write}>
-                            <p>댓글 작성부분</p>
+                    <div className={style.division_line}>
+                        <div>
+                            <p>댓글 3</p>
                         </div>
                     </div>
-                    <div className={style.Comment_write_button}>
-                        <Button variant="primary">작성하기</Button>
-                    </div>
-                    <hr />
-                    {/* 댓글 반복 시작 */}
-                    <div className={style.Detail_comment}>
-                        <div className={style.Comment_flex}>
-                            <div className={style.Profile_img_comment}>
-                                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6k4KSEWGAq157LW3wCKU2DJmvoQyrfRfcA&usqp=CAU'></img>
-                            </div>
+                    <div className={style.comment_write}>
+                        <div>
                             <div>
-                                <p>빅데이터분석반</p>
-                                <p>언제취뽀</p>
-                                <p>2시간 전</p>
+                                <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
                             </div>
+                            <textarea placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
                         </div>
-                        <div className={style.Detail_comment_content}>
-                            <p>댓글입니다 낄낄</p>
-                        </div>
+                        <Button variant="outline-primary">댓글쓰기</Button>{' '}
                     </div>
-                    {/* 댓글 반복 끝 */}
-                    <div className={style.Detail_comment}>
-                        <div className={style.Comment_flex}>
-                            <div className={style.Profile_img_comment}>
-                                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6k4KSEWGAq157LW3wCKU2DJmvoQyrfRfcA&usqp=CAU'></img>
-                            </div>
-                            <div>
-                                <p>빅데이터분석반</p>
-                                <p>언제취뽀</p>
-                                <p>2시간 전</p>
-                            </div>
-                        </div>
-                        <div className={style.Detail_comment_content}>
-                            <p>댓글입니다 낄낄</p>
-                        </div>
-                    </div>
+
+                    {/* 댓글부분 */}
+                    <CommentItem />
+                    <CommentItem />
+                    {/* 댓글부분 */}
+
 
                 </div>
             </div>

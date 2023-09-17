@@ -50,7 +50,7 @@ const Header = () => {
     <div className={Nav.Navigation}>
       <div className={Nav.logo_image}>
         <Link to={"/"}>
-          <img src="img/logo.png" alt="Logo" />
+          <img src="https://i.ibb.co/YbFJpm1/logo.png" alt="Logo" />
         </Link>
       </div>
 
@@ -101,7 +101,7 @@ const Header = () => {
                 <Link to={"/tipList"}>Development Tip🧷</Link>
               </li>
               <li>
-                <Link to={"#"}>Knowledge Drop⛅</Link>
+                <Link to={"/qnaList"}>Knowledge Drop⛅</Link>
               </li>
             </ul>
           </li>

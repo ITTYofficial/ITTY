@@ -182,3 +182,131 @@
     justify-content: end;
 
 }
+
+
+
+/* 댓글작성 */
+
+
+.comment_write {
+    margin: 32px 0 5rem 0;
+}
+
+.comment_write div {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 12px;
+}
+
+.comment_write>div>div {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #999999;
+}
+
+.comment_write textarea {
+    width: 90%;
+    height: 100px;
+    resize: none;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #999999;
+    /* background-color: #f0f9ff; */
+    /* box-shadow: 2px 2px 8px #cdcdcd; */
+    line-height: 1.5rem;
+}
+
+.comment_write img {
+    width: 100%;
+    height: 100%;
+}
+
+.comment_write button {
+    text-decoration: none;
+    float: right;
+    color: #eeeeee;
+    font-weight: 600;
+    font-size: 16px;
+
+    border-radius: 10px;
+    border: none;
+    display: inline-block;
+    background-color: #999999;
+    padding: 12px 20px;
+    margin-right: 16px;
+}
+
+.comment_write button:hover {
+    background-color: #2474ff;
+}
+
+/* 댓글작성 */
+
+
+/* 댓글 */
+
+.comment_list {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    background-color: #f0f9ff;
+    box-shadow: 2px 2px 8px #cdcdcd;
+    line-height: 1.5rem;
+    margin-top: 2rem;
+
+    position: relative;
+}
+
+
+.comment_list div:nth-child(2) {
+    padding: 8px 16px;
+    line-height: 1.3rem;
+    font-size: 14px;
+}
+
+.comment_list div:nth-child(3)>p {
+    font-size: 14px;
+    font-weight: bold;
+    color: #999999;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+}
+
+
+
+.play_comment_profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.play_comment_profile span:first-child {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+}
+
+.play_comment_profile span img {
+    width: 100%;
+    height: 100%;
+}
+
+.play_comment_profile span:last-child p {
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: #999999;
+    line-height: 12px;
+}
+
+.play_comment_profile span:last-child h4 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 댓글 */

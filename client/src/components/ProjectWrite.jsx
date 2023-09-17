@@ -6,7 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import QuillTest from './QuillTest';
 import axios from 'axios';
 import { PlayBoardContext } from '../context/PlayBoardContext';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -102,60 +103,64 @@ const ProjectWrite = () => {
             <h2>프로젝트</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                {id ? <input type="text" name='title' defaultValue={projectDetail.title} /> : <input type="text" name='title' />}
+                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" type="text" placeholder='제목을 입력해주세요' />}
+
 
                 <p>포지션</p>
-                <button
-                    type="button"
-                    onClick={() => changeColor('1')}
-                    style={{ backgroundColor: position.includes('1') ? '#ABE9FF' : '' }}
-                >
-                    백엔드
-                </button>
-                <button
-                    type="button"
-                    onClick={() => changeColor('2')}
-                    style={{ backgroundColor: position.includes('2') ? '#ABE9FF' : '' }}
-                >
-                    프론트엔드
-                </button>
-                <button
-                    type="button"
-                    onClick={() => changeColor('3')}
-                    style={{ backgroundColor: position.includes('3') ? '#ABE9FF' : '' }}
-                >
-                    풀스택
-                </button>
-                <button
-                    type="button"
-                    onClick={() => changeColor('4')}
-                    style={{ backgroundColor: position.includes('4') ? '#ABE9FF' : '' }}
-                >
-                    DB
-                </button>
-                <button
-                    type="button"
-                    onClick={() => changeColor('5')}
-                    style={{ backgroundColor: position.includes('5') ? '#ABE9FF' : '' }}
-                >
-                    UI / UX
-                </button>
+                <div className={style.position_content}>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('1')}
+                        style={{ backgroundColor: position.includes('1') ? '#ABE9FF' : '' }}
+                    >
+                        백엔드
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('2')}
+                        style={{ backgroundColor: position.includes('2') ? '#ABE9FF' : '' }}
+                    >
+                        프론트엔드
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('3')}
+                        style={{ backgroundColor: position.includes('3') ? '#ABE9FF' : '' }}
+                    >
+                        풀스택
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('4')}
+                        style={{ backgroundColor: position.includes('4') ? '#ABE9FF' : '' }}
+                    >
+                        DB
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('5')}
+                        style={{ backgroundColor: position.includes('5') ? '#ABE9FF' : '' }}
+                    >
+                        UI / UX
+                    </button>
+                </div>
 
                 <input type="hidden" name="position" value={position.join(',')} />
 
                 <div className={style.second_block}>
-                    <div>
+                    <div className={style.date_content}>
                         <p>프로젝트 시작일</p>
-                        {id ? <DatePicker defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker selected={startDate} onChange={date => setStartDate(date)} />}
+                        {id ? <DatePicker className='form-control' defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />}
+
                     </div>
-                    <div>
+                    <div className={style.date_content}>
                         <p>프로젝트 종료일</p>
-                        {id ? <DatePicker defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> : <DatePicker selected={endDate} onChange={date => setEndDate(date)} />}
+                        {id ? <DatePicker className='form-control' defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> : <DatePicker className='form-control' selected={endDate} onChange={date => setEndDate(date)} />}
                     </div>
                     <div className={style.frame_work_container}>
                         <div>
                             <p>프론트</p>
-                            <select name='framework_front'>
+                            <select className='form-control' name='framework_front'>
                                 <option>React</option>
                                 <option>Next.js</option>
                                 <option>Vue.js</option>
@@ -164,7 +169,7 @@ const ProjectWrite = () => {
                         </div>
                         <div>
                             <p>백엔드</p>
-                            <select name='framework_back'>
+                            <select className='form-control' name='framework_back'>
                                 <option>Spring / Spring Boot</option>
                                 <option>Node.js</option>
                                 <option>Django</option>
@@ -174,7 +179,7 @@ const ProjectWrite = () => {
                         </div>
                         <div>
                             <p>DB</p>
-                            <select name='framework_db'>
+                            <select className='form-control' name='framework_db'>
                                 <option>MySQL</option>
                                 <option>Oracle</option>
                                 <option>MariaDB</option>
@@ -186,24 +191,30 @@ const ProjectWrite = () => {
                     </div>
                     <div>
                         <p>인원</p>
-                        {id ? <input type="text" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input type="text" name='persons' placeholder='인원을 입력해주세요' />}
+                        {id ? <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" placeholder='인원을 입력해주세요' />}
+
                     </div>
                     <div>
                         <p>상태</p>
-                        <select name='recruit'>
-                            <option value={0}>모집중</option>
-                            <option value={1}>모집완료</option>
+                        <select className='form-control' name='recruit'>
+                            <option>모집상태 선택</option>
+                            <option>모집중</option>
+                            <option>모집완료</option>
                         </select>
                     </div>
 
                 </div>
-                <div>
+                <p>내용</p>
+                <div className={style.quill_content}>
                     <QuillTest />
                 </div>
 
 
                 {/* 전송 버튼 */}
-                <input type="submit" value="전송" />
+                <div >
+                <Button className={style.submit_btn} type="submit" variant="outline-primary">작성완료</Button>
+                </div>
+                
 
 
             </form>

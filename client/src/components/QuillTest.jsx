@@ -86,9 +86,10 @@ const QuillTest = ({ update }) => {
     return {
       toolbar: {
         container: [
-          ["image"],
+          ["image", "link", "video"],
           [{ header: [1, 2, 3, false] }],
           ["bold", "italic", "underline", "strike", "blockquote"],
+          [{ 'color': [] }, { 'background': [] }],
         ],
 
         handlers: {
@@ -128,7 +129,7 @@ const QuillTest = ({ update }) => {
         value={value}
         onChange={setValue}
         modules={modules}
-        formats={formats}
+        /* formats={formats} */
       />
     </div>
   );

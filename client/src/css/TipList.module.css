@@ -19,7 +19,7 @@
     align-items: center;
     justify-content: center;
     display: inline-block;
-    margin-left: 40%;
+  
 }
 
 .right_container_button {
@@ -29,6 +29,7 @@
     padding: 12px;
     border-bottom: 2px solid #eeeeee;
 }
+
 
 .right_container_box {
     display: inline-block;
@@ -66,3 +67,196 @@
     margin-left: 10%;
 
 }
+
+.play_title {
+    margin-right: 1%;
+    padding: 7px 8px;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgb(144, 144, 144);
+    vertical-align: middle; 
+    float: left;
+ 
+  }
+  
+  .develope {
+    background-color: rgb(243, 255, 166);
+    color: rgb(0, 86, 44);
+    
+    
+  }
+
+  .tip_space_box{
+    margin-left: 3%;
+  }
+
+  .tip_title_box{
+    display: inline-block;
+
+  }
+
+  .tip_title_box h5{
+
+   font-size: 20px;
+   font-weight: bold;
+   display: inline-block;
+
+
+  }
+
+
+  .tip_title_box a{
+    text-decoration: none;
+    color: black;
+   }
+
+  .tip_title_box_2{
+
+    align-items: right;
+    text-align: right;
+    display: inline-block;
+    margin-left: 60%;
+
+
+  }
+
+
+  .tip_title_box_2 img {
+    max-width: 30px; /* Adjust the image size as needed */
+    height: 20px; /* Maintain aspect ratio */
+  }
+
+
+  .tip_title_box_2 h3{
+
+    font-weight: bold;
+  }
+
+  .tip_title_box_3{
+
+    display: flex;
+    align-items: left;
+    text-align: left;
+    margin-left: 1%;
+
+
+  }
+  .tip_title_box_space{
+
+    margin: 1%;
+  }
+
+  .tip_title_box_space_2{
+    float: left;
+    margin-top: 1%;
+  }
+  .tip_title_box_space_2 span{
+
+    font-size: 15px;
+  }
+
+  .tip_page_box{
+
+    text-align: center;
+  }
+
+
+
+  /* 가져온 css*/
+  .Main_container_list {
+    padding: 8px 16px;
+  }
+
+
+
+
+  .Main_container_list_detail {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px;
+    border-bottom: 2px solid #eeeeee;
+    align-items: center;    
+    
+  }
+
+
+
+.tip_text{
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline;
+  -webkit-box-orient: vertical;
+  flex: 1;
+
+}
+.tip_text h5{
+margin-left: 2%;
+vertical-align: middle; 
+font-size: 20px;
+margin-top: 3px;
+
+}
+
+.b_date {
+    color: #999999;
+    font-size: 12px;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .Main_container_list_detail > div:first-child > a {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #333333;
+    text-decoration: none;
+  }
+  .Main_container_list_detail > div:first-child > a:hover {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #2474ff;
+    text-decoration: none;
+  }
+  .Main_container_list_detail > div:first-child > a > h4 {
+    margin-bottom: 8px;
+  }
+  .Main_container_list_detail > div:first-child > p:last-child {
+    color: #999999;
+    font-size: 14px;
+  }
+  
+  .Main_container_list_detail > div:last-child > div:first-child > h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .Main_grid_profile {
+    display: flex;
+    align-items: center;
+  }
+  .profile_text {
+    margin-right: 8px;
+  }
+  .profile_text > p {
+    font-size: 12px;
+    margin-bottom: 4px;
+    text-align: right;
+    color: #999999;
+  }
+  .profile_text > h4 {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+  }
+  .profile_pic {
+    width: 50px;
+    height: 50px;
+    background-color: #2474ff;
+    border-radius: 50%;
+  }
+  
+
