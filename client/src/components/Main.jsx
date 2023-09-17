@@ -5,7 +5,8 @@ import style from "../css/Main.module.css";
 // import "../css/Community.css";
 
 const Main = () => {
-  console.log(sessionStorage.getItem("id"));
+  // console.log(sessionStorage.getItem("memberId"));
+  // console.log(sessionStorage.getItem("memberNickname"));
 
   const Main_detail = () => (
     <div className={style.Main_grid_detail}>
