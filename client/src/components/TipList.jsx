@@ -17,7 +17,7 @@ const TipList = () => {
 
     //게시글 조회 함수
     const readTipList = async () => {
-        await axios
+     /*    await axios
             .get("http://localhost:8088/tipList")
             .then((res) => {
                 console.log(res);
@@ -26,7 +26,7 @@ const TipList = () => {
             .catch((err) => {
                 alert("통신에 실패했습니다.");
                 console.log(err);
-            });
+            }); */
     };
 
 

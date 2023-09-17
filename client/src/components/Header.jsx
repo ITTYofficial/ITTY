@@ -117,7 +117,7 @@ const Header = () => {
               onMouseLeave={() => handleHoverOut("job")}
             >
               <li>
-                <Link to={"/portDetail"}>포트폴리오🔍</Link>
+                <Link to={"/portList"}>포트폴리오🔍</Link>
               </li>
               <li>
                 <Link to={"/reviewList"}>수료생 후기👨‍🎓</Link>
