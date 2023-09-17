@@ -170,7 +170,8 @@
   padding: 12px 20px;
 }
 .active {
-  display: block;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -182,3 +183,4 @@
 .sub_Community:hover {
   display: block;
 } */
+
