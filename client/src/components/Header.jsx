@@ -101,7 +101,7 @@ const Header = () => {
                 <Link to={"/tipList"}>Development Tip🧷</Link>
               </li>
               <li>
-                <Link to={"#"}>Knowledge Drop⛅</Link>
+                <Link to={"/qnaList"}>Knowledge Drop⛅</Link>
               </li>
             </ul>
           </li>
