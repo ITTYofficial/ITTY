@@ -27,7 +27,8 @@ const MarketWrite = () => {
   };
 
   // 이미지 업로드 input의 onChange
-  const saveImgFile = () => {
+const saveImgFile = () => {
+  if (imgRef.current && imgRef.current.files.length > 0) {
     let file = imgRef.current.files[0];
     if (
       file.type !== "image/jpg" &&
@@ -52,7 +53,8 @@ const MarketWrite = () => {
         }
       };
     }
-  };
+  }
+};
 
   // base64 -> formdata
   const handlingDataForm = async dataURI => {
