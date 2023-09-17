@@ -4,7 +4,7 @@ import style from "../css/Join.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-
+import KaKaoLogin from "react-kakao-login";
 
 const Login = () => {
   const [id, setId] = useState("");
@@ -16,6 +16,18 @@ const Login = () => {
   const onPwHandler = (e) => {
     setPw(e.target.value);
   };
+
+  // const responseKaKao = (response) => {
+  //   if (response.profile) {
+  //     // 카카오 로그인 성공
+  //     console.log(response.profile);
+  //     // 서버로 카카오로부터 받은 정보를 전송하고 사용자 인증을 처리
+  //     // ...
+  //   } else {
+  //     // 카카오 로그인 실패
+  //     console.error("카카오 로그인 실패");
+  //   }
+  // };
 
 const loginMember =async (e) => {
   e.preventDefault()
@@ -30,8 +42,10 @@ const loginMember =async (e) => {
     const response = await axios.post('http://localhost:8088/member/login', member);
     if (response.data.loginSuccess) {
       // 로그인 성공: memberId를 콘솔에 출력하고 로그인 페이지로 이동
-      console.log('로그인 성공:', response.data.memberId);
-      sessionStorage.setItem('memberId',response.data.memberId)
+      // console.log('로그인 성공 아이디:', response.data.memberId);
+      // console.log('로그인 성공 닉네임:', response.data.memberNickname);
+      sessionStorage.setItem('memberId',response.data.memberId);
+      sessionStorage.setItem('memberNickname',response.data.memberNickname);
       window.location.href = '/';
     } else {
       // 로그인 실패: 서버에서 받은 메시지를 알림으로 표시
@@ -89,7 +103,12 @@ const loginMember =async (e) => {
             <div className={style.Join_font_box2}>
             <div className={style.Join_font_box4}>SNS 간편 로그인</div>
               <img className={style.Join_font_box3} src='img/naverlogo.png'></img>
+              {/* <KaKaoLogin 
+                token={"099aa0e936256b3cc87375787f141a4f"}
+                onSuccess={responseKaKao}
+                onFail={(error) => console.error("카카오 로그인 실패", error)}>
               <img src='img/kakaologo.png' className={style.Join_font_box3} ></img>
+              </KaKaoLogin> */}
             </div>
 
 

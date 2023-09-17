@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import QuillTest from './QuillTest';
-
+import Form from 'react-bootstrap/Form';
 
 
 
@@ -47,79 +47,83 @@ const StudyWrite = () => {
             <h2>스터디</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                <input type="text" name='title' />
+                <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
 
                 <p>포지션</p>
-
-                <button
-                    type="button"
-                    onClick={() => changeColor('1')}
-                    style={{ backgroundColor: selectedValues.includes('1') ? '#ABE9FF' : '' }}
-                >
-                    코딩테스트 준비
-                </button>
-                <button
-                    type="button"
-                    onClick={() => changeColor('2')}
-                    style={{ backgroundColor: selectedValues.includes('2') ? '#ABE9FF' : '' }}
-                >
-                    취업 준비
-                </button>
-                <button
-                    type="button"
-                    onClick={() => changeColor('3')}
-                    style={{ backgroundColor: selectedValues.includes('3') ? '#ABE9FF' : '' }}
-                >
-                    개발 공부
-                </button>
-                <button
-                    type="button"
-                    onClick={() => changeColor('4')}
-                    style={{ backgroundColor: selectedValues.includes('4') ? '#ABE9FF' : '' }}
-                >
-                    자격증 공부
-                </button>
-                <button
-                    type="button"
-                    onClick={() => changeColor('4')}
-                    style={{ backgroundColor: selectedValues.includes('4') ? '#ABE9FF' : '' }}
-                >
-                    그룹 / 모임
-                </button>
-
+                <div className={style.position_content}>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('1')}
+                        style={{ backgroundColor: selectedValues.includes('1') ? '#ABE9FF' : '' }}
+                    >
+                        코딩테스트 준비
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('2')}
+                        style={{ backgroundColor: selectedValues.includes('2') ? '#ABE9FF' : '' }}
+                    >
+                        취업 준비
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('3')}
+                        style={{ backgroundColor: selectedValues.includes('3') ? '#ABE9FF' : '' }}
+                    >
+                        개발 공부
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('4')}
+                        style={{ backgroundColor: selectedValues.includes('4') ? '#ABE9FF' : '' }}
+                    >
+                        자격증 공부
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('4')}
+                        style={{ backgroundColor: selectedValues.includes('4') ? '#ABE9FF' : '' }}
+                    >
+                        그룹 / 모임
+                    </button>
+                </div>
                 <input type="hidden" name="selectedValue" value={selectedValues.join(',')} />
 
                 <div className={style.second_block}>
                     <div>
                         <p>스터디 시작일</p>
-                        <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+                        <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />
                     </div>
                     <div>
                         <p>스터디 종료일</p>
-                        <DatePicker selected={startDate} onChange={date => setEndDate(date)} />
+                        <DatePicker className='form-control' selected={startDate} onChange={date => setEndDate(date)} />
 
                     </div>
                     <div>
                         <p>인원</p>
-                        <input type="text" name='persons' placeholder='인원을 입력해주세요' />
+                        <input className="form-control" type="number" placeholder='인원을 입력해주세요' />
                     </div>
                     <div>
                         <p>상태</p>
-                        <select name='recruit'>
+                        <select className='form-control' name='recruit'>
+                            <option>모집상태 선택</option>
                             <option>모집중</option>
                             <option>모집완료</option>
                         </select>
                     </div>
 
                 </div>
-                <p>내용</p>
-                <div>
+                <p className={style.margin_top_p_tag}>내용</p>
+                <div className={style.quill_content}>
                     <QuillTest />
                 </div>
 
 
-                {/* 전송 버튼 */}
-                <input type="submit" value="전송" />
+                <button className={style.submit_btn} type='submit'>
+                    작성완료
+                </button>
+
+
 
 
             </form>
