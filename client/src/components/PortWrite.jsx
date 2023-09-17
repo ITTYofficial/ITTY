@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import styles from '../css/PortWrite.module.css'
 import axios from 'axios'
 import QuillTest from './QuillTest';
+import Button from 'react-bootstrap/Button';
 
 const PortWrite = () => {
 
@@ -82,7 +83,7 @@ const PortWrite = () => {
       <h2>포트폴리오</h2>
       <form action="">
         <p>제목</p>
-        <input className="form-control" type="text"placeholder='제목을 입력해주세요' />
+        <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
         <p>포트폴리오 대표 이미지</p>
         <div className={styles.market_pic}>
           <div className={styles.input_pic}>
@@ -113,6 +114,11 @@ const PortWrite = () => {
 
         <p>내용</p>
         <QuillTest />
+
+        {/* 전송 버튼 */}
+        <div >
+          <Button className={styles.submit_btn} type="submit" variant="outline-primary">작성완료</Button>
+        </div>
 
       </form>
 

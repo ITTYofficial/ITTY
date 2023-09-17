@@ -75,3 +75,13 @@
 }
 
 /* 별점관련 */
+
+
+.submit_btn {
+    background-color: #999999;
+    color: #eeeeee;
+    border: none;
+    float: right;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}

@@ -146,42 +146,26 @@ const MarketDetail = () => {
         <button onClick={moveUpdate}>임시수정</button>
         <div className={style.division_line}>
           <div>
-            <p>댓글 2</p>
+            <p>댓글 3</p>
           </div>
         </div>
-        <div className={style.sub_comment}>
-          <div className={style.Comment_flex}>
-            <div className={style.Profile_img_comment}>
+        <div className={style.comment_write}>
+          <div>
+            <div>
               <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
-
             </div>
-            <div className={style.Comment_write}>
-              <p>댓글 작성부분</p>
-            </div>
+            <textarea placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
           </div>
-          <div className={style.Comment_write_button}>
-            <Button variant="primary">작성하기</Button>
-          </div>
-          <hr />
-          {/* 댓글 반복 시작 */}
-          <div className={style.Detail_comment}>
-            <div className={style.Comment_flex}>
-              <div className={style.Profile_img_comment}>
-                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6k4KSEWGAq157LW3wCKU2DJmvoQyrfRfcA&usqp=CAU'></img>
-              </div>
-              <div>
-                <p>빅데이터분석반</p>
-                <p>언제취뽀</p>
-                <p>2시간 전</p>
-              </div>
-            </div>
-            <div className={style.Detail_comment_content}>
-              <p>댓글입니다 낄낄</p>
-            </div>
-          </div>
-          {/* 댓글 반복 끝 */}
-
+          <Button variant="outline-primary">댓글쓰기</Button>{' '}
         </div>
+
+        {/* 댓글부분 */}
+        <CommentItem />
+        <CommentItem />
+        <CommentItem />
+        <CommentItem />
+        {/* 댓글부분 */}
+
       </div>
 
     </div>

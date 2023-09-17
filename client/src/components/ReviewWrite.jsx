@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import LeftContainer from './LeftContainer'
 import styles from '../css/ReviewWrite.module.css'
 import QuillTest from './QuillTest';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+
 
 const ReviewWrite = () => {
 
@@ -87,6 +88,12 @@ const ReviewWrite = () => {
 
                 <p>내용</p>
                 <QuillTest/>
+
+                        {/* 전송 버튼 */}
+        <div >
+          <Button className={styles.submit_btn} type="submit" variant="outline-primary">작성완료</Button>
+        </div>
+
 
             </form>
 
