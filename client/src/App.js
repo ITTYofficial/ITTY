@@ -32,6 +32,8 @@ import ReviewDetail from "./components/ReviewDetail";
 import ReviewWrite from "./components/ReviewWrite";
 import PortWrite from "./components/PortWrite";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
 

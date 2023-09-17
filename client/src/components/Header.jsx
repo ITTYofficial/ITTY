@@ -50,7 +50,7 @@ const Header = () => {
     <div className={Nav.Navigation}>
       <div className={Nav.logo_image}>
         <Link to={"/"}>
-          <img src="img/logo.png" alt="Logo" />
+          <img src="https://i.ibb.co/YbFJpm1/logo.png" alt="Logo" />
         </Link>
       </div>
 

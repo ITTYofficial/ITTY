@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import styles from '../css/PortWrite.module.css'
 import axios from 'axios'
 import QuillTest from './QuillTest';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const PortWrite = () => {
 
