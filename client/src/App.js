@@ -30,9 +30,6 @@ import PortDetail from "./components/PortDetail";
 import PortList from "./components/PortList";
 import ReviewDetail from "./components/ReviewDetail";
 import ReviewWrite from "./components/ReviewWrite";
-import PortWrite from "./components/PortWrite";
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -81,8 +78,6 @@ function App() {
           <Route path="/reviewList" element={<ReviewList />}></Route>
           <Route path="/reviewDetail" element={<ReviewDetail />}></Route>
           <Route path="/reviewWrite" element={<ReviewWrite />}></Route>
-          <Route path="/portWrite" element={<PortWrite />}></Route>
-          
           
 
         </Routes>
