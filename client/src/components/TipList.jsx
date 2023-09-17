@@ -65,6 +65,7 @@ const TipList = () => {
       <div className={styles.right_container}>
         <div className={styles.Main_container_banner}></div>
         <div className={styles.right_container_button}>
+          <div></div>
           <h2>Tip 🥇</h2>
           <Link to={"/tipWrite"}>
             <p>작성하기</p>
@@ -80,7 +81,7 @@ const TipList = () => {
           <TipItem />
           <TipItem />
         </div>
-        <div className={style.tip_page_box}>1  2  3  4  5  6  7  8  9  10.....20</div>
+        <div className={style.tip_page_box}>1 2 3 4 5 6 7 8 9 10.....20</div>
       </div>
     </div>
   );

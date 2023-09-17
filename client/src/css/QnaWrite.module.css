@@ -1,0 +1,49 @@
+.Qna_content_box1 {
+    width: 60%;
+    background-color: #ffffff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 4%;
+}
+
+.Qna_content_box2 {
+    width: 80%;
+    background-color: #ffffff;
+
+}
+
+.Qna_content_box_font {
+
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin: 7%;
+}
+
+.Qna_button_box{
+
+    margin-top: 2%;
+    text-align: right;
+}
+
+
+
+.Qna_button_container{
+
+    width: 120px;
+    height:50px;
+    border-radius: 80px;
+    margin-bottom: 2%;
+    margin-right: 5%;
+    background-color: rgb(238, 238, 238);
+    border-color: white
+}
+
+.Qna_space_box{
+
+    display: inline-block;
+    margin-right: 3%;
+}
