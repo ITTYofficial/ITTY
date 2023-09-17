@@ -27,8 +27,7 @@ const MarketWrite = () => {
   };
 
   // 이미지 업로드 input의 onChange
-const saveImgFile = () => {
-  if (imgRef.current && imgRef.current.files.length > 0) {
+  const saveImgFile = () => {
     let file = imgRef.current.files[0];
     if (
       file.type !== "image/jpg" &&
@@ -72,8 +71,7 @@ const saveImgFile = () => {
         }
       };
     }
-  }
-};
+  };
 
   // base64 -> formdata
   const handlingDataForm = async dataURI => {
@@ -98,7 +96,7 @@ const saveImgFile = () => {
 
     try {
       const result = await axios.post(
-        "http://localhost:8088/play/save",
+        "http://localhost:8088/save/save",
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
