@@ -53,7 +53,6 @@ const TipList = () => {
           <h4>글쓴이짱</h4>
         </span>
         <span className={style.profile_pic}>
-          <img src="" />
         </span>
       </div>
     </div>
@@ -63,7 +62,9 @@ const TipList = () => {
     <div className={styles.Main_container}>
       <LeftContainer />
       <div className={styles.right_container}>
-        <div className={styles.Main_container_banner}></div>
+        <div className={style.Main_container_banner}>
+          <img src="img/banner01.png" style={{width:"1024px"}}></img>
+        </div>
         <div className={styles.right_container_button}>
           <div></div>
           <h2>Tip 🥇</h2>

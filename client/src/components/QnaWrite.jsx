@@ -27,7 +27,7 @@ const QnaWrite = () => {
                     <form>
                         <div className="mb-3">
                             <div className={style.Qna_content_box_font}>
-                                <h2>Tip 🥇</h2>
+                                <h2>QnA 💡</h2>
                             </div>
                             <label className="form-label" htmlFor="name">제목</label>
                             <input className="form-control" type="text" name="name" placeholder='글제목을 입력하세요.' />
@@ -78,7 +78,7 @@ const QnaWrite = () => {
                        
                         <div className={style.Qna_button_box}>
                             <button type="button" className="btn btn-outline-secondary">취소</button>
-                            <div className={style.Tip_space_box}></div>
+                            <div className={style.Qna_space_box}></div>
                             <button type="submit" className="btn btn-primary">작성</button>
                         </div>
                     </form>

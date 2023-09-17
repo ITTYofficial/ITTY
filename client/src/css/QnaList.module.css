@@ -57,7 +57,10 @@
     border: 2px solid white;
 }
 
+.Main_container_list_detail:hover{
+  background-color:#f0fdff
 
+}
 
 .Main_container_3 {
 
@@ -81,23 +84,23 @@
  
   }
   
-  .develope {
-    background-color: rgb(243, 255, 166);
-    color: rgb(0, 86, 44);
+  .job {
+    background-color: rgb(209, 248, 255);
+    color: rgb(27, 6, 255);
     
     
   }
 
-  .tip_space_box{
+  .Qna_space_box{
     margin-left: 3%;
   }
 
-  .tip_title_box{
+  .Qna_title_box{
     display: inline-block;
 
   }
 
-  .tip_title_box h5{
+  .Qna_title_box h5{
 
    font-size: 20px;
    font-weight: bold;
@@ -107,12 +110,12 @@
   }
 
 
-  .tip_title_box a{
+  .Qna_title_box a{
     text-decoration: none;
     color: black;
    }
 
-  .tip_title_box_2{
+  .Qna_title_box_2{
 
     align-items: right;
     text-align: right;
@@ -123,18 +126,18 @@
   }
 
 
-  .tip_title_box_2 img {
+  .Qna_title_box_2 img {
     max-width: 30px; /* Adjust the image size as needed */
     height: 20px; /* Maintain aspect ratio */
   }
 
 
-  .tip_title_box_2 h3{
+  .Qna_title_box_2 h3{
 
     font-weight: bold;
   }
 
-  .tip_title_box_3{
+  .Qna_title_box_3{
 
     display: flex;
     align-items: left;
@@ -143,21 +146,21 @@
 
 
   }
-  .tip_title_box_space{
+  .Qna_title_box_space{
 
     margin: 1%;
   }
 
-  .tip_title_box_space_2{
+  .Qna_title_box_space_2{
     float: left;
     margin-top: 1%;
   }
-  .tip_title_box_space_2 span{
+  .Qna_title_box_space_2 span{
 
     font-size: 15px;
   }
 
-  .tip_page_box{
+  .Qna_page_box{
 
     text-align: center;
   }
@@ -184,7 +187,7 @@
 
 
 
-.tip_text{
+.Qna_text{
 
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -193,7 +196,7 @@
   flex: 1;
 
 }
-.tip_text h5{
+.Qna_text h5{
 margin-left: 2%;
 vertical-align: middle; 
 font-size: 20px;
@@ -232,11 +235,6 @@ margin-top: 3px;
   .Main_container_list_detail > div:last-child > div:first-child > h4 {
     font-size: 1.1rem;
     font-weight: 600;
-  }
-
-  .Main_container_list_detail:hover{
-    background-color:#f0fdff
-
   }
   
   .Main_grid_profile {
