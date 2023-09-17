@@ -26,6 +26,14 @@
     display: inline-block;
   }
   
+  .qna_choice_box{
+
+     /* 요소를 가로로 배치하기 위해 Flexbox를 사용합니다. */
+    /* 요소를 세로 중앙 정렬합니다. */
+    display: flex;
+    float: right; 
+
+  }
   /* ============================================================ */
   
   .clearfix::before,
@@ -272,8 +280,8 @@
     line-height: 1.5rem;
   }
   
-  .play_wrap_content button {
-    text-decoration: none;
+.commant_write button{
+  text-decoration: none;
     float: right;
     color: #eeeeee;
     font-weight: 600;
@@ -284,9 +292,9 @@
     background-color: #999999;
     padding: 12px 20px;
     margin-right: 16px;
-  }
-  
-  .play_wrap_content button:hover {
+}
+
+  .commant_write button:hover {
     background-color: #2474ff;
   }
   
@@ -299,10 +307,13 @@
     box-shadow: 1px 1px 4px #cacaca;
     line-height: 1.5rem;
     margin-top: 2rem;
+    display: flex; /* 요소를 가로로 배치하기 위해 Flexbox를 사용합니다. */
+  flex-direction: column; 
   
     position: relative;
   }
-  
+
+
   .play_commant_profile {
     display: flex;
     justify-content: flex-start;
