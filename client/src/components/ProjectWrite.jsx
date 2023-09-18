@@ -103,7 +103,7 @@ const ProjectWrite = () => {
             <h2>프로젝트</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" type="text" placeholder='제목을 입력해주세요' />}
+                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
 
 
                 <p>포지션</p>
@@ -191,7 +191,7 @@ const ProjectWrite = () => {
                     </div>
                     <div>
                         <p>인원</p>
-                        {id ? <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" placeholder='인원을 입력해주세요' />}
+                        {id ? <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
 
                     </div>
                     <div>
