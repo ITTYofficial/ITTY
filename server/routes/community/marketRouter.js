@@ -9,18 +9,19 @@ router.post('/write', async (req, res) => {
     let obj;
 
     obj = {
-      writer: req.body.writer,
+      writer: "허허",
+      // writer: req.body.writer,
       title: req.body.market_title,
       content: req.body.content,
       itemCategory: "문구류",
-      imgPath: "https://www.ilovepc.co.kr/news/photo/202207/44037_107077_5412.jpg",
+      imgPath: req.body.imgPath,
       price: req.body.market_price,
       condition: req.body.market_condition
     };
 
     const market = new Market(obj);
     await Market.insertMany(market);
-    res.json({ message: "게시글이 업로드 되었습니다." });
+    res.json({ message: true });
   } catch (err) {
     console.log(err);
     res.json({ message: false });

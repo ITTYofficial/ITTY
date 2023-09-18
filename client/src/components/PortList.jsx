@@ -10,8 +10,10 @@ const PortList = () => {
     const PortItem = () => (
         <div className={styles.port_content}>
             <div className={styles.port_content_img}>
+                <Link to={'/portDetail'}>
                 <img src='https://user-images.githubusercontent.com/70695311/126065328-70124e21-f0c2-4e9b-a0f8-b4e3086f31b6.jpg'></img>
                 {/* <img src='https://i.ibb.co/dDnhbM9/image.png'></img> */}
+                </Link>
             </div>
             <div className={styles.port_content_bottom}>
                 <div>
@@ -50,10 +52,9 @@ const PortList = () => {
                 </dvi>
 
                 <div className={styles.port_list}>
-                    <Link to={'/portDetail'}>
-                        <PortItem />
-                    </Link>
-
+                    
+                    <PortItem />
+                    <PortItem />
                     <PortItem />
                     <PortItem />
                     <PortItem />

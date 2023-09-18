@@ -50,7 +50,7 @@ const ProjectWrite = () => {
 
         const obj = {};
         formData.forEach((value, key) => {
-            // console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj['startDate'] = startDate;
@@ -65,12 +65,12 @@ const ProjectWrite = () => {
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
                 console.log(res);
-                window.location.href = `/projectDetail/${res.data._id}`
+                // window.location.href = `/projectDetail/${res.data._id}`
             })
             .catch((err) => {
                 console.log(err);
                 alert("게시글 작성 실패")
-                window.location.href = `/projectList`
+                // window.location.href = `/projectList`
             })
     }
 
@@ -103,7 +103,7 @@ const ProjectWrite = () => {
             <h2>프로젝트</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" type="text" placeholder='제목을 입력해주세요' />}
+                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
 
 
                 <p>포지션</p>
@@ -191,7 +191,7 @@ const ProjectWrite = () => {
                     </div>
                     <div>
                         <p>인원</p>
-                        {id ? <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" placeholder='인원을 입력해주세요' />}
+                        {id ? <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
 
                     </div>
                     <div>
