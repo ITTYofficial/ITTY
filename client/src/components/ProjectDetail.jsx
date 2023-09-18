@@ -168,10 +168,10 @@ const ProjectDetail = () => {
             <div className={PlayBoard.play_profile}>
               <span>
                 <h4>
-                  공공기관 프로젝트 함께할 사람 모집!!! 나랑같이 대기업가자~!!
+                  {projectDetail.title}
                 </h4>
-                <p>📆 기간 2023-09-11 ~ 2023-10-21</p>
-                <p>🙍‍♂️ 인원 5명</p>
+                <p>📆 기간 {projectDetail.startDate} ~ {projectDetail.endDate}</p>
+                <p>🙍‍♂️ 인원 {projectDetail.persons}명</p>
                 <p>📝 활용언어 Java, JavaScript, HTML, CSS, React</p>
               </span>
 
