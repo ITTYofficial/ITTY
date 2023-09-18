@@ -9,9 +9,10 @@
 }
 
 .logo_image {
-  width: 7%;
-  padding: 4px 8px;
+  /* width: 7%; */
+  /* padding: 4px 8px; */
   margin: 8px 16px;
+  width: 80px;
 }
 
 .logo_image img {
@@ -211,7 +212,7 @@
   margin: 8px 16px;
 }
 
-.hamburger_content svg{
+.hamburger_content svg {
   width: 100%;
   height: 100%;
 }

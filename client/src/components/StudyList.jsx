@@ -3,6 +3,7 @@ import LeftContainer from "./LeftContainer";
 import styles from "../css/Community.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Image from 'react-bootstrap/Image';
 
 const StudyList = () => {
 
@@ -36,7 +37,7 @@ const StudyList = () => {
         <div className={styles.right_container_button}>
           <h2>스터디 구해요🐣</h2>
           <Link to={'/studyWrite'}>
-          작성하기
+            작성하기
           </Link>
         </div>
 
@@ -57,8 +58,9 @@ const StudyList = () => {
                   <p>데이터 디자인</p>
                   <h4>{item.writer}</h4>
                 </span>
-                <span className={styles.profile_pic}>
-                  <img src="#" />
+                <span className={styles.profile_img}>
+                  <Image
+                    src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj" roundedCircle />
                 </span>
               </div>
             </div>

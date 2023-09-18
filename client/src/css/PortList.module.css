@@ -134,3 +134,7 @@
     transition-duration: 200ms;
     border: 2px solid white;
 }
+
+.port_list a{
+    text-decoration: none;
+}
