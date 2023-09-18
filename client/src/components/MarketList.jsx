@@ -43,14 +43,18 @@ const MarketList = () => {
     const now = new Date();
     const timeDifference = now - createdAt;
     const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-
-    if (hoursDifference === 0) {
-      return "방금 전";
+    const daysDifference = Math.floor(hoursDifference / 24);
+  
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${hoursDifference}시간 전`;
+      }
     } else {
-      return `${hoursDifference}시간 전`;
+      return `${daysDifference}일 전`;
     }
   };
-
 
   // 각 장터 게시글 정보를 담을 내부 컴포넌트
   // 날짜 바꾸기
