@@ -39,7 +39,7 @@ const marketSchema = new Schema({
     },
     imgPath: {
         // 이미지 주소
-        type: String
+        type: Array
     },
     price: {
         type: Number,

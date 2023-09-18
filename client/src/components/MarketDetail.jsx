@@ -70,22 +70,24 @@ const MarketDetail = () => {
         console.log(err);
       })
   };
+  console.log('확인!!', marketDetail.imgPath);
   // 회원 정보 조회 함수
   const getmember = async () => {
     await axios.get(`http://localhost:8088/member/memberSearching?nickname=${marketDetail.writer}`)
-    .then((res)=> {
-      console.log(res.data);
-      setMemberInfo(res.data.member[0]);
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+      .then((res) => {
+        console.log(res.data);
+        setMemberInfo(res.data.member[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getMarket();
     getmember();
+    console.log(marketDetail.imgPath);
   }, []);
 
   // 수정 페이지 이동
@@ -152,15 +154,17 @@ const MarketDetail = () => {
       <div className={style.right_container}>
         <div className={style.Img_slide}>
           <Slider {...settings}>
-            <div>
-              <img src={marketDetail.imgPath} alt="Slide 1" />
+            {/* {marketDetail.imgPath.map((item) => (
+              <div>
+                <img src={item} alt="Slide 1" />
+              </div>
+            ))} */}
+{/*             <div>
+              <img src={marketDetail.imgPath[1]} alt="Slide 2" />
             </div>
             <div>
-              <img src={marketDetail.imgPath} alt="Slide 2" />
-            </div>
-            <div>
-              <img src={marketDetail.imgPath} alt="Slide 3" />
-            </div>
+              <img src={marketDetail.imgPath[2]} alt="Slide 3" />
+            </div> */}
           </Slider>
         </div>
 
