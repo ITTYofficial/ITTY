@@ -4,6 +4,38 @@ import style from "../css/ReviewList.module.css";
 import { Link } from "react-router-dom";
 
 const ReviewList = () => {
+  const ReviewItem = () => (
+    <div className={style.Main_container_list_detail}>
+      <div>
+        <span>
+          <div className={style.cateBox}>
+            <span className={`${style.play_title} ${style.star}`}>⭐4.5</span>
+            <span className={`${style.play_title} ${style.backend}`}>
+              추천👍
+            </span>
+            <span className={`${style.play_title} ${style.backend}`}>
+              비전공자💎
+            </span>
+          </div>
+          <h3>스인재 3개월차 솔직후기입니다.</h3>
+        </span>
+
+        <span className={style.Review_list_profile}>
+          <div>
+            <p>빅데이터분석반</p>
+            <h4>언제취뽀</h4>
+          </div>
+          <div>
+            <img src="#" alt="" />
+          </div>
+        </span>
+      </div>
+      <span>
+        <p>1 시간 전 👁‍🗨12 💬4</p>
+      </span>
+    </div>
+  );
+
   return (
     <div className={style.Main_container}>
       <LeftContainer />
@@ -13,6 +45,11 @@ const ReviewList = () => {
           <Link to={"#"}>
             <p>작성하기</p>
           </Link>
+        </div>
+        <div className={style.Review_container_list}>
+          <ReviewItem />
+          <ReviewItem />
+          <ReviewItem />
         </div>
       </div>
     </div>

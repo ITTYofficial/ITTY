@@ -1,18 +1,21 @@
 .Container {
   margin: 0 auto;
 }
+
 .Main_container {
   max-width: 1320px;
   margin: 30px auto;
   display: flex;
   justify-content: space-between;
 }
+
 .Wrap_main_imageSlide {
   height: 300px;
   margin-bottom: 30px;
   /* border-top: 1px solid black;
   border-bottom: 1px solid black; */
 }
+
 .right_container {
   width: 80%;
   /* background-color: whitesmoke; */
@@ -20,16 +23,26 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
+  margin: 0 auto;
 }
+
+@media (max-width:1024px) {
+  .right_container {
+    width: 95%;
+  }
+}
+
 .Main_container_banner {
   width: 100%;
   background-color: #333333;
   height: 230px;
   margin-bottom: 16px;
 }
+
 .Main_grid_1 {
   width: 100%;
 }
+
 .Main_grid_1 h3 {
   background-color: #2474ff;
   padding: 16px 24px;
@@ -42,54 +55,66 @@
   letter-spacing: 2px;
   color: #eeeeee;
 }
+
 .Main_grid_detail {
   padding: 8px 16px;
 }
-.Main_grid_detail > h4:hover {
+
+.Main_grid_detail>h4:hover {
   color: #2474ff;
   cursor: pointer;
 }
-.Main_grid_detail > div {
+
+.Main_grid_detail>div {
   display: grid;
   grid-template-columns: minmax(34px, 8%) minmax(34px, 8%) minmax(34px, 8%) 1fr;
   align-items: end;
   margin-bottom: 12px;
 }
-.Main_grid_detail > h4 {
+
+.Main_grid_detail>h4 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 12px;
 }
+
 .Main_grid_detail div p {
   color: #999999;
   font-size: 12px;
 }
+
 .Main_grid_profile {
   display: flex;
   justify-content: end;
 }
+
 .profile_text {
   margin-right: 4px;
 }
-.profile_text > p {
+
+.profile_text>p {
   font-size: 12px;
   margin-bottom: 4px;
   text-align: right;
 }
-.profile_text > h4 {
+
+.profile_text>h4 {
   font-size: 16px;
   font-weight: bold;
   text-align: right;
 }
+
 .profile_pic {
   width: 32px;
   height: 32px;
   background-color: #2474ff;
   border-radius: 50%;
 }
+
 .Main_grid_2 {
   width: 100%;
 }
+
 .Main_grid_2 h3 {
   background-color: #ffa329;
   padding: 16px 24px;
@@ -102,6 +127,7 @@
   letter-spacing: 1.5px;
   color: #333333;
 }
+
 .Main_grid_detail::after {
   content: "";
   display: block;

@@ -55,26 +55,22 @@ const MarketWrite = () => {
           const formData = new FormData();
           formData.append("img", reader.result); // formData는 키-밸류 구조
           // 백엔드 multer라우터에 이미지를 보낸다.
-          await axios.post(
-            "http://localhost:8088/save/marketsave",
-            formData
-          )
+          await axios
+            .post("http://localhost:8088/save/marketsave", formData)
             .then((res) => {
               console.log("뭐야");
             })
             .catch((err) => {
               console.log("실패했어요ㅠ");
               console.log(err);
-
-            })
-
+            });
         }
       };
     }
   };
 
   // base64 -> formdata
-  const handlingDataForm = async dataURI => {
+  const handlingDataForm = async (dataURI) => {
     // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
     const byteString = atob(dataURI.split(",")[1]);
     // const nickname = sessionStorage.getItem("memberNickname");
@@ -85,7 +81,7 @@ const MarketWrite = () => {
       ia[i] = byteString.charCodeAt(i);
     }
     const blob = new Blob([ia], {
-      type: "image/jpeg"
+      type: "image/jpeg",
     });
     const file = new File([blob], "image.jpg");
 
@@ -100,13 +96,11 @@ const MarketWrite = () => {
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
-      
     } catch (error) {
       console.log("실패했어요ㅠ");
       console.log(error);
     }
   };
-
 
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
@@ -168,7 +162,7 @@ const MarketWrite = () => {
       <LeftContainer />
 
       <div className={styles.right_container}>
-        <h2>교환 장터🛒</h2>
+        <h2>교환 장터🥕</h2>
         <form onSubmit={handleSubmit}>
           {/* 상품명 */}
           <div className={styles.market_title}>
@@ -188,11 +182,18 @@ const MarketWrite = () => {
                 className={styles.fake_upload}
                 onClick={handleFakeUploadClick}
               >
-                <img
-                  src="./img/upload.png"
-                  alt="upload"
-                  className={styles.upload_icon}
-                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-camera"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                  <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                </svg>
+                <span>이미지 등록</span>
               </div>
               <input
                 type="file"
