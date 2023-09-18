@@ -30,8 +30,8 @@
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     gap: 1rem;
-    
 }
+
 
 
 @media (max-width:1024px) {
@@ -59,12 +59,8 @@
     /* border-radius: 4%; */
 }
 
-.port_content>div:first-child {
-    width: 100%;
-
-}
-
 .port_content_img {
+    width: 100%;
     overflow: hidden;
     height: 70%;
 }
