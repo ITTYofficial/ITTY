@@ -28,13 +28,16 @@ const PlayBoardList = (props) => {
     };
   };
 
-  // 장터 리스트 조회 함수
+  // 게시판 리스트 조회 함수
   const readPlayList = async () => {
     await axios
       .get("http://localhost:8088/play/playList")
       .then((res) => {
-        console.log(res);
-        setPlayList(res.data.play);
+        const sortedProjects = res.data.play.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setPlayList(sortedProjects);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");

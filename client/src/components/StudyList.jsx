@@ -15,8 +15,11 @@ const StudyList = () => {
     await axios
       .get("http://localhost:8088/study/studyList")
       .then((res) => {
-        console.log(res);
-        setstudyList(res.data.study);
+        const sortedProjects = res.data.study.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setstudyList(sortedProjects);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");

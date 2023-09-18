@@ -13,8 +13,11 @@ const MarketList = () => {
     await axios
       .get("http://localhost:8088/market/marketList")
       .then((res) => {
-        console.log(res);
-        setMarketList(res.data.market);
+        const sortedProjects = res.data.market.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setMarketList(sortedProjects);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
