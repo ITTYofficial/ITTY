@@ -219,7 +219,7 @@ if (idCheckResult && pwCheckResult && name && nickname&& gender) {
               <label className="form-label" htmlFor="id">아이디</label>
               <input className="form-control" type="text" name="id" value={id} id="id" onChange={onIdHandler} onInput={engNumCheck} onBlur={idCheck} placeholder='5~15자 이내로 입력해주세요.' />
               <div className={style.Join_content_test} id="iDmessage"></div>
-              {/* <button onClick={idCheck}>중복체크</button> */}
+   
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="pw">비밀번호</label>
@@ -238,6 +238,7 @@ if (idCheckResult && pwCheckResult && name && nickname&& gender) {
             <div className="mb-3">
               <label className="form-label" htmlFor="nickname">닉네임</label>
               <input className="form-control" type="text" name="nickname" id="nickname" value={nickname} onChange={onNicknameHandler} placeholder='닉네임을 입력해주세요' />
+              {/* 닉네임도 중복체크해야함 */}
             </div>
 
             {/* 역할 */}

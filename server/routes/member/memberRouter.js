@@ -49,7 +49,23 @@ router.post('/idCheck',async(req,res)=>{
       res.json({ message: false });
     }
 });
-
+// 닉네임 값으로 특정 회원 조회
+router.get('/memberSearching',async (req, res) => {
+  try {
+    const nickname = req.query.nickname;
+    console.log(nickname);
+    const member = await Member.findOne({nickname});
+    if (member) {
+      res.json({ member });
+    } else {
+      res.json({ member: '값을 찾지 못함' }); // 찾지 못한 경우 null을 반환하거나 다른 처리를 할 수 있습니다.
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+}
+  );
 
 //로그인(토큰화 x 버전)
 router.post('/login', async (req, res) => {
