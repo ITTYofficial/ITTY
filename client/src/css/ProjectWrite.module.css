@@ -1,6 +1,6 @@
 .Main_container {
     /* max-width: 70%; */
-    width: 60%;
+    width: 65%;
     margin: 0 auto;
     /* display: grid; */
     justify-content: center;
@@ -79,6 +79,7 @@
 
 .quill_content {
     margin-top: 16px;
+    margin-bottom: 32px;
     
 }
 
@@ -87,13 +88,22 @@
 
 }
 
-.submit_btn {
-    background-color: #999999;
-    color: #eeeeee;
+.submit_btn{
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
     border: none;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+    margin-right: 16px;   
     float: right;
-    margin-top: 16px;
-    margin-bottom: 16px;
+}
+
+.submit_btn:hover{
+    background-color: #2a72ff;
+    color: #eeeeee;
 }
 
 @media (max-width:1024px) {

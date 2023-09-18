@@ -28,7 +28,9 @@
 .port_list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
     gap: 1rem;
+    
 }
 
 
@@ -76,7 +78,7 @@
 }
 
 .port_content_bottom {
-    padding: 8px;
+    padding: 8px 12px 12px 12px;
 }
 
 
@@ -135,6 +137,20 @@
     border: 2px solid white;
 }
 
-.port_list a{
+.port_list a {
     text-decoration: none;
+}
+
+.little_p {
+    color: #999999;
+    font-size: 14px;
+    /* margin-bottom: 8px; */
+    font-weight: 500;
+}
+
+.large_p{
+    color: #000000;
+    font-size: 16px;
+    /* margin-bottom: 8px; */
+    font-weight: 500;    
 }

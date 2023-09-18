@@ -117,9 +117,9 @@ const PortWrite = () => {
         <QuillTest />
 
         {/* 전송 버튼 */}
-        <div >
-          <Button className={styles.submit_btn} type="submit" variant="outline-primary">작성완료</Button>
-        </div>
+        <button className={styles.submit_btn} type='submit'>
+          작성완료
+        </button>
 
       </form>
 

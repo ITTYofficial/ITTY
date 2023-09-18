@@ -23,12 +23,12 @@ const PortList = () => {
                             <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
                         </div>
                         <div>
-                            <p>데이터디자인</p>
-                            <p>종강만기다림</p>
+                            <p className={styles.little_p}>데이터디자인</p>
+                            <p className={styles.large_p}>종강만기다림</p>
                         </div>
                     </div>
                     <div>
-                        <p>1시간 전 👁‍🗨 28 💬 4</p>
+                        <p className={styles.little_p}>1시간 전 👁‍🗨 28 💬 4</p>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@ const PortList = () => {
             <div className={styles.right_container}>
                 <h2>포트폴리오</h2>
                 <dvi className={styles.little_title}>
-                    <h4>수료생 후기</h4>
+                    <h4>포트폴리오</h4>
                     <Link to={"/portWrite"}>
                         <p>작성하기</p>
                     </Link>
@@ -53,7 +53,7 @@ const PortList = () => {
                     <Link to={'/portDetail'}>
                         <PortItem />
                     </Link>
-                    <PortItem />
+
                     <PortItem />
                     <PortItem />
                     <PortItem />
