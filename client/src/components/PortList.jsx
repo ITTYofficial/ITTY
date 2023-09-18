@@ -3,6 +3,7 @@ import LeftContainer from './LeftContainer'
 import styles from '../css/PortList.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'react-bootstrap/Image';
+import { Link } from 'react-router-dom';
 
 const PortList = () => {
 
@@ -41,8 +42,13 @@ const PortList = () => {
             <LeftContainer />
             <div className={styles.right_container}>
                 <h2>포트폴리오</h2>
-                <h4>수료생 후기</h4>
-                <hr />
+                <dvi className={styles.little_title}>
+                    <h4>수료생 후기</h4>
+                    <Link to={"/projectWrite"}>
+                        <p>작성하기</p>
+                    </Link>
+                </dvi>
+
                 <div className={styles.port_list}>
                     <PortItem />
                     <div className={styles.port_content}>
