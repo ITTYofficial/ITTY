@@ -74,7 +74,10 @@ const PlayBoardWrite = () => {
                     {id ? <input className="form-control" type="text" name='title' defaultValue={playDetail.title} /> : <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />}
                     <p>본문</p>
                     <QuillTest />
-                    <Button type='submit' className={style.submit_btn} variant="outline-primary">작성완료</Button>{' '}
+                    {/* 전송 버튼 */}
+                    <button className={style.submit_btn} type='submit'>
+                        작성완료
+                    </button>
                 </form>
             </div>
         </div>

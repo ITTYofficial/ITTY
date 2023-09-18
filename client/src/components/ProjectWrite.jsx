@@ -211,12 +211,9 @@ const ProjectWrite = () => {
 
 
                 {/* 전송 버튼 */}
-                <div >
-                <Button className={style.submit_btn} type="submit" variant="outline-primary">작성완료</Button>
-                </div>
-                
-
-
+                <button className={style.submit_btn} type='submit'>
+                    작성완료
+                </button>
             </form>
         </div>
     )

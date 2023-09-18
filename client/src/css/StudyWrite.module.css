@@ -14,11 +14,11 @@
 }
 
 
-.Main_container>form>p{
+.Main_container>form>p {
     margin-bottom: 8px;
 }
 
-.Main_container>form>input{
+.Main_container>form>input {
     margin-bottom: 16px;
 }
 
@@ -29,14 +29,22 @@
     border: 0px;
     padding: 12px 20px;
     margin-right: 16px;
+    margin-bottom: 16px;
 }
 
 
 .second_block>div {
-    width: 450px;
+    /* width: 450px; */
+    width: 48%;
     height: 50px;
     display: inline-grid;
     margin: 12px 12px 12px 0;
+}
+
+@media (max-width:873px) {
+    .second_block>div {
+        width: 100%;
+    }
 }
 
 .second_block>div>p {
@@ -63,11 +71,11 @@
     width: 100%;
 }
 
-.margin_top_p_tag{
+.margin_top_p_tag {
     margin-top: 16px;
 }
 
-.submit_btn{
+.submit_btn {
     color: #333333;
     font-weight: 600;
     font-size: 16px;
@@ -76,15 +84,15 @@
     display: inline-block;
     background-color: #efefef;
     padding: 12px 20px;
-    margin-right: 16px;   
+    margin-right: 16px;
     float: right;
 }
 
-.submit_btn:hover{
+.submit_btn:hover {
     background-color: #2a72ff;
     color: #eeeeee;
 }
 
-.quill_content{
+.quill_content {
     margin-bottom: 32px;
 }
