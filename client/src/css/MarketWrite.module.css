@@ -140,4 +140,5 @@
   margin-right: 16px;
   border-radius: 20px;
   border: 1px solid #cecfce;
+  object-fit: cover;
 }

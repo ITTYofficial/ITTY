@@ -55,26 +55,22 @@ const MarketWrite = () => {
           const formData = new FormData();
           formData.append("img", reader.result); // formData는 키-밸류 구조
           // 백엔드 multer라우터에 이미지를 보낸다.
-          await axios.post(
-            "http://localhost:8088/save/marketsave",
-            formData
-          )
+          await axios
+            .post("http://localhost:8088/save/marketsave", formData)
             .then((res) => {
               console.log("뭐야");
             })
             .catch((err) => {
               console.log("실패했어요ㅠ");
               console.log(err);
-
-            })
-
+            });
         }
       };
     }
   };
 
   // base64 -> formdata
-  const handlingDataForm = async dataURI => {
+  const handlingDataForm = async (dataURI) => {
     // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
     const byteString = atob(dataURI.split(",")[1]);
 
@@ -85,7 +81,7 @@ const MarketWrite = () => {
       ia[i] = byteString.charCodeAt(i);
     }
     const blob = new Blob([ia], {
-      type: "image/jpeg"
+      type: "image/jpeg",
     });
     const file = new File([blob], "image.jpg");
 
@@ -100,13 +96,11 @@ const MarketWrite = () => {
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
-      
     } catch (error) {
       console.log("실패했어요ㅠ");
       console.log(error);
     }
   };
-
 
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
@@ -168,7 +162,7 @@ const MarketWrite = () => {
       <LeftContainer />
 
       <div className={styles.right_container}>
-        <h2>교환 장터🛒</h2>
+        <h2>교환 장터🥕</h2>
         <form onSubmit={handleSubmit}>
           {/* 상품명 */}
           <div className={styles.market_title}>
