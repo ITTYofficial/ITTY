@@ -4,18 +4,22 @@
   display: flex;
   justify-content: space-between;
 }
+
 .right_container h4 {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 12px;
 }
+
 .right_container {
   width: 80%;
   padding: 16px 32px;
 }
+
 .right_container > form > div:not(:nth-child(4)) {
   margin-bottom: 32px;
 }
+
 .right_container h2 {
   font-size: 24px;
   font-weight: bold;
@@ -24,11 +28,13 @@
   padding: 16px;
   margin: 16px 0;
 }
+
 .market_pic p {
   color: #999999;
   font-size: 14px;
   margin: 12px 0;
 }
+
 .market_title input {
   width: 100%;
   resize: none;
@@ -39,6 +45,7 @@
   line-height: 1.7rem;
   font-size: 18px;
 }
+
 .input_pic {
   display: flex;
   justify-content: start;
@@ -54,6 +61,7 @@
   line-height: 1.7rem;
   font-size: 18px;
 }
+
 .market_sale {
   display: flex;
   justify-content: flex-start;
@@ -71,14 +79,17 @@
   line-height: 1.7rem;
   font-size: 18px;
 }
+
 .market_sale div {
   width: 40%;
   min-width: 250px;
   margin: 16px 32px 16px 0;
 }
+
 .market_sale div input {
   width: 100%;
 }
+
 .market_sale div select {
   width: 100%;
   resize: none;
@@ -91,14 +102,17 @@
   appearance: none;
   color: #828482;
 }
+
 .market_sale div select option {
   font-size: 18px;
   padding: 8px 12px;
   line-height: 1.7rem;
 }
+
 .market_content {
   margin-bottom: 32px;
 }
+
 .market_button {
   color: #333333;
   font-weight: 600;
@@ -113,6 +127,7 @@
 
   float: right;
 }
+
 .market_button:hover {
   background-color: #2a72ff;
   color: #eeeeee;
@@ -122,17 +137,36 @@
 .real_upload {
   display: none;
 }
+
 .upload_icon {
   width: 100%;
   padding: 30%;
 }
+
 .fake_upload {
   width: 200px;
   height: 200px;
   border-radius: 20px;
   border: 1px solid #cecfce;
   margin-right: 16px;
+
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
 }
+
+.fake_upload svg {
+  width: 50px;
+  height: 50px;
+  fill: darkgray;
+}
+
+.fake_upload span {
+  color: darkgray;
+}
+
 .input_pic > img {
   width: 200px;
   height: 200px;

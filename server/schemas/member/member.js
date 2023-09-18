@@ -45,7 +45,7 @@ const memberSchema = new Schema({
   },
   profileImg : { // 프로필이미지
     type: String,
-    default : '기본이미지경로' // 유저가 이미지 안 넣었을 때 쓸 이미지 주소
+    default : 'ITTY\client\public\img\기본프로필사진.PNG' // 유저가 이미지 안 넣었을 때 쓸 이미지 주소
  
   },
   class :{ // 소속 : 일단은 넣어 뒀는데 어떻게할지는 나중에 봐야알듯 -> routes에는 추가 x (추후 검증절차같아서리...)

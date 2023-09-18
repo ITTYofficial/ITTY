@@ -8,7 +8,13 @@ const Footer = () => {
         <div className={footer.Wrap_footer_left}>
           <img src="https://i.ibb.co/tshV4tg/image.png" alt="FOOTER_LOGO" />
         </div>
-        <div className={footer.Wrap_footer_right}></div>
+        <div className={footer.Wrap_footer_right}>
+          <div>
+            <ul>
+              <li></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );

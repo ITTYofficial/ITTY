@@ -55,9 +55,9 @@ const MarketDetail = () => {
 
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);
-
+  const [memberInfo, setMemberInfo] = useState([]);
   // 게시글 조회함수
-  // 작성자 정보는 아직 없어서 나중에 추가할 것
+  // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
   const getMarket = async () => {
     // projectRouter랑 통신해서 response에 결과값 저장
     await axios.get(`http://localhost:8088/market/marketDetail/${id}`)
@@ -70,10 +70,22 @@ const MarketDetail = () => {
         console.log(err);
       })
   };
+  // 회원 정보 조회 함수
+  const getmember = async () => {
+    await axios.get(`http://localhost:8088/member/memberSearching?nickname=${marketDetail.writer}`)
+    .then((res)=> {
+      console.log(res.data);
+      setMemberInfo(res.data.member[0]);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getMarket();
+    getmember();
   }, []);
 
   // 수정 페이지 이동
@@ -103,6 +115,36 @@ const MarketDetail = () => {
     slidesToScroll: 1,
   };
 
+
+  /* 수정삭제 버튼 */
+
+  const [meat, setMeat] = useState(false);
+
+  const Dropdown = () => (
+    <div className={style.meat_dropdown}>
+      <li >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+        </svg>
+        <span>수정</span>
+      </li>
+      <li >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+        </svg>
+        <span>삭제</span>
+      </li>
+    </div>
+  );
+
+  const toggleMeat = () => {
+    setMeat(!meat);
+  }
+
+  /* 수정삭제 버튼 */
+
   return (
     <div className={style.Main_container}>
       <LeftContainer />
@@ -129,7 +171,7 @@ const MarketDetail = () => {
             </div>
             <div>
               <p>데이터디자인</p>
-              <p>데이터디자인</p>
+              <p>{marketDetail.writer}</p>
             </div>
           </div>
           <div style={{ backgroundColor: '#F0F0F0' }}>
@@ -139,6 +181,16 @@ const MarketDetail = () => {
           </div>
         </div>
         <hr />
+        {/* 내용부분 */}
+        <div className={style.meatball}>
+          <ul>
+            <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+            </svg>
+            {meat && <Dropdown />}
+          </ul>
+        </div>
+
         <div className={style.sub_content}>
           <p>{marketDetail.title}</p>
           <p dangerouslySetInnerHTML={{ __html: marketDetail.content }}></p>

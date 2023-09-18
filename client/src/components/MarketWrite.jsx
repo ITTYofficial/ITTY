@@ -73,7 +73,7 @@ const MarketWrite = () => {
   const handlingDataForm = async (dataURI) => {
     // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
     const byteString = atob(dataURI.split(",")[1]);
-
+    // const nickname = sessionStorage.getItem("memberNickname");
     // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
     const ab = new ArrayBuffer(byteString.length);
     const ia = new Uint8Array(ab);
@@ -89,7 +89,7 @@ const MarketWrite = () => {
     // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
     const formData = new FormData();
     formData.append("img", file);
-
+    // formData.append("writer",nickname)
     try {
       const result = await axios.post(
         "http://localhost:8088/save/save",
@@ -182,11 +182,18 @@ const MarketWrite = () => {
                 className={styles.fake_upload}
                 onClick={handleFakeUploadClick}
               >
-                <img
-                  src="./img/upload.png"
-                  alt="upload"
-                  className={styles.upload_icon}
-                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-camera"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                  <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                </svg>
+                <span>이미지 등록</span>
               </div>
               <input
                 type="file"

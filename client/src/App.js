@@ -34,6 +34,7 @@ import ReviewWrite from "./components/ReviewWrite";
 import QnaDetail from "./components/QnaDetail";
 import QnaList from "./components/QnaList";
 import QnaWrite from "./components/QnaWrite";
+import PortWrite from "./components/PortWrite";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -81,6 +82,8 @@ function App() {
           <Route path="/reviewList" element={<ReviewList />}></Route>
           <Route path="/reviewDetail" element={<ReviewDetail />}></Route>
           <Route path="/reviewWrite" element={<ReviewWrite />}></Route>
+          <Route path="/portWrite" element={<PortWrite />}></Route>
+          
 
           <Route path="/qnaWrite" element={<QnaWrite />}></Route>
           <Route path="/qnaDetail" element={<QnaDetail />}></Route>
