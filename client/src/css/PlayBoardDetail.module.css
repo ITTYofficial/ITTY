@@ -17,6 +17,12 @@
   padding: 16px;
 }
 
+@media (max-width:1024px) {
+  .right_container {
+    margin: 0 auto;
+  }
+}
+
 .right_container h2 {
   font-size: 2rem;
   font-weight: bold;
@@ -244,7 +250,7 @@
   line-height: 1.5rem;
 }
 
-.play_wrap_content button {
+.commant_write button {
   text-decoration: none;
   float: right;
   color: #eeeeee;
@@ -259,7 +265,7 @@
   margin-right: 16px;
 }
 
-.play_wrap_content button:hover {
+.commant_write button:hover {
   background-color: #2474ff;
 }
 
@@ -321,6 +327,8 @@
   right: 16px;
 }
 
+/* 수정삭제 버튼 */
+
 .meatball {
   text-align: end;
 }
@@ -338,8 +346,33 @@
   width: 100px;
   text-align: left;
   border-radius: 8px;
+  z-index:99;
+  background-color: white;
 }
 
 .meat_dropdown li {
+  display: flex;
+  align-items: center;
   margin: 8px;
 }
+
+.meat_dropdown svg {
+  margin-right: 8px;
+}
+
+.meat_dropdown>li:hover svg {
+  fill: #1f6cf1;
+}
+
+.meat_dropdown>li:hover span {
+  color: #1f6cf1;
+  font-weight: 600;
+}
+
+.meat_dropdown svg {
+  width: 1.25rem;
+  height: 1.25rem;
+
+}
+
+/* 수정삭제 버튼 */

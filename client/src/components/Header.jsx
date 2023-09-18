@@ -63,9 +63,8 @@ const Header = () => {
           >
             <a href="#">Community 🌐</a>
             <ul
-              className={`${Nav.sub_Community} ${
-                hoverStates.cate ? Nav.active : ""
-              }`}
+              className={`${Nav.sub_Community} ${hoverStates.cate ? Nav.active : ""
+                }`}
               onMouseLeave={() => handleHoverOut_im("cate")}
             >
               <li>
@@ -84,17 +83,15 @@ const Header = () => {
           </li>
 
           <li
-            className={`${Nav.nav_hover} ${
-              hoverStates.share ? Nav.active : ""
-            }`}
+            className={`${Nav.nav_hover} ${hoverStates.share ? Nav.active : ""
+              }`}
             onMouseEnter={() => handleHoverIn("share")}
             onMouseLeave={() => handleHoverOut("share")}
           >
             <a href="#">지식공유 💭</a>
             <ul
-              className={`${Nav.sub_share} ${
-                hoverStates.share ? Nav.active : ""
-              }`}
+              className={`${Nav.sub_share} ${hoverStates.share ? Nav.active : ""
+                }`}
               onMouseLeave={() => handleHoverOut("share")}
             >
               <li>
@@ -145,6 +142,11 @@ const Header = () => {
           </li>
         </ul>
         <button className={Nav.Member_mobile}>&#128100;</button>
+      </div>
+      <div className={Nav.hamburger_content}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </svg>
       </div>
     </div>
   );
