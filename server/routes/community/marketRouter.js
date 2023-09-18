@@ -9,7 +9,7 @@ router.post('/write', async (req, res) => {
     let obj;
 
     obj = {
-      writer: "허허",
+      writer: req.body.writer,
       title: req.body.market_title,
       content: req.body.content,
       itemCategory: "문구류",

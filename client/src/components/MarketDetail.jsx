@@ -55,9 +55,9 @@ const MarketDetail = () => {
 
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);
-
+  const [memberInfo, setMemberInfo] = useState([]);
   // 게시글 조회함수
-  // 작성자 정보는 아직 없어서 나중에 추가할 것
+  // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
   const getMarket = async () => {
     // projectRouter랑 통신해서 response에 결과값 저장
     await axios.get(`http://localhost:8088/market/marketDetail/${id}`)
@@ -70,10 +70,22 @@ const MarketDetail = () => {
         console.log(err);
       })
   };
+  // 회원 정보 조회 함수
+  const getmember = async () => {
+    await axios.get(`http://localhost:8088/member/memberSearching?nickname=${marketDetail.writer}`)
+    .then((res)=> {
+      console.log(res.data);
+      setMemberInfo(res.data.member[0]);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getMarket();
+    getmember();
   }, []);
 
   // 수정 페이지 이동
@@ -159,7 +171,7 @@ const MarketDetail = () => {
             </div>
             <div>
               <p>데이터디자인</p>
-              <p>데이터디자인</p>
+              <p>{marketDetail.writer}</p>
             </div>
           </div>
           <div style={{ backgroundColor: '#F0F0F0' }}>

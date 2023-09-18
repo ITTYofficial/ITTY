@@ -27,7 +27,7 @@ router.post('/write', async (req, res) => {
     } else {
       // 글 작성 시
       obj = {
-        writer: req.body.writer,
+        writer: '허허',//req.body.writer,
         title: req.body.title,
         content: req.body.content,
       };
