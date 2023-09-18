@@ -20,10 +20,10 @@ const studySchema = new Schema({
         type: String,
         required: true
     },
-    postNum: {
-        // 글넘버
-        type: Number
-    },
+    // postNum: {
+    //     // 글넘버
+    //     type: Number
+    // },
     createdAt: {
         // 작성시간
         type: Date,
@@ -31,32 +31,35 @@ const studySchema = new Schema({
     },
     views: {
         // 조회수
-        type: Number
+        type: Number,
+        default: 0
     },
 
     // 게시판마다 달라지는 부분
-    postCategory: {
-        // 글카테고리
-        type: String,
-        // required : true
-    },
-    imgPath: {
-        // 이미지 주소
+    // postCategory: {
+    //     // 글카테고리
+    //     type: String,
+    //     // required : true
+    // },
+    selectedValues: {
         type: String
     },
-    recruit: {
+    persons: {
         // 모집인원
         type: Number
+    }, 
+    recruit: {
+        // 모집상태
+        type: String
     }, 
     periodStart: {
         // 모집기간 시작
         // 기본값으로 현재 날짜 == 글 작성 시간
-        type: Date,
-        default: Date.now
+        type: Date
     },
     periodEnd: {
         // 모집기간 끝
-        type: Date,
+        type: Date
     }
 })
 

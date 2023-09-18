@@ -90,6 +90,16 @@ const MarketDetail = () => {
     console.log(marketDetail.imgPath);
   }, []);
 
+  // 날짜 변환 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const year = createdAt.getFullYear();
+    const month = createdAt.getMonth() + 1;
+    const day = createdAt.getDate();
+
+    return `${year}년 ${month}월 ${day}일`
+  };
+
   // 수정 페이지 이동
   const nav = useNavigate();
   const moveUpdate = () => {
@@ -131,7 +141,7 @@ const MarketDetail = () => {
         </svg>
         <span>수정</span>
       </li>
-      <li >
+      <li onClick={deleteMarket}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -176,7 +186,7 @@ const MarketDetail = () => {
           </div>
           <div style={{ backgroundColor: '#F0F0F0' }}>
             <p>👁‍🗨 {marketDetail.views} 💬 4</p>
-            <p>{marketDetail.createdAt}</p>
+            <p>{getTimeAgoString(marketDetail.createdAt)}</p>
             <p>{marketDetail.price} 원</p>
           </div>
         </div>

@@ -31,6 +31,7 @@ const ProjectWrite = () => {
         } else {
             // 누른 버튼 값 추가
             setposition([...position, value]);
+            console.log(value);
         }
     }
 
@@ -65,12 +66,12 @@ const ProjectWrite = () => {
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
                 console.log(res);
-                // window.location.href = `/projectDetail/${res.data._id}`
+                window.location.href = `/projectDetail/${res.data._id}`
             })
             .catch((err) => {
                 console.log(err);
                 alert("게시글 작성 실패")
-                // window.location.href = `/projectList`
+                window.location.href = `/projectList`
             })
     }
 
@@ -88,6 +89,9 @@ const ProjectWrite = () => {
                     setStartDate(new Date(res.data.detailProject[0].startDate));
                     setEndDate(new Date(res.data.detailProject[0].endDate));
                     setValue(res.data.detailProject[0].content)
+                    const positionArr = res.data.detailProject[0].position.split(',');
+                    positionArr.map((item)=>(changeColor(item)))
+
                 });
             // respnse에서 데이터 꺼내서 State에 저장
         }
@@ -191,7 +195,7 @@ const ProjectWrite = () => {
                     </div>
                     <div>
                         <p>인원</p>
-                        {id ? <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
+                        {id ? <input className="form-control" type="number" name='persons' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
 
                     </div>
                     <div>

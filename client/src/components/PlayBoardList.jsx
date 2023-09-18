@@ -7,22 +7,22 @@ import axios from "axios";
 const PlayBoardList = (props) => {
   // 장터리스트 담을 State
   const [playList, setPlayList] = useState([]);
-  const [memberInfo, setMemberInfo] =useState([]);
+  const [memberInfo, setMemberInfo] = useState([]);
 
- 
+
   // 회원정보 조회 함수 -> 09:44 member값을 찾지 못함 -> 09:18 props에 값이 없음 => props의 원천지를 모르겠음(광영이한테 묻기!)
-  const memberSearching = async(nickname) => {
-    try{
-    console.log("props:",props.writer);
-    console.log("nickname",nickname);
-     const res= await axios
-      .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+  const memberSearching = async (nickname) => {
+    try {
+      console.log("props:", props.writer);
+      console.log("nickname", nickname);
+      const res = await axios
+        .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
 
-        console.log(res);
-        setMemberInfo(res.data.member)
-      
+      console.log(res);
+      setMemberInfo(res.data.member)
+
     }
-    catch(err){
+    catch (err) {
       alert("통신에 실패했습니다.");
       console.log(err);
     };
@@ -50,12 +50,31 @@ const PlayBoardList = (props) => {
     memberSearching(nickname);
   }, [props.writer]);
 
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${hoursDifference}시간 전`;
+      }
+    } else {
+      return `${daysDifference}일 전`;
+    }
+  };
+
   const PlayItem = ({ props }) => (
 
-  
-  <div className={PlayBoard.Main_container_list_detail}>
+
+    <div className={PlayBoard.Main_container_list_detail}>
       <div>
-        <p className={PlayBoard.b_date}>{props.createdAt}</p>
+        <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
         <Link to={`/playboardDetail/${props._id}`}>
           <h4>{props.title}</h4>
         </Link>

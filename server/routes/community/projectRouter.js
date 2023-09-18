@@ -76,12 +76,10 @@ router.post('/write', upload.single('img'), async (req, res) => {
       framework_db: req.body.framework_db,
 
     };
-    console.log(obj);
     const project = new Project(obj);
     _id = project._id;
     await Project.insertMany(project);
   }
-    console.log(_id);
     res.json({ 
       message: true,
       _id : _id

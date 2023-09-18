@@ -75,6 +75,7 @@ const ProjectDetail = () => {
 
   // 게시글정보 저장할 State
   const [projectDetail, setProjectDetail] = useState([]);
+  const [visible, setVisible] = useState([false, false, false, false, false]);
   // 게시글 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것
   const getProject = async () => {
@@ -84,6 +85,18 @@ const ProjectDetail = () => {
     );
     // respnse에서 데이터 꺼내서 State에 저장
     setProjectDetail(response.data.detailProject[0]);
+    const positionArr = response.data.detailProject[0].position.split(',');
+    positionArr.map((item) => (visible[item - 1] = true));
+  };
+
+  // 날짜 변환 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const year = createdAt.getFullYear();
+    const month = createdAt.getMonth() + 1;
+    const day = createdAt.getDate();
+
+    return `${year}년 ${month}월 ${day}일`
   };
 
   // 페이지 렌더링시 조회함수 실행
@@ -96,13 +109,26 @@ const ProjectDetail = () => {
     window.location.href = `/projectWrite?id=${id}`;
   };
 
+  // 게시글 삭제
+  const deleteProject = async () => {
+    await axios.post(`http://localhost:8088/project/delete/${id}`)
+      .then((res) => {
+        alert("삭제 완료")
+        window.location.href = '/ProjectList'
+      })
+      .catch((err) => {
+        alert("삭제 실패")
+        console.log(err);
+      })
+  }
+
   /* 수정삭제 버튼 */
 
   const [meat, setMeat] = useState(false);
 
   const Dropdown = () => (
     <div className={PlayBoard.meat_dropdown}>
-      <li>
+      <li onClick={moveUpdate}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -119,7 +145,7 @@ const ProjectDetail = () => {
         </svg>
         <span>수정</span>
       </li>
-      <li>
+      <li onClick={deleteProject}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -157,11 +183,11 @@ const ProjectDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
           <div className={PlayBoard.play_wrap_top}>
             <div className={PlayBoard.play_top_title}>
-              <Frontend />
-              <Backend />
-              <Db />
-              <Uxui />
-              <Fullstack />
+              {visible[0] ? <Backend /> : null}
+              {visible[1] ? <Frontend /> : null}
+              {visible[2] ? <Fullstack /> : null}
+              {visible[3] ? <Db /> : null}
+              {visible[4] ? <Uxui /> : null}
             </div>
 
             <div className={PlayBoard.play_profile}>
@@ -169,8 +195,8 @@ const ProjectDetail = () => {
                 <h4>
                   {projectDetail.title}
                 </h4>
-                <p>📆 기간 {projectDetail.startDate} ~ {projectDetail.endDate}</p>
-                <p>🙍‍♂️ 인원 {projectDetail.persons }명</p>
+                <p>📆 기간 {getTimeAgoString(projectDetail.startDate)} ~ {getTimeAgoString(projectDetail.endDate)}</p>
+                <p>🙍‍♂️ 인원 {projectDetail.persons}명</p>
                 <p>📝 활용기술 {projectDetail.framework_front}, {projectDetail.framework_back}, {projectDetail.framework_db}</p>
               </span>
 

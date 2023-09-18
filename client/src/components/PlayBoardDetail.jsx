@@ -34,6 +34,16 @@ const PlayBoardDetail = () => {
     getPlay();
   }, []);
 
+  // 날짜 변환 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const year = createdAt.getFullYear();
+    const month = createdAt.getMonth() + 1;
+    const day = createdAt.getDate();
+
+    return `${year}년 ${month}월 ${day}일`
+  };
+
   // 수정 페이지 이동
   const nav = useNavigate();
   const moveUpdate = () => {
@@ -152,6 +162,7 @@ const PlayBoardDetail = () => {
                 <h2>
                   {playDetail.title}
                 </h2>
+                <p>{getTimeAgoString(playDetail.createdAt)}</p>
               </span>
 
               <div>
