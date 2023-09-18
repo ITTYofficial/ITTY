@@ -13,14 +13,14 @@ const PlayBoardWrite = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
-    // const nickname = sessionStorage.getItem("memberNickname"); 
+    const nickname = sessionStorage.getItem("memberNickname"); 
     const { value, setValue } = useContext(PlayBoardContext);
     console.log("id :", id);
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        // formData.append('writer', nickname);
+        formData.append('writer', nickname);
         console.log(e.target);
 
         const obj = {};
@@ -36,10 +36,10 @@ const PlayBoardWrite = () => {
         await axios.post('http://localhost:8088/play/write', obj)
             .then((res) => {
                 alert("글 작성 완료")
-                // window.location.href = "/playboardList"
+                window.location.href = "/playboardList"
             }).catch((err) => {
                 alert("작성에 실패했습니다.")
-                // window.location.href = "/playboardList"
+                window.location.href = "/playboardList"
             })
     }
 
