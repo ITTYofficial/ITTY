@@ -75,7 +75,6 @@ const ProjectDetail = () => {
 
   // 게시글정보 저장할 State
   const [projectDetail, setProjectDetail] = useState([]);
-
   // 게시글 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것
   const getProject = async () => {
@@ -171,8 +170,8 @@ const ProjectDetail = () => {
                   {projectDetail.title}
                 </h4>
                 <p>📆 기간 {projectDetail.startDate} ~ {projectDetail.endDate}</p>
-                <p>🙍‍♂️ 인원 {projectDetail.persons}명</p>
-                <p>📝 활용언어 Java, JavaScript, HTML, CSS, React</p>
+                <p>🙍‍♂️ 인원 {projectDetail.persons }명</p>
+                <p>📝 활용기술 {projectDetail.framework_front}, {projectDetail.framework_back}, {projectDetail.framework_db}</p>
               </span>
 
               <div>
@@ -186,7 +185,7 @@ const ProjectDetail = () => {
                   </span>
                 </span>
                 <span>
-                  <p>👁‍🗨 28 💬 4</p>
+                  <p>👁‍🗨 {projectDetail.views} 💬 4</p>
                 </span>
               </div>
             </div>
@@ -214,29 +213,7 @@ const ProjectDetail = () => {
           </div>
 
           <div className={PlayBoard.play_content}>
-            <span>
-              안녕하세요 데이터디자인반 김초롱입니다.
-              <br />
-              <br />
-              이번 공공기관 프로젝트 함께할 사람을 찾고 있는데
-              <br />
-              <br />
-              혹시 생각 있으시면
-              <br />
-              <br />
-              댓글 달아주시면 감사하겠습니다.
-              <br />
-              <br />
-              현재 프론트 1명만 구한 상황이구요
-              <br />
-              <br />
-              백/프론트/DB 쪽 담당해줄 사람을 찾고있습니다.
-              <br />
-              <br />
-              같이 배우면서 하는거니까 부담갖지말고 편하게 연락주세요.
-              <br />
-              <br />
-            </span>
+            <span dangerouslySetInnerHTML={{ __html: projectDetail.content }}></span>
           </div>
           {/* 게시글 content 끝 */}
 

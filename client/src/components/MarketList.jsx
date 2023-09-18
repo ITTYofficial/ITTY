@@ -60,7 +60,7 @@ const MarketList = () => {
       className={style.Market_content_item}
     >
       <div className={style.Market_content_img}>
-        <img src={props.imgPath}></img>
+        <img src={props.imgPath[0]}></img>
       </div>
       <div className={style.Market_content_text}>
         <h4>{props.title}</h4>
@@ -83,9 +83,6 @@ const MarketList = () => {
         </div>
 
         <div className={style.Market_list}>
-          {marketList.map((item) => (
-            <MarketItem key={item._id} props={item} />
-          ))}
           {marketList.map((item) => (
             <MarketItem key={item._id} props={item} />
           ))}
