@@ -310,3 +310,53 @@
 }
 
 /* 댓글 */
+
+/* 수정삭제 버튼 */
+
+.meatball {
+    text-align: end;
+  }
+  
+  .meatball>ul {
+    position: relative;
+  }
+  
+  .meat_dropdown {
+    font-size: 14px;
+    position: absolute;
+    right: 0;
+    box-shadow: 1px 1px 8px gray;
+    padding: 4px 8px;
+    width: 100px;
+    text-align: left;
+    border-radius: 8px;
+    z-index:99;
+    background-color: white;
+  }
+  
+  .meat_dropdown li {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+  }
+  
+  .meat_dropdown svg {
+    margin-right: 8px;
+  }
+  
+  .meat_dropdown>li:hover svg {
+    fill: #1f6cf1;
+  }
+  
+  .meat_dropdown>li:hover span {
+    color: #1f6cf1;
+    font-weight: 600;
+  }
+  
+  .meat_dropdown svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  
+  }
+  
+  /* 수정삭제 버튼 */

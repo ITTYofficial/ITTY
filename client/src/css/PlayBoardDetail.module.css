@@ -327,6 +327,8 @@
   right: 16px;
 }
 
+/* 수정삭제 버튼 */
+
 .meatball {
   text-align: end;
 }
@@ -344,6 +346,8 @@
   width: 100px;
   text-align: left;
   border-radius: 8px;
+  z-index:99;
+  background-color: white;
 }
 
 .meat_dropdown li {
@@ -370,3 +374,5 @@
   height: 1.25rem;
 
 }
+
+/* 수정삭제 버튼 */

@@ -111,6 +111,8 @@ const PlayBoardDetail = () => {
     </div>
   );
 
+  /* 수정삭제 버튼 */
+
   const [meat, setMeat] = useState(false);
 
   const Dropdown = () => (
@@ -135,6 +137,8 @@ const PlayBoardDetail = () => {
   const toggleMeat = () => {
     setMeat(!meat);
   }
+
+  /* 수정삭제 버튼 */
 
   return (
     <div className={PlayBoard.Main_container}>
