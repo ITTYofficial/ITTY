@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams,useLocation  } from 'react-router-dom';
 
 const MarketDetail = () => {
 
@@ -53,8 +53,14 @@ const MarketDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
 
+  // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const nickname = params.get('nickname');
+
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);
+   // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
   // 게시글 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
@@ -72,21 +78,21 @@ const MarketDetail = () => {
   };
   console.log('확인!!', marketDetail.imgPath);
   // 회원 정보 조회 함수
-  const getmember = async () => {
-    await axios.get(`http://localhost:8088/member/memberSearching?nickname=${marketDetail.writer}`)
+  const memberSearching = async () => {
+    await axios.get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
       .then((res) => {
-        console.log(res.data);
-        setMemberInfo(res.data.member[0]);
+        console.log('axios다음 니크네임',res.data.member.nickname);
+        setMemberInfo(res.data.member);
       })
       .catch((err) => {
-        console.log(err);
+        console.log('err :', err);
       })
   }
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getMarket();
-    getmember();
+    memberSearching();
     console.log(marketDetail.imgPath);
   }, []);
 
@@ -180,7 +186,7 @@ const MarketDetail = () => {
               <img src=''></img>
             </div>
             <div>
-              <p>데이터디자인</p>
+              <p>{memberInfo.class}</p>
               <p>{marketDetail.writer}</p>
             </div>
           </div>
