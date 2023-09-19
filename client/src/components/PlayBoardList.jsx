@@ -4,114 +4,97 @@ import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const PlayBoardList = () => {
+const PlayBoardList = (props) => {
   // 장터리스트 담을 State
   const [playList, setPlayList] = useState([]);
-  const [memberInfo, setMemberInfo] =useState({});
-  const [nickname, setNickname] =useState("");
-  console.log("member정보 그냥 맨앞:",memberInfo);
-  // 회원정보 조회 함수 -> 09:44 member값을 찾지 못함 -> 09:18 props에 값이 없음 => props의 원천지를 모르겠음(광영이한테 묻기!)
-  // const memberSearching = async(nickname) => {
-  //   try{
-  //   console.log("props:",props.writer);
-  //   console.log("nickname",nickname);
-  //    const res= await axios
-  //     .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+  const [memberInfo, setMemberInfo] = useState([]);
+  // setMemberInfo(...memberInfo, value)
 
-  //       console.log(res);
-  //       setMemberInfo(res.data.member)
-      
+
+  // 회원정보 조회 함수 -> 09:44 member값을 찾지 못함 -> 09:18 props에 값이 없음 => props의 원천지를 모르겠음(광영이한테 묻기!)
+  // const memberSearching = async (nickname) => {
+  //   try {
+  //     console.log("props:", props.writer);
+  //     console.log("nickname", nickname);
+  //     const res = await axios
+  //       .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+
+  //     console.log(res);
+  //     setMemberInfo(res.data.member)
+
   //   }
-  //   catch(err){
+  //   catch (err) {
   //     alert("통신에 실패했습니다.");
   //     console.log(err);
   //   };
   // };
 
-  // 장터 리스트 조회 함수
-  const readPlayList = async (props) => {
-  
+  // 게시판 리스트 조회 함수
+  const readPlayList = async () => {
     await axios
       .get("http://localhost:8088/play/playList")
-      .then(async (res) => {
-        console.log(res);
-        setPlayList(res.data.play);
-        
-        // 각 writer 값에 대해 순차적으로 요청을 보냄.
-        for (let play of res.data.play) {
-            setNickname(play.writer);
-            console.log('확인용', play.writer);
+      .then(async(res) => {
+        // 회원정보조회-지홍
+        console.log('1. writer :',res.data.play[0].writer);
+        let memberPromises = res.data.play.map((play) => {
+          const nickname = play.writer; 
+          return axios.get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`);
+        });
+  
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map(response => ({ member: response.data.member }));
+  
+        console.log("member 내용물 : ",member.member );
+        let fusion= member.map((item, index) => {
+          return {...item, ...res.data.play[index]};
+        });
+        console.log('퓨전',fusion);
 
-            // 회원 정보 조회
-            try{
-              
-                const res= await axios
-                    .get(`http://localhost:8088/member/memberSearching?nickname=${play.writer}`)
-                console.log('res',res);
-
-                console.log('***res.data.member:',res.data.member);
-             
-
-                setMemberInfo(res.data.member)
-                console.log('***멤바요:',memberInfo);
-
-            }
-            catch(err){
-                alert("통신에 실패했습니다.");
-                console.log(err);
-            };
-        }
+          const sortedProjects = fusion.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setPlayList(sortedProjects);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
         console.log(err);
       });
-};
+  };
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     readPlayList();
+    // const nickname = playList[0]
+    // console.log(nickname);
+    // memberSearching(nickname);
+  }, []);
 
-  },[]); 
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
 
-  const PlayItem = ({ props }) =>(
-    
-    // 회원 정보 조회
-    // const memberSearching = async() => {
-    //       // 각 writer 값에 대해 순차적으로 요청을 보냄.
-    //       // for (let play of playList) {
-    //         setNickname(play.writer);
-    //         console.log('확인용', play.writer);
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${hoursDifference}시간 전`;
+      }
+    } else {
+      return `${daysDifference}일 전`;
+    }
+  };
 
-    //         try{
-              
-    //             const res= await axios
-    //                 .get(`http://localhost:8088/member/memberSearching?nickname=${play.writer}`)
-    //             console.log('res',res);
-    //             console.log('***res.data.member:',res.data.member);
-             
+  const PlayItem = ({ props }) => (
 
-    //             setMemberInfo(res.data.member)
-    //             console.log('***멤바요:',memberInfo);
 
-    //         }
-    //         catch(err){
-    //             alert("통신에 실패했습니다.");
-    //             console.log(err);
-    //         };
-    //       //}
-    //     };
-    //       useEffect(() => {
-    //         memberSearching();
-        
-    //       },[]); 
-    
-
-  
-    
-  <div className={PlayBoard.Main_container_list_detail}>
+    <div className={PlayBoard.Main_container_list_detail}>
       <div>
-        <p className={PlayBoard.b_date}>{props.createdAt}</p>
+        <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
         <Link to={`/playboardDetail/${props._id}`}>
           <h4>{props.title}</h4>
         </Link>
@@ -122,19 +105,17 @@ const PlayBoardList = () => {
       <div className={PlayBoard.Main_grid_profile}>
         <span className={PlayBoard.profile_text}>
           {/* <p>데이터 디자인</p> */}
-          <p>{memberInfo.class? memberInfo.class:'미인증 회원'}</p>
+          <p>{props.member.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <span className={PlayBoard.profile_pic}>
-          <img src={memberInfo.profileImg} />
+          <img src={props.member.profileImg} />
         </span>
       </div>
     </div>
   );
-console.log("member정보 실행할 위치 뒤:",memberInfo);
+
   return (
-
-
     <div className={PlayBoard.Main_container}>
       <LeftContainer />
       <div className={PlayBoard.right_container}>
