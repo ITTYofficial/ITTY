@@ -7,7 +7,7 @@ const Market = require('../../schemas/community/market')
 router.post('/write', async (req, res) => {
   try {
     let obj;
-
+    let _id;
     if (req.body._id) {
       await Market.updateOne(
         { _id: req.body._id },
@@ -22,6 +22,7 @@ router.post('/write', async (req, res) => {
           }
         }
       );
+      _id = req.body._id
     } else {
       obj = {
         writer: "허허",
@@ -34,9 +35,13 @@ router.post('/write', async (req, res) => {
         condition: req.body.market_condition
       };
       const market = new Market(obj);
+      _id = market._id
       await Market.insertMany(market);
     }
-    res.json({ message: true });
+    res.json({
+      message: true,
+      _id: _id
+    });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
