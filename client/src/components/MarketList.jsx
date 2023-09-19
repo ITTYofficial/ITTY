@@ -47,7 +47,7 @@ const MarketList = () => {
     const timeDifference = now - createdAt;
     const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
     const daysDifference = Math.floor(hoursDifference / 24);
-  
+
     if (daysDifference === 0) {
       if (hoursDifference === 0) {
         return "방금 전";
@@ -59,6 +59,8 @@ const MarketList = () => {
     }
   };
 
+  
+
   // 각 장터 게시글 정보를 담을 내부 컴포넌트
   // 날짜 바꾸기
   const MarketItem = ({ props }) => (
@@ -66,14 +68,15 @@ const MarketList = () => {
       to={`/marketDetail/${props._id}`}
       className={style.Market_content_item}
     >
-      <div className={style.Market_content_img}>
-        <img src={props.imgPath[0]}></img>
+      <div className={style.Market_content_img} style={{width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover'}}>
+
+        {/* <img src={props.imgPath[0]}></img> */}
       </div>
       <div className={style.Market_content_text}>
         <h4>{props.title}</h4>
-        <p>{props.price} 원</p>
         <div className={style.Market_content_text2}>
-          <p>{getTimeAgoString(props.createdAt)}</p>
+          <p className={style.market_content_price}>{props.price} 원</p>
+          <p className={style.market_content_date}>{getTimeAgoString(props.createdAt)}</p>
         </div>
       </div>
     </Link>
@@ -81,7 +84,7 @@ const MarketList = () => {
 
   return (
     <div className={style.Main_container}>
-      <LeftContainer />
+      <LeftContainer/>
       <div className={style.right_container}>
         <div className={style.right_container_button}>
           <h2>교환 장터🥕</h2>
