@@ -104,7 +104,7 @@ const TipDetail = () => {
             {/* 글 작성 프로필 */}
             <span className={style.profile_text}>
               <p>데이터 디자인</p>
-              <h4>수업중몰래롤</h4>
+              <h5>수업중몰래롤</h5>
             </span>
 
           </span>
@@ -118,7 +118,7 @@ const TipDetail = () => {
                   <Develope />
                 </span>
                 <h4>
-                  자바 별찍기 문제 꿀팁
+                  자바 별찍기 문제 꿀팁이래요
                 </h4>
               </span>
 
@@ -139,6 +139,7 @@ const TipDetail = () => {
 
           {/* 게시글 content 시작 */}
           <div className={style.play_content}>
+            {/* 글 수정/삭제 미트볼 */}
             <div className={style.meatball}>
               <ul>
                 <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
@@ -148,29 +149,26 @@ const TipDetail = () => {
               </ul>
             </div>
 
-            <span>
+            <p>
               꿀팁 하나 알려드릴까요
-              <br />
-              <br />
               for문 별찍기 다들 어려워하시잖아요
-              <br />
-              <br />
+            </p>
+            <p>
               그거 이중포문쓰면 헷갈리잖아요
-              <br />
-              <br />
               그때 꿀팁입니다
-              <br />
-              <br />
               유튜브 검색하시면
-              <br />
-              <br />
+            </p>
+            <p>
               유용한정보 진짜 많아요 ㅋ
-              <br />
-              <br />
               서칭해서 별찍기문제 이해해보세용
-              <br />
-              <br />
-            </span>
+            </p>
+            <p>
+             그래도 모르겠으면
+             구글링해서 자료 많이 찾아보세요
+             요즘 설명 잘해주는 사람 많더라구요
+             강력추천합니다~~
+            </p>
+
           </div>
           {/* 게시글 content 끝 */}
 
