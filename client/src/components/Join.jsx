@@ -38,17 +38,20 @@ const Join = () => {
   const [gender, setGender] = useState("");
   const [idCheckResult, setIdCheckResult] = useState(false);
   const [pwCheckResult, setPwCheckResult] = useState(false);
-  const [check3, setCheck3] = useState(false);
+  const [nicknameCheckResult, setNicknameCheckResult] = useState(false);
+ 
   
   const messageElement1 = useRef(null);
   const messageElement2 = useRef(null);
   const messageElement3 = useRef(null);
+  const messageElement4 = useRef(null);
   
   useEffect(() => {
     // 컴포넌트가 마운트된 후에 messageElement를 설정
     messageElement1.current = document.getElementById('iDmessage'); // message 요소를 찾아서 설정
     messageElement2.current = document.getElementById('pWmessage');
     messageElement3.current = document.getElementById('pWCheckmessage');
+    messageElement4.current = document.getElementById('nickNameCheckmessage');
   }, []);
 
   const onIdHandler = (e) => {
@@ -113,6 +116,7 @@ const engNumCheck= (e) =>{
 
 };
 
+//아이디 중복체크
 const idCheck = async(e) => {
   e.preventDefault();
  if(idCheckResult){
@@ -141,6 +145,32 @@ const idCheck = async(e) => {
   }
 }
 
+//닉네임 중복체크
+const nicknameCheck = async(e) => {
+  e.preventDefault();
+ 
+   const nicknameChecking  ={nickname:nickname};
+   try {
+     //  라우트로 POST 요청 보내기
+     const response = await axios.post('http://localhost:8088/member/nicknameCheck', nicknameChecking);
+     if (response.data.nicknameCheckingSuccess) {
+       // 중복체크 중복 O      
+       console.log('아이디 중복체크 성공:', response.data.nicknameCheckingNickname);
+       messageElement4.current.textContent= response.data.message; // 사용가능한 아이디입니다.
+       messageElement4.current.style.color = "blue"; 
+       setNicknameCheckResult(true);
+      } else {
+        // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
+        messageElement4.current.textContent= response.data.message; // 중복된 아이디입니다.
+        messageElement4.current.style.color = "red";
+        setNicknameCheckResult(false)
+      }
+    } catch (error) {
+      console.error('오류 발생:', error);
+    }
+ 
+}
+
 // 비밀번호 확인 메소드
 const pwCheck = (e) =>{
   if (pwCheckResult) {
@@ -161,7 +191,7 @@ const pwCheck = (e) =>{
 
   const joinMember = async (e) => {
     e.preventDefault();
-if (idCheckResult && pwCheckResult && name && nickname&& gender) {
+if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& gender) {
 
   let member = {
     id: id,
@@ -237,8 +267,8 @@ if (idCheckResult && pwCheckResult && name && nickname&& gender) {
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="nickname">닉네임</label>
-              <input className="form-control" type="text" name="nickname" id="nickname" value={nickname} onChange={onNicknameHandler} placeholder='닉네임을 입력해주세요' />
-              {/* 닉네임도 중복체크해야함 */}
+              <input className="form-control" type="text" name="nickname" id="nickname" value={nickname} onChange={onNicknameHandler} onBlur={nicknameCheck} placeholder='닉네임을 입력해주세요' />
+              <div className={style.Join_content_test} id="nickNameCheckmessage"></div>
             </div>
 
             {/* 역할 */}

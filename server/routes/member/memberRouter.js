@@ -13,7 +13,7 @@ router.post('/join', async (req, res) => {
             pw: req.body.pw,
             gender: req.body.gender,
             name: req.body.name,
-            nickname:req.body.name,
+            nickname:req.body.nickname,
             role: req.body.role,
             skill: req.body.skill,
             point: req.body.point,
@@ -28,7 +28,7 @@ router.post('/join', async (req, res) => {
         res.json({ message: false });
       }
 })
-
+//아이디 중복체크
 router.post('/idCheck',async(req,res)=>{
   try { 
   // 요청된 아이디를 데이터베이스에서 찾는다.
@@ -49,6 +49,28 @@ router.post('/idCheck',async(req,res)=>{
       res.json({ message: false });
     }
 });
+
+router.post('/nicknameCheck',async(req,res)=>{
+  try { 
+  // 요청된 아이디를 데이터베이스에서 찾는다.
+    const nicknameChecking = await Member.findOne({ nickname: req.body.nickname });
+    if (!nicknameChecking) {
+      return res.json({
+        nicknameCheckingSuccess: true,
+        message: '사용가능한 닉네임입니다.',
+      });
+    }else{
+      return res.json({
+        nicknameCheckingfail: false,
+        message: '닉네임이 중복됩니다.',
+      });
+    }
+    } catch (err) {
+      console.log(err);
+      res.json({ message: false });
+    }
+});
+
 // 닉네임 값으로 특정 회원 조회
 router.get('/memberSearching',async (req, res) => {
   try {
