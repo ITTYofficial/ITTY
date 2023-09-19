@@ -52,9 +52,17 @@ router.post('/idCheck',async(req,res)=>{
 
 router.post('/nicknameCheck',async(req,res)=>{
   try { 
+    // 닉네임이 null값일 때 출력할 말
+    if (req.body.nickname === '') {
+      return res.json({
+        nicknameCheckingfail : false,
+        message: '닉네임을 입력해주세요.',
+      });
+    }
   // 요청된 아이디를 데이터베이스에서 찾는다.
     const nicknameChecking = await Member.findOne({ nickname: req.body.nickname });
-    if (!nicknameChecking) {
+
+    if (!nicknameChecking ) {
       return res.json({
         nicknameCheckingSuccess: true,
         message: '사용가능한 닉네임입니다.',
