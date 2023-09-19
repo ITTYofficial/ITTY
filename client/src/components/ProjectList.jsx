@@ -110,7 +110,7 @@ const ProjectList = () => {
                 <p className={styles.b_date}>
                   {getTimeAgoString(item.createdAt)}
                 </p>
-                <Link to={`/projectDetail/${item._id}`}>
+                <Link to={`/projectDetail/${item._id}?nickname=${item.member.nickname}`}>
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <div>{item.content}</div> */}

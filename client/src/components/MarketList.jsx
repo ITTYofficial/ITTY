@@ -76,7 +76,7 @@ const MarketList = () => {
   // 날짜 바꾸기
   const MarketItem = ({ props }) => (
     <Link
-      to={`/marketDetail/${props._id}`}
+      to={`/marketDetail/${props._id}?nickname=${props.writer}`}
       className={style.Market_content_item}
     >
       <div className={style.Market_content_img}>

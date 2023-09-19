@@ -102,7 +102,7 @@ const StudyList = () => {
                 <p className={styles.b_date}>
                   {getTimeAgoString(item.createdAt)}
                 </p>
-                <Link to={`/studyDetail/${item._id}`}>
+                <Link to={`/studyDetail/${item._id}?nickname=${item.member.nickname}`}>
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
@@ -110,12 +110,12 @@ const StudyList = () => {
 
               <div className={styles.Main_grid_profile}>
                 <span className={styles.profile_text}>
-                  <p>데이터 디자인</p>
+                  <p>{item.member.class}</p>
                   <h4>{item.writer}</h4>
                 </span>
                 <span className={styles.profile_img}>
                   <Image
-                    src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj"
+                    src={item.member.profileImg}
                     roundedCircle
                   />
                 </span>
