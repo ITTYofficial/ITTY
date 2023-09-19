@@ -11,11 +11,15 @@
     font-weight: bold;
     margin: 0 16px;
     line-height: 40px;
+    text-align: center;
 }
 
 
-.Main_container>form>p {
-    margin-bottom: 8px;
+.Main_container_box h4 {
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 18px;
+
 }
 
 .Main_container>form>input {
@@ -39,7 +43,15 @@
     height: 50px;
     display: inline-grid;
     margin: 12px 12px 12px 0;
+
 }
+
+.space_box_1{
+
+    margin-bottom: 12px;
+}
+
+
 
 @media (max-width:873px) {
     .second_block>div {
@@ -72,7 +84,7 @@
 }
 
 .margin_top_p_tag {
-    margin-top: 16px;
+    margin-top: 35px;
 }
 
 .submit_btn {
@@ -95,4 +107,17 @@
 
 .quill_content {
     margin-bottom: 32px;
+}
+
+.Main_container_box{
+
+    width: 60%;
+    background-color: #ffffff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 4%;
+
 }
