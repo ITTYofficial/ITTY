@@ -79,7 +79,7 @@ const ProjectList = () => {
 
       <div className={styles.right_container}>
         <div className={styles.Main_container_banner}>
-          <img src="https://i.ibb.co/bQG36NG/project.png" alt="project" />
+          <img src="https://i.ibb.co/zfcYczr/project.png" alt="project" />
         </div>
         <div className={styles.right_container_button}>
           <h2>프로젝트 같이해요🛵</h2>
