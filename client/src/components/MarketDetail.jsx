@@ -152,8 +152,10 @@ const MarketDetail = () => {
   );
 
   const toggleMeat = () => {
-    setMeat(!meat);
-  }
+    if(meat){
+      setMeat(!meat);
+    }
+  };
 
   /* 수정삭제 버튼 */
 
