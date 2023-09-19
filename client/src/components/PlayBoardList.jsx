@@ -9,6 +9,7 @@ const PlayBoardList = (props) => {
   // 장터리스트 담을 State
   const [playList, setPlayList] = useState([]);
 
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
   const checkSessionStorage = (e) => {
     // sessionStorage에서 값을 가져옴
     var value = sessionStorage.getItem("memberId");
