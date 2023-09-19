@@ -45,8 +45,9 @@ router.post('/write', async (req, res) => {
 // 글 리스트 조회
 router.get('/playList', async (req, res) => {
   try {
-    const play = await Play.find();
+    const play = await Play.find();    
     res.json({ play })
+   
   } catch (err) {
     console.log(err);
     res.json({ message: false });
