@@ -3,7 +3,7 @@ import LeftContainer from './LeftContainer'
 import style from "../css/StudyDetail.module.css";
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation  } from "react-router-dom";
 import axios from 'axios';
 
 const StudyDetail = () => {
@@ -96,6 +96,28 @@ const StudyDetail = () => {
     const [studyDetail, setStudyDetail] = useState([]);
     const [visible, setVisible] = useState([false, false, false, false, false]);
 
+    // 특정 게시글 조회하기위한 nickname값 가져오기 -지홍
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const nickname = params.get('nickname');
+
+    // 회원정보 저장할 state -지홍
+    const [memberInfo, setMemberInfo] = useState({});
+
+    //회원정보 조회 함수 -지홍
+  const memberSearching = async()=>{
+
+    await axios
+      .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+      .then((res)=>{
+        console.log('axios다음 니크네임',res.data.member.nickname);
+        setMemberInfo(res.data.member);
+      })
+      .catch((err)=>{
+        console.log('err :', err);
+      })
+    };
+
     // 게시글 조회함수
     // 작성자 정보는 아직 없어서 나중에 추가할 것
     const getStudy = async () => {
@@ -118,6 +140,7 @@ const StudyDetail = () => {
     useEffect(() => {
         getStudy();
         getComment();
+        memberSearching();
     }, []);
 
     // 날짜 변환 함수
@@ -233,11 +256,11 @@ const StudyDetail = () => {
                         </div>
 
                         <div className={style.Top_right_container}>
-                            <p>데이터디자인</p>
-                            <p>수업중몰래롤</p>
+                            <p>{memberInfo.class}</p>
+                            <p>{memberInfo.nickname}</p>
                         </div>
                         <div className={style.Profile_img}>
-                            <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+                            <Image src={memberInfo.profileImg} roundedCircle />
                         </div>
                     </div>
                     <p>조회수 : {studyDetail.views} 댓글수 : 10</p>
