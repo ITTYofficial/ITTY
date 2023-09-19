@@ -9,23 +9,21 @@ const PlayBoardList = (props) => {
   const [playList, setPlayList] = useState([]);
   const [memberInfo, setMemberInfo] = useState([]);
 
-
   // 회원정보 조회 함수 -> 09:44 member값을 찾지 못함 -> 09:18 props에 값이 없음 => props의 원천지를 모르겠음(광영이한테 묻기!)
   const memberSearching = async (nickname) => {
     try {
       console.log("props:", props.writer);
       console.log("nickname", nickname);
-      const res = await axios
-        .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+      const res = await axios.get(
+        `http://localhost:8088/member/memberSearching?nickname=${nickname}`
+      );
 
       console.log(res);
-      setMemberInfo(res.data.member)
-
-    }
-    catch (err) {
+      setMemberInfo(res.data.member);
+    } catch (err) {
       alert("통신에 실패했습니다.");
       console.log(err);
-    };
+    }
   };
 
   // 게시판 리스트 조회 함수
@@ -48,7 +46,7 @@ const PlayBoardList = (props) => {
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     readPlayList();
-    const nickname = playList[0]
+    const nickname = playList[0];
     console.log(nickname);
     memberSearching(nickname);
   }, [props.writer]);
@@ -73,8 +71,6 @@ const PlayBoardList = (props) => {
   };
 
   const PlayItem = ({ props }) => (
-
-
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
@@ -102,7 +98,9 @@ const PlayBoardList = (props) => {
     <div className={PlayBoard.Main_container}>
       <LeftContainer />
       <div className={PlayBoard.right_container}>
-        <div className={PlayBoard.Main_container_banner}></div>
+        <div className={PlayBoard.Main_container_banner}>
+          <img src="https://i.ibb.co/0m6fT0n/play.png" alt="play" />
+        </div>
         <div className={PlayBoard.right_container_button}>
           <h2>자유게시판⚽</h2>
           <a href="/playBoardWrite">작성하기</a>
