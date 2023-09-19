@@ -49,7 +49,7 @@ router.post('/idCheck',async(req,res)=>{
       res.json({ message: false });
     }
 });
-
+// 닉네임 중복체크 메소드
 router.post('/nicknameCheck',async(req,res)=>{
   try { 
     // 닉네임이 null값일 때 출력할 말
