@@ -75,11 +75,16 @@ const TipWrite = () => {
                             <QuillTest />
                         </div>
 
-                        <div className={style.Tip_button_box}>
-                            <button type="button" className="btn btn-outline-secondary">취소</button>
-                            <div className={style.Tip_space_box}></div>
-                            <button type="submit" className="btn btn-primary">작성</button>
-                        </div>
+                       
+
+                        <button className={style.submit_btn} type='submit'>
+                            작성
+                        </button>
+
+                        <button className={style.submit_btn} type='text'>
+                            취소
+                        </button>
+
                     </form>
                 </div>
 

@@ -15,14 +15,6 @@
 
 }
 
-/* .Tip_content_box_font {
-
-    font-size: 30px;
-    text-align: center;
-    font-weight: bold;
-    margin: 7%;
-} */
-
 .Tip_button_box {
 
     margin-top: 2%;
@@ -63,4 +55,24 @@
     text-align: center;
     padding: 16px;
     margin: 16px 0;
+}
+
+
+.submit_btn {
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+    margin-right: 16px;
+    float: right;
+    margin-top: 12px;
+}
+
+.submit_btn:hover {
+    background-color: #2a72ff;
+    color: #eeeeee;
 }
