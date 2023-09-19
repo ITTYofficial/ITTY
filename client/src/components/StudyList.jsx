@@ -3,10 +3,9 @@ import LeftContainer from "./LeftContainer";
 import styles from "../css/Community.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Image from 'react-bootstrap/Image';
+import Image from "react-bootstrap/Image";
 
 const StudyList = () => {
-
   // 장터리스트 담을 State
   const [studyList, setstudyList] = useState([]);
 
@@ -55,12 +54,12 @@ const StudyList = () => {
     <div className={styles.Main_container}>
       <LeftContainer />
       <div className={styles.right_container}>
-        <div className={styles.Main_container_banner}></div>
+        <div className={styles.Main_container_banner}>
+          <img src="https://i.ibb.co/RHtHzR8/study.png" alt="study" />
+        </div>
         <div className={styles.right_container_button}>
           <h2>스터디 구해요🐣</h2>
-          <Link to={'/studyWrite'}>
-            작성하기
-          </Link>
+          <Link to={"/studyWrite"}>작성하기</Link>
         </div>
 
         <div className={styles.Main_container_list}>
@@ -68,7 +67,9 @@ const StudyList = () => {
           {studyList.map((item) => (
             <div className={styles.Main_container_list_detail}>
               <div>
-                <p className={styles.b_date}>{getTimeAgoString(item.createdAt)}</p>
+                <p className={styles.b_date}>
+                  {getTimeAgoString(item.createdAt)}
+                </p>
                 <Link to={`/studyDetail/${item._id}`}>
                   <h4>{item.title}</h4>
                 </Link>
@@ -82,7 +83,9 @@ const StudyList = () => {
                 </span>
                 <span className={styles.profile_img}>
                   <Image
-                    src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj" roundedCircle />
+                    src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj"
+                    roundedCircle
+                  />
                 </span>
               </div>
             </div>
