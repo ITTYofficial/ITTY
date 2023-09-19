@@ -118,7 +118,7 @@ const QuillTest = ({ update }) => {
 
   const { value, setValue } = useContext(PlayBoardContext);
 
-  console.log("여기서 출력되는거에용", value);
+  // console.log("여기서 출력되는거에용", value);
 
   return (
     <div>

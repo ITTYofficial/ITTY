@@ -159,7 +159,9 @@ console.log('디테일상단 니크네임',nickname);
   );
 
   const toggleMeat = () => {
-    setMeat(!meat);
+    if(meat){
+      setMeat(!meat);
+    }
   };
 
   /* 수정삭제 버튼 */

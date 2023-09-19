@@ -90,10 +90,8 @@ const ProjectWrite = () => {
                     setEndDate(new Date(res.data.detailProject[0].endDate));
                     setValue(res.data.detailProject[0].content)
                     const positionArr = res.data.detailProject[0].position.split(',');
-                    positionArr.map((item)=>(changeColor(item)))
-
+                    setposition(positionArr);
                 });
-            // respnse에서 데이터 꺼내서 State에 저장
         }
     };
 
@@ -108,7 +106,6 @@ const ProjectWrite = () => {
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
                 {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
-
 
                 <p>포지션</p>
                 <div className={style.position_content}>
@@ -165,31 +162,30 @@ const ProjectWrite = () => {
                         <div>
                             <p>프론트</p>
                             <select className='form-control' name='framework_front'>
-                                <option>React</option>
-                                <option>Next.js</option>
-                                <option>Vue.js</option>
-                                <option>기타</option>
+                                {id&&projectDetail.frameword_front === "React"? <option selected>React</option> : <option>React</option>}
+                                {id&&projectDetail.frameword_front === "Next.js"? <option selected>Next.js</option> : <option>Next.js</option>}
+                                {id&&projectDetail.frameword_front === "Vue.js"? <option selected>Vue.js</option> : <option>Vue.js</option>}
+                                {id&&projectDetail.frameword_front === "기타"? <option selected>기타</option> : <option>기타</option>}
                             </select>
                         </div>
                         <div>
                             <p>백엔드</p>
                             <select className='form-control' name='framework_back'>
-                                <option>Spring / Spring Boot</option>
-                                <option>Node.js</option>
-                                <option>Django</option>
-                                <option>Flask</option>
-                                <option>기타</option>
+                                {id&&projectDetail.framework_back === "Spring / Spring Boot"? <option selected>Spring / Spring Boot</option> : <option>Spring / Spring Boot</option>}
+                                {id&&projectDetail.framework_back === "Node.js"? <option selected>Node.js</option> : <option>Node.js</option>}
+                                {id&&projectDetail.framework_back === "Django"? <option selected>Django</option> : <option>Django</option>}
+                                {id&&projectDetail.framework_back === "Flask"? <option selected>Flask</option> : <option>Flask</option>}
+                                {id&&projectDetail.framework_back === "기타"? <option selected>기타</option> : <option>기타</option>}
                             </select>
                         </div>
                         <div>
                             <p>DB</p>
                             <select className='form-control' name='framework_db'>
-                                <option>MySQL</option>
-                                <option>Oracle</option>
-                                <option>MariaDB</option>
-                                <option>MongoDB</option>
-                                <option>기타</option>
-
+                                {id&&projectDetail.framework_db === "MySQL"? <option selected>MySQL</option> : <option>MySQL</option>}
+                                {id&&projectDetail.framework_db === "Oracle"? <option selected>Oracle</option> : <option>Oracle</option>}
+                                {id&&projectDetail.framework_db === "MariaDB"? <option selected>MariaDB</option> : <option>MariaDB</option>}
+                                {id&&projectDetail.framework_db === "MongoDB"? <option selected>MongoDB</option> : <option>MongoDB</option>}
+                                {id&&projectDetail.framework_db === "기타"? <option selected>기타</option> : <option>기타</option>}
                             </select>
                         </div>
                     </div>
