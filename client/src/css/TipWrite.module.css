@@ -15,15 +15,15 @@
 
 }
 
-.Tip_content_box_font {
+/* .Tip_content_box_font {
 
     font-size: 30px;
     text-align: center;
     font-weight: bold;
     margin: 7%;
-}
+} */
 
-.Tip_button_box{
+.Tip_button_box {
 
     margin-top: 2%;
     text-align: right;
@@ -31,19 +31,36 @@
 
 
 
-.Tip_button_container{
+.Tip_button_container {
 
-    width: 120px;
-    height:50px;
-    border-radius: 80px;
-    margin-bottom: 2%;
-    margin-right: 5%;
-    background-color: rgb(238, 238, 238);
-    border-color: white
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 0px;
+    padding: 12px 20px;
+    margin-right: 16px;
+    margin-bottom: 16px;
 }
 
-.Tip_space_box{
+.Tip_space_box {
 
     display: inline-block;
     margin-right: 3%;
+}
+
+.Tip_content_box2 h4 {
+
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.Tip_content_box_font h2 {
+
+    font-size: 24px;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    padding: 16px;
+    margin: 16px 0;
 }

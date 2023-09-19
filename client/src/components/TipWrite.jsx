@@ -29,13 +29,12 @@ const TipWrite = () => {
                             <div className={style.Tip_content_box_font}>
                                 <h2>Tip 🥇</h2>
                             </div>
-                            <label className="form-label" htmlFor="name">제목</label>
+                            <h4>제목</h4>
                             <input className="form-control" type="text" name="name" placeholder='글제목을 입력하세요.' />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label" htmlFor="name">카테고리</label>
+                            <h4>카테고리</h4>
                         </div>
-
                         <button
                             className={style.Tip_button_container}
                             type="button"
@@ -69,13 +68,13 @@ const TipWrite = () => {
                             생활 / 기타
                         </button>
                         <div className="mb-3">
-                            <label className="form-label" htmlFor="name">내용</label>
-                            </div>
+                            <h4>내용</h4>
+                        </div>
 
-                            <div>
-                                <QuillTest />
-                            </div>
-                       
+                        <div>
+                            <QuillTest />
+                        </div>
+
                         <div className={style.Tip_button_box}>
                             <button type="button" className="btn btn-outline-secondary">취소</button>
                             <div className={style.Tip_space_box}></div>
