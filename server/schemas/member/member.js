@@ -49,7 +49,8 @@ const memberSchema = new Schema({
  
   },
   class :{ // 소속 : 일단은 넣어 뒀는데 어떻게할지는 나중에 봐야알듯 -> routes에는 추가 x (추후 검증절차같아서리...)
-    type: String 
+    type: String, 
+    default : '미인증 회원'
     
   },
   date:{// 가입 날짜 
