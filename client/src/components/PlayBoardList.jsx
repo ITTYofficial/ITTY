@@ -90,7 +90,7 @@ const PlayBoardList = (props) => {
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
-        <Link to={`/playboardDetail/${props._id}`}>
+        <Link to={`/playboardDetail/${props._id}?nickname=${props.member.nickname}`}>
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
