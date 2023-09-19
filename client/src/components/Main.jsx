@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import style from "../css/Main.module.css";
+import axios from "axios";
 
 // import "../css/Community.css";
 
@@ -8,12 +9,102 @@ const Main = () => {
   // console.log(sessionStorage.getItem("memberId"));
   // console.log(sessionStorage.getItem("memberNickname"));
 
-  const Main_detail = () => (
+  // 자유게시판 리스트 담을 State
+  const [playList, setPlayList] = useState([]);
+
+  // 프로젝트,스터디게시판 리스트 담을 State
+  const [projectList, setProjectList] = useState([]);
+  const [studyList, setstudyList] = useState([]);
+
+  // 자유게시판 리스트 조회 함수
+  const readPlayList = async () => {
+    await axios
+      .get("http://localhost:8088/play/playList")
+      .then((res) => {
+        const sortedPlays = res.data.play.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        console.log(res);
+        setPlayList(sortedPlays);
+      })
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
+  };
+
+  // 프로젝트,스터디게시판 리스트 조회함수
+  const readProjectList = async () => {
+    await axios
+      .get("http://localhost:8088/project/projectList")
+      .then(async (res) => { // 프로젝트 리스트
+        await axios
+          .get("http://localhost:8088/study/studyList")
+          .then((res2) => { // 스터디 리스트
+            const proAndStudy = res.data.project.concat(res2.data.study);
+            const sortedData = proAndStudy.sort((a, b) => {
+              // 게시글 데이터 작성 일자별 내림차순 정렬
+              return new Date(b.createdAt) - new Date(a.createdAt);
+            });
+            setProjectList(sortedData)
+          })
+      })
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
+  };
+
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${hoursDifference}시간 전`;
+      }
+    } else {
+      return `${daysDifference}일 전`;
+    }
+  };
+
+  // 페이지 렌더링시 조회 함수 실행
+  useEffect(() => {
+    readPlayList();
+    readProjectList();
+  }, []);
+
+  const Main_detail_play = ({ props }) => (
     <div className={style.Main_grid_detail}>
-      <h4>핵심끝나고 너무 힘들어요.. 다들 어떠세요</h4>
+      <h4>{props.title}</h4>
       <div>
-        <p>1일전 </p>
-        <p>👁‍🗨28 </p>
+        <p>{getTimeAgoString(props.createdAt)}</p>
+        <p>👁‍🗨{props.views}</p>
+        <p>💬4</p>
+        <div className={style.Main_grid_profile}>
+          <span className={style.profile_text}>
+            <p>데이터디자인반</p>
+            <h4>자바노잼</h4>
+          </span>
+          <span className={style.profile_pic}>{/* <img src="#" />/ */}</span>
+        </div>
+      </div>
+    </div>
+  );
+
+  const Main_detail_project = ({ props }) => (
+    <div className={style.Main_grid_detail}>
+      <h4>{props.title}</h4>
+      <div>
+        <p>{getTimeAgoString(props.createdAt)}</p>
+        <p>👁‍🗨{props.views}</p>
         <p>💬4</p>
         <div className={style.Main_grid_profile}>
           <span className={style.profile_text}>
@@ -40,11 +131,7 @@ const Main = () => {
             <h3>자유게시판⚽</h3>
 
             {/* 자유게시판 목록 리스트 반복시작 */}
-            <Main_detail />
-            <Main_detail />
-            <Main_detail />
-            <Main_detail />
-            <Main_detail />
+            {playList.map((item) => <Main_detail_play key={item._id} props={item} />)}
             {/* 자유게시판 목록 리스트 반복 끝 */}
           </div>
 
@@ -54,7 +141,7 @@ const Main = () => {
             <h3>프로젝트/스터디 구해요🙋‍♂️</h3>
 
             {/* 프로젝트 / 스터디 목록 리스트 반복시작 */}
-            <Main_detail />
+            {projectList.map((item) => <Main_detail_project key={item._id} props={item} />)}
             {/* 프로젝트 / 스터디 목록 리스트 끝 */}
           </div>
         </div>

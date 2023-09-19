@@ -33,11 +33,11 @@ const PlayBoardList = (props) => {
     await axios
       .get("http://localhost:8088/play/playList")
       .then((res) => {
-        const sortedProjects = res.data.play.sort((a, b) => {
+        const sortedPlays = res.data.play.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        setPlayList(sortedProjects);
+        setPlayList(sortedPlays);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -73,8 +73,6 @@ const PlayBoardList = (props) => {
   };
 
   const PlayItem = ({ props }) => (
-
-
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
