@@ -74,7 +74,6 @@ const MarketList = () => {
         <p>{props.price} 원</p>
         <div className={style.Market_content_text2}>
           <p>{getTimeAgoString(props.createdAt)}</p>
-          <p>👁‍🗨 {props.views} 💬 2</p>
         </div>
       </div>
     </Link>

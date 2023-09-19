@@ -3,6 +3,7 @@ import PlayBoard from "../css/PlayBoardList.module.css";
 import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Image from 'react-bootstrap/Image';
 
 const PlayBoardList = (props) => {
   // 장터리스트 담을 State
@@ -109,7 +110,8 @@ const PlayBoardList = (props) => {
           <h4>{props.writer}</h4>
         </span>
         <span className={PlayBoard.profile_pic}>
-          <img src={props.member.profileImg} />
+          
+          <Image src={props.member.profileImg} roundedCircle />
         </span>
       </div>
     </div>
