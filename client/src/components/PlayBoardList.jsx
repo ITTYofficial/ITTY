@@ -3,41 +3,55 @@ import PlayBoard from "../css/PlayBoardList.module.css";
 import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Image from "react-bootstrap/Image";
 
 const PlayBoardList = (props) => {
   // 장터리스트 담을 State
   const [playList, setPlayList] = useState([]);
-  const [memberInfo, setMemberInfo] = useState([]);
 
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
 
-  // 회원정보 조회 함수 -> 09:44 member값을 찾지 못함 -> 09:18 props에 값이 없음 => props의 원천지를 모르겠음(광영이한테 묻기!)
-  const memberSearching = async (nickname) => {
-    try {
-      console.log("props:", props.writer);
-      console.log("nickname", nickname);
-      const res = await axios
-        .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
-
-      console.log(res);
-      setMemberInfo(res.data.member)
-
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      e.preventDefault();
     }
-    catch (err) {
-      alert("통신에 실패했습니다.");
-      console.log(err);
-    };
   };
 
   // 게시판 리스트 조회 함수
   const readPlayList = async () => {
     await axios
       .get("http://localhost:8088/play/playList")
-      .then((res) => {
-        const sortedProjects = res.data.play.sort((a, b) => {
+      .then(async (res) => {
+        // 회원정보조회-지홍
+        console.log("1. writer :", res.data.play[0].writer);
+        let memberPromises = res.data.play.map((play) => {
+          const nickname = play.writer;
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.play[index] };
+        });
+        console.log("퓨전", fusion);
+
+        const sortedPlays = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        setPlayList(sortedProjects);
+        setPlayList(sortedPlays);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -48,10 +62,10 @@ const PlayBoardList = (props) => {
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     readPlayList();
-    const nickname = playList[0]
-    console.log(nickname);
-    memberSearching(nickname);
-  }, [props.writer]);
+    // const nickname = playList[0]
+    // console.log(nickname);
+    // memberSearching(nickname);
+  }, []);
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
   const getTimeAgoString = (dateString) => {
@@ -73,8 +87,6 @@ const PlayBoardList = (props) => {
   };
 
   const PlayItem = ({ props }) => (
-
-
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
@@ -88,11 +100,11 @@ const PlayBoardList = (props) => {
       <div className={PlayBoard.Main_grid_profile}>
         <span className={PlayBoard.profile_text}>
           {/* <p>데이터 디자인</p> */}
-          <p>{memberInfo.class}</p>
+          <p>{props.member.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <span className={PlayBoard.profile_pic}>
-          <img src={memberInfo.profileImg} />
+          <Image src={props.member.profileImg} roundedCircle />
         </span>
       </div>
     </div>
@@ -102,10 +114,14 @@ const PlayBoardList = (props) => {
     <div className={PlayBoard.Main_container}>
       <LeftContainer />
       <div className={PlayBoard.right_container}>
-        <div className={PlayBoard.Main_container_banner}></div>
+        <div className={PlayBoard.Main_container_banner}>
+          <img src="https://i.ibb.co/0m6fT0n/play.png" alt="play" />
+        </div>
         <div className={PlayBoard.right_container_button}>
           <h2>자유게시판⚽</h2>
-          <a href="/playBoardWrite">작성하기</a>
+          <a href="/playBoardWrite" onClick={checkSessionStorage}>
+            작성하기
+          </a>
         </div>
 
         <div className={PlayBoard.Main_container_list}>

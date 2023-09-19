@@ -8,6 +8,19 @@ const MarketList = () => {
   // 장터리스트 담을 State
   const [marketList, setMarketList] = useState([]);
 
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
+
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      e.preventDefault();
+    }
+  };
+
   // 장터 리스트 조회 함수
   const readMarketList = async () => {
     await axios
@@ -74,7 +87,6 @@ const MarketList = () => {
         <p>{props.price} 원</p>
         <div className={style.Market_content_text2}>
           <p>{getTimeAgoString(props.createdAt)}</p>
-          <p>👁‍🗨 {props.views} 💬 2</p>
         </div>
       </div>
     </Link>
@@ -86,7 +98,7 @@ const MarketList = () => {
       <div className={style.right_container}>
         <div className={style.right_container_button}>
           <h2>교환 장터🥕</h2>
-          <a href="/marketWrite">작성하기</a>
+          <a href="/marketWrite" onClick={checkSessionStorage}>작성하기</a>
         </div>
 
         <div className={style.Market_list}>

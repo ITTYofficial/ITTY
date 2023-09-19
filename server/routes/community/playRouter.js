@@ -12,6 +12,7 @@ router.post('/write', async (req, res) => {
     // console.log('저장된 파일의 이름', req.file.filename);
 
     let obj;
+    let _id;
 
     if (req.body._id) {
       // 글 수정 시
@@ -24,6 +25,7 @@ router.post('/write', async (req, res) => {
           }
         }
       );
+      _id = req.body._id;
     } else {
       // 글 작성 시
       obj = {
@@ -32,10 +34,13 @@ router.post('/write', async (req, res) => {
         content: req.body.content,
       };
       const play = new Play(obj);
+      _id = play._id
       await Play.insertMany(play);
     }
-
-    res.json({ message: true });
+    res.json({
+      message: true,
+      _id: _id
+    });
     // res.json({ message: "게시글이 업로드 되었습니다." });
   } catch (err) {
     console.log(err);
@@ -46,8 +51,9 @@ router.post('/write', async (req, res) => {
 // 글 리스트 조회
 router.get('/playList', async (req, res) => {
   try {
-    const play = await Play.find();
+    const play = await Play.find();    
     res.json({ play })
+   
   } catch (err) {
     console.log(err);
     res.json({ message: false });

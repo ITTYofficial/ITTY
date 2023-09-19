@@ -6,8 +6,6 @@ import axios from "axios";
 import styles from "../css/Community.module.css";
 
 const ProjectList = () => {
-
-
   // 게시글 리스트 담을 State
   const [projectList, setProjectList] = useState([]);
 
@@ -61,7 +59,9 @@ const ProjectList = () => {
       <LeftContainer />
 
       <div className={styles.right_container}>
-        <div className={styles.Main_container_banner}></div>
+        <div className={styles.Main_container_banner}>
+          <img src="https://i.ibb.co/zfcYczr/project.png" alt="project" />
+        </div>
         <div className={styles.right_container_button}>
           <h2>프로젝트 같이해요🛵</h2>
           <Link to={"/projectWrite"}>
@@ -74,7 +74,9 @@ const ProjectList = () => {
           {projectList.map((item) => (
             <div className={styles.Main_container_list_detail}>
               <div>
-                <p className={styles.b_date}>{getTimeAgoString(item.createdAt)}</p>
+                <p className={styles.b_date}>
+                  {getTimeAgoString(item.createdAt)}
+                </p>
                 <Link to={`/projectDetail/${item._id}`}>
                   <h4>{item.title}</h4>
                 </Link>
