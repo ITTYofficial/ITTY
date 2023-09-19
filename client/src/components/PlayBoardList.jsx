@@ -8,26 +8,17 @@ import Image from "react-bootstrap/Image";
 const PlayBoardList = (props) => {
   // 장터리스트 담을 State
   const [playList, setPlayList] = useState([]);
-  const [memberInfo, setMemberInfo] = useState([]);
-  // setMemberInfo(...memberInfo, value)
 
-  // 회원정보 조회 함수 -> 09:44 member값을 찾지 못함 -> 09:18 props에 값이 없음 => props의 원천지를 모르겠음(광영이한테 묻기!)
-  // const memberSearching = async (nickname) => {
-  //   try {
-  //     console.log("props:", props.writer);
-  //     console.log("nickname", nickname);
-  //     const res = await axios
-  //       .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
-
-  //     console.log(res);
-  //     setMemberInfo(res.data.member)
-
-  //   }
-  //   catch (err) {
-  //     alert("통신에 실패했습니다.");
-  //     console.log(err);
-  //   };
-  // };
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("경고 메시지");
+      window.location.href = "/login";
+      e.preventDefault();
+    }
+  };
 
   // 게시판 리스트 조회 함수
   const readPlayList = async () => {
@@ -126,7 +117,9 @@ const PlayBoardList = (props) => {
         </div>
         <div className={PlayBoard.right_container_button}>
           <h2>자유게시판⚽</h2>
-          <a href="/playBoardWrite">작성하기</a>
+          <a href="/playBoardWrite" onclick={checkSessionStorage}>
+            작성하기
+          </a>
         </div>
 
         <div className={PlayBoard.Main_container_list}>
