@@ -88,7 +88,7 @@ const StudyWrite = () => {
                     setEndDate(new Date(res.data.detailStudy[0].periodEnd));
                     setValue(res.data.detailStudy[0].content);
                     const positionArr = res.data.detailStudy[0].selectedValues.split(',');
-                    positionArr.map((item) => (changeColor(item)))
+                    setSelectedValues(positionArr);
                 });
             // respnse에서 데이터 꺼내서 State에 저장
         }
