@@ -92,7 +92,7 @@
   }
 
   .Qna_space_box{
-    margin-left: 3%;
+    margin-left: 8px;
   }
 
   .Qna_title_box{
@@ -155,9 +155,12 @@
     float: left;
     margin-top: 1%;
   }
-  .Qna_title_box_space_2 span{
-
-    font-size: 15px;
+  .Qna_title_box_space_2 p{
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 8px;
   }
 
   .Qna_page_box{
@@ -240,6 +243,8 @@ margin-top: 3px;
   .Main_grid_profile {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
   }
   .profile_text {
     margin-right: 8px;

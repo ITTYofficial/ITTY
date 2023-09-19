@@ -29,11 +29,11 @@ const QnaWrite = () => {
                             <div className={style.Qna_content_box_font}>
                                 <h2>QnA 💡</h2>
                             </div>
-                            <label className="form-label" htmlFor="name">제목</label>
+                            <h4>제목</h4>
                             <input className="form-control" type="text" name="name" placeholder='글제목을 입력하세요.' />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label" htmlFor="name">카테고리</label>
+                            <h4>카테고리</h4>
                         </div>
 
                         <button
@@ -69,17 +69,21 @@ const QnaWrite = () => {
                             생활 / 기타
                         </button>
                         <div className="mb-3">
-                            <label className="form-label" htmlFor="name">내용</label>
-                            </div>
+                            <h4>내용</h4>
+                        </div>
 
-                            <div>
-                                <QuillTest />
-                            </div>
-                       
-                        <div className={style.Qna_button_box}>
-                            <button type="button" className="btn btn-outline-secondary">취소</button>
-                            <div className={style.Qna_space_box}></div>
-                            <button type="submit" className="btn btn-primary">작성</button>
+                        <div>
+                            <QuillTest />
+                        </div>
+
+                        <div>
+                        <button className={style.submit_btn} type='submit'>
+                            작성
+                        </button>
+
+                        <button className={style.submit_btn} type='text'>
+                            취소
+                        </button>
                         </div>
                     </form>
                 </div>
