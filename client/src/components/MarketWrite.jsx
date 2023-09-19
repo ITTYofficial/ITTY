@@ -27,28 +27,30 @@ const MarketWrite = () => {
 
   // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
-    let file = imgRef.current.files[0];
-    if (
-      file.type !== "image/jpg" &&
-      file.type !== "image/jpeg" &&
-      file.type !== "image/png"
-    ) {
-      alert("jpg, jpeg, png 이미지 파일만 업로드가 가능합니다.");
-      file = null;
-    } else {
-      console.log(file.type);
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = async () => {
-        if (imgFiles.length >= 3) {
-          alert("최대 3개의 이미지 등록이 가능합니다.");
-          console.log(imgFiles); // 3개 이상 등록시 alert 메세지
-        } else {
-          const base64data = reader.result;
-          // formData 만드는 함수
-          handlingDataForm(base64data);
-        }
-      };
+    if (imgRef.current && imgRef.current.files.length > 0) {
+      let file = imgRef.current.files[0];
+      if (
+        file.type !== "image/jpg" &&
+        file.type !== "image/jpeg" &&
+        file.type !== "image/png"
+      ) {
+        alert("jpg, jpeg, png 이미지 파일만 업로드가 가능합니다.");
+        file = null;
+      } else {
+        console.log(file.type);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = async () => {
+          if (imgFiles.length >= 3) {
+            alert("최대 3개의 이미지 등록이 가능합니다.");
+            console.log(imgFiles); // 3개 이상 등록시 alert 메세지
+          } else {
+            const base64data = reader.result;
+            // formData 만드는 함수
+            handlingDataForm(base64data);
+          }
+        };
+      }
     }
   };
 

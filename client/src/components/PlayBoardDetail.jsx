@@ -34,6 +34,16 @@ const PlayBoardDetail = () => {
     getPlay();
   }, []);
 
+  // 날짜 변환 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const year = createdAt.getFullYear();
+    const month = createdAt.getMonth() + 1;
+    const day = createdAt.getDate();
+
+    return `${year}년 ${month}월 ${day}일`
+  };
+
   // 수정 페이지 이동
   const nav = useNavigate();
   const moveUpdate = () => {
@@ -149,9 +159,10 @@ const PlayBoardDetail = () => {
           <div className={PlayBoard.play_wrap_top}>
             <div className={PlayBoard.play_profile}>
               <span>
-                <h4>
-                  공공기관 프로젝트 함께할 사람 모집!!! 나랑같이 대기업가자~!!
-                </h4>
+                <h2>
+                  {playDetail.title}
+                </h2>
+                <p>{getTimeAgoString(playDetail.createdAt)}</p>
               </span>
 
               <div>
@@ -165,7 +176,7 @@ const PlayBoardDetail = () => {
                   </span>
                 </span>
                 <span>
-                  <p>👁‍🗨 28 💬 4</p>
+                  <p>👁‍🗨 {playDetail.views} 💬 4</p>
                 </span>
               </div>
             </div>
@@ -193,28 +204,7 @@ const PlayBoardDetail = () => {
           </div>
 
           <div className={PlayBoard.play_content}>
-            <span>
-              안녕하세요 데이터디자인반 김초롱입니다.
-              <br />
-              <br />
-              이번 공공기관 프로젝트 함께할 사람을 찾고 있는데
-              <br />
-              <br />
-              혹시 생각 있으시면
-              <br />
-              <br />
-              댓글 달아주시면 감사하겠습니다.
-              <br />
-              <br />
-              현재 프론트 1명만 구한 상황이구요
-              <br />
-              <br />
-              백/프론트/DB 쪽 담당해줄 사람을 찾고있습니다.
-              <br />
-              <br />
-              같이 배우면서 하는거니까 부담갖지말고 편하게 연락주세요.
-              <br />
-              <br />
+            <span dangerouslySetInnerHTML={{ __html: playDetail.content }}>
             </span>
           </div>
           {/* 게시글 content 끝 */}

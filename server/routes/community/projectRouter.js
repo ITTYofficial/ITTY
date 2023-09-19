@@ -44,9 +44,9 @@ router.post('/write', upload.single('img'), async (req, res) => {
         persons: req.body.persons,
         recruit: req.body.recruit,
         position: req.body.position,
-        frameWork_front: req.body.frameWork_front,
-        frameWork_back: req.body.frameWork_back,
-        frameWork_db: req.body.frameWork_db,
+        framework_front: req.body.framework_front,
+        framework_back: req.body.framework_back,
+        framework_db: req.body.framework_db,
   
       };
       _id = req.body._id
@@ -71,17 +71,15 @@ router.post('/write', upload.single('img'), async (req, res) => {
       persons: req.body.persons,
       recruit: req.body.recruit,
       position: req.body.position,
-      frameWork_front: req.body.frameWork_front,
-      frameWork_back: req.body.frameWork_back,
-      frameWork_db: req.body.frameWork_db,
+      framework_front: req.body.framework_front,
+      framework_back: req.body.framework_back,
+      framework_db: req.body.framework_db,
 
     };
-
     const project = new Project(obj);
     _id = project._id;
     await Project.insertMany(project);
   }
-    console.log(_id);
     res.json({ 
       message: true,
       _id : _id

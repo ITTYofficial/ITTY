@@ -53,9 +53,9 @@ router.post('/idCheck',async(req,res)=>{
 router.get('/memberSearching',async (req, res) => {
   try {
     const nickname = req.query.nickname;
-    console.log(nickname);
+    console.log( '2. nickname',nickname);
     const member = await Member.findOne({nickname:nickname});
-     console.log('클래스',member.class);
+     console.log('3. class :',member.class);
     if (member) {
       res.json( {member
                 // nickname:member.nickname,
@@ -72,7 +72,7 @@ router.get('/memberSearching',async (req, res) => {
 }
   );
 
-// 닉네임 값으로 특정 회원 조회
+// 닉네임 값으로 특정 회원 조회 -> 위에꺼 안되서 시도
 router.get('/findMember', async (req, res) => {
   try {
     const nickname = req.query.nickname;
