@@ -4,23 +4,50 @@ const Comment = require('../../schemas/community/comment')
 
 // 댓글 작성
 router.post('/write', async (req, res) => {
+  console.log(req.body);
     try {
         let obj;
 
         obj = {
-            postid: "가져온 값",
-            writer: "허허",
-            content: "편해요. 그냥 편함 ㅋㅋ",
-            commentNum: 6,
-            createdAt: "2023-09-08 12:50",
+            postId: req.body.postid,
+            writer: "허광영",
+            content: req.body.content,
         };
+
         const comment = new Comment(obj);
         await Comment.insertMany(comment);
-        res.json({ message: "게시글이 업로드 되었습니다." });
+        res.json({ message: true });
       } catch (err) {
         console.log(err);
         res.json({ message: false });
       }
+});
+
+// 댓글 리스트 조회
+router.get('/commentList', async (req, res) => {
+  const postId = req.query.postId;
+  try {
+    const comment = await Comment.find({postId: postId});    
+    res.json({ comment })
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+})
+
+// 댓글 삭제
+router.post("/delete/:_id", async (req, res) => {
+  console.log('delete진입');
+  try {
+    const id = req.params._id;
+    await Comment.deleteOne({
+      _id: id
+    });
+    res.json({ message: true });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
 });
 
 

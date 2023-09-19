@@ -184,10 +184,6 @@ const StudyWrite = () => {
                     <button className={style.submit_btn} type='submit'>
                         작성완료
                     </button>
-
-
-
-
                 </form>
             </div>
         </div>

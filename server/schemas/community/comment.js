@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const commentSchema = new Schema({
 
-    postid:{
+    postId:{
         // 글 ID
         type: String,
         required: true
@@ -18,10 +18,6 @@ const commentSchema = new Schema({
         // 내용
         type: String,
         required: true
-    },
-    commentNum: {
-        // 댓글넘버
-        type: Number
     },
     createdAt: {
         // 작성시간

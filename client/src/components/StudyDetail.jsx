@@ -28,7 +28,7 @@ const StudyDetail = () => {
 
 
     /* 댓글 컴포넌트 */
-    const CommentItem = () => (
+    const CommentItem = ({ props }) => (
         <div className={style.comment_list}>
             <div className={style.play_comment_profile}>
                 <span>
@@ -45,18 +45,13 @@ const StudyDetail = () => {
             {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
             <div>
                 <p>
-                    데이터디자인반 프론트엔드 희망하는 26살입니다.
-                    <br />
-                    같이하면 재밋게 열심히 잘 할수 있을것같아요. 연락처는 쪽지로
-                    보내드렸습니다.
-                    <br />
-                    확인하시고 연락부탁드려요~!
+                    {props.content}
                 </p>
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
             <div>
-                <p>3시간 전</p>
+                <p>{getTime(props.createdAt)}</p>
             </div>
         </div>
     );
@@ -86,10 +81,10 @@ const StudyDetail = () => {
     );
 
     const toggleMeat = () => {
-        if(meat){
-          setMeat(!meat);
+        if (meat) {
+            setMeat(!meat);
         }
-      };
+    };
 
     /* 수정삭제 버튼 */
 
@@ -122,6 +117,7 @@ const StudyDetail = () => {
     // 페이지 렌더링시 조회함수 실행
     useEffect(() => {
         getStudy();
+        getComment();
     }, []);
 
     // 날짜 변환 함수
@@ -133,6 +129,26 @@ const StudyDetail = () => {
 
         return `${year}년 ${month}월 ${day}일`
     };
+
+    // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+    const getTime = (dateString) => {
+        const createdAt = new Date(dateString);
+        const now = new Date();
+        const timeDifference = now - createdAt;
+        const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+        const daysDifference = Math.floor(hoursDifference / 24);
+
+        if (daysDifference === 0) {
+            if (hoursDifference === 0) {
+                return "방금 전";
+            } else {
+                return `${hoursDifference}시간 전`;
+            }
+        } else {
+            return `${daysDifference}일 전`;
+        }
+    };
+
 
     // 수정 페이지 이동
     const moveUpdate = () => {
@@ -149,6 +165,45 @@ const StudyDetail = () => {
             .catch((err) => {
                 alert("삭제 실패")
                 console.log(err);
+            })
+    }
+
+    const [comment, setComment] = useState();
+
+    const commnetChange = (e) => {
+        setComment(e.target.value);
+    }
+
+    // 댓글 작성 시 호출되는 함수
+    function handleSubmit(event) {
+        event.preventDefault();
+        const obj = {
+            postid: id,
+            content: comment
+        };
+        console.log(obj);
+
+        axios.post('http://localhost:8088/comment/write', obj)
+            .then((res) => {
+                alert("댓글이 등록되었습니다.")
+                console.log(res);
+                // window.location.reload();
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("게시글 작성 실패")
+            })
+    }
+
+    // 댓글 리스트 저장할 State
+    const [commentList, setCommentList] = useState([]);
+
+    // 댓글 조회 함수
+    const getComment = () => {
+        axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
+            .then((res) => {
+                console.log(res.data);
+                setCommentList(res.data.comment)
             })
     }
 
@@ -206,21 +261,20 @@ const StudyDetail = () => {
                             <p>댓글 3</p>
                         </div>
                     </div>
-                    <div className={style.comment_write}>
-                        <div>
+                    <form onSubmit={handleSubmit}>
+                        <div className={style.comment_write}>
                             <div>
-                                <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+                                <div>
+                                    <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+                                </div>
+                                <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
                             </div>
-                            <textarea placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                            <Button type='submit' variant="outline-primary">댓글쓰기</Button>{' '}
                         </div>
-                        <Button variant="outline-primary">댓글쓰기</Button>{' '}
-                    </div>
+                    </form>
 
                     {/* 댓글부분 */}
-                    <CommentItem />
-                    <CommentItem />
-                    <CommentItem />
-                    <CommentItem />
+                    {commentList.map((item) => (<CommentItem key={item._id} props={item} />))}
                     {/* 댓글부분 */}
 
 
