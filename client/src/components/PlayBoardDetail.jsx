@@ -10,6 +10,7 @@ import axios from "axios";
 const PlayBoardDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
+  // 특정 게시글 조회하기위한 nickname값 가져오기
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const nickname = params.get('nickname');
@@ -20,6 +21,7 @@ const PlayBoardDetail = () => {
 
 console.log('디테일상단 니크네임',nickname);
 
+ //회원정보 조회 함수 -지홍
   const memberSearching = async()=>{
 
     await axios
