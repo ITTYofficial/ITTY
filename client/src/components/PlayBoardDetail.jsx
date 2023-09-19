@@ -4,15 +4,35 @@ import PlayBoard from "../css/PlayBoardDetail.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const PlayBoardDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
-
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const nickname = params.get('nickname');
   // 게시글정보 저장할 State
   const [playDetail, setplayDetail] = useState([]);
+  // 회원정보 저장할 state
+  const [memberInfo, setMemberInfo] = useState({});
+
+console.log('디테일상단 니크네임',nickname);
+
+  const memberSearching = async()=>{
+
+    await axios
+      .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+      .then((res)=>{
+        console.log('axios다음 니크네임',res.data.member.nickname);
+        setMemberInfo(res.data.member);
+      })
+      .catch((err)=>{
+        console.log('err :', err);
+      })
+    };
+
 
   // 게시글 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것
@@ -32,6 +52,7 @@ const PlayBoardDetail = () => {
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getPlay();
+    memberSearching();
   }, []);
 
   // 날짜 변환 함수
@@ -138,7 +159,9 @@ const PlayBoardDetail = () => {
   );
 
   const toggleMeat = () => {
-    setMeat(!meat);
+    if(meat){
+      setMeat(!meat);
+    }
   };
 
   /* 수정삭제 버튼 */
@@ -168,11 +191,11 @@ const PlayBoardDetail = () => {
               <div>
                 <span className={PlayBoard.play_detail_profile}>
                   <span className={PlayBoard.profile_text}>
-                    <p>데이터 디자인</p>
-                    <h4>수업중몰래롤</h4>
+                    <p>{memberInfo.class}</p>
+                    <h4>{memberInfo.nickname}</h4>
                   </span>
                   <span className={PlayBoard.profile_pic}>
-                    <img src="#" />
+                    <img src={memberInfo.profileImg} />
                   </span>
                 </span>
                 <span>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 // import "../css/Community.css";
 import styles from "../css/Community.module.css";
+import Image from "react-bootstrap/Image";
 
 const ProjectList = () => {
   // 게시글 리스트 담을 State
@@ -28,7 +29,7 @@ const ProjectList = () => {
   const readProjectList = async () => {
     await axios
       .get("http://localhost:8088/project/projectList")
-      .then(async(res) => {
+      .then(async (res) => {
         console.log("1. writer :", res.data.project[0].writer);
         let memberPromises = res.data.project.map((project) => {
           const nickname = project.writer;
@@ -110,7 +111,7 @@ const ProjectList = () => {
                 <p className={styles.b_date}>
                   {getTimeAgoString(item.createdAt)}
                 </p>
-                <Link to={`/projectDetail/${item._id}`}>
+                <Link to={`/projectDetail/${item._id}?nickname=${item.member.nickname}`}>
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <div>{item.content}</div> */}
@@ -121,8 +122,8 @@ const ProjectList = () => {
                   <p>{item.member.class}</p>
                   <h4>{item.writer}</h4>
                 </span>
-                <span className={styles.profile_pic}>
-                  <img src={item.member.profileImg} />
+                <span className={styles.profile_img}>
+                  <Image src={item.member.profileImg} roundedCircle />
                 </span>
               </div>
             </div>

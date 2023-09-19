@@ -33,18 +33,20 @@
   margin: 0 auto;
 }
 
-.right_container_button > h2 {
+.right_container_button>h2 {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0 16px;
   line-height: 40px;
 }
+
 .right_container_button {
   display: flex;
   justify-content: space-between;
   padding: 12px;
   border-bottom: 2px solid #eeeeee;
 }
+
 .right_container_button a {
   text-decoration: none;
   color: #333333;
@@ -57,12 +59,14 @@
   padding: 12px 20px;
   margin: 0 8px;
 }
+
 .right_container_button a:hover {
   background-color: #2a72ff;
   color: #eeeeee;
   transition-duration: 200ms;
   border: 2px solid white;
 }
+
 .Main_container_banner {
   width: 100%;
   background-color: #333333;
@@ -84,24 +88,25 @@
   font-weight: 500;
 }
 
-.Main_container_list_detail > div:first-child > h4 {
+.Main_container_list_detail>div:first-child>h4 {
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 8px;
 }
 
-.Main_container_list_detail > div:first-child > p:last-child {
+.Main_container_list_detail>div:first-child>p:last-child {
   font-size: 14px;
 }
 
-.Main_container_list_detail > div:last-child {
+.Main_container_list_detail>div:last-child {
   display: flex;
 }
 
-.Main_container_list_detail > div:last-child > div:first-child > h4 {
+.Main_container_list_detail>div:last-child>div:first-child>h4 {
   font-size: 1.1rem;
   font-weight: 600;
 }
+
 .Market_list {
   display: grid;
   gap: 24px;
@@ -109,47 +114,63 @@
   padding: 8px 16px;
   margin: 32px 0;
 }
+
 .Market_content_item {
   display: inline-block;
   border-radius: 10px;
   text-decoration: none;
   box-shadow: 2px 2px 8px #c4c4c4;
+  overflow: hidden;
+  /*   width: 300px;
+  height: 400px; */
 }
+
 .Market_content_item:hover {
   background-color: #eeeeee;
   transition-duration: 300ms;
 }
-.Market_content_img {
+
+/* .Market_content_img {
   width: 100%;
   height: 75%;
-}
+  padding-top: 130%;
+  background: url(http://localhost:8088/uploads/image1695112140585.jpg) no-repeat center;
+  background-size: cover;
+} */
+
 .Market_content_img img {
   width: 100%;
   height: 100%;
   border-radius: 10px 10px 0 0;
   object-fit: cover;
+  max-height: 300px;
 }
+
 .Market_content_text {
-  padding: 12px 16px;
+  padding: 16px 16px;
 }
+
 .Market_content_text h4 {
   font-size: 20px;
-  margin-bottom: 8px;
+  font-weight: bold;
+  margin: 8px 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.Market_content_text > p {
+
+.Market_content_text>p {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 12px;
 }
+
 .Market_content_text2 {
   display: flex;
   justify-content: space-between;
 }
-.Market_content_text2 p {
-  font-size: 14px;
-  /* font-weight: bold; */
-  color: #999999;
-}
+
 
 @media (max-width: 1024px) {
   .Market_list {
@@ -160,3 +181,22 @@
     margin: 32px 0;
   }
 }
+
+.market_content_price {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.market_content_date {
+  color: #999999;
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+@media (max-width: 1329px) {
+  .Main_container>div:nth-child(1) {
+    display: none;
+  }
+}
+
