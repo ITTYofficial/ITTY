@@ -14,8 +14,27 @@ const ProjectList = () => {
   const readProjectList = async () => {
     await axios
       .get("http://localhost:8088/project/projectList")
-      .then((res) => {
-        const sortedProjects = res.data.project.sort((a, b) => {
+      .then(async(res) => {
+        console.log("1. writer :", res.data.project[0].writer);
+        let memberPromises = res.data.project.map((project) => {
+          const nickname = project.writer;
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.project[index] };
+        });
+        console.log("퓨전", fusion);
+
+        const sortedProjects = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -85,11 +104,11 @@ const ProjectList = () => {
 
               <div className={styles.Main_grid_profile}>
                 <span className={styles.profile_text}>
-                  <p>데이터 디자인</p>
+                  <p>{item.member.class}</p>
                   <h4>{item.writer}</h4>
                 </span>
                 <span className={styles.profile_pic}>
-                  <img src="#" />
+                  <img src={item.member.profileImg} />
                 </span>
               </div>
             </div>
