@@ -9,12 +9,44 @@ const StudyList = () => {
   // 장터리스트 담을 State
   const [studyList, setstudyList] = useState([]);
 
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
+
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      e.preventDefault();
+    }
+  };
+
   // 장터 리스트 조회 함수
   const readstudyList = async () => {
     await axios
       .get("http://localhost:8088/study/studyList")
-      .then((res) => {
-        const sortedStudy = res.data.study.sort((a, b) => {
+      .then(async(res) => {
+        console.log("1. writer :", res.data.study[0].writer);
+        let memberPromises = res.data.study.map((study) => {
+          const nickname = study.writer;
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.study[index] };
+        });
+        console.log("퓨전", fusion);
+        
+        const sortedStudy = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -59,7 +91,7 @@ const StudyList = () => {
         </div>
         <div className={styles.right_container_button}>
           <h2>스터디 구해요🐣</h2>
-          <Link to={"/studyWrite"}>작성하기</Link>
+          <Link to={"/studyWrite"} onClick={checkSessionStorage}>작성하기</Link>
         </div>
 
         <div className={styles.Main_container_list}>
@@ -70,7 +102,7 @@ const StudyList = () => {
                 <p className={styles.b_date}>
                   {getTimeAgoString(item.createdAt)}
                 </p>
-                <Link to={`/studyDetail/${item._id}`}>
+                <Link to={`/studyDetail/${item._id}?nickname=${item.member.nickname}`}>
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
@@ -78,12 +110,12 @@ const StudyList = () => {
 
               <div className={styles.Main_grid_profile}>
                 <span className={styles.profile_text}>
-                  <p>데이터 디자인</p>
+                  <p>{item.member.class}</p>
                   <h4>{item.writer}</h4>
                 </span>
                 <span className={styles.profile_img}>
                   <Image
-                    src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj"
+                    src={item.member.profileImg}
                     roundedCircle
                   />
                 </span>

@@ -55,7 +55,7 @@ router.get('/memberSearching',async (req, res) => {
     const nickname = req.query.nickname;
     console.log( '2. nickname',nickname);
     const member = await Member.findOne({nickname:nickname});
-     console.log('3. class :',member.class);
+    //  console.log('3. class :',member.class);
     if (member) {
       res.json( {member
                 // nickname:member.nickname,

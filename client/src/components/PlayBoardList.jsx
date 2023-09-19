@@ -9,12 +9,14 @@ const PlayBoardList = (props) => {
   // 장터리스트 담을 State
   const [playList, setPlayList] = useState([]);
 
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
   const checkSessionStorage = (e) => {
     // sessionStorage에서 값을 가져옴
     var value = sessionStorage.getItem("memberId");
+
     // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
     if (!value || value === "") {
-      alert("경고 메시지");
+      alert("로그인해야합니다");
       window.location.href = "/login";
       e.preventDefault();
     }
@@ -88,7 +90,7 @@ const PlayBoardList = (props) => {
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
-        <Link to={`/playboardDetail/${props._id}`}>
+        <Link to={`/playboardDetail/${props._id}?nickname=${props.member.nickname}`}>
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
@@ -117,7 +119,7 @@ const PlayBoardList = (props) => {
         </div>
         <div className={PlayBoard.right_container_button}>
           <h2>자유게시판⚽</h2>
-          <a href="/playBoardWrite" onclick={checkSessionStorage}>
+          <a href="/playBoardWrite" onClick={checkSessionStorage}>
             작성하기
           </a>
         </div>
