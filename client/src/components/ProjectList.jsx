@@ -9,6 +9,20 @@ const ProjectList = () => {
   // 게시글 리스트 담을 State
   const [projectList, setProjectList] = useState([]);
 
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
+
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      e.preventDefault();
+    }
+  };
+
+
   // 게시글 리스트 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것
   const readProjectList = async () => {
@@ -83,7 +97,7 @@ const ProjectList = () => {
         </div>
         <div className={styles.right_container_button}>
           <h2>프로젝트 같이해요🛵</h2>
-          <Link to={"/projectWrite"}>
+          <Link to={"/projectWrite"} onClick={checkSessionStorage}>
             <p>작성하기</p>
           </Link>
         </div>
