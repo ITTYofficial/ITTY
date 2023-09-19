@@ -34,7 +34,6 @@ router.post('/write', async (req, res) => {
       const play = new Play(obj);
       await Play.insertMany(play);
     }
-
     res.json({ message: true });
     // res.json({ message: "게시글이 업로드 되었습니다." });
   } catch (err) {
