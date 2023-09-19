@@ -18,18 +18,30 @@
     text-align: center;
 }
 
+/* .right_container h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0;
+    text-align: left;
+} */
+
 .right_container h4 {
     font-size: 20px;
     font-weight: bold;
     margin: 8px 0;
     text-align: left;
+    white-space: nowrap; /* 추가 */
+    overflow: hidden; /* 추가 */
+    text-overflow: ellipsis; /* 추가 */
 }
 
 .port_list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
     gap: 1rem;
 }
+
 
 
 @media (max-width:1024px) {
@@ -48,21 +60,19 @@
     }
 }
 
+
+
 .port_content {
-    width: 90%;
-    /* height: 400px; */
-    /*     display: flex;
-    flex-direction: column; */
+    width: 90%; /* 너비를 백분율로 지정 */
+    max-width: 100%; /* 최대 너비를 제한 */
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-    /* border-radius: 4%; */
-}
-
-.port_content>div:first-child {
-    width: 100%;
-
+    white-space: nowrap; /* 텍스트를 한 줄로만 표시 */
+    overflow: hidden; /* 넘치는 내용을 숨김 처리 */
+    text-overflow: ellipsis; /* 넘치는 내용을 '...'으로 중략 */
 }
 
 .port_content_img {
+    width: 100%;
     overflow: hidden;
     height: 70%;
 }
@@ -76,7 +86,7 @@
 }
 
 .port_content_bottom {
-    padding: 8px;
+    padding: 8px 12px 12px 12px;
 }
 
 
@@ -135,6 +145,20 @@
     border: 2px solid white;
 }
 
-.port_list a{
+.port_list a {
     text-decoration: none;
+}
+
+.little_p {
+    color: #999999;
+    font-size: 14px;
+    /* margin-bottom: 8px; */
+    font-weight: 500;
+}
+
+.large_p{
+    color: #000000;
+    font-size: 16px;
+    /* margin-bottom: 8px; */
+    font-weight: 500;    
 }

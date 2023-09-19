@@ -15,8 +15,11 @@ const StudyList = () => {
     await axios
       .get("http://localhost:8088/study/studyList")
       .then((res) => {
-        console.log(res);
-        setstudyList(res.data.study);
+        const sortedProjects = res.data.study.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setstudyList(sortedProjects);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -28,6 +31,25 @@ const StudyList = () => {
   useEffect(() => {
     readstudyList();
   }, []);
+
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${hoursDifference}시간 전`;
+      }
+    } else {
+      return `${daysDifference}일 전`;
+    }
+  };
 
   return (
     <div className={styles.Main_container}>
@@ -46,8 +68,8 @@ const StudyList = () => {
           {studyList.map((item) => (
             <div className={styles.Main_container_list_detail}>
               <div>
-                <p className={styles.b_date}>{item.createdAt}</p>
-                <Link to={"#"}>
+                <p className={styles.b_date}>{getTimeAgoString(item.createdAt)}</p>
+                <Link to={`/studyDetail/${item._id}`}>
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}

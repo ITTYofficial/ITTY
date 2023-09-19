@@ -56,21 +56,21 @@ const projectSchema = new Schema({
     },
     recruit:{
         // 모집상태
-        type: Number
+        type: String
     },
     position: { 
         // 모집하는 포지션
         type: String
     },
-    frameWork_front: {
+    framework_front: {
         // 사용할 프레임워크
         type: String
     },
-    frameWork_back: {
+    framework_back: {
         // 사용할 프레임워크
         type: String
     },
-    frameWork_db: {
+    framework_db: {
         // 사용할 프레임워크
         type: String
     }

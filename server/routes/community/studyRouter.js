@@ -4,73 +4,59 @@ const Study = require('../../schemas/community/study')
 
 // 글 작성
 router.post('/write', async (req, res) => {
-    console.log('Study 글 작성');
     try {
         let obj;
+        let _id;
 
-        obj = {
-            writer: req.body.writer,
+        if(req.body._id){
+          // 글 수정 시
+          obj = {
+            writer: "허허",
             title: req.body.title,
             content: req.body.content,
-
-            // 페이지 만들어지면 수정할 것
-            // 글 번호는 어떤식으로 생성할 건지, 이미지 주소는 어떻게 줄일 건지 방법 찾기
-            // 글 수정과 함께 동작할 수 있도록 작성할 것
-
-            // postNum: req.body.postNum,
+            persons: req.body.persons,
+            recruit: req.body.recruit,
+            periodStart: req.body.startDate,
+            periodEnd: req.body.endDate,
+            selectedValues: req.body.selectedValues
+            // views: 0,      
+          };
+          _id = req.body._id
+      
+          await Study.updateOne(
+            { _id: req.body._id },
+            {
+              $set: obj
+            }
+          );
+        }else{
+        // 글 작성 시
+        obj = {
+            writer: "허허",
+            title: req.body.title,
+            content: req.body.content,
+            persons: req.body.persons,
+            recruit: req.body.recruit,
+            periodStart: req.body.startDate,
+            periodEnd: req.body.endDate,
+            selectedValues: req.body.selectedValues
             // views: 0,
-            
-            // postCategory: req.body.categotry,
-            // imgPath: req.body.imgPath,
-            // recruitPeriod: req.body.recruitPeriod,
-            // recruit: req.body.recruit
         };
         const study = new Study(obj);
+        _id = study._id;
         await Study.insertMany(study);
-        res.json({ message: "게시글이 업로드 되었습니다." });
+      }
+        res.json({ 
+          message: true,
+          _id : _id
+        });
       } catch (err) {
         console.log(err);
         res.json({ message: false });
       }
+      
 });
 
-// 글 수정
-router.post("/update/:_id", async(req, res) =>{
-  try {
-    const id = req.params._id;
-
-    let obj;
-
-    obj = {
-      writer: req.body.writer,
-      title: req.body.title,
-      content: req.body.content,
-
-      // 글 작성과 함께 동작할 수 있도록 수정할 것
-      // 글 수정 페이지가 작성과 함께 동작할 수 있도록 할 것
-      // 글 수정시에 기존의 입력값이 그대로 남아 있을 수 있도록 조치할 것
-
-      // postNum: req.body.postNum,
-      // views: 0,
-      
-      // postCategory: req.body.categotry,
-      // imgPath: req.body.imgPath,
-      // recruitPeriod: req.body.recruitPeriod,
-      // recruit: req.body.recruit
-    };
-
-    await Study.updateOne(
-      { _id: id },
-      {
-        $set: obj
-      }
-    );
-    res.json({ message: true});
-  } catch (err) {
-    console.log(err);
-    res.json({ message: false });
-  }
-})
 
 // 글 삭제
 router.post("/delete/:_id", async (req, res) => {
@@ -105,6 +91,18 @@ router.get("/detail/:_id", async (req, res) => {
     const detailStudy = await Study.find({
       _id: id
     });
+
+    // 조회수 업데이트 기능
+    // 메모리 많이 처먹으니까 나중에 활성화 시킬 것
+    await Study.updateOne(
+      { _id: id },
+      {
+        $set: {
+          views: detailStudy[0].views + 1
+        }
+      }
+    );
+
     res.json({detailStudy});
   } catch (err) {
     console.log(err);

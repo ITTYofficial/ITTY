@@ -1,15 +1,25 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import style from "../css/StudyWrite.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import QuillTest from './QuillTest';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
+import { PlayBoardContext } from '../context/PlayBoardContext';
+import { useLocation } from 'react-router-dom';
 
 
 
 const StudyWrite = () => {
 
+    // // 특정 게시글 조회하기 위한 id값 가져오기
+    // const { id } = useParams();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id');
+
+    const { value, setValue } = useContext(PlayBoardContext);
     const [selectedValues, setSelectedValues] = useState([]);
 
     // 포지션 함수
@@ -37,17 +47,63 @@ const StudyWrite = () => {
         console.log('프로젝트 종료일:', endDate);
         const formData = new FormData(event.target);
 
+        const obj = {};
         formData.forEach((value, key) => {
             console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+            obj[key] = value;
         });
+        obj['startDate'] = startDate;
+        obj['endDate'] = endDate;
+        obj['content'] = value;
+        if (id) {
+            obj['_id'] = id
+        }
+        console.log(obj);
+
+        axios.post('http://localhost:8088/study/write', obj)
+            .then((res) => {
+                alert("게시글이 등록되었습니다.")
+                console.log(res);
+                window.location.href = `/studyDetail/${res.data._id}`
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("게시글 작성 실패")
+                window.location.href = `/studyList`
+            })
     }
+
+    // 게시글정보 저장할 State
+    const [studyDetail, setStudyDetail] = useState([]);
+
+    // 수정 요청시 기존 게시글 데이터 가져올 함수
+    const getStudy = async () => {
+        if (id) {
+            // projectRouter랑 통신해서 response에 결과값 저장
+            await axios.get(`http://localhost:8088/study/detail/${id}`)
+                .then((res) => {
+                    console.log(res);
+                    setStudyDetail(res.data.detailStudy[0]);
+                    setStartDate(new Date(res.data.detailStudy[0].periodStart));
+                    setEndDate(new Date(res.data.detailStudy[0].periodEnd));
+                    setValue(res.data.detailStudy[0].content);
+                    const positionArr = res.data.detailStudy[0].selectedValues.split(',');
+                    positionArr.map((item)=>(changeColor(item)))
+                });
+            // respnse에서 데이터 꺼내서 State에 저장
+        }
+    };
+
+    useEffect(() => {
+        getStudy();
+    }, []);
 
     return (
         <div className={style.Main_container}>
             <h2>스터디</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
+                {id?<input className="form-control" name='title' type="text" defaultValue={studyDetail.title}/> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
 
                 <p>포지션</p>
                 <div className={style.position_content}>
@@ -81,27 +137,27 @@ const StudyWrite = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => changeColor('4')}
-                        style={{ backgroundColor: selectedValues.includes('4') ? '#ABE9FF' : '' }}
+                        onClick={() => changeColor('5')}
+                        style={{ backgroundColor: selectedValues.includes('5') ? '#ABE9FF' : '' }}
                     >
                         그룹 / 모임
                     </button>
                 </div>
-                <input type="hidden" name="selectedValue" value={selectedValues.join(',')} />
+                <input type="hidden" name="selectedValues" value={selectedValues.join(',')} />
 
                 <div className={style.second_block}>
                     <div>
                         <p>스터디 시작일</p>
-                        <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />
+                        {id? <DatePicker className='form-control' defaultValue={studyDetail.periodStart} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />}
                     </div>
                     <div>
                         <p>스터디 종료일</p>
-                        <DatePicker className='form-control' selected={startDate} onChange={date => setEndDate(date)} />
+                        {id? <DatePicker className='form-control' defaultValue={studyDetail.periodEnd} selected={endDate} onChange={date => setEndDate(date)} /> :<DatePicker className='form-control' selected={endDate} onChange={date => setEndDate(date)} />}
 
                     </div>
                     <div>
                         <p>인원</p>
-                        <input className="form-control" type="number" placeholder='인원을 입력해주세요' />
+                        {id? <input className="form-control" name='persons' type="number" defaultValue={studyDetail.persons} /> : <input className="form-control" name='persons' type="number" placeholder='인원을 입력해주세요' />}
                     </div>
                     <div>
                         <p>상태</p>

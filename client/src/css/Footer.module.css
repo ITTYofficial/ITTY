@@ -3,6 +3,14 @@
   margin-top: 64px;
   /* border-top: 2px solid #eeeeee; */
 }
+.Wrap_footer > p {
+  display: block;
+  text-align: center;
+  margin: 32px 0;
+  font-size: 24px;
+  font-weight: bold;
+  padding-top: 32px;
+}
 .Wrap_footer::before {
   clear: both;
   content: "";
@@ -17,16 +25,52 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-}
-.Wrap_footer_left {
+  margin-top: 16px;
   padding: 32px;
-  width: 30%;
-}
-.Wrap_footer_left img {
-  width: 100%;
 }
 .Wrap_footer_right {
-  background-color: aqua;
-  width: 70%;
+  padding: 32px;
+  width: 25%;
+  margin-top: 40px;
+}
+.Wrap_footer_right img {
+  width: 90%;
+  margin-bottom: 12px;
+}
+.Wrap_footer_left {
   display: inline-block;
+  /* width: 70%; */
+}
+
+.Footer_flex {
+  display: flex;
+  justify-content: flex-start;
+}
+.Footer_flex > div > h4 {
+  font-size: 18px;
+}
+.Footer_flex > div > ul > li {
+  display: block;
+  margin: 12px 0;
+}
+.Footer_flex > div > ul > li a {
+  text-decoration: none;
+  color: #999999;
+  font-size: 16px;
+}
+.Footer_flex > div > ul > li a:hover {
+  color: #2a72ff;
+  transition-duration: 300ms;
+}
+.Footer_flex > div > ul > li a svg {
+  /* width: 90%; */
+  margin-right: 8px;
+}
+.Footer_flex > div {
+  margin-right: 34px;
+}
+.Wrap_footer_left > div > h4 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
 }

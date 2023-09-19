@@ -9,7 +9,6 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const MarketWrite = () => {
-  const fileInputRef = useRef(null);
   const [imgFiles, setImgFiles] = useState([]);
   const imgRef = useRef();
 
@@ -28,44 +27,30 @@ const MarketWrite = () => {
 
   // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
-    let file = imgRef.current.files[0];
-    if (
-      file.type !== "image/jpg" &&
-      file.type !== "image/jpeg" &&
-      file.type !== "image/png"
-    ) {
-      alert("jpg, jpeg, png 이미지 파일만 업로드가 가능합니다.");
-      file = null;
-    } else {
-      console.log(file.type);
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = async () => {
-        if (imgFiles.length >= 3) {
-          alert("최대 3개의 이미지 등록이 가능합니다.");
-          console.log(imgFiles); // 3개 이상 등록시 alert 메세지
-        } else {
-          const base64data = reader.result;
-          // formData 만드는 함수
-          handlingDataForm(base64data);
-          setImgFiles([...imgFiles, reader.result]); // 새 이미지를 배열에 추가
-          // input에 변화가 생긴다면 = 이미지를 선택
-          // const file2 = imgRef.files[0];
-          // multer에 맞는 형식으로 데이터 만들어준다.
-          const formData = new FormData();
-          formData.append("img", reader.result); // formData는 키-밸류 구조
-          // 백엔드 multer라우터에 이미지를 보낸다.
-          await axios
-            .post("http://localhost:8088/save/marketsave", formData)
-            .then((res) => {
-              console.log("뭐야");
-            })
-            .catch((err) => {
-              console.log("실패했어요ㅠ");
-              console.log(err);
-            });
-        }
-      };
+    if (imgRef.current && imgRef.current.files.length > 0) {
+      let file = imgRef.current.files[0];
+      if (
+        file.type !== "image/jpg" &&
+        file.type !== "image/jpeg" &&
+        file.type !== "image/png"
+      ) {
+        alert("jpg, jpeg, png 이미지 파일만 업로드가 가능합니다.");
+        file = null;
+      } else {
+        console.log(file.type);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = async () => {
+          if (imgFiles.length >= 3) {
+            alert("최대 3개의 이미지 등록이 가능합니다.");
+            console.log(imgFiles); // 3개 이상 등록시 alert 메세지
+          } else {
+            const base64data = reader.result;
+            // formData 만드는 함수
+            handlingDataForm(base64data);
+          }
+        };
+      }
     }
   };
 
@@ -83,8 +68,9 @@ const MarketWrite = () => {
     const blob = new Blob([ia], {
       type: "image/jpeg",
     });
+    console.log(blob);
     const file = new File([blob], "image.jpg");
-
+    console.log(file);
     // 위 과정을 통해 만든 image폼을 FormData에
     // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
     const formData = new FormData();
@@ -96,6 +82,7 @@ const MarketWrite = () => {
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
+      setImgFiles([...imgFiles, result.data.url]); // 새 이미지를 배열에 추가
     } catch (error) {
       console.log("실패했어요ㅠ");
       console.log(error);
@@ -119,7 +106,8 @@ const MarketWrite = () => {
     if (id) {
       obj["_id"] = id;
     }
-    console.log(imgFiles);
+    setImgFiles([imgFiles.join(';')]);
+    obj["imgPath"] = imgFiles;
     console.log(obj);
     axios
       .post("http://localhost:8088/market/write", obj)

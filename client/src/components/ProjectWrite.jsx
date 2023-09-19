@@ -31,6 +31,7 @@ const ProjectWrite = () => {
         } else {
             // 누른 버튼 값 추가
             setposition([...position, value]);
+            console.log(value);
         }
     }
 
@@ -50,7 +51,7 @@ const ProjectWrite = () => {
 
         const obj = {};
         formData.forEach((value, key) => {
-            // console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj['startDate'] = startDate;
@@ -88,6 +89,9 @@ const ProjectWrite = () => {
                     setStartDate(new Date(res.data.detailProject[0].startDate));
                     setEndDate(new Date(res.data.detailProject[0].endDate));
                     setValue(res.data.detailProject[0].content)
+                    const positionArr = res.data.detailProject[0].position.split(',');
+                    positionArr.map((item)=>(changeColor(item)))
+
                 });
             // respnse에서 데이터 꺼내서 State에 저장
         }
@@ -103,7 +107,7 @@ const ProjectWrite = () => {
             <h2>프로젝트</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" type="text" placeholder='제목을 입력해주세요' />}
+                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
 
 
                 <p>포지션</p>
@@ -191,7 +195,7 @@ const ProjectWrite = () => {
                     </div>
                     <div>
                         <p>인원</p>
-                        {id ? <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" placeholder='인원을 입력해주세요' />}
+                        {id ? <input className="form-control" type="number" name='persons' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
 
                     </div>
                     <div>
@@ -211,12 +215,9 @@ const ProjectWrite = () => {
 
 
                 {/* 전송 버튼 */}
-                <div >
-                <Button className={style.submit_btn} type="submit" variant="outline-primary">작성완료</Button>
-                </div>
-                
-
-
+                <button className={style.submit_btn} type='submit'>
+                    작성완료
+                </button>
             </form>
         </div>
     )

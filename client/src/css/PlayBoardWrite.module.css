@@ -60,7 +60,7 @@
 }
 
 
-.right_container>form>p{
+.right_container>form>p {
     margin-bottom: 8px;
 }
 
@@ -68,8 +68,21 @@
     margin-bottom: 16px;
 }
 
-
-.submit_btn{
+.submit_btn {
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+    margin-right: 16px;
+    margin-top: 32px;
     float: right;
-    margin: 8px;
+}
+
+.submit_btn:hover {
+    background-color: #2a72ff;
+    color: #eeeeee;
 }

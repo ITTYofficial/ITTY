@@ -42,7 +42,7 @@ const ReviewList = () => {
       <div className={style.right_container}>
         <div className={style.right_container_button}>
           <h2>수료생 후기👨‍🎓</h2>
-          <Link to={"#"}>
+          <Link to={"/reviewWrite"}>
             <p>작성하기</p>
           </Link>
         </div>
