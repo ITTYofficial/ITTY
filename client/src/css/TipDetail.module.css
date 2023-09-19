@@ -1,10 +1,6 @@
 /* playdetail에서 css가져옴 */
 
-.tip_comment_box {
 
-  display: inline-block;
-
-}
 
 .tip_font {
 
@@ -14,12 +10,21 @@
   color: #999999;
 }
 
+/* 시간, 댓글 css */
 .tip_time_box {
-  font-size: 12px;
-  margin-bottom: 4px;
+  font-size: 14px;
+  margin-bottom: 8px;
   color: #999999;
-  vertical-align: middle;
   display: inline-block;
+  margin-right: 8px;
+}
+
+.tip_comment_box {
+
+  display: inline-block;
+  font-size: 14px;
+  margin-bottom: 8px;
+
 }
 
 .tip_space_box {
@@ -104,6 +109,7 @@
   margin: 16px 0;
 }
 
+
 .play_title {
   padding: 5px 8px;
   font-weight: bold;
@@ -134,13 +140,17 @@
   color: rgb(2, 119, 140);
 }
 
+.commant_box p {
 
+  font-size: 30px;
+  line-height: 1.4rem;
+}
 
 .play_profile {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: px 0;
+
 }
 
 .play_profile2 {
@@ -150,10 +160,15 @@
   margin: 16px 0;
 }
 
+.play_content p {
+  font-size: 16px;
+  line-height: 1.5rem;
+}
+
 .play_profile>span>h4 {
   font-size: 20px;
   font-weight: bold;
-  margin: 8px 0;
+  margin: 16px 0;
   display: inline-block;
   vertical-align: middle;
 
@@ -178,16 +193,18 @@
 }
 
 .profile_text>p {
-  font-size: 12px;
-  margin-bottom: 4px;
+  font-size: 14px;
+  margin-bottom: 8px;
   text-align: left;
   color: #999999;
 }
 
-.profile_text>h4 {
+.profile_text>h5 {
   font-size: 16px;
-  font-weight: bold;
+  margin-bottom: 8px;
   text-align: right;
+  color: #000000;
+  font-weight: 600;
 }
 
 .profile_pic {
@@ -208,6 +225,16 @@
 /* profile 끝~! */
 .play_content {
   padding: 16px;
+}
+
+
+.division_line_2 {
+
+  height: 1.5px;
+  border: none;
+  background-color: rgb(89, 89, 89);
+  text-align: center;
+  margin: 0 auto;
 }
 
 /* 댓글 시작 */
@@ -322,24 +349,25 @@
 }
 
 .play_commant_profile span:last-child p {
-  font-size: 12px;
-  margin-bottom: 4px;
+  font-size: 14px;
+  text-align: left;
   color: #999999;
-  line-height: 12px;
 }
 
 
 
 
 .play_commant_profile span:last-child h4 {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 16px;
+  text-align: right;
+  color: #000000;
+  font-weight: 600;
 }
 
 .commant_list div:nth-child(2) {
   padding: 8px 16px;
-  line-height: 1.3rem;
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 1.4rem;
 }
 
 .commant_list div:nth-child(3)>p {

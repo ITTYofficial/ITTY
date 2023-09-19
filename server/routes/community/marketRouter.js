@@ -8,19 +8,34 @@ router.post('/write', async (req, res) => {
   try {
     let obj;
 
-    obj = {
-      writer: "허허",
-      // writer: req.body.writer,
-      title: req.body.market_title,
-      content: req.body.content,
-      itemCategory: "문구류",
-      imgPath: req.body.imgPath,
-      price: req.body.market_price,
-      condition: req.body.market_condition
-    };
-
-    const market = new Market(obj);
-    await Market.insertMany(market);
+    if (req.body._id) {
+      await Market.updateOne(
+        { _id: req.body._id },
+        {
+          $set: {
+            title: req.body.market_title,
+            content: req.body.content,
+            itemCategory: "문구류",
+            imgPath: req.body.imgPath,
+            price: req.body.market_price,
+            condition: req.body.market_condition
+          }
+        }
+      );
+    } else {
+      obj = {
+        writer: "허허",
+        // writer: req.body.writer,
+        title: req.body.market_title,
+        content: req.body.content,
+        itemCategory: "문구류",
+        imgPath: req.body.imgPath,
+        price: req.body.market_price,
+        condition: req.body.market_condition
+      };
+      const market = new Market(obj);
+      await Market.insertMany(market);
+    }
     res.json({ message: true });
   } catch (err) {
     console.log(err);

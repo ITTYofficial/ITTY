@@ -113,11 +113,13 @@ const MarketWrite = () => {
       .post("http://localhost:8088/market/write", obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
-        console.log(res);
+        // console.log(res);
+        window.location.href = `/marketDetail/${res.data._id}`
       })
       .catch((err) => {
         console.log(err);
         alert("게시글 작성 실패");
+        window.location.href = "/marketList"        
       });
   };
 
@@ -155,11 +157,17 @@ const MarketWrite = () => {
           {/* 상품명 */}
           <div className={styles.market_title}>
             <h4>상품명</h4>
-            <input
+            {id ? <input
               type="text"
               name="market_title"
-              placeholder="상품명을 입력해주세요."
+              defaultValue={marketDetail.title}
             />
+              :
+              <input
+                type="text"
+                name="market_title"
+                placeholder="상품명을 입력해주세요."
+              />}
           </div>
 
           {/* 상품 이미지 */}
@@ -203,11 +211,18 @@ const MarketWrite = () => {
           <div className={styles.market_sale}>
             <div>
               <h4>상품 가격</h4>
-              <input
-                type="number"
-                name="market_price"
-                placeholder="상품 가격을 입력해주세요."
-              />
+              {id ?
+                <input
+                  type="number"
+                  name="market_price"
+                  defaultValue={marketDetail.price}
+                />
+                :
+                <input
+                  type="number"
+                  name="market_price"
+                  placeholder="상품 가격을 입력해주세요."
+                />}
             </div>
             <div>
               <h4>판매 상태</h4>
