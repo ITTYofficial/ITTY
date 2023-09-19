@@ -145,16 +145,19 @@
   }
   .tip_title_box_space{
 
-    margin: 1%;
+    margin: 8px;
   }
 
   .tip_title_box_space_2{
     float: left;
-    margin-top: 1%;
+    margin-top: 8px;
   }
-  .tip_title_box_space_2 span{
-
-    font-size: 15px;
+  .tip_title_box_space_2 p{
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 8px;
   }
 
   .tip_page_box{
