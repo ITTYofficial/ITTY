@@ -97,16 +97,7 @@
 
 }
 
-.tip_title_box h5 {
 
-  font-size: 20px;
-  font-weight: bold;
-  display: inline-block;
-  text-align: left;
-  margin: 8px 0;
-
-
-}
 
 
 .tip_title_box a {
@@ -207,8 +198,8 @@
 .tip_text h5 {
   margin-left: 8px;
   vertical-align: middle;
-  font-size: 20px;
-  margin-top: 3px;
+  font-size: 18px;
+  margin-top: 4px;
   
 
 }
