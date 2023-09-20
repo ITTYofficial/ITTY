@@ -23,35 +23,70 @@ const MarketDetail = () => {
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
     event.preventDefault();
+   // 회원만 작성가능하게 수정 - 지홍
+    if(!sessionStorage.getItem('memberId')){
+    alert("로그인해야합니다");
+    window.location.href = "/login";
+    event.preventDefault();
+  }else{
     const obj = {
       postid: id,
       content: comment
-    };
-    console.log(obj);
-
-    axios.post('http://localhost:8088/comment/write', obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.")
-        console.log(res);
-        getComment();
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패")
-      })
-  }
+     };
+     console.log(obj);
+     
+     axios.post('http://localhost:8088/comment/write', obj)
+     .then((res) => {
+       alert("댓글이 등록되었습니다.")
+       console.log(res);
+       getComment();
+     })
+     .catch((err) => {
+       console.log(err);
+       alert("게시글 작성 실패")
+     })
+    }
+  };
 
   // 댓글 리스트 저장할 State
   const [commentList, setCommentList] = useState([]);
+  const [memberInfoCo, setMemberInfoCo] = useState([]);
 
   // 댓글 조회 함수
   const getComment = () => {
     axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
-      .then((res) => {
-        console.log(res.data);
-        setCommentList(res.data.comment)
+      .then(async(res) => {
+        // 회원정보 조회 -지홍 (내림차순 정렬까지 내가 했다 광영아)
+        let memberPromises = res.data.comment.map((comment) => {
+          const nickname = comment.writer;
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.comment[index] };
+        });
+        console.log("퓨전", fusion);
+
+        const sortedcomments = fusion.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+
+        setCommentList(sortedcomments)
       })
-  }
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
+  };
 
   // 댓글 삭제 함수
   const deleteComment = (commentId) => {
@@ -70,13 +105,13 @@ const MarketDetail = () => {
       <div className={style.play_comment_profile}>
         <span>
           <Image
-            src="https://i.pinimg.com/736x/24/d2/97/24d2974e5cd0468587422e38c8aab210.jpg"
+            src={props.member.profileImg}
             roundedCircle
           />
         </span>
         <span>
-          <p>빅데이터분석</p>
-          <h4>수업시간에롤</h4>
+          <p>{props.member.class}</p>
+          <h4>{props.member.nickname}</h4>
         </span>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}

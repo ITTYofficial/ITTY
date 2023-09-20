@@ -10,7 +10,7 @@ router.post('/write', async (req, res) => {
 
         obj = {
             postId: req.body.postid,
-            writer: "허광영",
+            writer: req.body.writer,
             content: req.body.content,
         };
 
