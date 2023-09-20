@@ -208,11 +208,11 @@ const ProjectDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
           <div className={PlayBoard.play_wrap_top}>
             <div className={PlayBoard.play_top_title}>
-              {visible[0] ? <Backend /> : null}
-              {visible[1] ? <Frontend /> : null}
-              {visible[2] ? <Fullstack /> : null}
-              {visible[3] ? <Db /> : null}
-              {visible[4] ? <Uxui /> : null}
+              {visible[0] && <Backend />}
+              {visible[1] && <Frontend />}
+              {visible[2] && <Fullstack />}
+              {visible[3] && <Db />}
+              {visible[4] && <Uxui />}
             </div>
 
             <div className={PlayBoard.play_profile}>

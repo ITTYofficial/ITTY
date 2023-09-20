@@ -119,7 +119,7 @@ const MarketWrite = () => {
       .catch((err) => {
         console.log(err);
         alert("게시글 작성 실패");
-        window.location.href = "/marketList"        
+        window.location.href = "/marketList"
       });
   };
 
@@ -157,17 +157,11 @@ const MarketWrite = () => {
           {/* 상품명 */}
           <div className={styles.market_title}>
             <h4>상품명</h4>
-            {id ? <input
+            <input
               type="text"
               name="market_title"
-              defaultValue={marketDetail.title}
+              {...(id ? { defaultValue: marketDetail.title } : { placeholder: "상품명을 입력해주세요." })}
             />
-              :
-              <input
-                type="text"
-                name="market_title"
-                placeholder="상품명을 입력해주세요."
-              />}
           </div>
 
           {/* 상품 이미지 */}
@@ -200,7 +194,7 @@ const MarketWrite = () => {
                 onChange={saveImgFile}
                 ref={imgRef}
               />
-
+  
               {imgFiles.map((img, index) => (
                 <img key={index} src={img} alt={`이미지 ${index}`} />
               ))}
@@ -211,18 +205,11 @@ const MarketWrite = () => {
           <div className={styles.market_sale}>
             <div>
               <h4>상품 가격</h4>
-              {id ?
-                <input
-                  type="number"
-                  name="market_price"
-                  defaultValue={marketDetail.price}
-                />
-                :
-                <input
-                  type="number"
-                  name="market_price"
-                  placeholder="상품 가격을 입력해주세요."
-                />}
+              <input
+                type="number"
+                name="market_price"
+                {...(id ? {defaultValue: marketDetail.price} : {placeholder: "상품 가격을 입력해주세요."})}
+              />
             </div>
             <div>
               <h4>판매 상태</h4>

@@ -66,7 +66,7 @@ const PortWrite = () => {
 
     try {
       const result = await axios.post(
-        "http://localhost:8088/play/save",
+        "http://localhost:8088/save/save",
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);

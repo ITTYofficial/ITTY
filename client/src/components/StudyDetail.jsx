@@ -226,7 +226,7 @@ const StudyDetail = () => {
             .then((res) => {
                 alert("댓글이 등록되었습니다.")
                 console.log(res);
-                // window.location.reload();
+                getComment();
             })
             .catch((err) => {
                 console.log(err);
@@ -260,11 +260,11 @@ const StudyDetail = () => {
                 <div>
                     <div className={style.keyworld_buttons}>
                         <Type />
-                        <Purpose />
-                        <Getajob />
-                        <Develope />
-                        <Certificate />
-                        <Groupstudy />
+                    {visible[0] && <Purpose />}
+                    {visible[1] && <Getajob />}
+                    {visible[2] && <Develope />}
+                    {visible[3] && <Certificate />}
+                    {visible[4] && <Groupstudy />   }
                     </div>
                     <div className={style.Top_container}>
 

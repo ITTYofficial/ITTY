@@ -13,7 +13,7 @@ const PlayBoardWrite = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
-    const nickname = sessionStorage.getItem("memberNickname"); 
+    const nickname = sessionStorage.getItem("memberNickname");
     const { value, setValue } = useContext(PlayBoardContext);
     console.log("id :", id);
     const handleSubmit = async (e) => {
@@ -71,7 +71,11 @@ const PlayBoardWrite = () => {
             <div className={style.right_container}>
                 <form onSubmit={handleSubmit}>
                     <p>제목</p>
-                    {id ? <input className="form-control" type="text" name='title' defaultValue={playDetail.title} /> : <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />}
+                    <input
+                        className="form-control"
+                        type="text"
+                        name='title'
+                        {...(id ? { defaultValue: playDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                     <p>본문</p>
                     <QuillTest />
                     {/* 전송 버튼 */}

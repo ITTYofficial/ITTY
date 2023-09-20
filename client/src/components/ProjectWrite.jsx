@@ -105,8 +105,11 @@ const ProjectWrite = () => {
             <h2>프로젝트</h2>
             <form onSubmit={handleSubmit}>
                 <p> 제목 </p>
-                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
-
+                <input
+                    className="form-control"
+                    type="text"
+                    name='title'
+                    {...(id ? { defaultValue: projectDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                 <p>포지션</p>
                 <div className={style.position_content}>
                     <button
@@ -151,47 +154,58 @@ const ProjectWrite = () => {
                 <div className={style.second_block}>
                     <div className={style.date_content}>
                         <p>프로젝트 시작일</p>
-                        {id ? <DatePicker className='form-control' defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />}
-
+                        <DatePicker
+                            className='form-control'
+                            selected={startDate}
+                            onChange={date => setStartDate(date)}
+                            {...(id && { defaultValue: projectDetail.startDate })} />
                     </div>
                     <div className={style.date_content}>
                         <p>프로젝트 종료일</p>
-                        {id ? <DatePicker className='form-control' defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> : <DatePicker className='form-control' selected={endDate} onChange={date => setEndDate(date)} />}
+                        <DatePicker
+                            className='form-control'
+                            selected={endDate}
+                            onChange={date => setEndDate(date)}
+                            {...(id && { defaultValue: projectDetail.endDate })} />
                     </div>
                     <div className={style.frame_work_container}>
                         <div>
                             <p>프론트</p>
                             <select className='form-control' name='framework_front'>
-                                {id&&projectDetail.frameword_front === "React"? <option selected>React</option> : <option>React</option>}
-                                {id&&projectDetail.frameword_front === "Next.js"? <option selected>Next.js</option> : <option>Next.js</option>}
-                                {id&&projectDetail.frameword_front === "Vue.js"? <option selected>Vue.js</option> : <option>Vue.js</option>}
-                                {id&&projectDetail.frameword_front === "기타"? <option selected>기타</option> : <option>기타</option>}
+                                <option selected={id && projectDetail.frameword_front === "React"}>React</option>
+                                <option selected={id && projectDetail.frameword_front === "Next.js"}>Next.js</option>
+                                <option selected={id && projectDetail.frameword_front === "Vue.js"}>Vue.js</option>
+                                <option selected={id && projectDetail.frameword_front === "기타"}>기타</option>
                             </select>
                         </div>
                         <div>
                             <p>백엔드</p>
                             <select className='form-control' name='framework_back'>
-                                {id&&projectDetail.framework_back === "Spring / Spring Boot"? <option selected>Spring / Spring Boot</option> : <option>Spring / Spring Boot</option>}
-                                {id&&projectDetail.framework_back === "Node.js"? <option selected>Node.js</option> : <option>Node.js</option>}
-                                {id&&projectDetail.framework_back === "Django"? <option selected>Django</option> : <option>Django</option>}
-                                {id&&projectDetail.framework_back === "Flask"? <option selected>Flask</option> : <option>Flask</option>}
-                                {id&&projectDetail.framework_back === "기타"? <option selected>기타</option> : <option>기타</option>}
+                                <option selected={id && projectDetail.framework_back === "Spring / Spring Boot"}>Spring / Spring Boot</option>
+                                <option selected={id && projectDetail.framework_back === "Node.js"}>Node.js</option>
+                                <option selected={id && projectDetail.framework_back === "Django"}>Django</option>
+                                <option selected={id && projectDetail.framework_back === "Flask"}>Flask</option>
+                                <option selected={id && projectDetail.framework_back === "기타"}>기타</option>
                             </select>
                         </div>
                         <div>
                             <p>DB</p>
                             <select className='form-control' name='framework_db'>
-                                {id&&projectDetail.framework_db === "MySQL"? <option selected>MySQL</option> : <option>MySQL</option>}
-                                {id&&projectDetail.framework_db === "Oracle"? <option selected>Oracle</option> : <option>Oracle</option>}
-                                {id&&projectDetail.framework_db === "MariaDB"? <option selected>MariaDB</option> : <option>MariaDB</option>}
-                                {id&&projectDetail.framework_db === "MongoDB"? <option selected>MongoDB</option> : <option>MongoDB</option>}
-                                {id&&projectDetail.framework_db === "기타"? <option selected>기타</option> : <option>기타</option>}
+                                <option selected={id && projectDetail.framework_db === "MySQL"}>MySQL</option>
+                                <option selected={id && projectDetail.framework_db === "Oracle"}>Oracle</option>
+                                <option selected={id && projectDetail.framework_db === "MariaDB"}>MariaDB</option>
+                                <option selected={id && projectDetail.framework_db === "MongoDB"}>MongoDB</option>
+                                <option selected={id && projectDetail.framework_db === "기타"}>기타</option>
                             </select>
                         </div>
                     </div>
                     <div>
                         <p>인원</p>
-                        {id ? <input className="form-control" type="number" name='persons' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
+                        <input
+                            className="form-control"
+                            type="number"
+                            name='persons'
+                            {...(id ? { defaultValue: projectDetail.persons } : { placeholder: '인원을 입력해주세요' })} />
 
                     </div>
                     <div>
