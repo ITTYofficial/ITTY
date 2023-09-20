@@ -67,7 +67,6 @@
     display: inline-block;
     background-color: #efefef;
     padding: 12px 20px;
-    margin-right: 16px;
     float: right;
     margin-top: 12px;
 }
@@ -75,4 +74,8 @@
 .submit_btn:hover {
     background-color: #2a72ff;
     color: #eeeeee;
+}
+
+.submit_btn{
+    margin-left: 8px;
 }

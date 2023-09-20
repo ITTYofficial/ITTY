@@ -66,23 +66,21 @@ const PlayBoardWrite = () => {
 
 
     return (
-        <div className={style.Main_container}>
-            <LeftContainer />
-            <div className={style.right_container}>
-                <form onSubmit={handleSubmit}>
-                    <p>제목</p>
-                    <input
-                        className="form-control"
-                        type="text"
-                        name='title'
-                        {...(id ? { defaultValue: playDetail.title } : { placeholder: '제목을 입력해주세요' })} />
-                    <p>본문</p>
-                    <QuillTest />
-                    {/* 전송 버튼 */}
-                    <button className={style.submit_btn} type='submit'>
-                        작성완료
-                    </button>
-                </form>
+        <div className={style.Main_container_box}>
+            <div className={style.Main_container}>
+                <h2>자유게시판 ⚽</h2>
+                <div className={style.right_container}>
+                    <form onSubmit={handleSubmit}>
+                        <h4>제목</h4>
+                        {id ? <input className="form-control" type="text" name='title' defaultValue={playDetail.title} /> : <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />}
+                        <h4>본문</h4>
+                        <QuillTest />
+                        {/* 전송 버튼 */}
+                        <button className={style.submit_btn} type='submit'>
+                            작성완료
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     )
