@@ -26,7 +26,7 @@
 }
 
 .top_container form input {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .top_container_left {
@@ -50,18 +50,13 @@
 
 .input_pic {
     display: flex;
-    width: fit-content;
-    height: fit-content;
-    border-radius: 20px;
     border: 1px solid #cecfce;
-    overflow: hidden;
-    /* max-height: 550px;
-    min-width: 150px;
-    min-height: 150px; */
+    overflow: visible;
     align-items: center;
     width: 250px;
     height: 250px;
     border-radius: 50%;
+    position: relative;
 }
 
 .input_pic input {
@@ -87,16 +82,26 @@
     display: grid;
     justify-content: center;
     justify-items: center;
+    position: absolute;
 }
 
-.fake_upload svg {
-    width: 50px;
-    height: 50px;
-    fill: darkgray;
+.img_uploads_btn{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: darkgrey;
+    border-radius: 50%;
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.fake_upload span {
-    color: darkgray;
+.img_uploads_btn svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
 }
 
 .real_upload {
@@ -130,6 +135,25 @@
     margin-top: 32px;
 }
 
+.bottom_content form svg{
+    fill: #2972FF;
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+}
+
+.bottom_content form>div{
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.bottom_content form h4{
+    margin-bottom: 4px;
+}
+.bottom_content form>div>div{
+    width: 80%;
+}
+
 .bottom_btn_group{
     display: flex;
     justify-content: flex-end;
@@ -137,7 +161,23 @@
     border-bottom: 2px solid #eeeeee;
 }
 
-.bottom_btn_group a{
+.bottom_btn_group>a:nth-child(1){
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    background-color: #2972FF;
+
+    border-radius: 10px;
+    display: inline-block;
+    padding: 12px 30px;
+    margin: 0 8px;
+    border: 2px solid;
+}
+
+.bottom_btn_group>a:nth-child(1) p{
+    color: white;
+}
+.bottom_btn_group>a:nth-child(1)+a{
     text-decoration: none;
     color: #333333;
     font-weight: 600;
@@ -151,8 +191,8 @@
 }
 
 .bottom_btn_group a:hover{
-    background-color: #2a72ff;
+    /* background-color: #2a72ff;
     color: #eeeeee;
     transition-duration: 200ms;
-    border: 2px solid white;
+    border: 2px solid white; */
 }
