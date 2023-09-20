@@ -36,7 +36,7 @@ router.get('/commentList', async (req, res) => {
 })
 
 // 댓글 삭제
-router.post("/delete/:_id", async (req, res) => {
+router.get("/delete/:_id", async (req, res) => {
   console.log('delete진입');
   try {
     const id = req.params._id;

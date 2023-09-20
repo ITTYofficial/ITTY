@@ -5,6 +5,7 @@
 .Main_container {
   max-width: 1320px;
   margin: 30px auto;
+  margin-top: 80px;
   display: flex;
   justify-content: space-between;
 }

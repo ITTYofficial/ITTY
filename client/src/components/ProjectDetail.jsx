@@ -3,7 +3,7 @@ import LeftContainer from "./LeftContainer";
 import Button from "react-bootstrap/Button";
 import PlayBoard from "../css/PlayBoardDetail.module.css";
 import axios from "axios";
-import { Link, useParams ,useLocation} from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 
 const ProjectDetail = () => {
@@ -35,8 +35,60 @@ const ProjectDetail = () => {
   );
   /* 키워드 컴포넌트 */
 
+  // 댓글 내용 담을 State
+  const [comment, setComment] = useState();
+
+  // 댓글 내용 가져오는 함수
+  const commnetChange = (e) => {
+    setComment(e.target.value);
+  }
+
+  // 댓글 작성 시 호출되는 함수
+  function commentSubmit(event) {
+    event.preventDefault();
+    const obj = {
+      postid: id,
+      content: comment
+    };
+    console.log(obj);
+
+    axios.post('http://localhost:8088/comment/write', obj)
+      .then((res) => {
+        alert("댓글이 등록되었습니다.")
+        console.log(res);
+        getComment();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("게시글 작성 실패")
+      })
+  }
+
+  // 댓글 리스트 저장할 State
+  const [commentList, setCommentList] = useState([]);
+
+  // 댓글 조회 함수
+  const getComment = () => {
+    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setCommentList(res.data.comment)
+      })
+  }
+
+  // 댓글 삭제 함수
+  const deleteComment = (commentId) => {
+    axios.get(`http://localhost:8088/comment/delete/${commentId}`)
+      .then((res) => {
+        getComment();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   /* 댓글 컴포넌트 */
-  const CommentItem = () => (
+  const CommentItem = ({ props }) => (
     <div className={PlayBoard.comment_list}>
       <div className={PlayBoard.play_comment_profile}>
         <span>
@@ -53,18 +105,13 @@ const ProjectDetail = () => {
       {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
       <div>
         <p>
-          데이터디자인반 프론트엔드 희망하는 26살입니다.
-          <br />
-          같이하면 재밋게 열심히 잘 할수 있을것같아요. 연락처는 쪽지로
-          보내드렸습니다.
-          <br />
-          확인하시고 연락부탁드려요~!
+          {props.content}
         </p>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
       <div>
-        <p>3시간 전</p>
+        <p>{getTime(props.createdAt)}</p>
       </div>
     </div>
   );
@@ -80,23 +127,23 @@ const ProjectDetail = () => {
   // 게시글정보 저장할 State
   const [projectDetail, setProjectDetail] = useState([]);
   const [visible, setVisible] = useState([false, false, false, false, false]);
-  
+
   // 회원정보 저장할 state -지홍
   const [memberInfo, setMemberInfo] = useState({});
 
   //회원정보 조회 함수 -지홍
-  const memberSearching = async()=>{
+  const memberSearching = async () => {
 
     await axios
       .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
-      .then((res)=>{
-        console.log('axios다음 니크네임',res.data.member.nickname);
+      .then((res) => {
+        console.log('axios다음 니크네임', res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log('err :', err);
       })
-    };
+  };
 
   // 게시글 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것
@@ -119,6 +166,25 @@ const ProjectDetail = () => {
     const day = createdAt.getDate();
 
     return `${year}년 ${month}월 ${day}일`
+  };
+
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTime = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${hoursDifference}시간 전`;
+      }
+    } else {
+      return `${daysDifference}일 전`;
+    }
   };
 
   // 페이지 렌더링시 조회함수 실행
@@ -186,7 +252,7 @@ const ProjectDetail = () => {
   );
 
   const toggleMeat = () => {
-    if(meat){
+    if (meat) {
       setMeat(!meat);
     }
   };
@@ -208,11 +274,11 @@ const ProjectDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
           <div className={PlayBoard.play_wrap_top}>
             <div className={PlayBoard.play_top_title}>
-              {visible[0] ? <Backend /> : null}
-              {visible[1] ? <Frontend /> : null}
-              {visible[2] ? <Fullstack /> : null}
-              {visible[3] ? <Db /> : null}
-              {visible[4] ? <Uxui /> : null}
+              {visible[0] && <Backend />}
+              {visible[1] && <Frontend />}
+              {visible[2] && <Fullstack />}
+              {visible[3] && <Db />}
+              {visible[4] && <Uxui />}
             </div>
 
             <div className={PlayBoard.play_profile}>
@@ -274,21 +340,20 @@ const ProjectDetail = () => {
               <h4>댓글 3</h4>
             </div>
           </div>
-
-          <div className={PlayBoard.comment_write}>
-            <div>
+          <form onSubmit={commentSubmit}>
+            <div className={PlayBoard.comment_write}>
               <div>
-                <img src="#" />
+                <div>
+                  <img src="#" />
+                </div>
+                <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
               </div>
-              <textarea placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+              <button type="submit">댓글쓰기</button>
             </div>
-            <button type="button">댓글쓰기</button>
-          </div>
+          </form>
           {/* 댓글달기 끝 */}
 
-          <CommentItem />
-          <CommentItem />
-          <CommentItem />
+          {commentList.map((item) => (<CommentItem key={item._id} props={item} />))}
         </div>
       </div>
     </div>

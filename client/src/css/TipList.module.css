@@ -6,8 +6,7 @@
 
 .Main_container_banner {
   width: 100%;
-  border: 1px solid rgb(180, 153, 153);
-  height: 230px;
+  height: 250px;
   margin-bottom: 16px;
 }
 
@@ -19,7 +18,6 @@
   align-items: center;
   justify-content: center;
   display: inline-block;
-
 }
 
 .right_container_button {
@@ -29,7 +27,6 @@
   padding: 12px;
   border-bottom: 2px solid #eeeeee;
 }
-
 
 .right_container_box {
   display: inline-block;
@@ -57,15 +54,11 @@
   border: 2px solid white;
 }
 
-
-
 .Main_container_3 {
-
   align-items: center;
   justify-content: center;
   display: inline-block;
   margin-left: 10%;
-
 }
 
 .play_title {
@@ -78,14 +71,11 @@
   box-shadow: 1px 1px 2px rgb(144, 144, 144);
   vertical-align: middle;
   float: left;
-
 }
 
 .develope {
   background-color: rgb(243, 255, 166);
   color: rgb(0, 86, 44);
-
-
 }
 
 .tip_space_box {
@@ -94,20 +84,7 @@
 
 .tip_title_box {
   display: inline-block;
-
 }
-
-.tip_title_box h5 {
-
-  font-size: 20px;
-  font-weight: bold;
-  display: inline-block;
-  text-align: left;
-  margin: 8px 0;
-
-
-}
-
 
 .tip_title_box a {
   text-decoration: none;
@@ -115,15 +92,11 @@
 }
 
 .tip_title_box_2 {
-
   align-items: right;
   text-align: right;
   display: inline-block;
   margin-left: 60%;
-
-
 }
-
 
 .tip_title_box_2 img {
   max-width: 30px;
@@ -132,24 +105,18 @@
   /* Maintain aspect ratio */
 }
 
-
 .tip_title_box_2 h3 {
-
   font-weight: bold;
 }
 
 .tip_title_box_3 {
-
   display: flex;
   align-items: left;
   text-align: left;
   margin-left: 1%;
-
-
 }
 
 .tip_title_box_space {
-
   margin: 8px;
 }
 
@@ -166,21 +133,14 @@
   margin-right: 8px;
 }
 
-
 .tip_page_box {
-
   text-align: center;
 }
-
-
 
 /* 가져온 css*/
 .Main_container_list {
   padding: 8px 16px;
 }
-
-
-
 
 .Main_container_list_detail {
   display: flex;
@@ -189,28 +149,21 @@
   padding: 10px;
   border-bottom: 2px solid #eeeeee;
   align-items: center;
-
 }
 
-
-
 .tip_text {
-
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline;
   -webkit-box-orient: vertical;
   flex: 1;
-
 }
 
 .tip_text h5 {
   margin-left: 8px;
   vertical-align: middle;
-  font-size: 20px;
-  margin-top: 3px;
-  
-
+  font-size: 18px;
+  margin-top: 4px;
 }
 
 .b_date {
@@ -220,7 +173,7 @@
   font-weight: 500;
 }
 
-.Main_container_list_detail>div:first-child>a {
+.Main_container_list_detail > div:first-child > a {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 12px;
@@ -228,7 +181,7 @@
   text-decoration: none;
 }
 
-.Main_container_list_detail>div:first-child>a:hover {
+.Main_container_list_detail > div:first-child > a:hover {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 12px;
@@ -236,22 +189,22 @@
   text-decoration: none;
 }
 
-.Main_container_list_detail>div:first-child>a>h4 {
+.Main_container_list_detail > div:first-child > a > h4 {
   margin-bottom: 8px;
 }
 
-.Main_container_list_detail>div:first-child>p:last-child {
+.Main_container_list_detail > div:first-child > p:last-child {
   color: #999999;
   font-size: 14px;
 }
 
-.Main_container_list_detail>div:last-child>div:first-child>h4 {
+.Main_container_list_detail > div:last-child > div:first-child > h4 {
   font-size: 1.1rem;
   font-weight: 600;
 }
 
 .Main_container_list_detail:hover {
-  background-color: #f0fdff
+  background-color: #f0fdff;
 }
 
 .Main_grid_profile {
@@ -263,14 +216,14 @@
   margin-right: 8px;
 }
 
-.profile_text>p {
+.profile_text > p {
   font-size: 12px;
   margin-bottom: 4px;
   text-align: right;
   color: #999999;
 }
 
-.profile_text>h4 {
+.profile_text > h4 {
   font-size: 16px;
   font-weight: bold;
   text-align: right;

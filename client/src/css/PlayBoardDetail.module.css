@@ -174,8 +174,11 @@
   height: 50px;
   background-color: #2474ff;
   border-radius: 50%;
+  overflow: hidden;
 }
-
+.profile_pic img {
+  width: 100%;
+}
 .play_profile > div > span:nth-child(2) p {
   font-size: 14px;
   font-weight: bold;

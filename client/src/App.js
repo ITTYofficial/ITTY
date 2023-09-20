@@ -35,6 +35,8 @@ import QnaDetail from "./components/QnaDetail";
 import QnaList from "./components/QnaList";
 import QnaWrite from "./components/QnaWrite";
 import PortWrite from "./components/PortWrite";
+import MyPage from "./components/MyPage";
+import CropperTest from "./components/CropperTest";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -113,6 +115,10 @@ function App() {
           <Route path="/reviewDetail" element={<ReviewDetail />}></Route>
           <Route path="/reviewWrite" element={<ReviewWrite />}></Route>
           <Route path="/portWrite" element={<PortWrite />}></Route>
+          <Route path="/myPage" element={<MyPage />}></Route>
+          <Route path="/cropperTest" element={<CropperTest />}></Route>
+          
+          
           
 
           <Route path="/qnaWrite" element={<QnaWrite />}></Route>
