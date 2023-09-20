@@ -50,7 +50,6 @@ const MarketDetail = () => {
 
   // 댓글 리스트 저장할 State
   const [commentList, setCommentList] = useState([]);
-  const [memberInfoCo, setMemberInfoCo] = useState([]);
 
   // 댓글 조회 함수
   const getComment = () => {
@@ -70,6 +69,7 @@ const MarketDetail = () => {
         }));
 
         console.log("member 내용물 : ", member.member);
+        // 게시판 정보랑 회원정보랑 하나로 합치는 함수
         let fusion = member.map((item, index) => {
           return { ...item, ...res.data.comment[index] };
         });
@@ -89,7 +89,8 @@ const MarketDetail = () => {
   };
 
   // 댓글 삭제 함수
-  const deleteComment = (commentId) => {
+  const deleteComment = (commentId) => {// <- commentId가 뭐죠??
+
     axios.get(`http://localhost:8088/comment/delete/${commentId}`)
       .then((res) => {
         getComment();
@@ -224,6 +225,7 @@ const MarketDetail = () => {
       })
   }
 
+
   const settings = {
     dots: true,
     infinite: true,
@@ -237,16 +239,44 @@ const MarketDetail = () => {
 
   const [meat, setMeat] = useState(false);
 
-  const Dropdown = () => (
-    <div className={style.meat_dropdown}>
-      <li onClick={moveUpdate}>
+  const Dropdown = () => {
+
+  // 세션 스토리지에서 저장된 닉네임 가져오기
+  const storedNickname = sessionStorage.getItem('memberNickname');
+
+  // 작성자와 세션 스토리지의 닉네임 비교
+  const isOwner = storedNickname === marketDetail.writer;
+
+  // 수정 버튼 클릭 시 동작할 함수
+  const handleModifyClick = () => {
+    if (isOwner) {
+      // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 수정 가능
+      moveUpdate();
+    } else {
+      alert('작성자만 수정할 수 있습니다.'); //  안보이게 하려면 다른 코드 추가해야함
+    }
+  };
+
+  // 삭제 버튼 클릭 시 동작할 함수
+  const handleDeleteClick = () => {
+    if (isOwner) {
+      // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 삭제 가능
+      deleteMarket();
+    } else {
+      alert('작성자만 삭제할 수 있습니다.');//  안보이게 하려면 다른 코드 추가해야함
+    }
+    // 신고 버튼도 추가하는 게 어떨런지..?
+  };
+  return(
+  <div className={style.meat_dropdown}>
+      <li onClick={handleModifyClick}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
           <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
         </svg>
         <span>수정</span>
       </li>
-      <li onClick={deleteMarket}>
+      <li onClick={handleDeleteClick}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -254,7 +284,7 @@ const MarketDetail = () => {
         <span>삭제</span>
       </li>
     </div>
-  );
+  )};
 
   const toggleMeat = () => {
     if (meat) {
@@ -284,7 +314,7 @@ const MarketDetail = () => {
         <div className={style.right_middle_container}>
           <div>
             <div>
-              <img src=''></img>
+              <img src={memberInfo.profileImg}></img>
             </div>
             <div>
               <p>{memberInfo.class}</p>
