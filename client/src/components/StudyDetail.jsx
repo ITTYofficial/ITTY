@@ -248,6 +248,17 @@ const StudyDetail = () => {
             })
     }
 
+    // 댓글 삭제 함수
+    const deleteComment = (commentId) => {
+        axios.get(`http://localhost:8088/comment/delete/${commentId}`)
+        .then((res)=>{
+            getComment();
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
     return (
         <div className={style.Main_container}>
             <LeftContainer />

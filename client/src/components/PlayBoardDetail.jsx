@@ -148,6 +148,17 @@ const PlayBoardDetail = () => {
       })
   }
 
+  // 댓글 삭제 함수
+  const deleteComment = (commentId) => {
+    axios.get(`http://localhost:8088/comment/delete/${commentId}`)
+      .then((res) => {
+        getComment();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   const CommentItem = ({ props }) => (
     <div className={PlayBoard.comment_list}>
       <div className={PlayBoard.play_comment_profile}>
