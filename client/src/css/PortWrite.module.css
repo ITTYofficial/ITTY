@@ -1,25 +1,41 @@
 .Main_container {
+ 
     /* max-width: 70%; */
-    width: 60%;
+    width: 65%;
     margin: 0 auto;
     /* display: grid; */
     justify-content: center;
 }
 
+
+.Main_container_box {
+    margin-top: 4%;
+    width: 60%;
+    background-color: #ffffff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 4%;
+
+}
+
 .Main_container>h2 {
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: bold;
-    margin: 0 16px;
     line-height: 40px;
     text-align: center;
+    margin-bottom: 24px;
 }
 
 .Main_container>form>input {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .Main_container>form>p {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    font-weight: bold;
 }
 
 
@@ -27,7 +43,7 @@
 
 /* 포트폴리오 이미지 관련 */
 .market_pic {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .input_pic {
@@ -94,7 +110,7 @@
     display: inline-block;
     background-color: #efefef;
     padding: 12px 20px;
-    margin: 32px 16px 32px 0;
+    margin-top: 24px;
     float: right;
 }
 
