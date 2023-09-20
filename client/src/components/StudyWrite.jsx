@@ -104,8 +104,12 @@ const StudyWrite = () => {
                 <h2>스터디 📚</h2>
                 <form onSubmit={handleSubmit}>
                     <h4> 제목 </h4>
-                    {id ? <input className="form-control" name='title' type="text" defaultValue={studyDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
-
+                    <input
+                        className="form-control"
+                        name='title'
+                        type="text"
+                        {...(id ? { defaultValue: studyDetail.title } : { placeholder: '제목을 입력해주세요' })}
+                    />
                     <h4>포지션</h4>
                     <div className={style.position_content}>
                         <button
@@ -150,18 +154,34 @@ const StudyWrite = () => {
                     <div className={style.second_block}>
                         <div>
                             <h4>스터디 시작일</h4>
-                            {id ? <DatePicker className='form-control' defaultValue={studyDetail.periodStart} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />}
+                            <DatePicker
+                                className='form-control'
+                                selected={startDate}
+                                onChange={date => setStartDate(date)}
+                                {...(id && { defaultValue: studyDetail.periodStart })}
+                            />
                         </div>
 
                         <div>
                             <h4>스터디 종료일</h4>
-                            {id ? <DatePicker className='form-control' defaultValue={studyDetail.periodEnd} selected={endDate} onChange={date => setEndDate(date)} /> : <DatePicker className='form-control' selected={endDate} onChange={date => setEndDate(date)} />}
+                            <DatePicker
+                                className='form-control'
+                                selected={endDate}
+                                onChange={date => setEndDate(date)}
+                                {...(id && { defaultValue: studyDetail.periodEnd })}
+                            />
                         </div>
 
                         <div>
                             <div className={style.space_box_1}></div>
                             <h4>인원</h4>
-                            {id ? <input className="form-control" name='persons' type="number" defaultValue={studyDetail.persons} /> : <input className="form-control" name='persons' type="number" placeholder='인원을 입력해주세요' />}
+                            <input
+                                className="form-control"
+                                name='persons'
+                                type="number"
+                                {...(id ? { defaultValue: studyDetail.persons } : { placeholder: '인원을 입력해주세요' })}
+                            />
+
                         </div>
 
                         <div>

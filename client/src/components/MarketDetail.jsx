@@ -8,12 +8,54 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
-import { useNavigate, useParams,useLocation  } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 const MarketDetail = () => {
 
+  // 댓글 내용 담을 State
+  const [comment, setComment] = useState();
+
+  // 댓글 내용 가져오는 함수
+  const commnetChange = (e) => {
+    setComment(e.target.value);
+  }
+
+  // 댓글 작성 시 호출되는 함수
+  function commentSubmit(event) {
+    event.preventDefault();
+    const obj = {
+      postid: id,
+      content: comment
+    };
+    console.log(obj);
+
+    axios.post('http://localhost:8088/comment/write', obj)
+      .then((res) => {
+        alert("댓글이 등록되었습니다.")
+        console.log(res);
+        getComment();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("게시글 작성 실패")
+      })
+  }
+
+  // 댓글 리스트 저장할 State
+  const [commentList, setCommentList] = useState([]);
+
+  // 댓글 조회 함수
+  const getComment = () => {
+    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setCommentList(res.data.comment)
+      })
+  }
+
+
   /* 댓글 컴포넌트 */
-  const CommentItem = () => (
+  const CommentItem = ({ props }) => (
     <div className={style.comment_list}>
       <div className={style.play_comment_profile}>
         <span>
@@ -30,25 +72,17 @@ const MarketDetail = () => {
       {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
       <div>
         <p>
-          데이터디자인반 프론트엔드 희망하는 26살입니다.
-          <br />
-          같이하면 재밋게 열심히 잘 할수 있을것같아요. 연락처는 쪽지로
-          보내드렸습니다.
-          <br />
-          확인하시고 연락부탁드려요~!
+          {props.content}
         </p>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
       <div>
-        <p>3시간 전</p>
+        <p>{getTime(props.createdAt)}</p>
       </div>
     </div>
   );
   /* 댓글 컴포넌트 */
-
-
-
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
@@ -60,7 +94,7 @@ const MarketDetail = () => {
 
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);
-   // 회원정보 저장할 state-지홍
+  // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
   // 게시글 조회함수
   // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
@@ -81,7 +115,7 @@ const MarketDetail = () => {
   const memberSearching = async () => {
     await axios.get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
       .then((res) => {
-        console.log('axios다음 니크네임',res.data.member.nickname);
+        console.log('axios다음 니크네임', res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -92,6 +126,7 @@ const MarketDetail = () => {
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getMarket();
+    getComment();
     memberSearching();
     console.log(marketDetail.imgPath);
   }, []);
@@ -104,6 +139,25 @@ const MarketDetail = () => {
     const day = createdAt.getDate();
 
     return `${year}년 ${month}월 ${day}일`
+  };
+
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTime = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${hoursDifference}시간 전`;
+      }
+    } else {
+      return `${daysDifference}일 전`;
+    }
   };
 
   // 수정 페이지 이동
@@ -158,7 +212,7 @@ const MarketDetail = () => {
   );
 
   const toggleMeat = () => {
-    if(meat){
+    if (meat) {
       setMeat(!meat);
     }
   };
@@ -218,21 +272,19 @@ const MarketDetail = () => {
             <p>댓글 3</p>
           </div>
         </div>
-        <div className={style.comment_write}>
-          <div>
+        <form onSubmit={commentSubmit}>
+          <div className={style.comment_write}>
             <div>
-              <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+              <div>
+                <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+              </div>
+              <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
             </div>
-            <textarea placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+            <Button type='submit' variant="outline-primary">댓글쓰기</Button>{' '}
           </div>
-          <Button variant="outline-primary">댓글쓰기</Button>{' '}
-        </div>
-
+        </form>
         {/* 댓글부분 */}
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
+        {commentList.map((item) => (<CommentItem key={item._id} props={item} />))}
         {/* 댓글부분 */}
 
       </div>

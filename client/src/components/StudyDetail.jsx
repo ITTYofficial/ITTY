@@ -3,7 +3,7 @@ import LeftContainer from './LeftContainer'
 import style from "../css/StudyDetail.module.css";
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import { Link, useParams, useLocation  } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import axios from 'axios';
 
 const StudyDetail = () => {
@@ -121,17 +121,17 @@ const StudyDetail = () => {
     const [memberInfo, setMemberInfo] = useState({});
 
     //회원정보 조회 함수 -지홍
-  const memberSearching = async()=>{
+    const memberSearching = async () => {
 
-    await axios
-      .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
-      .then((res)=>{
-        console.log('axios다음 니크네임',res.data.member.nickname);
-        setMemberInfo(res.data.member);
-      })
-      .catch((err)=>{
-        console.log('err :', err);
-      })
+        await axios
+            .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+            .then((res) => {
+                console.log('axios다음 니크네임', res.data.member.nickname);
+                setMemberInfo(res.data.member);
+            })
+            .catch((err) => {
+                console.log('err :', err);
+            })
     };
 
     // 게시글 조회함수
@@ -207,14 +207,16 @@ const StudyDetail = () => {
             })
     }
 
+    // 댓글 내용 담을 State
     const [comment, setComment] = useState();
 
+    // 댓글 내용 가져오는 함수
     const commnetChange = (e) => {
         setComment(e.target.value);
     }
 
     // 댓글 작성 시 호출되는 함수
-    function handleSubmit(event) {
+    function commentSubmit(event) {
         event.preventDefault();
         const obj = {
             postid: id,
@@ -226,7 +228,7 @@ const StudyDetail = () => {
             .then((res) => {
                 alert("댓글이 등록되었습니다.")
                 console.log(res);
-                // window.location.reload();
+                getComment();
             })
             .catch((err) => {
                 console.log(err);
@@ -260,11 +262,11 @@ const StudyDetail = () => {
                 <div>
                     <div className={style.keyworld_buttons}>
                         <Type />
-                        <Purpose />
-                        <Getajob />
-                        <Develope />
-                        <Certificate />
-                        <Groupstudy />
+                        {visible[0] && <Purpose />}
+                        {visible[1] && <Getajob />}
+                        {visible[2] && <Develope />}
+                        {visible[3] && <Certificate />}
+                        {visible[4] && <Groupstudy />}
                     </div>
                     <div className={style.Top_container}>
 
@@ -303,7 +305,7 @@ const StudyDetail = () => {
                             <p>댓글 3</p>
                         </div>
                     </div>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={commentSubmit}>
                         <div className={style.comment_write}>
                             <div>
                                 <div>
