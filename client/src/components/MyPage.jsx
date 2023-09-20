@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from '../css/MyPage.module.css'
 import axios from 'axios'
 import Image from 'react-bootstrap/Image';
 import { Link } from 'react-router-dom';
+import CropperTest from './CropperTest';
 
 const MyPage = () => {
 
@@ -13,9 +14,11 @@ const MyPage = () => {
 
     const handleFakeUploadClick = () => {
         // 파일 입력 엘리먼트에서 클릭 이벤트를 트리거합니다.
-        if (imgRef.current) {
+        /* if (imgRef.current) {
             imgRef.current.click();
-        }
+        } */
+        cropperRef.current.handleChildrenClick();
+        /* setShowInputPic(false); */
     };
 
     // 이미지 업로드 input의 onChange
@@ -34,11 +37,10 @@ const MyPage = () => {
 
         };
 
-        // 이미지를 업로드한 후에 fake 업로드 버튼을 숨기기 위해 아래 코드 추가
-        if (imgRef.current && imgRef.current.files.length > 0) {
-            const fakeUpload = document.querySelector(`.${styles.fake_upload}`);
-            fakeUpload.style.display = 'none';
-        }
+        /*         if (imgRef.current && imgRef.current.files.length > 0) {
+                    const fakeUpload = document.querySelector(`.${styles.fake_upload}`);
+                    fakeUpload.style.display = 'none';
+                } */
     };
 
     // base64 -> formdata
@@ -64,7 +66,7 @@ const MyPage = () => {
 
         try {
             const result = await axios.post(
-                "http://localhost:8088/save/save",
+                "http://localhost:8088/play/save",
                 formData
             );
             console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
@@ -74,6 +76,35 @@ const MyPage = () => {
     };
 
     /* 프사 스크립트 */
+
+    /* 이미지 크롭 스크립트 */
+    const cropperRef = useRef();
+    const [croppedImage, setCroppedImage] = useState(null);
+    const [showInputPic, setShowInputPic] = useState(true);
+    const [inputPicDisplay, setInputPicDisplay] = useState(true);
+
+    const handleFileSelect = (hasFile) => {
+        setInputPicDisplay(!hasFile); // 파일이 선택되면 input_pic을 숨김
+    };
+
+    useEffect(() => {
+        if (croppedImage !== null) {
+            const fakeUpload = document.querySelector(`.${styles.fake_upload}`);
+            fakeUpload.style.display = 'none';
+        }
+    }, [croppedImage]);
+
+    const handleUploadClick = () => {
+        cropperRef.current.handleChildrenClick();
+    };
+
+    const handleCroppedImage = (imageData) => {
+        setCroppedImage(imageData);
+        setInputPicDisplay(true);
+    };
+    /* 이미지 크롭 스크립트 */
+
+    
 
     return (
         <div className={styles.Main_container}>
@@ -91,9 +122,11 @@ const MyPage = () => {
                 </div>
                 <div className={styles.top_container_right}>
                     <h4>프로필 등록</h4>
+                    <CropperTest ref={cropperRef} onCrop={handleCroppedImage} onFileSelect={handleFileSelect} />
+
 
                     {/* 프사 부분 */}
-                    <div className={styles.input_pic}>
+                    <div className={styles.input_pic} style={{ display: inputPicDisplay ? 'block' : 'none' }}>
                         <div className={styles.fake_upload}>
                             <Image src='https://i.ibb.co/XsypSbQ/profile-01.png' alt='프로필 미리보기' roundedCircle />
                         </div>
@@ -114,8 +147,8 @@ const MyPage = () => {
                             ref={imgRef}
                         />
                         <div className={styles.preview_img}>
-                            {imgFiles && (
-                                <Image src={imgFiles} alt='프로필 미리보기' roundedCircle />
+                            {croppedImage && (
+                                <Image src={croppedImage} alt='프로필 미리보기' roundedCircle />
                             )}
                         </div>
                     </div>

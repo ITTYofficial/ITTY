@@ -17,6 +17,7 @@
     "quill-image-resize": "^3.0.9",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
+    "react-cropper": "^2.3.3",
     "react-datepicker": "^4.17.0",
     "react-dom": "^18.2.0",
     "react-kakao-login": "^2.1.1",
