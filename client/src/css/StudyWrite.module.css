@@ -24,7 +24,7 @@
 }
 
 .Main_container>form>input {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .position_content>button {
@@ -34,7 +34,7 @@
     border: 0px;
     padding: 12px 20px;
     margin-right: 16px;
-    margin-bottom:4px;
+    margin-bottom:12px;
 }
 
 
@@ -85,7 +85,7 @@
 }
 
 .margin_top_p_tag {
-    margin-top: 35px;
+    margin-top: 40px;
 }
 
 .submit_btn {
@@ -97,7 +97,6 @@
     display: inline-block;
     background-color: #efefef;
     padding: 12px 20px;
-    margin-right: 16px;
     float: right;
 }
 
@@ -107,7 +106,7 @@
 }
 
 .quill_content {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .Main_container_box{
