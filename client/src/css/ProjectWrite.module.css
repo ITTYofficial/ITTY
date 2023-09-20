@@ -6,11 +6,25 @@
     justify-content: center;
 }
 
+.Main_container_box {
+
+    width: 60%;
+    background-color: #ffffff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 4%;
+
+}
+
 .Main_container>h2 {
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: bold;
     margin: 0 16px;
     line-height: 40px;
+    text-align: center;
 }
 
 .right_container {
@@ -23,13 +37,15 @@
 }
 
 
-
+.space_box_1 {
+    margin-bottom: 8px;
+}
 
 .second_block>div:not(:nth-child(3)) {
     width: 48%;
     height: 50px;
     display: inline-grid;
-    margin: 12px 12px 12px 0;
+    margin: 0px 12px 12px 0;
 }
 
 .frame_work_container {
@@ -58,11 +74,11 @@
     border: 0px;
     padding: 12px 20px;
     margin-right: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .Main_container>form>input {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .Main_container>form>p {
@@ -73,22 +89,19 @@
     margin-bottom: 8px;
 }
 
-.second_block>div>p {
-    margin-bottom: 8px;
+.second_block>div>h4 {
+    margin-bottom: 12px;
 }
 
 .quill_content {
-    margin-top: 16px;
-    margin-bottom: 32px;
-    
-}
-
-.second_block {
-    margin-bottom: 8px;
+    margin-top: 12px;
+    margin-bottom: 24px;
 
 }
 
-.submit_btn{
+
+
+.submit_btn {
     color: #333333;
     font-weight: 600;
     font-size: 16px;
@@ -97,17 +110,41 @@
     display: inline-block;
     background-color: #efefef;
     padding: 12px 20px;
-    margin-right: 16px;   
+    margin-right: 0;
     float: right;
 }
 
-.submit_btn:hover{
+
+
+.submit_btn:hover {
     background-color: #2a72ff;
     color: #eeeeee;
 }
 
 @media (max-width:1024px) {
-    .second_block>div:not(:nth-child(3)){
+    .second_block>div:not(:nth-child(3)) {
         width: 100%;
     }
+}
+
+
+.Main_container h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.frame_work_container h4 {
+    margin-top: 18px;
+}
+
+.space_box_2 h4 {
+
+    margin-top: 48px;
+    margin-bottom: 8px;
+}
+
+.space_box_2{
+
+    margin-top: 78px;
 }
