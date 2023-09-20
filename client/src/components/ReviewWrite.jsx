@@ -33,70 +33,72 @@ const ReviewWrite = () => {
     /* 키워드관련 */
 
     return (
-        <div className={styles.Main_container}>
-            <h2>수료생 후기🧑‍🎓</h2>
-            <form>
-                <p>제목</p>
-                <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
-                <p>만족도</p>
-                <div className={styles.review_star}>
-                    <span className={styles.star}>
-                        ★★★★★
-                        <span>★★★★★</span>
-                        <input type="range" onChange={drawStar} value={star} step="1" min="0" max="10" /> {/* 수정된 부분 */}
-                    </span>
-                </div>
-                <p>키워드 (중복선택 가능)</p>
-                <div className={styles.keyworld_content}>
-                    <button
-                        type="button"
-                        onClick={() => changeColor('1')}
-                        style={{ backgroundColor: position.includes('1') ? '#ABE9FF' : '' }}
-                    >
-                        강력추천
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => changeColor('2')}
-                        style={{ backgroundColor: position.includes('2') ? '#ABE9FF' : '' }}
-                    >
-                        추천
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => changeColor('3')}
-                        style={{ backgroundColor: position.includes('3') ? '#ABE9FF' : '' }}
-                    >
-                        비추천
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => changeColor('4')}
-                        style={{ backgroundColor: position.includes('4') ? '#ABE9FF' : '' }}
-                    >
-                        전공
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => changeColor('5')}
-                        style={{ backgroundColor: position.includes('5') ? '#ABE9FF' : '' }}
-                    >
-                        비전공
-                    </button>
-                    <input type="hidden" name="position" value={position.join(',')} />
-                </div>
+        <div className={styles.Main_container_box}>
+            <div className={styles.Main_container}>
+                <h2>수료생 후기🧑‍🎓</h2>
+                <form>
+                    <h4>제목</h4>
+                    <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
+                    <h4>만족도</h4>
+                    <div className={styles.review_star}>
+                        <span className={styles.star}>
+                            ★★★★★
+                            <span>★★★★★</span>
+                            <input type="range" onChange={drawStar} value={star} step="1" min="0" max="10" /> {/* 수정된 부분 */}
+                        </span>
+                    </div>
+                    <h4>키워드 (중복선택 가능)</h4>
+                    <div className={styles.keyworld_content}>
+                        <button
+                            type="button"
+                            onClick={() => changeColor('1')}
+                            style={{ backgroundColor: position.includes('1') ? '#ABE9FF' : '' }}
+                        >
+                            강력추천
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => changeColor('2')}
+                            style={{ backgroundColor: position.includes('2') ? '#ABE9FF' : '' }}
+                        >
+                            추천
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => changeColor('3')}
+                            style={{ backgroundColor: position.includes('3') ? '#ABE9FF' : '' }}
+                        >
+                            비추천
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => changeColor('4')}
+                            style={{ backgroundColor: position.includes('4') ? '#ABE9FF' : '' }}
+                        >
+                            전공
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => changeColor('5')}
+                            style={{ backgroundColor: position.includes('5') ? '#ABE9FF' : '' }}
+                        >
+                            비전공
+                        </button>
+                        <input type="hidden" name="position" value={position.join(',')} />
+                    </div>
 
-                <p>내용</p>
-                <QuillTest />
+                    <h4>내용</h4>
+                    <QuillTest />
 
-                {/* 전송 버튼 */}
-                <button className={styles.submit_btn} type='submit'>
-                    작성완료
-                </button>
+                    {/* 전송 버튼 */}
+                    <button className={styles.submit_btn} type='submit'>
+                        작성완료
+                    </button>
 
-            </form>
+                </form>
 
 
+            </div>
         </div>
     )
 }

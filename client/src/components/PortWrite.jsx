@@ -83,9 +83,9 @@ const PortWrite = () => {
       <div className={styles.Main_container}>
         <h2>포트폴리오 🎨</h2>
         <form action="">
-          <p>제목</p>
+          <h4>제목</h4>
           <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
-          <p>포트폴리오 대표 이미지</p>
+          <h4>포트폴리오 대표 이미지</h4>
           <div className={styles.market_pic}>
             <div className={styles.input_pic}>
               <div
@@ -114,7 +114,7 @@ const PortWrite = () => {
             </div>
           </div>
 
-          <p>내용</p>
+          <h4>내용</h4>
           <QuillTest />
 
           {/* 전송 버튼 */}
