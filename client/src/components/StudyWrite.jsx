@@ -144,6 +144,7 @@ const StudyWrite = () => {
                             그룹 / 모임
                         </button>
                     </div>
+
                     <input type="hidden" name="selectedValues" value={selectedValues.join(',')} />
 
                     <div className={style.second_block}>
@@ -172,7 +173,7 @@ const StudyWrite = () => {
                                 <option>모집완료</option>
                             </select>
                         </div>
-                   
+
                     </div>
 
                     <h4 className={style.margin_top_p_tag}>내용</h4>
