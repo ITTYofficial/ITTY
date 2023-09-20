@@ -107,7 +107,7 @@ section {
 }
 body {
   line-height: 1;
-  font-family: "suit", sans-serif;
+  font-family: "suit";
 }
 ol,
 ul {
@@ -135,6 +135,31 @@ table {
 }
 @font-face {
   font-family: "suit";
-  src: url("../../public/fonts/SUIT-Medium.ttf");
-  src: url("../../public/fonts/SUIT-Regular.ttf");
+  /* font-style: normal; */
+  font-weight: 300;
+  src: url("../../public/fonts/SUIT-Light.ttf") format("woff");
+}
+@font-face {
+  font-family: "suit";
+  /* font-style: normal; */
+  font-weight: 400;
+  src: url("../../public/fonts/SUIT-Regular.ttf") format("woff");
+}
+@font-face {
+  font-family: "suit";
+  /* font-style: normal; */
+  font-weight: 500;
+  src: url("../../public/fonts/SUIT-Medium.ttf") format("woff");
+}
+@font-face {
+  font-family: "suit";
+  /* font-style: normal; */
+  font-weight: 700;
+  src: url("../../public/fonts/SUIT-ExtraBold.ttf") format("woff");
+}
+@font-face {
+  font-family: "suit";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../../public/fonts/SUIT-Bold.ttf") format("woff");
 }
