@@ -11,17 +11,33 @@ const StudyDetail = () => {
     /* 키워드 컴포넌트 */
     const Type = () => (
         <span className={`${style.play_title} ${style.type}`}>
-            스터디✍️
+            스터디 📚
         </span>
     );
     const Purpose = () => (
         <span className={`${style.play_title} ${style.purpose}`}>
-            코딩테스트 대비📖
+            코딩테스트 대비 📖
         </span>
     );
-    const Deadline = () => (
-        <span className={`${style.play_title} ${style.deadline}`}>
-            마감❌
+    const Getajob = () => (
+        <span className={`${style.play_title} ${style.getajob}`}>
+            취업 준비 😋
+        </span>
+    );
+
+    const Develope = () => (
+        <span className={`${style.play_title} ${style.develope}`}>
+            개발 공부 🔎
+        </span>
+    );
+    const Certificate = () => (
+        <span className={`${style.play_title} ${style.certificate}`}>
+            자격증 공부 📝
+        </span>
+    );
+    const Groupstudy = () => (
+        <span className={`${style.play_title} ${style.groupstudy}`}>
+            그룹 / 모임 🙋🏻‍♀️
         </span>
     );
     /* 키워드 컴포넌트 */
@@ -245,7 +261,10 @@ const StudyDetail = () => {
                     <div className={style.keyworld_buttons}>
                         <Type />
                         <Purpose />
-                        <Deadline />
+                        <Getajob />
+                        <Develope />
+                        <Certificate />
+                        <Groupstudy />
                     </div>
                     <div className={style.Top_container}>
 

@@ -135,30 +135,46 @@
 }
 
 .play_title {
-    padding: 4px 8px;
+    padding: 5px 8px;
     font-weight: bold;
     border-radius: 8px;
     font-size: 12px;
-    margin-right: 8px;
+    margin-right: 12px;
     cursor: pointer;
-    box-shadow: 2px 2px 6px gray;
+    box-shadow: 1px 1px 2px rgb(144, 144, 144);
 }
 
 
 .type {
-    background-color: pink;
-    color: palevioletred;
+    background-color: #71FFFF;
+    color: #003A47;
 }
 
 .purpose {
-    background-color: rgb(139, 139, 228);
-    color: rgb(65, 65, 212);
+    background-color: #E0E0E0;
+    color: #000000;
 }
 
-.deadline {
-    background-color: rgb(165, 165, 165);
-    color: #eeeeee;
+.getajob {
+    background-color: #FF6D00 ;
+    color: #551a01;
 }
+
+.develope {
+    background-color: #FF78F5;
+    color: #4F0051;
+}
+
+.certificate {
+    background-color:#2EFF55;
+    color: #0E3311;
+}
+
+.groupstudy {
+    background-color: #B3A1FF;
+    color: #500084;
+}
+
 
 /* 키워드 css */
 
