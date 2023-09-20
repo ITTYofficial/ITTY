@@ -3,9 +3,13 @@
   max-width: 1320px;
   margin: 0 auto;
   justify-content: space-between;
-  position: relative;
+  position: fixed;
   z-index: 10;
   align-items: center;
+  background-color: white;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 /* 로그인 이후 로그아웃 버튼에 검정선 생기는 현상 해결 */
@@ -101,7 +105,7 @@ button {
   display: none;
 }
 
-.Navigation {
+/* .Navigation {
   display: flex;
   max-width: 1320px;
   margin: 0 auto;
@@ -109,7 +113,7 @@ button {
   position: relative;
   z-index: 10;
   align-items: center;
-}
+} */
 
 .logo_image {
   /* width: 7%; */

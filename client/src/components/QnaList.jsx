@@ -52,8 +52,7 @@ const QnaList = () => {
           <p>데이터 디자인</p>
           <h4>수현쌤짱</h4>
         </span>
-        <span className={style.profile_pic}>
-        </span>
+        <span className={style.profile_pic}></span>
       </div>
     </div>
   );
@@ -63,7 +62,7 @@ const QnaList = () => {
       <LeftContainer />
       <div className={styles.right_container}>
         <div className={style.Main_container_banner}>
-            <img src="img/sponge.png" style={{width:"1024px"}}></img>
+          <img src="https://i.ibb.co/VD0ryhf/QnA.png"></img>
         </div>
         <div className={styles.right_container_button}>
           <div></div>
