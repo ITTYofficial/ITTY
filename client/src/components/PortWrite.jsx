@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from '../css/PortWrite.module.css'
 import axios from 'axios'
 import QuillTest from './QuillTest';
@@ -28,11 +28,14 @@ const PortWrite = () => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-
-      const base64data = reader.result;
-      // formData 만드는 함수
-      handlingDataForm(base64data);
-      setImgFiles([...imgFiles, reader.result]); // 새 이미지를 배열에 추가
+      if (imgFiles.length >= 10) {
+        alert("최대 10개의 이미지 등록이 가능합니다.");
+        console.log(imgFiles); // 10개 이상 등록시 alert 메세지
+      } else {
+        const base64data = reader.result;
+        // formData 만드는 함수
+        handlingDataForm(base64data);
+      }
 
     };
 
@@ -70,7 +73,7 @@ const PortWrite = () => {
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
-
+      setImgFiles([...imgFiles, result.data.url]); // 새 이미지를 배열에 추가
     } catch (error) {
       console.log("실패했어요ㅠ");
       console.log(error);
@@ -107,12 +110,36 @@ const PortWrite = () => {
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
+        // window.location.href = `/portDetail/${res.data._id}`
       })
       .catch((err) => {
         console.log(err);
         alert("게시글 작성 실패");
+        // window.location.href = `/portList`
       });
   };
+
+  // 게시글정보 저장할 State
+  const [portDetail, setPortDetail] = useState([]);
+
+  // 수정 요청시 기존 게시글 데이터 가져올 함수
+  const getPort = async () => {
+    if (id) {
+      // projectRouter랑 통신해서 response에 결과값 저장
+      await axios
+        .get(`http://localhost:8088/port/portDetail/${id}`)
+        .then((res) => {
+          console.log(res);
+          setPortDetail(res.data.detailPort[0]);
+          setValue(res.data.detailPort[0].content);
+        });
+      // respnse에서 데이터 꺼내서 State에 저장
+    }
+  };
+
+  useEffect(() => {
+    getPort();
+  }, []);
 
 
   return (
@@ -121,7 +148,7 @@ const PortWrite = () => {
         <h2>포트폴리오 🎨</h2>
         <form onSubmit={handleSubmit}>
           <h4>제목</h4>
-          <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
+          <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />
           <h4>포트폴리오 대표 이미지</h4>
           <div className={styles.market_pic}>
             <div className={styles.input_pic}>

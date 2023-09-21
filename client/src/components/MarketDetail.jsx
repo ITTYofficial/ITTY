@@ -31,7 +31,8 @@ const MarketDetail = () => {
   }else{
     const obj = {
       postid: id,
-      content: comment
+      content: comment,
+      writer: sessionStorage.getItem('memberNickname')
      };
      console.log(obj);
      
@@ -77,7 +78,7 @@ const MarketDetail = () => {
 
         const sortedcomments = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(b.createdAt) - new Date(a.createdAt);
+          return new Date(a.createdAt) - new Date(b.createdAt);
         });
 
         setCommentList(sortedcomments)

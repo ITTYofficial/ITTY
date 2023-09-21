@@ -38,20 +38,10 @@ const MarketList = () => {
       });
   };
 
-  // 임시 게시글 등록 함수
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8088/market/write");
-    } catch (error) { }
-  };
-
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     readMarketList();
   }, []);
-
-
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
   const getTimeAgoString = (dateString) => {
