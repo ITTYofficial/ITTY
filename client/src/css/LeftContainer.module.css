@@ -1,6 +1,9 @@
 .left_container {
   width: 20%;
   padding: 16px;
+  height: 20%;
+  position: sticky;
+  top: 8%;
 }
 .left_container_box1 {
   background-color: #f5f5f5;
@@ -68,9 +71,8 @@
   margin: 18px auto;
 }
 
-@media (max-width:1024px) {
-  .left_container{
+@media (max-width: 1024px) {
+  .left_container {
     display: none;
   }
-  
 }

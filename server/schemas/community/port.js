@@ -5,4 +5,4 @@ const portSchema = new Schema({
     
 })
 
-module.exports = mongoose.model('Study', portSchema, 'Study')
+module.exports = mongoose.model('Port', portSchema, 'Port')

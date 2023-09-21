@@ -7,12 +7,12 @@ import Image from 'react-bootstrap/Image';
 const ReviewDetail = () => {
 
     const Rank = () => (
-        <span className={`${styles.tag_button} ${styles.rank}`}>
+        <span className={`${styles.tag_button} ${styles.star}`}>
             ⭐1.0
         </span>
     );
     const Recomend = () => (
-        <span className={`${styles.tag_button} ${styles.recomend}`}>
+        <span className={`${styles.tag_button} ${styles.recommend}`}>
             강력추천👍
             {/* 비추천👎 */}
         </span>
