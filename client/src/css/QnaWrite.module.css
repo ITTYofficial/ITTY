@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    margin-top: 4%;
+    margin-top: 8%;
 }
 
 .Qna_content_box2 {
@@ -68,7 +68,7 @@
     padding: 12px 20px;
     float: right;
     margin-top: 12px;
-    margin-left: 8px
+    margin-left: 8px;
 }
 
 .submit_btn:hover {
