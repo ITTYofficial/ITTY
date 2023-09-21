@@ -1,10 +1,10 @@
 .Main_container {
     /* max-width: 70%; */
-    width: 65%;
+    width: 55%;
     margin: 0 auto;
     /* display: grid; */
     justify-content: center;
-
+    margin-top: 8%;
 }
 
 .Main_container_box {
@@ -44,17 +44,17 @@
 
 .second_block>div:not(:nth-child(3)) {
     width: 48%;
-    height: 50px;
+    /* height: 50px; */
     display: inline-grid;
-    margin: 0px 12px 12px 0;
+    margin: 0px 12px 24px 0;
 }
 
 .frame_work_container {
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
     display: flex;
     justify-content: space-between;
-    margin: 12px 12px 12px 0;
+    margin: 0 12px 24px 0;
 }
 
 .frame_work_container>div {
@@ -95,7 +95,7 @@
 }
 
 .quill_content {
-    margin-top: 12px;
+    margin-top: 24px;
     margin-bottom: 24px;
 
 }
@@ -112,7 +112,7 @@
     background-color: #efefef;
     padding: 12px 20px;
     margin-right: 0;
-    float: right;
+    margin-bottom: 24px;   
 }
 
 
@@ -136,16 +136,18 @@
 }
 
 .frame_work_container h4 {
-    margin-top: 18px;
 }
 
 .space_box_2 h4 {
 
-    margin-top: 48px;
     margin-bottom: 8px;
 }
 
 .space_box_2{
 
-    margin-top: 78px;
+}
+
+.submit_btn_wrapper{
+    display: flex;
+    justify-content: end;
 }
