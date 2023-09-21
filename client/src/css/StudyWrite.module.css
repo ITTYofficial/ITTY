@@ -4,6 +4,7 @@
     display: grid;
     justify-content: center;
     padding-bottom: 16px;
+    margin-top: 6%;
 }
 
 .Main_container>h2 {
