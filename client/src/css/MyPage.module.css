@@ -154,6 +154,10 @@
     width: 80%;
 }
 
+.bottom_content form input {
+    width: 60%;
+}
+
 .bottom_btn_group{
     display: flex;
     justify-content: flex-end;
