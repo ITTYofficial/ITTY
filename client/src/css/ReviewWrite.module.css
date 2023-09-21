@@ -2,13 +2,12 @@
   /* max-width: 70%; */
   width: 65%;
   margin: 0 auto;
-  margin-top: 4%;
+  
   /* display: grid; */
   justify-content: center;
 }
 
 .Main_container_box {
-  margin-top: 4%;
   width: 60%;
   background-color: #ffffff;
   height: 100%;
@@ -16,7 +15,8 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  margin-top: 4%;
+  margin-top: 8%;
+
 }
 
 .Main_container > h2 {
