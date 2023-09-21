@@ -147,7 +147,6 @@ const MarketWrite = () => {
     getMarket();
   }, []);
 
-  // 수정 요청시 데이터 가져오는거 까지 완료했고 이제 반영만 해주면 된다
 
   return (
 

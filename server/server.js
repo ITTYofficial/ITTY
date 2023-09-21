@@ -21,6 +21,7 @@ app.use("/play", require("./routes/community/playRouter"));
 app.use("/comment", require("./routes/community/commentRouter"));
 app.use("/member", require("./routes/member/memberRouter"));
 app.use("/save", require("./routes/community/imgUpload"));
+app.use("/port", require("./routes/community/portRouter"));
 // app.use("/kakao", require("./routes/member/kakaoLoginRouter"));
 
 
