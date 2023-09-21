@@ -111,14 +111,17 @@ const PlayBoardDetail = () => {
   const [comment, setComment] = useState();
 
   // 댓글 내용 가져오는 함수
-  const commnetChange = (e) => {
+  const commentChange = (e) => {
     setComment(e.target.value);
   }
 
-  // 댓글 작성 시 호출되는 함수
+
+
+  // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
     event.preventDefault();
     const obj = {
+      writer: sessionStorage.getItem("memberNickname"),
       postid: id,
       content: comment
     };
@@ -135,6 +138,9 @@ const PlayBoardDetail = () => {
         alert("게시글 작성 실패")
       })
   }
+
+
+
 
   // 댓글 리스트 저장할 State
   const [commentList, setCommentList] = useState([]);
@@ -159,7 +165,7 @@ const PlayBoardDetail = () => {
       })
   }
 
-  const CommentItem = ({ props }) => (
+  const ReComment = ({ props }) => (
     <div className={PlayBoard.comment_list}>
       <div className={PlayBoard.play_comment_profile}>
         <span>
@@ -185,8 +191,99 @@ const PlayBoardDetail = () => {
         <p>{getTime(props.createdAt)}</p>
       </div>
     </div>
+
   );
 
+
+  const [recommentVisible, setRecommentVisible] = useState(false);
+
+  const showRecommentWrite = () => {
+    setRecommentVisible(true);
+  }
+
+  const CommentItem = ({ props }) => {
+
+    // 대댓글 작성완료 시 호출되는 함수
+    function reCommentSubmit(event, _id) {
+      event.preventDefault();
+      console.log(_id);
+      const createdAt = new Date().toISOString();
+      const obj = {
+        writer: sessionStorage.getItem("memberNickname"),
+        content: reComment,
+        commentID: _id,
+        createdAt: createdAt
+      };
+      console.log(obj);
+
+      axios.post('http://localhost:8088/comment/reWrite', obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.")
+          console.log(res);
+          getComment();
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패")
+        })
+    }
+
+    // 대댓글 내용 담을 State
+    const [reComment, setReComment] = useState();
+
+    // 대댓글 내용 가져오는 함수
+    const reCommentChange = (e) => {
+      setReComment(e.target.value);
+      console.log(e.target.value);
+    }
+
+    return (
+      <div className={PlayBoard.comment_list}>
+        <div className={PlayBoard.play_comment_profile}>
+          <span>
+            <Image
+              src="https://i.pinimg.com/736x/24/d2/97/24d2974e5cd0468587422e38c8aab210.jpg"
+              roundedCircle
+            />
+          </span>
+          <span>
+            <p>빅데이터분석</p>
+            <h4>수업시간에롤</h4>
+          </span>
+        </div>
+        {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
+        <div>
+          <p>
+            {props.content}
+          </p>
+        </div>
+        {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
+
+        <div>
+          <p>{getTime(props.createdAt)}</p>
+        </div>
+        <div onClick={showRecommentWrite}>
+          댓글쓰기
+        </div>
+
+        {recommentVisible &&
+          <form onSubmit={(event) => reCommentSubmit(event, props._id)}>
+            <div className={PlayBoard.recomment_write}>
+              <div>
+                <div>
+                  <img src="#" />
+                </div>``
+                <textarea onBlur={reCommentChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+              </div>
+              <button type="submit">댓글쓰기</button>
+            </div>
+          </form>
+        }
+        {props.reComment.map((item)=><ReComment props={item}/>)}
+
+      </div>
+    );
+  }
   /* 수정삭제 버튼 */
 
   const [meat, setMeat] = useState(false);
@@ -313,7 +410,7 @@ const PlayBoardDetail = () => {
                 <div>
                   <img src="#" />
                 </div>
-                <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                <textarea onBlur={commentChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
               </div>
               <button type="submit">댓글쓰기</button>
             </div>

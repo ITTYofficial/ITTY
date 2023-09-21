@@ -55,7 +55,7 @@
 
 
 
-@media (max-width:873px) {
+@media (max-width:1087px) {
     .second_block>div {
         width: 100%;
     }
@@ -112,7 +112,7 @@
 
 .Main_container_box{
 
-    width: 60%;
+    width: 80%;
     background-color: #ffffff;
     height: 100%;
     display: flex;

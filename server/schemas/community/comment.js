@@ -24,6 +24,10 @@ const commentSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    reComment: {
+        // 대댓글
+        type: Array
+    }
     // 게시판마다 달라지는 부분
 })
 

@@ -101,7 +101,7 @@ const ProjectWrite = () => {
 
 
     return (
-        <div className={style.Main_container_box}>
+        
             <div className={style.Main_container}>
                 <h2>프로젝트 🏆</h2>
                 <form onSubmit={handleSubmit}>
@@ -218,12 +218,14 @@ const ProjectWrite = () => {
 
 
                     {/* 전송 버튼 */}
+                    <div className={style.submit_btn_wrapper}>
                     <button className={style.submit_btn} type='submit'>
                         작성완료
                     </button>
+                    </div>
                 </form>
             </div>
-        </div>
+        
     )
 }
 
