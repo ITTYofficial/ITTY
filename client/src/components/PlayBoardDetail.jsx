@@ -137,6 +137,31 @@ const PlayBoardDetail = () => {
       })
   }
 
+    // 대댓글 작성 시 호출되는 함수
+    function reCommentSubmit(event) {
+      event.preventDefault();
+      const createdAt = new Date().toISOString();
+      const obj = {
+        writer: sessionStorage.getItem("memberNickname"),
+        content: comment,
+        // commentID: 받아올 것
+        createdAt: createdAt
+      };
+      console.log(obj);
+  
+      axios.post('http://localhost:8088/comment/reWrite', obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.")
+          console.log(res);
+          getComment();
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패")
+        })
+    }
+  
+
   // 댓글 리스트 저장할 State
   const [commentList, setCommentList] = useState([]);
 

@@ -27,8 +27,26 @@ router.post('/write', async (req, res) => {
 router.post('/reWrite', async (req, res) => {
   console.log(req.body);
   try {
-    res.json({ message: true });
+
+    let obj;
     
+    obj = {
+      writer: "허광영",
+      content: "흠3",
+      createdAt: req.body.createdAt
+    };
+
+    await Comment.findOneAndUpdate(
+      { _id: req.body.commentID},
+      {
+        $push: {
+          reComment: obj
+        }
+      }
+    )
+
+    res.json({ message: true });
+
   } catch (err) {
     console.log(err);
     res.json({ message: false })

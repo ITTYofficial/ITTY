@@ -26,7 +26,7 @@ const commentSchema = new Schema({
     },
     reComment: {
         // 대댓글
-        type: Object
+        type: Array
     }
     // 게시판마다 달라지는 부분
 })
