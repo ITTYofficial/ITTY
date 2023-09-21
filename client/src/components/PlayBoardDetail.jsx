@@ -279,7 +279,7 @@ const PlayBoardDetail = () => {
             </div>
           </form>
         }
-        
+        {props.reComment.map((item)=><ReComment props={item}/>)}
 
       </div>
     );
