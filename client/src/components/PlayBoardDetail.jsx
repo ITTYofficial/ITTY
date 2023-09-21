@@ -119,6 +119,7 @@ const PlayBoardDetail = () => {
   function commentSubmit(event) {
     event.preventDefault();
     const obj = {
+      writer: sessionStorage.getItem("memberNickname"),
       postid: id,
       content: comment
     };
