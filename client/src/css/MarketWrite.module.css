@@ -23,7 +23,7 @@
   margin-bottom: 24 px;
 }
 
-.right_container h2 {
+.right_container>h2 {
   font-size: 24px;
   font-weight: bold;
   display: block;

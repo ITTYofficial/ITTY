@@ -2,6 +2,7 @@
     max-width: 1320px;
     margin: 0 auto;
     display: flex;
+    margin-top: 8%;
     /* justify-content: space-between; */
 }
 
@@ -15,11 +16,29 @@
     margin: 0 auto;
 }
 
-.right_container h2 {
+.sub_content>h2 {
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0 16px;
     line-height: 40px;
+}
+
+.additional_content>h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 16px;
+    line-height: 40px;
+}
+
+.additional_content {
+    text-align: right;
+}
+
+.additional_content p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-align: right;
+    color: #999999;
 }
 
 .right_container input {
@@ -31,18 +50,20 @@
 }
 
 .Img_slide div {
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 500px;
 }
 
 .Img_slide img {
-
+    width: 100%;
     height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
 
 }
 
 .right_middle_container {
-    width: 600px;
+    width: 500px;
     display: flex;
     justify-content: space-between;
 }
@@ -52,10 +73,16 @@
     align-items: center;
 }
 
-.right_middle_container img {
-    width: 80px;
-
+.profile_img {
+    width: 60px;
+    height: 60px;
 }
+
+.profile_img img {
+    width: 100%;
+    height: 100%;
+}
+
 
 .right_middle_container :nth-child(2) {
 
@@ -74,6 +101,8 @@
 } */
 
 .Img_slide {
+    display: flex;
+    justify-content: center;
     margin-bottom: 16px;
 }
 
@@ -83,6 +112,7 @@
 
 .sub_content {
     text-align: left;
+    line-height: 1.5rem;
 }
 
 
@@ -317,6 +347,8 @@
 
 .meatball {
     text-align: end;
+    position: absolute;
+    right: 0;
 }
 
 .meatball>ul {
@@ -362,3 +394,39 @@
 }
 
 /* 수정삭제 버튼 */
+
+.right_middle_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+/* 폰트 css */
+.member_class {
+    font-size: 16px;
+    margin-bottom: 8px;
+    text-align: right;
+    color: #999999;
+}
+
+.member_class+p {
+    font-size: 18px;
+    margin-bottom: 8px;
+    text-align: right;
+    color: #000000;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* 폰트 css */
+
+.profile_img {
+    margin-right: 12px;
+}
+
+.text_content_wrapper {
+    position: relative;
+}
+
+.sub_content_wrapper {
+    width: 98%;
+}
