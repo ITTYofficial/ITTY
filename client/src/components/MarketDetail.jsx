@@ -23,6 +23,7 @@ const MarketDetail = () => {
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
     event.preventDefault();
+
    // 회원만 작성가능하게 수정 - 지홍
     if(!sessionStorage.getItem('memberId')){
     alert("로그인해야합니다");
@@ -55,7 +56,7 @@ const MarketDetail = () => {
   // 댓글 조회 함수
   const getComment = () => {
     axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
-      .then(async(res) => {
+      .then(async (res) => {
         // 회원정보 조회 -지홍 (내림차순 정렬까지 내가 했다 광영아)
         let memberPromises = res.data.comment.map((comment) => {
           const nickname = comment.writer;
@@ -100,7 +101,7 @@ const MarketDetail = () => {
         console.log(err);
       })
   }
-  
+
   /* 댓글 컴포넌트 */
   const CommentItem = ({ props }) => (
     <div className={style.comment_list}>
@@ -242,50 +243,51 @@ const MarketDetail = () => {
 
   const Dropdown = () => {
 
-  // 세션 스토리지에서 저장된 닉네임 가져오기
-  const storedNickname = sessionStorage.getItem('memberNickname');
+    // 세션 스토리지에서 저장된 닉네임 가져오기
+    const storedNickname = sessionStorage.getItem('memberNickname');
 
-  // 작성자와 세션 스토리지의 닉네임 비교
-  const isOwner = storedNickname === marketDetail.writer;
+    // 작성자와 세션 스토리지의 닉네임 비교
+    const isOwner = storedNickname === marketDetail.writer;
 
-  // 수정 버튼 클릭 시 동작할 함수
-  const handleModifyClick = () => {
-    if (isOwner) {
-      // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 수정 가능
-      moveUpdate();
-    } else {
-      alert('작성자만 수정할 수 있습니다.'); //  안보이게 하려면 다른 코드 추가해야함
-    }
+    // 수정 버튼 클릭 시 동작할 함수
+    const handleModifyClick = () => {
+      if (isOwner) {
+        // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 수정 가능
+        moveUpdate();
+      } else {
+        alert('작성자만 수정할 수 있습니다.'); //  안보이게 하려면 다른 코드 추가해야함
+      }
+    };
+
+    // 삭제 버튼 클릭 시 동작할 함수
+    const handleDeleteClick = () => {
+      if (isOwner) {
+        // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 삭제 가능
+        deleteMarket();
+      } else {
+        alert('작성자만 삭제할 수 있습니다.');//  안보이게 하려면 다른 코드 추가해야함
+      }
+      // 신고 버튼도 추가하는 게 어떨런지..?
+    };
+    return (
+      <div className={style.meat_dropdown}>
+        <li onClick={handleModifyClick}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+          </svg>
+          <span>수정</span>
+        </li>
+        <li onClick={handleDeleteClick}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+          </svg>
+          <span>삭제</span>
+        </li>
+      </div>
+    )
   };
-
-  // 삭제 버튼 클릭 시 동작할 함수
-  const handleDeleteClick = () => {
-    if (isOwner) {
-      // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 삭제 가능
-      deleteMarket();
-    } else {
-      alert('작성자만 삭제할 수 있습니다.');//  안보이게 하려면 다른 코드 추가해야함
-    }
-    // 신고 버튼도 추가하는 게 어떨런지..?
-  };
-  return(
-  <div className={style.meat_dropdown}>
-      <li onClick={handleModifyClick}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-        </svg>
-        <span>수정</span>
-      </li>
-      <li onClick={handleDeleteClick}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-        </svg>
-        <span>삭제</span>
-      </li>
-    </div>
-  )};
 
   const toggleMeat = () => {
     if (meat) {
@@ -294,6 +296,8 @@ const MarketDetail = () => {
   };
 
   /* 수정삭제 버튼 */
+
+  
 
   return (
     <div className={style.Main_container}>
@@ -311,37 +315,41 @@ const MarketDetail = () => {
             </Slider>
           )}
         </div>
-
-        <div className={style.right_middle_container}>
-          <div>
+        <div className={style.right_middle_wrapper}>
+          <div className={style.right_middle_container}>
             <div>
-              <img src={memberInfo.profileImg}></img>
+              <div className={style.profile_img}>
+                <Image src={memberInfo.profileImg} roundedCircle />
+              </div>
+              <div>
+                <p className={style.member_class}>{memberInfo.class}</p>
+                <p>{marketDetail.writer}</p>
+              </div>
             </div>
-            <div>
-              <p>{memberInfo.class}</p>
-              <p>{marketDetail.writer}</p>
+            <div className={style.additional_content}>
+              <p>👁‍🗨 {marketDetail.views} 💬 4</p>
+              <p>{getTime(marketDetail.createdAt)}</p>
+              <h2>{parseInt(marketDetail.price).toLocaleString()} 원</h2>
             </div>
-          </div>
-          <div style={{ backgroundColor: '#F0F0F0' }}>
-            <p>👁‍🗨 {marketDetail.views} 💬 4</p>
-            <p>{getTimeAgoString(marketDetail.createdAt)}</p>
-            <p>{marketDetail.price} 원</p>
           </div>
         </div>
         <hr />
         {/* 내용부분 */}
-        <div className={style.meatball}>
-          <ul>
-            <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-            </svg>
-            {meat && <Dropdown />}
-          </ul>
-        </div>
-
-        <div className={style.sub_content}>
-          <h2>{marketDetail.title}</h2>
-          <p dangerouslySetInnerHTML={{ __html: marketDetail.content }}></p>
+        <div className={style.text_content_wrapper}>
+          <div className={style.meatball}>
+            <ul>
+              <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+              </svg>
+              {meat && <Dropdown />}
+            </ul>
+          </div>
+          <div className={style.sub_content_wrapper}>
+            <div className={style.sub_content}>
+              <h2>{marketDetail.title}</h2>
+              <p dangerouslySetInnerHTML={{ __html: marketDetail.content }}></p>
+            </div>
+          </div>
         </div>
         <div className={style.division_line}>
           <div>

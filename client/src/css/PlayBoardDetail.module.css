@@ -10,9 +10,11 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+
 }
 
 .right_container {
+ 
   width: 80%;
   padding: 16px;
 }
@@ -91,38 +93,39 @@
 }
 
 .play_title {
-  padding: 4px 8px;
-  font-weight: bold;
-  border-radius: 8px;
-  font-size: 12px;
-  margin-right: 8px;
-  cursor: pointer;
-  box-shadow: 2px 2px 6px gray;
+  padding: 5px 8px;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-right: 12px;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgb(144, 144, 144);
 }
 
+/* 왜 자유게시판에 프로젝트 버튼 css가 있을까유..?우선 여기에서 수정..~ */
 .frontend {
-  background-color: pink;
-  color: palevioletred;
+  background-color: #2EFF55;
+  color: #0E3311;
 }
 
 .backend {
-  background-color: rgb(139, 139, 228);
-  color: rgb(65, 65, 212);
+  background-color: #FF316C;
+  color: #FFFFFF;
 }
 
 .db {
-  background-color: rgb(165, 165, 165);
-  color: #eeeeee;
+  background-color: #B3A1FF;
+  color: #500084;
 }
 
 .uxui {
-  background-color: greenyellow;
-  color: rgb(13, 167, 13);
+  background-color: #71FFFF;
+  color: #003A47;
 }
 
 .fullstack {
-  background-color: gold;
-  color: rgb(156, 141, 55);
+  background-color: #247DFF;
+  color: #FFFFFF;
 }
 
 /*  */

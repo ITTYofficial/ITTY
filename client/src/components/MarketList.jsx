@@ -38,20 +38,10 @@ const MarketList = () => {
       });
   };
 
-  // 임시 게시글 등록 함수
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8088/market/write");
-    } catch (error) { }
-  };
-
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     readMarketList();
   }, []);
-
-
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
   const getTimeAgoString = (dateString) => {
@@ -88,7 +78,7 @@ const MarketList = () => {
       <div className={style.Market_content_text}>
         <h4>{props.title}</h4>
         <div className={style.Market_content_text2}>
-          <p className={style.market_content_price}>{props.price} 원</p>
+          <p className={style.market_content_price}>{parseInt(props.price).toLocaleString()} 원</p>
           <p className={style.market_content_date}>{getTimeAgoString(props.createdAt)}</p>
         </div>
       </div>
