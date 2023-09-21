@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 const MarketWrite = () => {
   const [imgFiles, setImgFiles] = useState([]);
   const imgRef = useRef();
-
+  const writer = sessionStorage.getItem('nickname');
   // 특정 게시글 조회하기 위한 id값 가져오기
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -97,14 +97,16 @@ const MarketWrite = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(e.target);
     const formData = new FormData(e.target);
+
     const obj = {};
     formData.forEach((value, key) => {
       console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     obj["content"] = value;
+    obj["writer"] = sessionStorage.getItem('memberNickname');
     if (id) {
       obj["_id"] = id;
     }
@@ -115,7 +117,7 @@ const MarketWrite = () => {
       .post("http://localhost:8088/market/write", obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
-        // console.log(res);
+        console.log(res);
         window.location.href = `/marketDetail/${res.data._id}`
       })
       .catch((err) => {
@@ -144,9 +146,11 @@ const MarketWrite = () => {
   };
 
   useEffect(() => {
+    // const writer = sessionStorage.getItem('nickname');
     getMarket();
   }, []);
 
+  // 수정 요청시 데이터 가져오는거 까지 완료했고 이제 반영만 해주면 된다
 
   return (
 
@@ -242,7 +246,7 @@ const MarketWrite = () => {
               <h4>상품 설명</h4>
               <QuillTest />
             </div>
-
+                <input type="hidden" name={writer} value={sessionStorage.getItem('nickname')} />
             <button className={styles.market_button} type="submit">
               작성 완료
             </button>
