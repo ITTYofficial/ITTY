@@ -111,7 +111,7 @@ const engNumCheck= (e) =>{
     }else {
       messageElement2.current.textContent = "비밀번호에는 문자와 숫자를 모두 포함해야 합니다.";
       messageElement2.current.style.color = "red";
-      setPwCheckResult(true);
+      setPwCheckResult(false);
     }}
 
 };
