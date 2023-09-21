@@ -31,8 +31,8 @@ router.post('/reWrite', async (req, res) => {
     let obj;
     
     obj = {
-      writer: "허광영",
-      content: "흠3",
+      writer: req.body.writer,
+      content: req.body.content,
       createdAt: req.body.createdAt
     };
 
