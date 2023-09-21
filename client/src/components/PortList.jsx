@@ -1,23 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LeftContainer from './LeftContainer'
 import styles from '../css/PortList.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'react-bootstrap/Image';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const PortList = () => {
+    // 포트폴리오 리스트 담을 State
+    const [portList, setPortList] = useState([]);
 
-    const PortItem = () => (
+    // 포트폴리오 리스트 조회 함수
+    const readPortList = async () => {
+        await axios
+            .get("http://localhost:8088/port/portList")
+            .then((res) => {
+                const sortedPort = res.data.port.sort((a, b) => {
+                    // 게시글 데이터 작성 일자별 내림차순 정렬
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                });
+                setPortList(sortedPort);
+            })
+            .catch((err) => {
+                alert("통신에 실패했습니다.");
+                console.log(err);
+            });
+    };
+
+    // 페이지 렌더링시 조회 함수 실행
+    useEffect(() => {
+        readPortList();
+    }, []);
+
+    // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+    const getTimeAgoString = (dateString) => {
+        const createdAt = new Date(dateString);
+        const now = new Date();
+        const timeDifference = now - createdAt;
+        const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+        const daysDifference = Math.floor(hoursDifference / 24);
+
+        if (daysDifference === 0) {
+            if (hoursDifference === 0) {
+                return "방금 전";
+            } else {
+                return `${hoursDifference}시간 전`;
+            }
+        } else {
+            return `${daysDifference}일 전`;
+        }
+    };
+
+    const PortItem = ({ props }) => (
         <div className={styles.port_content}>
             <div className={styles.port_content_img}>
-                <Link to={'/portDetail'}>
-                <img src='https://user-images.githubusercontent.com/70695311/126065328-70124e21-f0c2-4e9b-a0f8-b4e3086f31b6.jpg'></img>
-                {/* <img src='https://i.ibb.co/dDnhbM9/image.png'></img> */}
+                <Link to={`/portDetail/${props._id}`}>
+                    <img src={props.imgPath[0]}></img>
+                    {/* <img src='https://i.ibb.co/dDnhbM9/image.png'></img> */}
                 </Link>
             </div>
             <div className={styles.port_content_bottom}>
                 <div>
-                    <h4>내 손안의 스트레스를 비움 B:um</h4>
+                    <h4>{props.title}</h4>
                 </div>
                 <div>
                     <div className={styles.port_content_bottom2}>
@@ -30,7 +74,7 @@ const PortList = () => {
                         </div>
                     </div>
                     <div>
-                        <p className={styles.little_p}>1시간 전 👁‍🗨 28 💬 4</p>
+                        <p className={styles.little_p}>{getTimeAgoString(props.createdAt)} 👁‍🗨 {props.views} 💬 4</p>
                     </div>
                 </div>
             </div>
@@ -52,13 +96,8 @@ const PortList = () => {
                 </dvi>
 
                 <div className={styles.port_list}>
-                    
-                    <PortItem />
-                    <PortItem />
-                    <PortItem />
-                    <PortItem />
-                    <PortItem />
-                    <PortItem />
+
+                    {portList.map((item) => <PortItem key={item._id} props={item} />)}
                 </div>
 
 

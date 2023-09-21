@@ -118,19 +118,19 @@ function App() {
 
           <Route path="/tipList" element={<TipList />}></Route>
           <Route path="/tipWrite" element={<TipWrite />}></Route>
-          <Route path="/tipDetail" element={<TipDetail />}></Route>
+          <Route path="/tipDetail/:id" element={<TipDetail />}></Route>
 
           <Route path="/portList" element={<PortList />}></Route>
           <Route path="/portWrite" element={<PortWrite />}></Route>
-          <Route path="/portDetail" element={<PortDetail />}></Route>
+          <Route path="/portDetail/:id" element={<PortDetail />}></Route>
 
           <Route path="/reviewList" element={<ReviewList />}></Route>
           <Route path="/reviewWrite" element={<ReviewWrite />}></Route>
-          <Route path="/reviewDetail" element={<ReviewDetail />}></Route>
+          <Route path="/reviewDetail/:id" element={<ReviewDetail />}></Route>
 
           <Route path="/qnaList" element={<QnaList />}></Route>
           <Route path="/qnaWrite" element={<QnaWrite />}></Route>
-          <Route path="/qnaDetail" element={<QnaDetail />}></Route>
+          <Route path="/qnaDetail/:id" element={<QnaDetail />}></Route>
 
           <Route path="/join" element={<Join />}></Route>
           <Route path="/login" element={<Login />}></Route>
