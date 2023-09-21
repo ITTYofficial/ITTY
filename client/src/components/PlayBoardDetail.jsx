@@ -160,6 +160,42 @@ const PlayBoardDetail = () => {
       })
   }
 
+  const ReComment = ({ props }) => (
+    <div className={PlayBoard.comment_list}>
+      <div className={PlayBoard.play_comment_profile}>
+        <span>
+          <Image
+            src="https://i.pinimg.com/736x/24/d2/97/24d2974e5cd0468587422e38c8aab210.jpg"
+            roundedCircle
+          />
+        </span>
+        <span>
+          <p>빅데이터분석</p>
+          <h4>수업시간에롤</h4>
+        </span>
+      </div>
+      {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
+      <div>
+        <p>
+          {props.content}
+        </p>
+      </div>
+      {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
+
+      <div>
+        <p>{getTime(props.createdAt)}</p>
+      </div>
+    </div>
+
+  );
+
+
+  const [recommentVisible, setRecommentVisible] = useState(false);
+
+  const showRecommentWrite = () => {
+    setRecommentVisible(true);
+  }
+
   const CommentItem = ({ props }) => (
     <div className={PlayBoard.comment_list}>
       <div className={PlayBoard.play_comment_profile}>
@@ -185,6 +221,23 @@ const PlayBoardDetail = () => {
       <div>
         <p>{getTime(props.createdAt)}</p>
       </div>
+      <div onClick={showRecommentWrite}>
+        댓글쓰기
+      </div>
+
+      {recommentVisible &&
+        <div className={PlayBoard.recomment_write}>
+          <div>
+            <div>
+              <img src="#" />
+            </div>
+            <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+          </div>
+          <button type="submit">댓글쓰기</button>
+        </div>
+      }
+
+
     </div>
   );
 
