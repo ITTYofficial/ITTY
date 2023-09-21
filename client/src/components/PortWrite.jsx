@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from '../css/PortWrite.module.css'
 import axios from 'axios'
 import QuillTest from './QuillTest';
 import Button from 'react-bootstrap/Button';
+import { PlayBoardContext } from '../context/PlayBoardContext';
+import { useLocation } from 'react-router-dom';
 
 const PortWrite = () => {
 
@@ -26,15 +28,16 @@ const PortWrite = () => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-
-      const base64data = reader.result;
-      // formData 만드는 함수
-      handlingDataForm(base64data);
-      setImgFiles([...imgFiles, reader.result]); // 새 이미지를 배열에 추가
+      if (imgFiles.length >= 10) {
+        alert("최대 10개의 이미지 등록이 가능합니다.");
+        console.log(imgFiles); // 10개 이상 등록시 alert 메세지
+      } else {
+        const base64data = reader.result;
+        // formData 만드는 함수
+        handlingDataForm(base64data);
+      }
 
     };
-
-
 
     // 이미지를 업로드한 후에 fake 업로드 버튼을 숨기기 위해 아래 코드 추가
     if (imgRef.current && imgRef.current.files.length > 0) {
@@ -70,21 +73,82 @@ const PortWrite = () => {
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
-
+      setImgFiles([...imgFiles, result.data.url]); // 새 이미지를 배열에 추가
     } catch (error) {
       console.log("실패했어요ㅠ");
       console.log(error);
     }
   };
 
+  // Quill value
+  const { value, setValue } = useContext(PlayBoardContext);
+
+  // 특정 게시글 조회하기 위한 id값 가져오기
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get("id");
+
+  // 게시글 작성 함수
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const obj = {};
+    formData.forEach((value, key) => {
+      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+      obj[key] = value;
+    });
+    obj["content"] = value;
+    if (id) {
+      obj["_id"] = id;
+    }
+    setImgFiles([imgFiles.join(';')]);
+    obj["imgPath"] = imgFiles;
+    console.log(obj);
+    axios
+      .post("http://localhost:8088/port/write", obj)
+      .then((res) => {
+        alert("게시글이 등록되었습니다.");
+        console.log(res);
+        // window.location.href = `/portDetail/${res.data._id}`
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("게시글 작성 실패");
+        // window.location.href = `/portList`
+      });
+  };
+
+  // 게시글정보 저장할 State
+  const [portDetail, setPortDetail] = useState([]);
+
+  // 수정 요청시 기존 게시글 데이터 가져올 함수
+  const getPort = async () => {
+    if (id) {
+      // projectRouter랑 통신해서 response에 결과값 저장
+      await axios
+        .get(`http://localhost:8088/port/portDetail/${id}`)
+        .then((res) => {
+          console.log(res);
+          setPortDetail(res.data.detailPort[0]);
+          setValue(res.data.detailPort[0].content);
+        });
+      // respnse에서 데이터 꺼내서 State에 저장
+    }
+  };
+
+  useEffect(() => {
+    getPort();
+  }, []);
+
 
   return (
     <div className={styles.Main_container_box}>
       <div className={styles.Main_container}>
         <h2>포트폴리오 🎨</h2>
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <h4>제목</h4>
-          <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
+          <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />
           <h4>포트폴리오 대표 이미지</h4>
           <div className={styles.market_pic}>
             <div className={styles.input_pic}>

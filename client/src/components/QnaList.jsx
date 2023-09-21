@@ -28,6 +28,10 @@ const QnaList = () => {
             }); */
   };
 
+
+
+
+
   const Job = () => (
     <span className={`${style.play_title} ${style.job}`}>취업 😎</span>
   );
@@ -41,7 +45,7 @@ const QnaList = () => {
           <h5> 리액트 useEffect 관련 질문입니다 😂</h5>
         </Link>
         <div className={style.Qna_title_box_space_2}>
-          <p>5분전 </p>
+          <p>5분전</p>
           <p>👁‍🗨 28 💬 4 </p>
         </div>
       </div>

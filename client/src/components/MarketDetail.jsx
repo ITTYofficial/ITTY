@@ -23,28 +23,30 @@ const MarketDetail = () => {
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
     event.preventDefault();
-    // 회원만 작성가능하게 수정 - 지홍
-    if (!sessionStorage.getItem('memberId')) {
-      alert("로그인해야합니다");
-      window.location.href = "/login";
-      event.preventDefault();
-    } else {
-      const obj = {
-        postid: id,
-        content: comment
-      };
-      console.log(obj);
 
-      axios.post('http://localhost:8088/comment/write', obj)
-        .then((res) => {
-          alert("댓글이 등록되었습니다.")
-          console.log(res);
-          getComment();
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("게시글 작성 실패")
-        })
+   // 회원만 작성가능하게 수정 - 지홍
+    if(!sessionStorage.getItem('memberId')){
+    alert("로그인해야합니다");
+    window.location.href = "/login";
+    event.preventDefault();
+  }else{
+    const obj = {
+      postid: id,
+      content: comment,
+      writer: sessionStorage.getItem('memberNickname')
+     };
+     console.log(obj);
+     
+     axios.post('http://localhost:8088/comment/write', obj)
+     .then((res) => {
+       alert("댓글이 등록되었습니다.")
+       console.log(res);
+       getComment();
+     })
+     .catch((err) => {
+       console.log(err);
+       alert("게시글 작성 실패")
+     })
     }
   };
 
@@ -77,7 +79,7 @@ const MarketDetail = () => {
 
         const sortedcomments = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(b.createdAt) - new Date(a.createdAt);
+          return new Date(a.createdAt) - new Date(b.createdAt);
         });
 
         setCommentList(sortedcomments)
