@@ -312,7 +312,7 @@ button {
   display: block;
 } */
 
-.hamburger_content {
+/* .hamburger_content {
   display: none;
   width: 40px;
   height: 40px;
@@ -322,24 +322,40 @@ button {
 .hamburger_content svg {
   width: 100%;
   height: 100%;
-}
-
-@media (max-width: 768px) {
-  .Category {
-    display: none;
-  }
-
-  .Member {
-    display: none;
-  }
-
-  .hamburger_content {
-    display: block;
-  }
-}
+} */
 
 .Member_mobile {
   display: none;
+}
+.hamburger_content {
+  display: none;
+}
+
+.hamburger_content {
+  width: 40px;
+  height: 40px;
+  margin: 8px 16px;
+}
+
+.hamburger_content svg {
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 768px) {
+  .Category > ul {
+    display: none;
+  }
+
+  .Member > ul {
+    display: none;
+  }
+
+  .Member_mobile {
+    display: block;
+  }
+  .hamburger_content {
+    display: block;
+  }
 }
 
 /* ===== 카테고리(소) ===== */
@@ -444,29 +460,3 @@ button {
 .sub_Community:hover {
   display: block;
 } */
-
-.hamburger_content {
-  display: none;
-  width: 40px;
-  height: 40px;
-  margin: 8px 16px;
-}
-
-.hamburger_content svg {
-  width: 100%;
-  height: 100%;
-}
-
-@media (max-width: 768px) {
-  .Category {
-    display: none;
-  }
-
-  .Member {
-    display: none;
-  }
-
-  .hamburger_content {
-    display: block;
-  }
-}
