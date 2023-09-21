@@ -10,12 +10,22 @@ const ReviewList = () => {
         <span>
           <div className={style.cateBox}>
             <span className={`${style.play_title} ${style.star}`}>⭐4.5</span>
-            <span className={`${style.play_title} ${style.backend}`}>
-              추천👍
+            <span className={`${style.play_title} ${style.recommend}`}>
+              추천 👍
             </span>
-            <span className={`${style.play_title} ${style.backend}`}>
+            <span className={`${style.play_title} ${style.nomajor}`}>
               비전공자💎
             </span>
+            <span className={`${style.play_title} ${style.major}`}>
+              전공자 🚩
+            </span>
+            <span className={`${style.play_title} ${style.veryrecommend}`}>
+              강력추천 😁
+            </span>
+            <span className={`${style.play_title} ${style.notrecommend}`}>
+              비추천 👎🏻
+            </span>
+
           </div>
           <h3>스인재 3개월차 솔직후기입니다.</h3>
         </span>
