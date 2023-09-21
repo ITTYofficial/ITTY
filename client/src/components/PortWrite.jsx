@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import styles from '../css/PortWrite.module.css'
 import axios from 'axios'
 import QuillTest from './QuillTest';
 import Button from 'react-bootstrap/Button';
+import { PlayBoardContext } from '../context/PlayBoardContext';
+import { useLocation } from 'react-router-dom';
 
 const PortWrite = () => {
 
@@ -33,8 +35,6 @@ const PortWrite = () => {
       setImgFiles([...imgFiles, reader.result]); // 새 이미지를 배열에 추가
 
     };
-
-
 
     // 이미지를 업로드한 후에 fake 업로드 버튼을 숨기기 위해 아래 코드 추가
     if (imgRef.current && imgRef.current.files.length > 0) {
@@ -77,12 +77,49 @@ const PortWrite = () => {
     }
   };
 
+  // Quill value
+  const { value, setValue } = useContext(PlayBoardContext);
+
+  // 특정 게시글 조회하기 위한 id값 가져오기
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get("id");
+
+  // 게시글 작성 함수
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const obj = {};
+    formData.forEach((value, key) => {
+      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+      obj[key] = value;
+    });
+    obj["content"] = value;
+    if (id) {
+      obj["_id"] = id;
+    }
+    setImgFiles([imgFiles.join(';')]);
+    obj["imgPath"] = imgFiles;
+    console.log(obj);
+    axios
+      .post("http://localhost:8088/port/write", obj)
+      .then((res) => {
+        alert("게시글이 등록되었습니다.");
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("게시글 작성 실패");
+      });
+  };
+
 
   return (
     <div className={styles.Main_container_box}>
       <div className={styles.Main_container}>
         <h2>포트폴리오 🎨</h2>
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <h4>제목</h4>
           <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
           <h4>포트폴리오 대표 이미지</h4>

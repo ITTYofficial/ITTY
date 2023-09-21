@@ -99,42 +99,44 @@ function App() {
           <Route path="/" element={<Main />}></Route>
           <Route path="/playboardList" element={<PlayBoardList />}></Route>
           <Route path="/playBoardWrite" element={<PlayBoardWrite />}></Route>
-          <Route
-            path="/playboardDetail/:id"
-            element={<PlayBoardDetail />}
-          ></Route>
+          <Route path="/playboardDetail/:id" element={<PlayBoardDetail />}></Route>
+          
           <Route path="/studyList" element={<StudyList />}></Route>
           <Route path="/studyWrite" element={<StudyWrite />}></Route>
           <Route path="/studyDetail/:id" element={<StudyDetail />}></Route>
+
           <Route path="/projectList" element={<ProjectList />}></Route>
           <Route path="/projectWrite" element={<ProjectWrite />}></Route>
           <Route path="/projectDetail/:id" element={<ProjectDetail />}></Route>
+
           <Route path="/marketList" element={<MarketList />}></Route>
           <Route path="/marketWrite" element={<MarketWrite />}></Route>
           <Route path="/marketDetail/:id" element={<MarketDetail />}></Route>
+
           <Route path="/quillTest" element={<QuillTest />}></Route>
           <Route path="/testPage" element={<TestPage />}></Route>
-          <Route path="/tipList" element={<TipList />}></Route>
-          <Route path="/tipDetail" element={<TipDetail />}></Route>
-          <Route path="/portDetail" element={<PortDetail />}></Route>
-          <Route path="/join" element={<Join />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/portList" element={<PortList />}></Route>
-          <Route path="/tipWrite" element={<TipWrite />}></Route>
-          <Route path="/reviewList" element={<ReviewList />}></Route>
-          <Route path="/reviewDetail" element={<ReviewDetail />}></Route>
-          <Route path="/reviewWrite" element={<ReviewWrite />}></Route>
-          <Route path="/portWrite" element={<PortWrite />}></Route>
-          <Route path="/myPage" element={<MyPage />}></Route>
-          <Route path="/cropperTest" element={<CropperTest />}></Route>
-          
-          
-          
 
+          <Route path="/tipList" element={<TipList />}></Route>
+          <Route path="/tipWrite" element={<TipWrite />}></Route>
+          <Route path="/tipDetail" element={<TipDetail />}></Route>
+
+          <Route path="/portList" element={<PortList />}></Route>
+          <Route path="/portWrite" element={<PortWrite />}></Route>
+          <Route path="/portDetail" element={<PortDetail />}></Route>
+
+          <Route path="/reviewList" element={<ReviewList />}></Route>
+          <Route path="/reviewWrite" element={<ReviewWrite />}></Route>
+          <Route path="/reviewDetail" element={<ReviewDetail />}></Route>
+
+          <Route path="/qnaList" element={<QnaList />}></Route>
           <Route path="/qnaWrite" element={<QnaWrite />}></Route>
           <Route path="/qnaDetail" element={<QnaDetail />}></Route>
-          <Route path="/qnaList" element={<QnaList />}></Route>
-          
+
+          <Route path="/join" element={<Join />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+
+          <Route path="/myPage" element={<MyPage />}></Route>
+          <Route path="/cropperTest" element={<CropperTest />}></Route>
 
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}
