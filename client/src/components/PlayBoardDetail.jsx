@@ -146,13 +146,51 @@ const PlayBoardDetail = () => {
   const [commentList, setCommentList] = useState([]);
 
   // 댓글 조회 함수
-  const getComment = () => {
-    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
-      .then((res) => {
-        console.log(res.data);
-        setCommentList(res.data.comment)
-      })
-  }
+  const getComment = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8088/comment/commentList?postId=${id}`);
+      
+      let commentsWithMemberInfo = await Promise.all(
+        res.data.comment.map(async (comment) => {
+          const writerInfoResponse = await axios.get(
+            `http://localhost:8088/member/memberSearching?nickname=${comment.writer}`
+          );
+          comment.writerInfo = {
+            class: writerInfoResponse.data.member.class,
+            profileImg: writerInfoResponse.data.member.profileImg,
+          };
+  
+          if (comment.reComment) {
+            comment.reComment = await Promise.all(
+              comment.reComment.map(async (reComment) => {
+                const reWriterInfoResponse = await axios.get(
+                  `http://localhost:8088/member/memberSearching?nickname=${reComment.writer}`
+                );
+                reComment.writerInfo = {
+                  class: reWriterInfoResponse.data.member.class,
+                  profileImg: reWriterInfoResponse.data.member.profileImg,
+                };
+                return reComment;
+              })
+            );
+          }
+  
+          return comment;
+        })
+      );
+  
+      console.log("commentsWithMemberInfo 내용물 : ", commentsWithMemberInfo);
+  
+      const sortedComments = commentsWithMemberInfo.sort((a, b) => {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+  
+      setCommentList(sortedComments);
+    } catch (err) {
+      alert("통신에 실패했습니다.");
+      console.log(err);
+    }
+  };
 
   // 댓글 삭제 함수
   const deleteComment = (commentId) => {
@@ -170,13 +208,13 @@ const PlayBoardDetail = () => {
       <div className={PlayBoard.play_comment_profile}>
         <span>
           <Image
-            src="https://i.pinimg.com/736x/24/d2/97/24d2974e5cd0468587422e38c8aab210.jpg"
+            src={props.profileImg}
             roundedCircle
           />
         </span>
         <span>
-          <p>빅데이터분석</p>
-          <h4>수업시간에롤</h4>
+          <p>{props.class}</p>
+          <h4>{props.writer}</h4>
         </span>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
@@ -247,8 +285,8 @@ const PlayBoardDetail = () => {
             />
           </span>
           <span>
-            <p>빅데이터분석</p>
-            <h4>수업시간에롤</h4>
+            <p>{props.class}</p>
+            <h4>{props.writer}</h4>
           </span>
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
