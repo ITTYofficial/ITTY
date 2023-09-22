@@ -163,19 +163,12 @@ const MarketWrite = () => {
           {/* 상품명 */}
           <div>
             <h4>상품명</h4>
-            {id ? <input
+            <input
               className="form-control"
               type="text"
               name="market_title"
-              defaultValue={marketDetail.title}
+              {...(id ? { defaultValue: marketDetail.title } : { placeholder: "상품명을 입력해주세요." })}
             />
-              :
-              <input
-                type="text"
-                name="market_title"
-                placeholder="상품명을 입력해주세요."
-                className="form-control"
-              />}
           </div>
 
           {/* 상품 이미지 */}
@@ -219,20 +212,12 @@ const MarketWrite = () => {
 
           <div>
             <h4>상품 가격</h4>
-            {id ?
-              <input
-                type="number"
-                name="market_price"
-                defaultValue={marketDetail.price}
-                className="form-control"
-              />
-              :
-              <input
-                type="number"
-                name="market_price"
-                placeholder="상품 가격을 입력해주세요."
-                className="form-control"
-              />}
+            <input
+              type="number"
+              name="market_price"
+              {...(id? {defaultValue: marketDetail.price} : {placeholder: "상품 가격을 입력해주세요."})}
+              className="form-control"
+            />
           </div>
           <div>
             <h4>판매 상태</h4>

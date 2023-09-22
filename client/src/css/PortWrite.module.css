@@ -1,10 +1,28 @@
 .Main_container {
   /* max-width: 70%; */
-  width: 70%;
+  width: 45%;
   margin: 0 auto;
   margin-top: 8%;
   /* display: grid; */
   justify-content: center;
+}
+
+@media (max-width:1336px){
+  .Main_container{
+    width: 60%;
+  }
+}
+
+@media (max-width:950px){
+  .Main_container{
+    width: 70%;
+  }
+}
+
+@media (max-width:768px){
+  .Main_container{
+    width: 90%;
+  }
 }
 
 .Main_container_box {
@@ -37,8 +55,15 @@
   font-size: 18px;
 }
 
+.Main_container>form>div>h4 {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+
 /* 포트폴리오 이미지 관련 */
 .market_pic {
+  margin-top: 12px;
   margin-bottom: 24px;
 }
 
@@ -140,6 +165,29 @@
 
 .quill_div {
   margin-bottom: 24px;
+}
+
+.upload_img_block{
+  display: flex;
+  align-items: center;
+}
+
+.upload_img_block div{
+  margin-left: 12px;
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  display: inline-block;
+  background-color: #efefef;
+  padding: 6px;
+}
+
+.upload_img_block div:hover{
+  background-color: #2a72ff;
+  cursor: pointer;
+  color: #eeeeee;
 }
 
 

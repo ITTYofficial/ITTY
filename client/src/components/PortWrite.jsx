@@ -25,7 +25,6 @@ const PortWrite = () => {
   // 게시글 작성 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target);
     const obj = {};
     formData.forEach((value, key) => {
@@ -36,20 +35,22 @@ const PortWrite = () => {
     if (id) {
       obj["_id"] = id;
     }
-    setImgFiles([imgFiles.join(';')]);
-    obj["imgPath"] = imgFiles;
+    // setImgFiles([imgFiles.join(';')]);
+    const url = await handlingDataForm(croppedImage)
+    console.log(url);
+    obj["imgPath"] = url;
     console.log(obj);
     axios
       .post("http://localhost:8088/port/write", obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
-        window.location.href = `/portDetail/${res.data._id}`
+        // window.location.href = `/portDetail/${res.data._id}`
       })
       .catch((err) => {
         console.log(err);
         alert("게시글 작성 실패");
-        window.location.href = `/portList`
+        // window.location.href = `/portList`
       });
   };
 
@@ -132,6 +133,41 @@ const PortWrite = () => {
     }
   }, [croppedImage]);
 
+  // base64 -> formdata
+  const handlingDataForm = async (dataURI) => {
+    // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
+    const byteString = atob(dataURI.split(",")[1]);
+    // const nickname = sessionStorage.getItem("memberNickname");
+    // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ia], {
+      type: "image/jpeg",
+    });
+    const file = new File([blob], "image.jpg");
+    // 위 과정을 통해 만든 image폼을 FormData에
+    // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
+    const formData = new FormData();
+    formData.append("img", file);
+    // formData.append("writer",nickname)
+    try {
+      const result = await axios.post(
+        "http://localhost:8088/save/save",
+        formData
+      );
+      console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
+      const url = result.data.url;
+      return url;
+    } catch (error) {
+      console.log("실패했어요ㅠ");
+      console.log(error);
+    }
+
+  };
+
   /* 모달 */
   const [show, setShow] = useState(false);
 
@@ -139,7 +175,6 @@ const PortWrite = () => {
     setShow(false);
     setImage(null);
     setInputPicDisplay(true);
-
   }
   const handleShow = () => {
     /* setCroppedImage(null); */
@@ -156,8 +191,17 @@ const PortWrite = () => {
       <h2>포트폴리오 🎨</h2>
       <form onSubmit={handleSubmit}>
         <h4>제목</h4>
-        <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />
-        <h4>포트폴리오 대표 이미지</h4>
+        <input
+          className="form-control"
+          type="text"
+          name='title'
+          {...(id ? { defaultValue: portDetail.title } : { placeholder: '제목을 입력해주세요' })} />
+        <div className={styles.upload_img_block}>
+          <h4>포트폴리오 대표 이미지</h4>
+          {croppedImage &&
+            <div onClick={handleCropperClick}>이미지 재등록</div>
+          }
+        </div>
         <div className={styles.market_pic}>
           <div className={styles.input_pic}>
             <div
