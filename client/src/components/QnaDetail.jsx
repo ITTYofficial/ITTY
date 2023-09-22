@@ -175,10 +175,13 @@ const QnaDetail = () => {
           <div className={style.play_wrap_top}>
             <div className={style.play_profile}>
               <span>
-                <span className={style.play_top_title}>
-                  <Develope />
-                </span>
                 <h4>{qnaDetail.title}</h4>
+                <span className={style.play_top_title}>
+                  {visible[0] &&<Develope />}
+                  {visible[1] &&<Study />}
+                  {visible[2] &&<Job />}
+                  {visible[3] &&<Life />}
+                </span>
               </span>
 
               <span>
