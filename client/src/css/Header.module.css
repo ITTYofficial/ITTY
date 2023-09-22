@@ -81,7 +81,6 @@ button {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
-  font-size: 16px;
 
   border-radius: 10px;
   display: inline-block;
@@ -160,45 +159,6 @@ button {
 
 .Member > ul > li {
   margin: 8px 16px 8px 0;
-}
-
-.Member > ul > li:first-child > a {
-  text-decoration: none;
-  color: #333333;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  background-color: #efefef;
-  padding: 12px 20px;
-  box-shadow: 1px 2px 2px rgb(213, 213, 213);
-}
-
-/* 로그아웃 버튼 태그 ㄱ */
-.Member > ul > li:first-child > button {
-  text-decoration: none;
-  color: #333333;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  background-color: #efefef;
-  padding: 12px 20px;
-  box-shadow: 1px 2px 2px rgb(213, 213, 213);
-}
-
-.Member > ul > li:last-child > a {
-  text-decoration: none;
-  color: #eeeeee;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  background-color: #2a72ff;
-  padding: 12px 20px;
 }
 
 .Category_mobile {
@@ -330,17 +290,42 @@ button {
 .hamburger_content {
   display: none;
 }
+.Member_mobile {
+  width: 40px;
+  height: 40px;
+  /* line-height: 40px; */
+  margin: 8px 4px;
+  background-color: white;
+  float: left;
+}
+.Member_mobile svg {
+  width: 100%;
+  height: 100%;
+  fill: #999999;
+  transition-duration: 200ms;
+}
 
+.Member_mobile svg:hover {
+  fill: #2a72ff;
+}
 .hamburger_content {
   width: 40px;
   height: 40px;
-  margin: 8px 16px;
+  margin: 8px 4px;
+  margin-right: 16px;
+  background-color: white;
+  float: right;
 }
-
 .hamburger_content svg {
   width: 100%;
   height: 100%;
+  fill: #999999;
+  transition-duration: 200ms;
 }
+.hamburger_content svg:hover {
+  fill: #2a72ff;
+}
+
 @media (max-width: 768px) {
   .Category > ul {
     display: none;
@@ -355,6 +340,17 @@ button {
   }
   .hamburger_content {
     display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .Member > ul > li:first-child > button {
+    font-size: 14px;
+    padding: 12px;
+  }
+  .Member > ul > li:last-child > a {
+    font-size: 14px;
+    padding: 12px;
   }
 }
 
@@ -451,12 +447,62 @@ button {
   display: flex;
   justify-content: center;
 }
-
-/* .nav_hover:hover .sub_Community{
-  display: block;
-  transition: display 10s;
+/* 사이드 슬라이드 박스 */
+.aside {
+  position: fixed;
+  top: 0;
+  right: -40%;
+  width: 40%;
+  height: 100vh;
+  background-color: white;
+  border-left: 2px solid #73a1fc;
+  transition-duration: 300ms;
 }
-
-.sub_Community:hover {
+.aside a {
+  text-decoration: none;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 600;
+}
+.aside > ul {
+  margin-top: 50px;
+}
+.aside > ul > li {
+  text-align: left;
+  padding: 24px 16px;
   display: block;
-} */
+  transition-duration: 300ms;
+  position: relative;
+}
+.aside ul li:hover {
+  background-color: #2a72ff;
+  color: #eeeeee;
+}
+.aside > ul > li > ul {
+  display: none;
+}
+.aside > ul > li:hover > ul {
+  position: absolute;
+  top: 0;
+  right: 100.5%;
+  width: 100%;
+  background-color: white;
+  border-left: 2px solid #2a72ff;
+  display: block;
+}
+.aside ul li ul li a {
+  text-align: left;
+  padding: 24px 16px;
+  display: block;
+  transition-duration: 300ms;
+}
+.aside_button {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 10%;
+  top: 10px;
+}
+.button_transform {
+  transform: translateX(-100%);
+}
