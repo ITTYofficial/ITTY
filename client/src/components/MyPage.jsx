@@ -10,22 +10,134 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 const MyPage = () => {
-
-
+    
     /* 이미지 크롭 스크립트 */
     const [inputPicDisplay, setInputPicDisplay] = useState(true);
-
-
-
-
+    
     /* 크로퍼 */
     const inputRef = useRef(null);
     const cropperRef = useRef(null);
     const [image, setImage] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
+    // 정보 조회 데이터 관리
+    const [memberInfo,setMemberInfo]= useState({})
+    // 정보수정 데이터관리  
+    const [nickname, setNickname] = useState("");
+    const [pw, setPw] = useState("");
+    const [checkPw, setCheckPw] = useState("");
+    // 중복 등 파악    
+    const [pwCheckResult, setPwCheckResult] = useState(true);
+    const [nicknameCheckResult, setNicknameCheckResult] = useState(true);
+   
 
+    // 경고문이 뜰 자리
+    const messageElement2 = useRef(null);
+    const messageElement3 = useRef(null);
+    const messageElement4 = useRef(null);
 
+    useEffect(() => {
+        // 컴포넌트가 마운트된 후에 messageElement를 설정
+      // message 요소를 찾아서 설정
+      memberSearching() 
+      messageElement2.current = document.getElementById('pWmessage');
+        messageElement3.current = document.getElementById('pWCheckmessage');
+        messageElement4.current = document.getElementById('nickNameCheckmessage');
+      }, []);
 
+// 각 변경값이 있으면 usestate에 저장하고 없으면 기존의 정보를 저장
+    const onNicknameHandler =(e) =>{
+
+            setNickname(e.target.value);
+        
+      }
+    const onPwHandler = (e) => {
+
+            setPw(e.target.value);
+        
+      };
+    const onCheckPwHandler = (e) => {
+
+       
+            setCheckPw(e.target.value);
+        
+      };
+
+// 회원정보 조회
+      const memberSearching = async () => {
+        const nick= sessionStorage.getItem('memberNickname')
+        await axios
+          .get(`http://localhost:8088/member/memberSearching?nickname=${nick}`)
+          .then((res) => {
+            console.log('axios다음 니크네임', res.data.member.nickname);
+            setMemberInfo(res.data.member);
+          })
+          .catch((err) => {
+            console.log('err :', err);
+          })
+      };
+
+  // 비밀번호는 영문과 숫자 필수
+  const engNumPw = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const engNumPwCheck= (e) =>{
+    if (messageElement2.current) {
+    const inputValue =e.target.value
+    // console.log(inputValue);
+    if(engNumPw.test(inputValue)){
+      messageElement2.current.textContent = "";
+//      messageElement.current.style.color = "blue";
+    setPwCheckResult(true);
+    }else {
+      messageElement2.current.textContent = "비밀번호에는 문자와 숫자를 모두 포함해야 합니다.";
+      messageElement2.current.style.color = "red";
+      setPwCheckResult(false);
+    }}
+
+};
+
+      // 닉네임 중복 체크 -> 본래 닉네임 치면 true 반환하게 
+      const nicknameCheck = async(e) => {
+        e.preventDefault();
+            const nicknameChecking  ={nickname:nickname};
+            try {
+                //  라우트로 POST 요청 보내기
+                const response = await axios.post('http://localhost:8088/member/nicknameCheck', nicknameChecking);
+                if (response.data.nicknameCheckingSuccess) {
+                    // 중복체크 중복 O      
+                    console.log('닉네임 중복체크 성공:', response.data);
+                    messageElement4.current.textContent= response.data.message; // 사용가능한 아이디입니다.
+                    messageElement4.current.style.color = "blue"; 
+                    setNicknameCheckResult(true);
+                } else {
+                    // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
+                    messageElement4.current.textContent= response.data.message; // 중복된 아이디입니다.
+                    messageElement4.current.style.color = "red";
+                    setNicknameCheckResult(false);
+                }
+            } catch (error) {
+                console.error('오류 발생:', error);
+            }
+   
+        };
+            
+             
+// 비밀번호 확인 (-> 이러면 한번 인풋창을 건드리면 비밀번호를 맞춰야한다는 단점이있음)
+    const pwCheck = (e) =>{
+        console.log('유즈스테이트pw:',pw);
+
+          if(pw !== checkPw){
+            messageElement3.current.textContent = "비밀번호가 일치하지 않습니다.";
+            messageElement3.current.style.color = "red";
+            setPwCheckResult(false);
+          }else{
+            messageElement3.current.textContent = "비밀번호 일치 확인";
+            messageElement3.current.style.color = "blue";
+            setPwCheckResult(true);
+          }
+
+        };
+      
+
+/* 크로퍼 */
     const handleCropperClick = () => {
         if (inputRef.current) {
             inputRef.current.value = ''; // input 요소 초기화
@@ -89,7 +201,58 @@ const MyPage = () => {
 
     /* 모달 */
 
+  // ******************************************************** 
+  // 회원정보수정 함수
 
+  const updateMember = async (e) => {
+    e.preventDefault();
+if ( pwCheckResult &&nicknameCheckResult) {
+console.log(memberInfo.pw);
+
+    // if(nickname==""){
+    //     let member = {
+    //         pw: pw,
+    //         nickname: memberInfo.nickname,
+    //     //    profileImg: profileImg,
+    //         // role: role,
+    //         // skill: skill,
+    //       };
+    // }else{
+
+    //     let member = {
+    //         pw: pw,
+    //         nickname: nickname,
+    //         //    profileImg: profileImg,
+    //         // role: role,
+    //         // skill: skill,
+    //     };
+    // }
+            let member = {
+            pw: pw,
+            nickname: nickname,
+            //    profileImg: profileImg,
+            // role: role,
+            // skill: skill,
+        };
+      try {
+        console.log('제발 들어와주라', member);
+        const response = await axios.post("http://localhost:8088/member/update", member); // 경로 테스트 중...
+        if (response.data.message === "회원정보수정이 완료되었습니다.") {
+          // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
+          window.location.href = '/'
+                    
+        } else {
+          // 오류 처리
+          console.error("회원정보수정에 실패했습니다.");
+        }
+      } catch (error) {
+        console.error("오류 발생:", error);
+      }
+}else{
+  return alert("다시");
+}
+
+  };
 
 
     return (
@@ -97,13 +260,22 @@ const MyPage = () => {
             <h2>마이페이지</h2>
             <div className={styles.top_container}>
                 <div className={styles.top_container_left}>
-                    <form action="">
-                        <h4>닉네임</h4>
-                        <input type="text" className="form-control" />
-                        <h4>비밀번호</h4>
-                        <input type="text" placeholder='변경할 비밀번호를 입력해 주세요.' className="form-control" />
-                        <h4>비밀번호 확인</h4>
-                        <input type="text" placeholder='비밀번호를 한번 더 입력해 주세요' className="form-control" />
+                    <form>
+                        <div>
+                            <h4>닉네임</h4>
+                            <input type="text" className="form-control" id="nickname"  name='nickname' value={nickname} onChange={onNicknameHandler} onBlur={nicknameCheck} placeholder={sessionStorage.getItem('memberNickname')}/>
+                            <div  id="nickNameCheckmessage"></div>
+                        </div>
+                        <div>
+                            <h4>비밀번호</h4>
+                            <input type="text" placeholder='변경할 비밀번호를 입력해 주세요.' className="form-control" name="pw" id="pw" defaultValue={memberInfo.pw} onChange={onPwHandler} onInput={engNumPwCheck}/>
+                            <div id="pWmessage"></div>
+                        </div>
+                        <div>
+                            <h4>비밀번호 확인</h4>
+                            <input type="text" placeholder='비밀번호를 한번 더 입력해 주세요' className="form-control" name="pw_check" id="pw_check" defaultValue={memberInfo.pw} onChange={onCheckPwHandler} onBlur={pwCheck}/>
+                            <div id="pWCheckmessage"></div>
+                        </div>
                     </form>
                 </div>
                 <div className={styles.top_container_right}>
@@ -186,7 +358,7 @@ const MyPage = () => {
             </div>
             <div className={styles.bottom_content}>
                 <h4>소속 인증 상태</h4>
-                <button className={styles.right_container_button}>미인증</button>
+                <button className={styles.right_container_button}>{memberInfo.class=='미인증 회원'?'미인증':memberInfo.class}</button>
                 <h4>학원생 인증</h4>
                 <p>ITTY의 특정 서비스를 이용하기 위해서는 스마트인재개발원 소속 인증이 필요합니다.</p>
                 <form>
@@ -199,14 +371,14 @@ const MyPage = () => {
                             <p>수강 중인 강의실 본인 컴퓨터 상단의 부착된 이름표를 찍어서 첨부파일에 업로드해 주시면 담당자가 본인 여부를 확인 후 학원생으로 전환해 드립니다.</p>
                         </div>
                     </div>
-                    <input type="file" className="form-control" />
+                    {/* p태그로 이메일 주소남겨두기 */}
                 </form>
             </div>
             <div className={styles.bottom_btn_group}>
-                <Link >
+                <Link to="/" onClick={updateMember}>
                     <p>수정</p>
                 </Link>
-                <Link >
+                <Link to="/">
                     <p>취소</p>
                 </Link>
             </div>
