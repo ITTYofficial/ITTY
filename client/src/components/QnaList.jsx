@@ -41,12 +41,10 @@ const QnaList = () => {
     const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
     const daysDifference = Math.floor(hoursDifference / 24);
 
-    if (daysDifference === 0) {
-      if (hoursDifference === 0) {
-        return "방금 전";
-      } else {
-        return `${minutesDifference}분 전`;
-      }
+    if (minutesDifference === 0) {
+      return "방금 전";
+    } else if (minutesDifference < 60) {
+      return `${minutesDifference}분 전`;
     } else if (hoursDifference < 24) {
       return `${hoursDifference}시간 전`;
     } else {
@@ -58,7 +56,7 @@ const QnaList = () => {
     <span className={`${style.play_title} ${style.job}`}>취업 😎</span>
   );
 
-  const QnaItem = ({props}) => (
+  const QnaItem = ({ props }) => (
     <div className={style.Main_container_list_detail}>
       {/* 글 제목 및 내용 */}
       <div className={style.Qna_text}>
@@ -99,7 +97,7 @@ const QnaList = () => {
         </div>
 
         <div className={styles.Main_container_list}>
-          {qnaList.map((item) => (<QnaItem key={item._id} props={item}/>))}
+          {qnaList.map((item) => (<QnaItem key={item._id} props={item} />))}
         </div>
         <div className={style.Qna_page_box}>1 2 3 4 5 6 7 8 9 10.....20</div>
       </div>
