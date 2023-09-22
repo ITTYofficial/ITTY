@@ -207,7 +207,7 @@
     border-radius: 10px;
     padding: 16px;
     background-color: #f0f9ff;
-    box-shadow: 2px 2px 8px #cdcdcd;
+    box-shadow: 2px 2px 3px #b2b2b2;
     line-height: 1.5rem;
     margin-top: 2rem;
 
@@ -221,13 +221,14 @@
     font-size: 14px;
 }
 
+/* 댓글 시간 */
 .comment_list div:nth-child(3)>p {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     color: #999999;
     position: absolute;
-    top: 12px;
-    right: 16px;
+    top: 38px;
+    left: 180px;
 }
 
 
@@ -257,7 +258,7 @@
 }
 
 .play_comment_profile span:last-child h4 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -310,3 +311,15 @@
   }
   
   /* 수정삭제 버튼 */
+
+
+  .comment_cancel{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    transform: scale(1.5);
+    fill: rgb(209, 209, 209);
+    opacity: 50%;
+
+
+  }

@@ -1,8 +1,8 @@
 .Main_container {
   /* max-width: 70%; */
-  width: 65%;
+  width: 70%;
   margin: 0 auto;
-  margin-top: 4%;
+  margin-top: 8%;
   /* display: grid; */
   justify-content: center;
 }
@@ -19,19 +19,19 @@
   margin-top: 6%;
 }
 
-.Main_container > h2 {
+.Main_container>h2 {
   font-size: 24px;
   font-weight: bold;
-  line-height: 40px;
+  line-height: 100px;
   text-align: center;
   margin-bottom: 24px;
 }
 
-.Main_container > form > input {
+.Main_container>form>input {
   margin-bottom: 24px;
 }
 
-.Main_container > form > h4 {
+.Main_container>form>h4 {
   margin-bottom: 12px;
   font-weight: bold;
   font-size: 18px;
@@ -95,6 +95,13 @@
 
 /* 포트폴리오 이미지 관련 */
 
+
+/* 작성버튼 css */
+.button_group {
+  display: flex;
+  justify-content: end;
+}
+
 .submit_btn {
   color: #333333;
   font-weight: 600;
@@ -104,11 +111,35 @@
   display: inline-block;
   background-color: #efefef;
   padding: 12px 20px;
-  margin-top: 24px;
-  float: right;
+
 }
 
 .submit_btn:hover {
   background-color: #2a72ff;
   color: #eeeeee;
 }
+
+.cancel_btn {
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px;
+  display: inline-block;
+  background-color: #efefef;
+  padding: 12px 20px;
+  margin-right: 12px;
+}
+
+.cancel_btn:hover {
+  background-color: #c1a6a6;
+}
+
+
+/* 작성버튼 css */
+
+.quill_div {
+  margin-bottom: 24px;
+}
+
+

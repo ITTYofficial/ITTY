@@ -147,6 +147,7 @@ const MarketWrite = () => {
 
   useEffect(() => {
     // const writer = sessionStorage.getItem('nickname');
+    setValue(null);
     getMarket();
   }, []);
 
@@ -155,104 +156,111 @@ const MarketWrite = () => {
   return (
 
 
-      <div className={styles.Main_container}>
-        <div className={styles.right_container}>
-          <h2>교환 장터🥕</h2>
-          <form onSubmit={handleSubmit}>
-            {/* 상품명 */}
-            <div>
-              <h4>상품명</h4>
-              {id ? <input
-                className="form-control"
+    <div className={styles.Main_container}>
+      <div className={styles.right_container}>
+        <h2>교환 장터🥕</h2>
+        <form onSubmit={handleSubmit}>
+          {/* 상품명 */}
+          <div>
+            <h4>상품명</h4>
+            {id ? <input
+              className="form-control"
+              type="text"
+              name="market_title"
+              defaultValue={marketDetail.title}
+            />
+              :
+              <input
                 type="text"
                 name="market_title"
-                defaultValue={marketDetail.title}
-              />
-                :
-                <input
-                  type="text"
-                  name="market_title"
-                  placeholder="상품명을 입력해주세요."
-                  className="form-control"
-                />}
-            </div>
+                placeholder="상품명을 입력해주세요."
+                className="form-control"
+              />}
+          </div>
 
-            {/* 상품 이미지 */}
-            <div className={styles.market_pic}>
-              <h4>상품 이미지</h4>
-              <div className={styles.input_pic}>
-                <div
-                  className={styles.fake_upload}
-                  onClick={handleFakeUploadClick}
+          {/* 상품 이미지 */}
+          <div className={styles.market_pic}>
+            <h4>상품 이미지</h4>
+            <div className={styles.input_pic}>
+              <div
+                className={styles.fake_upload}
+                onClick={handleFakeUploadClick}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-camera"
+                  viewBox="0 0 16 16"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-camera"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
-                    <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-                  </svg>
-                  <span>이미지 등록</span>
-                </div>
-                <input
-                  type="file"
-                  className={styles.real_upload}
-                  accept="image/*"
-                  required
-                  multiple
-                  onChange={saveImgFile}
-                  ref={imgRef}
-                />
-
-                {imgFiles.map((img, index) => (
-                  <img key={index} src={img} alt={`이미지 ${index}`} />
-                ))}
+                  <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                  <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                </svg>
+                <span>이미지 등록</span>
               </div>
-              <p>상품의 이미지는 1:1 비율로 보여집니다.</p>
+              <input
+                type="file"
+                className={styles.real_upload}
+                accept="image/*"
+                required
+                multiple
+                onChange={saveImgFile}
+                ref={imgRef}
+              />
+
+              {imgFiles.map((img, index) => (
+                <img key={index} src={img} alt={`이미지 ${index}`} />
+              ))}
             </div>
+            <p>상품의 이미지는 1:1 비율로 보여집니다.</p>
+          </div>
 
 
-            <div>
-              <h4>상품 가격</h4>
-              {id ?
-                <input
-                  type="number"
-                  name="market_price"
-                  defaultValue={marketDetail.price}
-                  className="form-control"
-                />
-                :
-                <input
-                  type="number"
-                  name="market_price"
-                  placeholder="상품 가격을 입력해주세요."
-                  className="form-control"
-                />}
-            </div>
-            <div>
-              <h4>판매 상태</h4>
-              <select className='form-control' name="market_condition">
-                <option value={0}>판매중</option>
-                <option value={1}>판매완료</option>
-              </select>
-            </div>
+          <div>
+            <h4>상품 가격</h4>
+            {id ?
+              <input
+                type="number"
+                name="market_price"
+                defaultValue={marketDetail.price}
+                className="form-control"
+              />
+              :
+              <input
+                type="number"
+                name="market_price"
+                placeholder="상품 가격을 입력해주세요."
+                className="form-control"
+              />}
+          </div>
+          <div>
+            <h4>판매 상태</h4>
+            <select className='form-control' name="market_condition">
+              <option value={0}>판매중</option>
+              <option value={1}>판매완료</option>
+            </select>
+          </div>
 
 
-            <div className={styles.market_content}>
-              <h4>상품 설명</h4>
-              <QuillTest />
-            </div>
-                <input type="hidden" name={writer} value={sessionStorage.getItem('nickname')} />
-            <button className={styles.market_button} type="submit">
-              작성 완료
+          <div className={styles.market_content}>
+            <h4>상품 설명</h4>
+            <QuillTest />
+          </div>
+          <input type="hidden" name={writer} value={sessionStorage.getItem('nickname')} />
+
+          <div className={styles.button_group}>
+            <button className={styles.cancel_btn} type='submit'>
+              취소
             </button>
-          </form>
-        </div>
+            <button className={styles.submit_btn} type='submit'>
+              작성
+            </button>
+          </div>
+
+        </form>
       </div>
+    </div>
 
 
   );

@@ -251,12 +251,12 @@ const StudyDetail = () => {
     // 댓글 삭제 함수
     const deleteComment = (commentId) => {
         axios.get(`http://localhost:8088/comment/delete/${commentId}`)
-        .then((res)=>{
-            getComment();
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+            .then((res) => {
+                getComment();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     return (
@@ -282,33 +282,42 @@ const StudyDetail = () => {
                     <div className={style.Top_container}>
 
                         <div>
-                            <h3>{studyDetail.title}</h3>
-                            <p>모집기간 : 💌{getTimeAgoString(studyDetail.periodStart)}~{getTimeAgoString(studyDetail.periodEnd)}</p>
-                            <p>모집인원 : {studyDetail.persons}명</p>
+                            <h4>{studyDetail.title}</h4>
+                            <p>📆 기간 {getTimeAgoString(studyDetail.periodStart)}~{getTimeAgoString(studyDetail.periodEnd)}</p>
+                            <p>🙍‍♂️ 인원  {studyDetail.persons}명</p>
                         </div>
 
                         <div className={style.Top_right_container}>
-                            <p>{memberInfo.class}</p>
-                            <p>{memberInfo.nickname}</p>
-                        </div>
-                        <div className={style.Profile_img}>
-                            <Image src={memberInfo.profileImg} roundedCircle />
+                            <div>
+                                <div>
+                                    <p>{memberInfo.class}</p>
+                                    <h5>{memberInfo.nickname}</h5>
+                                </div>
+
+                                <div className={style.Profile_img}>
+                                    <Image src={memberInfo.profileImg} roundedCircle />
+                                </div>
+                            </div>
+                            <div>
+                                <p>👁‍🗨 {studyDetail.views} 💬 10</p>
+                            </div>
                         </div>
                     </div>
-                    <p>조회수 : {studyDetail.views} 댓글수 : 10</p>
 
                     <hr />
-                    <div className={style.meatball}>
-                        <ul>
-                            <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                            </svg>
-                            {meat && <Dropdown />}
-                        </ul>
-                    </div>
+                    <div className={style.text_content_wrapper}>
+                        <div className={style.meatball}>
+                            <ul>
+                                <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                </svg>
+                                {meat && <Dropdown />}
+                            </ul>
+                        </div>
 
-                    <div className={style.Detail_content}>
-                        <p dangerouslySetInnerHTML={{ __html: studyDetail.content }}></p>
+                        <div className={style.Detail_content}>
+                            <p dangerouslySetInnerHTML={{ __html: studyDetail.content }}></p>
+                        </div>
                     </div>
 
                     <div className={style.division_line}>
@@ -320,7 +329,7 @@ const StudyDetail = () => {
                         <div className={style.comment_write}>
                             <div>
                                 <div>
-                                    <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+                                    <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                                 </div>
                                 <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
                             </div>

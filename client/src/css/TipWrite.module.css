@@ -57,6 +57,11 @@
     margin: 16px 0;
 }
 
+/* 작성버튼 css */
+.button_group{
+    display: flex;
+    justify-content: end;
+}
 
 .submit_btn {
     color: #333333;
@@ -67,8 +72,7 @@
     display: inline-block;
     background-color: #efefef;
     padding: 12px 20px;
-    float: right;
-    margin-top: 12px;
+
 }
 
 .submit_btn:hover {
@@ -76,6 +80,25 @@
     color: #eeeeee;
 }
 
-.submit_btn{
-    margin-left: 8px;
+.cancel_btn{
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+    margin-right: 12px;
+}
+
+.cancel_btn:hover{
+    background-color: #c1a6a6;
+}
+
+
+/* 작성버튼 css */
+
+.quill_div{
+    margin-bottom: 24px;
 }

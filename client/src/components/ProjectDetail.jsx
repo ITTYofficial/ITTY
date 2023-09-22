@@ -344,7 +344,7 @@ const ProjectDetail = () => {
             <div className={PlayBoard.comment_write}>
               <div>
                 <div>
-                  <img src="#" />
+                <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
                 <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
               </div>
