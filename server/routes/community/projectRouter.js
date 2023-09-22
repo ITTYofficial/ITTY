@@ -142,6 +142,5 @@ router.get("/projectDetail/:_id", async (req, res) => {
   }
 });
 
-// 밑으로 수정, 삭제 등등 작성할 것
 
 module.exports = router

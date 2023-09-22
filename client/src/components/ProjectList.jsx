@@ -69,20 +69,19 @@ const ProjectList = () => {
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
   const getTimeAgoString = (dateString) => {
-    console.log(dateString);
     const createdAt = new Date(dateString);
-    console.log(createdAt.getMonth() + 1);
     const now = new Date();
     const timeDifference = now - createdAt;
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
     const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
     const daysDifference = Math.floor(hoursDifference / 24);
 
-    if (daysDifference === 0) {
-      if (hoursDifference === 0) {
-        return "방금 전";
-      } else {
-        return `${hoursDifference}시간 전`;
-      }
+    if (minutesDifference === 0) {
+      return "방금 전";
+    } else if (minutesDifference < 60) {
+      return `${minutesDifference}분 전`;
+    } else if (hoursDifference < 24) {
+      return `${hoursDifference}시간 전`;
     } else {
       return `${daysDifference}일 전`;
     }

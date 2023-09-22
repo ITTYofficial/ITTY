@@ -34,7 +34,7 @@ const portSchema = new Schema({
     // 게시판마다 달라지는 부분
     imgPath: {
         // 이미지 주소
-        type: Array
+        type: String
     }
 })
 

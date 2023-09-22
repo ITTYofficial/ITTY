@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LeftContainer from './LeftContainer'
 import styles from '../css/ReviewWrite.module.css'
 import QuillTest from './QuillTest';
 import Button from 'react-bootstrap/Button';
+import { PlayBoardContext } from '../context/PlayBoardContext';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 
 const ReviewWrite = () => {
@@ -32,19 +35,91 @@ const ReviewWrite = () => {
     }
     /* 키워드관련 */
 
+    // 글 작성 관련
+
+    // Quill value
+    const { value, setValue } = useContext(PlayBoardContext);
+
+    // 특정 게시글 조회하기 위한 id값 가져오기
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get("id");
+
+    // 게시글 작성 함수
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const obj = {};
+        formData.forEach((value, key) => {
+            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+            obj[key] = value;
+        });
+        obj["content"] = value;
+        if (id) {
+            obj["_id"] = id;
+        }
+        console.log(obj);
+        axios
+            .post("http://localhost:8088/review/write", obj)
+            .then((res) => {
+                alert("게시글이 등록되었습니다.");
+                console.log(res);
+                window.location.href = `/reviewDetail/${res.data._id}`
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("게시글 작성 실패");
+                window.location.href = `/reviewList`
+            });
+    };
+
+    // 게시글정보 저장할 State
+    const [reviewDetail, setReviewDetail] = useState([]);
+
+    // 수정 요청시 기존 게시글 데이터 가져올 함수
+    const getReview = async () => {
+        if (id) {
+            // projectRouter랑 통신해서 response에 결과값 저장
+            await axios
+                .get(`http://localhost:8088/review/reviewDetail/${id}`)
+                .then((res) => {
+                    console.log(res);
+                    setReviewDetail(res.data.detailReview[0]);
+                    setValue(res.data.detailReview[0].content);
+                    const positionArr = res.data.detailReview[0].keyWord.split(',');
+                    setposition(positionArr);
+                });
+            // respnse에서 데이터 꺼내서 State에 저장
+        }
+    };
+
+    useEffect(() => {
+        setValue(null);
+        getReview();
+    }, []);
+
     return (
         <div className={styles.Main_container_box}>
             <div className={styles.Main_container}>
                 <h2>수료생 후기🧑‍🎓</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <h4>제목</h4>
-                    <input className="form-control" type="text" placeholder='제목을 입력해주세요' />
+                    <input
+                        className="form-control"
+                        name='title'
+                        type="text"
+                        {...(id ? { defaultValue: reviewDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                     <h4>만족도</h4>
                     <div className={styles.review_star}>
                         <span className={styles.star}>
                             ★★★★★
                             <span>★★★★★</span>
-                            <input type="range" onChange={drawStar} value={star} step="1" min="0" max="10" /> {/* 수정된 부분 */}
+                            <input
+                                type="range"
+                                name='score'
+                                onChange={drawStar}
+                                {...(id ? { defaultValue: reviewDetail.score } : { value: star })}
+                                step="1" min="0" max="10" /> {/* 수정된 부분 */}
                         </span>
                     </div>
                     <h4>키워드 (중복선택 가능)</h4>
@@ -84,7 +159,7 @@ const ReviewWrite = () => {
                         >
                             비전공
                         </button>
-                        <input type="hidden" name="position" value={position.join(',')} />
+                        <input type="hidden" name="keyWord" value={position.join(',')} />
                     </div>
 
                     <h4>내용</h4>

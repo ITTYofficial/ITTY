@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import LeftContainer from './LeftContainer'
 import style from "../css/TipDetail.module.css"
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,6 +11,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 /* css는 project etail css 내용만 가져와서 추가해서 사용 중~ */
 
 const TipDetail = () => {
+
+  // 특정 게시글 조회하기 위한 id값 가져오기
+  const { id } = useParams();
+
   /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
   const Develope = () => (
     <span className={`${style.play_title} ${style.develope}`}>
@@ -69,6 +73,65 @@ const TipDetail = () => {
     </div>
   );
 
+  // 게시글정보 저장할 State
+  const [tipDetail, setTipDetail] = useState([]);
+  const [visible, setVisible] = useState([false, false, false, false]);
+
+  // 게시글 조회함수
+  // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
+  const getTip = async () => {
+    // projectRouter랑 통신해서 response에 결과값 저장
+    await axios.get(`http://localhost:8088/tip/tipDetail/${id}`)
+      .then((res) => {
+        // respnse에서 데이터 꺼내서 State에 저장
+        console.log(res.data);
+        setTipDetail(res.data.detailTip[0]);
+        const positionArr = res.data.detailTip[0].category.split(',');
+        positionArr.map((item) => (visible[item - 1] = true));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
+
+  // 페이지 렌더링시 조회함수 실행
+  useEffect(() => {
+    getTip();
+  }, []);
+
+  // 날짜 변환 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const year = createdAt.getFullYear();
+    const month = createdAt.getMonth() + 1;
+    const day = createdAt.getDate();
+
+    return `${year}년 ${month}월 ${day}일`
+  };
+
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTime = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${minutesDifference}분 전`;
+      }
+    } else if (hoursDifference < 24) {
+      return `${hoursDifference}시간 전`;
+    } else {
+      return `${daysDifference}일 전`;
+    }
+  };
+
+
   /* 미트볼 수정삭제 수환이가 만든거 가져옴 */
   const [meat, setMeat] = useState(false);
 
@@ -81,11 +144,22 @@ const TipDetail = () => {
 
 
   // 수정 페이지 이동
+  const nav = useNavigate();
   const moveUpdate = () => {
+    nav(`/tipWrite?id=${id}`)
   }
 
   // 게시글 삭제
   const deleteTip = async () => {
+    await axios.post(`http://localhost:8088/tip/delete/${id}`)
+      .then((res) => {
+        alert("삭제 완료")
+        window.location.href = '/TipList'
+      })
+      .catch((err) => {
+        alert("삭제 실패")
+        console.log(err);
+      })
 
   }
 
@@ -119,18 +193,21 @@ const TipDetail = () => {
             <div className={style.play_profile}>
 
               <span>
-                <span className={style.play_top_title}>
-                  <Develope />
-                </span>
                 <h4>
-                  자바 별찍기 문제 꿀팁이래요
+                  {tipDetail.title}
                 </h4>
+                <span className={style.play_top_title}>
+                  {visible[0]&&<Develope />}
+                  {visible[1]&&<Study />}
+                  {visible[2]&&<Job />}
+                  {visible[3]&&<Life />}
+                </span> 
               </span>
 
               <span>
-                <div className={style.tip_time_box}>1시간 전</div>
+                <div className={style.tip_time_box}>{getTimeAgoString(tipDetail.createdAt)}</div>
                 <span className={style.tip_comment_box}>
-                  👁‍🗨 28 💬 4
+                  👁‍🗨 {tipDetail.views} 💬 4
                 </span>
               </span>
 
@@ -154,25 +231,7 @@ const TipDetail = () => {
               </ul>
             </div>
 
-            <p>
-              꿀팁 하나 알려드릴까요
-              for문 별찍기 다들 어려워하시잖아요
-            </p>
-            <p>
-              그거 이중포문쓰면 헷갈리잖아요
-              그때 꿀팁입니다
-              유튜브 검색하시면
-            </p>
-            <p>
-              유용한정보 진짜 많아요 ㅋ
-              서칭해서 별찍기문제 이해해보세용
-            </p>
-            <p>
-              그래도 모르겠으면
-              구글링해서 자료 많이 찾아보세요
-              요즘 설명 잘해주는 사람 많더라구요
-              강력추천합니다~~
-            </p>
+            <p dangerouslySetInnerHTML={{ __html: tipDetail.content }}></p>
 
           </div>
           {/* 게시글 content 끝 */}

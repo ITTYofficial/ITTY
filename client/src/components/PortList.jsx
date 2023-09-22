@@ -37,25 +37,26 @@ const PortList = () => {
         const createdAt = new Date(dateString);
         const now = new Date();
         const timeDifference = now - createdAt;
+        const minutesDifference = Math.floor(timeDifference / (1000 * 60));
         const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
         const daysDifference = Math.floor(hoursDifference / 24);
-
-        if (daysDifference === 0) {
-            if (hoursDifference === 0) {
-                return "방금 전";
-            } else {
-                return `${hoursDifference}시간 전`;
-            }
+    
+        if (minutesDifference === 0) {
+          return "방금 전";
+        } else if (minutesDifference < 60) {
+          return `${minutesDifference}분 전`;
+        } else if (hoursDifference < 24) {
+          return `${hoursDifference}시간 전`;
         } else {
-            return `${daysDifference}일 전`;
+          return `${daysDifference}일 전`;
         }
-    };
+      };
 
     const PortItem = ({ props }) => (
         <div className={styles.port_content}>
             <div className={styles.port_content_img}>
                 <Link to={`/portDetail/${props._id}`}>
-                    <img src={props.imgPath[0]}></img>
+                    <img src={props.imgPath}></img>
                     {/* <img src='https://i.ibb.co/dDnhbM9/image.png'></img> */}
                 </Link>
             </div>
