@@ -1,10 +1,28 @@
 .Main_container {
   /* max-width: 70%; */
-  width: 70%;
+  width: 45%;
   margin: 0 auto;
   margin-top: 8%;
   /* display: grid; */
   justify-content: center;
+}
+
+@media (max-width:1336px){
+  .Main_container{
+    width: 60%;
+  }
+}
+
+@media (max-width:950px){
+  .Main_container{
+    width: 70%;
+  }
+}
+
+@media (max-width:768px){
+  .Main_container{
+    width: 90%;
+  }
 }
 
 .Main_container_box {
