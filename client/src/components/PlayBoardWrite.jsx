@@ -73,7 +73,11 @@ const PlayBoardWrite = () => {
                 <div className={style.right_container}>
                     <form onSubmit={handleSubmit}>
                         <h4>제목</h4>
-                        {id ? <input className="form-control" type="text" name='title' defaultValue={playDetail.title} /> : <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />}
+                        <input
+                            className="form-control"
+                            type="text"
+                            name='title'
+                            {...(id ? { defaultValue: playDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                         <h4>본문</h4>
                         <div className={style.quill_div}>
                             <QuillTest />

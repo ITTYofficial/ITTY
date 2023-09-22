@@ -107,8 +107,11 @@ const ProjectWrite = () => {
             <h2>프로젝트 🏆</h2>
             <form onSubmit={handleSubmit}>
                 <h4> 제목 </h4>
-                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
-
+                <input
+                    className="form-control"
+                    name='title'
+                    type="text"
+                    {...(id ? { defaultValue: projectDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                 <h4>포지션</h4>
                 <div className={style.position_content}>
                     <button
@@ -153,12 +156,20 @@ const ProjectWrite = () => {
                 <div className={style.second_block}>
                     <div className={style.date_content}>
                         <h4>프로젝트 시작일</h4>
-                        {id ? <DatePicker className='form-control' defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />}
+                        <DatePicker
+                            className='form-control'
+                            {...(id && { defaultValue: projectDetail.startDate })}
+                            selected={startDate}
+                            onChange={date => setStartDate(date)} />
                     </div>
 
                     <div className={style.date_content}>
                         <h4>프로젝트 종료일</h4>
-                        {id ? <DatePicker className='form-control' defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> : <DatePicker className='form-control' selected={endDate} onChange={date => setEndDate(date)} />}
+                        <DatePicker
+                            className='form-control'
+                            {...(id && { defaultValue: projectDetail.endDate })}
+                            selected={endDate}
+                            onChange={date => setEndDate(date)} />
                     </div>
 
                     <div className={style.frame_work_container}>
@@ -199,7 +210,11 @@ const ProjectWrite = () => {
 
                     <div className={style.space_box_2}>
                         <h4>인원</h4>
-                        {id ? <input className="form-control" type="number" name='persons' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
+                        <input
+                         className="form-control"
+                          type="number"
+                           name='persons'
+                           {...(id ? {defaultValue: projectDetail.persons} : {placeholder: '인원을 입력해주세요'})} />
                     </div>
 
                     <div className={style.space_box_2}>

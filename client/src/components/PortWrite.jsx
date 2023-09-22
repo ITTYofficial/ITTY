@@ -192,10 +192,10 @@ const PortWrite = () => {
       <form onSubmit={handleSubmit}>
         <h4>제목</h4>
         <input
-        className="form-control" 
-        type="text" 
-        name='title'
-        {...(id? {defaultValue: portDetail.title} : {placeholder: '제목을 입력해주세요'} )}/>
+          className="form-control"
+          type="text"
+          name='title'
+          {...(id ? { defaultValue: portDetail.title } : { placeholder: '제목을 입력해주세요' })} />
         <div className={styles.upload_img_block}>
           <h4>포트폴리오 대표 이미지</h4>
           {croppedImage &&
