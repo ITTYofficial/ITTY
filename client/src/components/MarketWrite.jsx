@@ -147,6 +147,7 @@ const MarketWrite = () => {
 
   useEffect(() => {
     // const writer = sessionStorage.getItem('nickname');
+    setValue(null);
     getMarket();
   }, []);
 

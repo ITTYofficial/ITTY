@@ -110,12 +110,12 @@ const PortWrite = () => {
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
-        // window.location.href = `/portDetail/${res.data._id}`
+        window.location.href = `/portDetail/${res.data._id}`
       })
       .catch((err) => {
         console.log(err);
         alert("게시글 작성 실패");
-        // window.location.href = `/portList`
+        window.location.href = `/portList`
       });
   };
 
@@ -138,6 +138,7 @@ const PortWrite = () => {
   };
 
   useEffect(() => {
+    setValue(null);
     getPort();
   }, []);
 

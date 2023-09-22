@@ -95,6 +95,7 @@ const StudyWrite = () => {
     };
 
     useEffect(() => {
+        setValue(null);
         getStudy();
     }, []);
 

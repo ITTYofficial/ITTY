@@ -61,6 +61,7 @@ const PlayBoardWrite = () => {
     };
 
     useEffect(() => {
+        setValue(null);
         getPlay();
     }, []);
 
