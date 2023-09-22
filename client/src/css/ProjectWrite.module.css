@@ -102,26 +102,6 @@
 
 
 
-.submit_btn {
-    color: #333333;
-    font-weight: 600;
-    font-size: 16px;
-    border-radius: 10px;
-    border: none;
-    display: inline-block;
-    background-color: #efefef;
-    padding: 12px 20px;
-    margin-right: 0;
-    margin-bottom: 24px;   
-}
-
-
-
-.submit_btn:hover {
-    background-color: #2a72ff;
-    color: #eeeeee;
-}
-
 @media (max-width:1024px) {
     .second_block>div:not(:nth-child(3)) {
         width: 100%;
@@ -135,19 +115,49 @@
     margin-bottom: 12px;
 }
 
-.frame_work_container h4 {
-}
-
 .space_box_2 h4 {
 
     margin-bottom: 8px;
 }
 
-.space_box_2{
-
-}
-
-.submit_btn_wrapper{
+/* 작성버튼 css */
+.button_group{
     display: flex;
     justify-content: end;
 }
+
+.submit_btn {
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+
+}
+
+.submit_btn:hover {
+    background-color: #2a72ff;
+    color: #eeeeee;
+}
+
+.cancel_btn{
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+    margin-right: 12px;
+}
+
+.cancel_btn:hover{
+    background-color: #c1a6a6;
+}
+
+
+/* 작성버튼 css */
