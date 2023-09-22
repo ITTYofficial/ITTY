@@ -22,6 +22,9 @@ app.use("/comment", require("./routes/community/commentRouter"));
 app.use("/member", require("./routes/member/memberRouter"));
 app.use("/save", require("./routes/community/imgUpload"));
 app.use("/port", require("./routes/community/portRouter"));
+app.use("/review", require("./routes/community/reviewRouter"));
+app.use("/tip", require("./routes/community/tipRouter"));
+app.use("/qna", require("./routes/community/qnaRouter"));
 // app.use("/kakao", require("./routes/member/kakaoLoginRouter"));
 
 

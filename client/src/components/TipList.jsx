@@ -6,43 +6,70 @@ import styles from "../css/Community.module.css";
 import style from "../css/TipList.module.css";
 
 const TipList = () => {
-  // 게시글 리스트 담을 State
+
+  // 팁 리스트 담을 State
   const [tipList, setTipList] = useState([]);
 
-  // 페이지 렌더링시 조회함수 실행
+  // 팁 리스트 조회 함수
+  const readTipList = async () => {
+    await axios
+      .get("http://localhost:8088/tip/tipList")
+      .then((res) => {
+        const sortedTip = res.data.tip.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setTipList(sortedTip);
+      })
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
+  };
+
+  // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     readTipList();
   }, []);
 
-  //게시글 조회 함수
-  const readTipList = async () => {
-    /*    await axios
-                .get("http://localhost:8088/tipList")
-                .then((res) => {
-                    console.log(res);
-                    setTipList(res.data.tip);
-                })
-                .catch((err) => {
-                    alert("통신에 실패했습니다.");
-                    console.log(err);
-                }); */
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTime = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${minutesDifference}분 전`;
+      }
+    } else if (hoursDifference < 24) {
+      return `${hoursDifference}시간 전`;
+    } else {
+      return `${daysDifference}일 전`;
+    }
   };
+
 
   const Develope = () => (
     <span className={`${style.play_title} ${style.develope}`}>개발 🙋🏻‍♀️</span>
   );
 
-  const TipItem = () => (
+  const TipItem = ({props}) => (
     <div className={style.Main_container_list_detail}>
       {/* 글 제목 및 내용 */}
       <div className={style.tip_text}>
         <Develope />
-        <Link to={"/tipDetail"}>
-          <h5>자바 별찍기 문제 꿀팁입니다</h5>
+        <Link to={`/tipDetail/${props._id}`}>
+          <h5>{props.title}</h5>
         </Link>
         <div className={style.tip_title_box_space_2}>
-          <p>5분전</p>
-          <p>👁‍🗨 28 💬 4</p>
+          <p>{getTime(props.createdAt)}</p>
+          <p>👁‍🗨 {props.views} 💬 4</p>
         </div>
       </div>
 
@@ -73,13 +100,7 @@ const TipList = () => {
         </div>
 
         <div className={styles.Main_container_list}>
-          <TipItem />
-          <TipItem />
-          <TipItem />
-          <TipItem />
-          <TipItem />
-          <TipItem />
-          <TipItem />
+          {tipList.map((item) => (<TipItem key={item._id} props={item}/>))}
         </div>
         <div className={style.tip_page_box}>1 2 3 4 5 6 7 8 9 10.....20</div>
       </div>

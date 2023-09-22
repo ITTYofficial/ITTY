@@ -1,10 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import style from "../css/ReviewList.module.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ReviewList = () => {
-  const ReviewItem = () => (
+
+  // 리뷰 리스트 담을 State
+  const [reviewList, setReviewList] = useState([]);
+
+  // 리뷰 리스트 조회 함수
+  const readReviewList = async () => {
+    await axios
+      .get("http://localhost:8088/review/reviewList")
+      .then((res) => {
+        const sortedReview = res.data.review.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setReviewList(sortedReview);
+      })
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
+  };
+
+  // 페이지 렌더링시 조회 함수 실행
+  useEffect(() => {
+    readReviewList();
+  }, []);
+
+  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+  const getTime = (dateString) => {
+    const createdAt = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdAt;
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference === 0) {
+      if (hoursDifference === 0) {
+        return "방금 전";
+      } else {
+        return `${minutesDifference}분 전`;
+      }
+    } else if (hoursDifference < 24) {
+      return `${hoursDifference}시간 전`;
+    } else {
+      return `${daysDifference}일 전`;
+    }
+  };
+
+  const ReviewItem = ({ props }) => (
     <div className={style.Main_container_list_detail}>
       <div>
         <span>
@@ -27,7 +76,9 @@ const ReviewList = () => {
             </span>
 
           </div>
-          <h3>스인재 3개월차 솔직후기입니다.</h3>
+          <Link to={`/reviewDetail/${props._id}`}>
+            <h3>{props.title}</h3>
+          </Link>
         </span>
 
         <span className={style.Review_list_profile}>
@@ -41,7 +92,7 @@ const ReviewList = () => {
         </span>
       </div>
       <span>
-        <p>1 시간 전 👁‍🗨12 💬4</p>
+        <p>{getTime(props.createdAt)} 👁‍🗨{props.views} 💬4</p>
       </span>
     </div>
   );
@@ -57,9 +108,7 @@ const ReviewList = () => {
           </Link>
         </div>
         <div className={style.Review_container_list}>
-          <ReviewItem />
-          <ReviewItem />
-          <ReviewItem />
+          {reviewList.map((item) => (<ReviewItem key={item._id} props={item} />))}
         </div>
       </div>
     </div>
