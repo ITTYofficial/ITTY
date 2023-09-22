@@ -208,12 +208,14 @@ const PlayBoardDetail = () => {
       <div className={PlayBoard.play_comment_profile}>
         <span>
           <Image
-            src={props.profileImg}
+            src={props.writerInfo
+              .profileImg}
             roundedCircle
           />
         </span>
         <span>
-          <p>{props.class}</p>
+          <p>{props.writerInfo
+.class}</p>
           <h4>{props.writer}</h4>
         </span>
       </div>
