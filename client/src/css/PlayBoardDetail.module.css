@@ -5,6 +5,16 @@
   clear: both;
 }
 
+.comment_cancel {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  transform: scale(1.2);
+  fill: rgb(209, 209, 209);
+  opacity: 50%;
+}
+
+
 .Main_container {
   max-width: 1320px;
   margin: 0 auto;
@@ -17,7 +27,6 @@
 
   width: 80%;
   padding: 16px;
-  margin-top: 8%;
 }
 
 @media (max-width: 1024px) {
@@ -144,10 +153,11 @@
 }
 
 .play_profile>span>p {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   margin: 12px 0;
   color: #999999;
+
 }
 
 .play_detail_profile {
@@ -185,12 +195,6 @@
   width: 100%;
 }
 
-.play_profile>div>span:nth-child(2) p {
-  font-size: 14px;
-  font-weight: bold;
-  text-align: right;
-  color: #999999;
-}
 
 /* profile 끝~! */
 .play_content {
@@ -198,7 +202,7 @@
 }
 
 /* 댓글 시작 */
-.division_line_commant {
+.division_line_ant {
   position: relative;
 }
 
@@ -245,10 +249,6 @@
   border-radius: 50%;
   background-color: #999999;
 }
-.comment_write > div > div img{
-  width: 100%;
-  height: 100%;
-}
 
 .comment_write textarea {
   width: 90%;
@@ -282,17 +282,18 @@
   background-color: #2474ff;
 }
 
+/* 댓글박스 */
 .comment_list {
   width: 100%;
   border: none;
   border-radius: 10px;
   padding: 16px;
   background-color: #f0f9ff;
-  box-shadow: 2px 2px 8px #cdcdcd;
-  line-height: 1.5rem;
+  box-shadow: 2px 2px 1px #d4d4d4;
+  line-height: 1.2rem;
   margin-top: 2rem;
-
   position: relative;
+  align-items: center;
 }
 
 .play_comment_profile {
@@ -313,30 +314,43 @@
   height: 100%;
 }
 
-.play_comment_profile span:last-child p {
+/* .play_comment_profile span:last-child p {
   font-size: 12px;
   margin-bottom: 4px;
   color: #999999;
   line-height: 12px;
-}
+} */
 
-.play_comment_profile span:last-child h4 {
-  font-size: 20px;
-  font-weight: bold;
-}
+
 
 .comment_list div:nth-child(2) {
   padding: 8px 16px;
-  line-height: 1.3rem;
+
+  line-height: 1.5rem;
   font-size: 14px;
 }
 
+/* 댓글 닉네임, 소속 */
+.play_comment_profile>span>p {
+  font-size: 12px;
+  margin-top: 8px;
+ 
+}
+
+.play_comment_profile>span>h4 {
+
+  font-size: 16px;
+  font-weight: bold;
+  
+}
+
+/* 댓글시간 */
 .comment_list div:nth-child(3)>p {
   font-size: 14px;
   font-weight: bold;
   color: #999999;
   position: absolute;
-  top: 12px;
+  bottom: 12px;
   right: 16px;
 }
 
@@ -388,6 +402,9 @@
 }
 
 /* 수정삭제 버튼 */
+
+/* =========================================================== */
+
 
 
 /* 대댓글 */
