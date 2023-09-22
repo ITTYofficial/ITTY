@@ -41,6 +41,7 @@ const memberSchema = new Schema({
   },
   point: { // <포인트> : 랭킹에 쓸 포인트
     type: Number,
+    default : 0
    
   },
   profileImg : { // 프로필이미지

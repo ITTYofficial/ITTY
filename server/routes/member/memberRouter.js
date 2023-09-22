@@ -158,9 +158,10 @@ router.post('/login', async (req, res) => {
       });
     }
 
+    await Member.updateOne({ id: req.body.id }, { $inc: { point: 1 } });
     // 비밀번호까지 맞다면 로그인 성공
     res.status(200).json({ loginSuccess: true, memberId: member.id, memberNickname:member.nickname });
-
+    
   } catch (err) {
     console.log(err);
     res.json({ message: false });
