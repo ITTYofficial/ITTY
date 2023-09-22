@@ -157,7 +157,12 @@ const PortWrite = () => {
       <form onSubmit={handleSubmit}>
         <h4>제목</h4>
         <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />
-        <h4>포트폴리오 대표 이미지</h4>
+        <div className={styles.upload_img_block}>
+          <h4>포트폴리오 대표 이미지</h4>
+          {croppedImage &&
+            <div onClick={handleCropperClick}>이미지 재등록</div>
+          }
+        </div>
         <div className={styles.market_pic}>
           <div className={styles.input_pic}>
             <div

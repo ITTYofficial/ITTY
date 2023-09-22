@@ -57,6 +57,7 @@ router.post('/reWrite', async (req, res) => {
 router.get('/commentList', async (req, res) => {
   const postId = req.query.postId;
   try {
+    console.log('댓글 리스트도착',postId);
     const comment = await Comment.find({ postId: postId });
     res.json({ comment })
   } catch (err) {
