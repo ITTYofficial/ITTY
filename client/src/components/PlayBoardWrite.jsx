@@ -75,11 +75,18 @@ const PlayBoardWrite = () => {
                         <h4>제목</h4>
                         {id ? <input className="form-control" type="text" name='title' defaultValue={playDetail.title} /> : <input className="form-control" type="text" name='title' placeholder='제목을 입력해주세요' />}
                         <h4>본문</h4>
-                        <QuillTest />
+                        <div className={style.quill_div}>
+                            <QuillTest />
+                        </div>
                         {/* 전송 버튼 */}
-                        <button className={style.submit_btn} type='submit'>
-                            작성완료
-                        </button>
+                        <div className={style.button_group}>
+                            <button className={style.cancel_btn} type='submit'>
+                                취소
+                            </button>
+                            <button className={style.submit_btn} type='submit'>
+                                작성
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -88,6 +88,12 @@
 
 /* 별점관련 */
 
+/* 작성버튼 css */
+.button_group{
+  display: flex;
+  justify-content: end;
+}
+
 .submit_btn {
   color: #333333;
   font-weight: 600;
@@ -97,11 +103,33 @@
   display: inline-block;
   background-color: #efefef;
   padding: 12px 20px;
-  margin-top: 24px;
-  float: right;
+
 }
 
 .submit_btn:hover {
   background-color: #2a72ff;
   color: #eeeeee;
+}
+
+.cancel_btn{
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px;
+  display: inline-block;
+  background-color: #efefef;
+  padding: 12px 20px;
+  margin-right: 12px;
+}
+
+.cancel_btn:hover{
+  background-color: #c1a6a6;
+}
+
+
+/* 작성버튼 css */
+
+.quill_div{
+  margin-bottom: 24px;
 }

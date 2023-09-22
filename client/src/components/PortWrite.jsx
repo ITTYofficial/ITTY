@@ -180,12 +180,19 @@ const PortWrite = () => {
           </div>
 
           <h4>내용</h4>
-          <QuillTest />
+          <div className={styles.quill_div}>
+            <QuillTest />
+          </div>
 
           {/* 전송 버튼 */}
-          <button className={styles.submit_btn} type='submit'>
-            작성완료
-          </button>
+          <div className={styles.button_group}>
+            <button className={styles.cancel_btn} type='submit'>
+              취소
+            </button>
+            <button className={styles.submit_btn} type='submit'>
+              작성
+            </button>
+          </div>
 
         </form>
 

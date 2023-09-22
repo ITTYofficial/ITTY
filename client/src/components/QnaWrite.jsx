@@ -72,18 +72,17 @@ const QnaWrite = () => {
                             <h4>내용</h4>
                         </div>
 
-                        <div>
+                        <div className={style.quill_div}>
                             <QuillTest />
                         </div>
 
-                        <div>
-                        <button className={style.submit_btn} type='submit'>
-                            작성
-                        </button>
-
-                        <button className={style.submit_btn} type='text'>
-                            취소
-                        </button>
+                        <div className={style.button_group}>
+                            <button className={style.cancel_btn} type='submit'>
+                                취소
+                            </button>
+                            <button className={style.submit_btn} type='submit'>
+                                작성
+                            </button>
                         </div>
                     </form>
                 </div>

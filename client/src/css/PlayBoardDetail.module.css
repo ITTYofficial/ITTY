@@ -14,9 +14,10 @@
 }
 
 .right_container {
- 
+
   width: 80%;
   padding: 16px;
+  margin-top: 8%;
 }
 
 @media (max-width: 1024px) {
@@ -38,7 +39,7 @@
   margin: 32px 0;
 }
 
-.division_line > div {
+.division_line>div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -94,12 +95,12 @@
 
 .play_title {
   padding: 5px 8px;
-    font-weight: bold;
-    border-radius: 8px;
-    font-size: 12px;
-    margin-right: 12px;
-    cursor: pointer;
-    box-shadow: 1px 1px 2px rgb(144, 144, 144);
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-right: 12px;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgb(144, 144, 144);
 }
 
 /* 왜 자유게시판에 프로젝트 버튼 css가 있을까유..?우선 여기에서 수정..~ */
@@ -136,13 +137,13 @@
   margin: 16px 0;
 }
 
-.play_profile > span > h4 {
+.play_profile>span>h4 {
   font-size: 20px;
   font-weight: bold;
   margin: 16px 0;
 }
 
-.play_profile > span > p {
+.play_profile>span>p {
   font-size: 14px;
   font-weight: bold;
   margin: 12px 0;
@@ -159,14 +160,14 @@
   margin-right: 8px;
 }
 
-.profile_text > p {
+.profile_text>p {
   font-size: 12px;
   margin-bottom: 8px;
   text-align: right;
   color: #999999;
 }
 
-.profile_text > h4 {
+.profile_text>h4 {
   font-size: 18px;
   font-weight: bold;
   text-align: right;
@@ -179,10 +180,12 @@
   border-radius: 50%;
   overflow: hidden;
 }
+
 .profile_pic img {
   width: 100%;
 }
-.play_profile > div > span:nth-child(2) p {
+
+.play_profile>div>span:nth-child(2) p {
   font-size: 14px;
   font-weight: bold;
   text-align: right;
@@ -199,7 +202,7 @@
   position: relative;
 }
 
-.division_line_commant > div {
+.division_line_commant>div {
   position: relative;
   background-color: white;
   color: #999999;
@@ -236,11 +239,15 @@
   margin-bottom: 12px;
 }
 
-.comment_write > div > div {
+.comment_write>div>div {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   background-color: #999999;
+}
+.comment_write > div > div img{
+  width: 100%;
+  height: 100%;
 }
 
 .comment_write textarea {
@@ -324,7 +331,7 @@
   font-size: 14px;
 }
 
-.comment_list div:nth-child(3) > p {
+.comment_list div:nth-child(3)>p {
   font-size: 14px;
   font-weight: bold;
   color: #999999;
@@ -339,7 +346,7 @@
   text-align: end;
 }
 
-.meatball > ul {
+.meatball>ul {
   position: relative;
 }
 
@@ -366,11 +373,11 @@
   margin-right: 8px;
 }
 
-.meat_dropdown > li:hover svg {
+.meat_dropdown>li:hover svg {
   fill: #1f6cf1;
 }
 
-.meat_dropdown > li:hover span {
+.meat_dropdown>li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -396,7 +403,7 @@
   margin-bottom: 12px;
 }
 
-.recomment_write > div > div {
+.recomment_write>div>div {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -436,3 +443,49 @@
 }
 
 /* 대댓글 */
+
+/* 댓글 구분선 */
+
+.division_line_comment {
+  position: relative;
+  display: flex;
+  margin: 32px 0;
+}
+
+.division_line_comment>div {
+  background-color: white;
+  color: #999999;
+  display: inline-block;
+  /*   margin-left: 1.5rem; */
+  z-index: 9;
+  padding: 0 4px;
+}
+
+.division_line_comment::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 50% 0;
+  background-color: #999999;
+  height: 0.5px;
+}
+
+.division_line_comment div a {
+  color: #999999;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.division_line_comment div a:hover {
+  color: #2474ff;
+}
+
+.division_line_comment div a:nth-child(2) {
+  color: #2474ff;
+}
+
+.division_line_comment div a:nth-child(2):hover {
+  color: #7cacff;
+}
+
+/* 댓글 구분선 */
