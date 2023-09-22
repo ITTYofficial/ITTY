@@ -104,9 +104,9 @@ router.post('/nicknameCheck',async(req,res)=>{
 router.get('/memberSearching',async (req, res) => {
   try {
     const nickname = req.query.nickname;
-    console.log( '2. nickname',nickname);
+    console.log( '회원조회도착 nickname',nickname);
     const member = await Member.findOne({nickname:nickname});
-     console.log('3. class :',member.class);
+     console.log('회원조회도착 class :',member.class);
     if (member) {
       res.json( {member
                 // nickname:member.nickname,
