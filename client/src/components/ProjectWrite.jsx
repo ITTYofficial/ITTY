@@ -96,6 +96,7 @@ const ProjectWrite = () => {
     };
 
     useEffect(() => {
+        setValue(null);
         getProject();
     }, []);
 
