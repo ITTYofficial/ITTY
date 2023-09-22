@@ -198,7 +198,7 @@ const PlayBoardDetail = () => {
   const [recommentVisible, setRecommentVisible] = useState(false);
 
   const showRecommentWrite = () => {
-    setRecommentVisible(true);
+    setRecommentVisible(!recommentVisible);
   }
 
   const CommentItem = ({ props }) => {
