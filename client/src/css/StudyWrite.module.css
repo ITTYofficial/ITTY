@@ -16,14 +16,6 @@
     margin-bottom: 12px;
 }
 
-
-.Main_container_box h4 {
-    margin-bottom: 12px;
-    font-weight: bold;
-    font-size: 18px;
-
-}
-
 .Main_container>form>input {
     margin-bottom: 24px;
 }
@@ -35,20 +27,19 @@
     border: 0px;
     padding: 12px 20px;
     margin-right: 16px;
-    margin-bottom:12px;
+    margin-bottom: 12px;
 }
 
 
 .second_block>div {
     /* width: 450px; */
     width: 48%;
-    height: 50px;
     display: inline-grid;
     margin: 12px 12px 12px 0;
 
 }
 
-.space_box_1{
+.space_box_1 {
 
     margin-bottom: 12px;
 }
@@ -69,7 +60,6 @@
 
 .frame_work_container {
     width: 100%;
-    height: 50px;
     display: flex;
     justify-content: space-between;
     margin: 12px 12px 12px 0;
@@ -86,7 +76,7 @@
 }
 
 .margin_top_p_tag {
-    margin-top: 40px;
+    margin-top: 12px;
 }
 
 .submit_btn {
@@ -98,7 +88,7 @@
     display: inline-block;
     background-color: #efefef;
     padding: 12px 20px;
-    float: right;
+
 }
 
 .submit_btn:hover {
@@ -106,11 +96,27 @@
     color: #eeeeee;
 }
 
+.cancel_btn{
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+    margin-right: 12px;
+}
+
+.cancel_btn:hover{
+    background-color: #c1a6a6;
+}
+
 .quill_content {
     margin-bottom: 24px;
 }
 
-.Main_container_box{
+.Main_container_box {
 
     width: 80%;
     background-color: #ffffff;
@@ -120,5 +126,25 @@
     justify-content: center;
     margin: 0 auto;
     margin-top: 4%;
+}
 
+.button_group{
+    display: flex;
+    justify-content: end;
+}
+
+.Main_container form>h4{
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.second_block>div>h4{
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.react-datepicker__input-container{
+    margin-bottom: 24px;
 }

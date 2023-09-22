@@ -99,115 +99,117 @@ const StudyWrite = () => {
     }, []);
 
     return (
-        <div className={style.Main_container_box}>
-            <div className={style.Main_container}>
-                <h2>스터디 📚</h2>
-                <form onSubmit={handleSubmit}>
-                    <h4> 제목 </h4>
-                    <input
-                        className="form-control"
-                        name='title'
-                        type="text"
-                        {...(id ? { defaultValue: studyDetail.title } : { placeholder: '제목을 입력해주세요' })}
-                    />
-                    <h4>포지션</h4>
-                    <div className={style.position_content}>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('1')}
-                            style={{ backgroundColor: selectedValues.includes('1') ? '#ABE9FF' : '' }}
-                        >
-                            코딩테스트 준비
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('2')}
-                            style={{ backgroundColor: selectedValues.includes('2') ? '#ABE9FF' : '' }}
-                        >
-                            취업 준비
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('3')}
-                            style={{ backgroundColor: selectedValues.includes('3') ? '#ABE9FF' : '' }}
-                        >
-                            개발 공부
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('4')}
-                            style={{ backgroundColor: selectedValues.includes('4') ? '#ABE9FF' : '' }}
-                        >
-                            자격증 공부
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('5')}
-                            style={{ backgroundColor: selectedValues.includes('5') ? '#ABE9FF' : '' }}
-                        >
-                            그룹 / 모임
-                        </button>
-                    </div>
 
-                    <input type="hidden" name="selectedValues" value={selectedValues.join(',')} />
-
-                    <div className={style.second_block}>
-                        <div>
-                            <h4>스터디 시작일</h4>
-                            <DatePicker
-                                className='form-control'
-                                selected={startDate}
-                                onChange={date => setStartDate(date)}
-                                {...(id && { defaultValue: studyDetail.periodStart })}
-                            />
-                        </div>
-
-                        <div>
-                            <h4>스터디 종료일</h4>
-                            <DatePicker
-                                className='form-control'
-                                selected={endDate}
-                                onChange={date => setEndDate(date)}
-                                {...(id && { defaultValue: studyDetail.periodEnd })}
-                            />
-                        </div>
-
-                        <div>
-                            <div className={style.space_box_1}></div>
-                            <h4>인원</h4>
-                            <input
-                                className="form-control"
-                                name='persons'
-                                type="number"
-                                {...(id ? { defaultValue: studyDetail.persons } : { placeholder: '인원을 입력해주세요' })}
-                            />
-
-                        </div>
-
-                        <div>
-                            <div className={style.space_box_1}></div>
-                            <h4>상태</h4>
-                            <select className='form-control' name='recruit'>
-                                <option>모집상태 선택</option>
-                                <option>모집중</option>
-                                <option>모집완료</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <h4 className={style.margin_top_p_tag}>내용</h4>
-                    <div className={style.quill_content}>
-                        <QuillTest />
-                    </div>
-
-
-                    <button className={style.submit_btn} type='submit'>
-                        작성완료
+        <div className={style.Main_container}>
+            <h2>스터디 📚</h2>
+            <form onSubmit={handleSubmit}>
+                <h4> 제목 </h4>
+                <input
+                    className="form-control"
+                    name='title'
+                    type="text"
+                    {...(id ? { defaultValue: studyDetail.title } : { placeholder: '제목을 입력해주세요' })}
+                />
+                <h4>포지션</h4>
+                <div className={style.position_content}>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('1')}
+                        style={{ backgroundColor: selectedValues.includes('1') ? '#ABE9FF' : '' }}
+                    >
+                        코딩테스트 준비
                     </button>
-                </form>
-            </div>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('2')}
+                        style={{ backgroundColor: selectedValues.includes('2') ? '#ABE9FF' : '' }}
+                    >
+                        취업 준비
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('3')}
+                        style={{ backgroundColor: selectedValues.includes('3') ? '#ABE9FF' : '' }}
+                    >
+                        개발 공부
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('4')}
+                        style={{ backgroundColor: selectedValues.includes('4') ? '#ABE9FF' : '' }}
+                    >
+                        자격증 공부
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('5')}
+                        style={{ backgroundColor: selectedValues.includes('5') ? '#ABE9FF' : '' }}
+                    >
+                        그룹 / 모임
+                    </button>
+                </div>
+
+                <input type="hidden" name="selectedValues" value={selectedValues.join(',')} />
+
+                <div className={style.second_block}>
+                    <div>
+                        <h4>스터디 시작일</h4>
+                        <DatePicker
+                            className='form-control'
+                            selected={startDate}
+                            onChange={date => setStartDate(date)}
+                            {...(id && { defaultValue: studyDetail.periodStart })}
+                        />
+                    </div>
+
+                    <div>
+                        <h4>스터디 종료일</h4>
+                        <DatePicker
+                            className='form-control'
+                            selected={endDate}
+                            onChange={date => setEndDate(date)}
+                            {...(id && { defaultValue: studyDetail.periodEnd })}
+                        />
+                    </div>
+
+                    <div>
+                        <h4>인원</h4>
+                        <input
+                            className="form-control"
+                            name='persons'
+                            type="number"
+                            {...(id ? { defaultValue: studyDetail.persons } : { placeholder: '인원을 입력해주세요' })}
+                        />
+
+                    </div>
+
+                    <div>
+                        <h4>상태</h4>
+                        <select className='form-control' name='recruit'>
+                            <option>모집상태 선택</option>
+                            <option>모집중</option>
+                            <option>모집완료</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <h4 className={style.margin_top_p_tag}>내용</h4>
+                <div className={style.quill_content}>
+                    <QuillTest />
+                </div>
+
+                <div className={style.button_group}>
+                    <button className={style.cancel_btn} type='submit'>
+                        취소
+                    </button>
+                    <button className={style.submit_btn} type='submit'>
+                        작성
+                    </button>
+                </div>
+            </form>
         </div>
+
     )
 }
 
