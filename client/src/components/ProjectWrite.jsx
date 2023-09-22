@@ -96,134 +96,140 @@ const ProjectWrite = () => {
     };
 
     useEffect(() => {
+        setValue(null);
         getProject();
     }, []);
 
 
     return (
-        <div className={style.Main_container_box}>
-            <div className={style.Main_container}>
-                <h2>프로젝트 🏆</h2>
-                <form onSubmit={handleSubmit}>
-                    <h4> 제목 </h4>
-                    {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
 
-                    <h4>포지션</h4>
-                    <div className={style.position_content}>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('1')}
-                            style={{ backgroundColor: position.includes('1') ? '#ABE9FF' : '' }}
-                        >
-                            백엔드
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('2')}
-                            style={{ backgroundColor: position.includes('2') ? '#ABE9FF' : '' }}
-                        >
-                            프론트엔드
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('3')}
-                            style={{ backgroundColor: position.includes('3') ? '#ABE9FF' : '' }}
-                        >
-                            풀스택
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('4')}
-                            style={{ backgroundColor: position.includes('4') ? '#ABE9FF' : '' }}
-                        >
-                            DB
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => changeColor('5')}
-                            style={{ backgroundColor: position.includes('5') ? '#ABE9FF' : '' }}
-                        >
-                            UI / UX
-                        </button>
+        <div className={style.Main_container}>
+            <h2>프로젝트 🏆</h2>
+            <form onSubmit={handleSubmit}>
+                <h4> 제목 </h4>
+                {id ? <input className="form-control" type="text" name='title' defaultValue={projectDetail.title} /> : <input className="form-control" name='title' type="text" placeholder='제목을 입력해주세요' />}
+
+                <h4>포지션</h4>
+                <div className={style.position_content}>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('1')}
+                        style={{ backgroundColor: position.includes('1') ? '#ABE9FF' : '' }}
+                    >
+                        백엔드
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('2')}
+                        style={{ backgroundColor: position.includes('2') ? '#ABE9FF' : '' }}
+                    >
+                        프론트엔드
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('3')}
+                        style={{ backgroundColor: position.includes('3') ? '#ABE9FF' : '' }}
+                    >
+                        풀스택
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('4')}
+                        style={{ backgroundColor: position.includes('4') ? '#ABE9FF' : '' }}
+                    >
+                        DB
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => changeColor('5')}
+                        style={{ backgroundColor: position.includes('5') ? '#ABE9FF' : '' }}
+                    >
+                        UI / UX
+                    </button>
+                </div>
+
+                <input type="hidden" name="position" value={position.join(',')} />
+
+                <div className={style.second_block}>
+                    <div className={style.date_content}>
+                        <h4>프로젝트 시작일</h4>
+                        {id ? <DatePicker className='form-control' defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />}
                     </div>
 
-                    <input type="hidden" name="position" value={position.join(',')} />
+                    <div className={style.date_content}>
+                        <h4>프로젝트 종료일</h4>
+                        {id ? <DatePicker className='form-control' defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> : <DatePicker className='form-control' selected={endDate} onChange={date => setEndDate(date)} />}
+                    </div>
 
-                    <div className={style.second_block}>
-                        <div className={style.date_content}>
-                            <h4>프로젝트 시작일</h4>
-                            {id ? <DatePicker className='form-control' defaultValue={projectDetail.startDate} selected={startDate} onChange={date => setStartDate(date)} /> : <DatePicker className='form-control' selected={startDate} onChange={date => setStartDate(date)} />}
-                        </div>
+                    <div className={style.frame_work_container}>
 
-                        <div className={style.date_content}>
-                            <h4>프로젝트 종료일</h4>
-                            {id ? <DatePicker className='form-control' defaultValue={projectDetail.endDate} selected={endDate} onChange={date => setEndDate(date)} /> : <DatePicker className='form-control' selected={endDate} onChange={date => setEndDate(date)} />}
-                        </div>
+                        <div>
 
-                        <div className={style.frame_work_container}>
-
-                            <div>
-
-                                <h4>프론트</h4>
-                                <select className='form-control' name='framework_front'>
-                                    {id && projectDetail.frameword_front === "React" ? <option selected>React</option> : <option>React</option>}
-                                    {id && projectDetail.frameword_front === "Next.js" ? <option selected>Next.js</option> : <option>Next.js</option>}
-                                    {id && projectDetail.frameword_front === "Vue.js" ? <option selected>Vue.js</option> : <option>Vue.js</option>}
-                                    {id && projectDetail.frameword_front === "기타" ? <option selected>기타</option> : <option>기타</option>}
-                                </select>
-
-                            </div>
-                            <div>
-                                <h4>백엔드</h4>
-                                <select className='form-control' name='framework_back'>
-                                    {id && projectDetail.framework_back === "Spring / Spring Boot" ? <option selected>Spring / Spring Boot</option> : <option>Spring / Spring Boot</option>}
-                                    {id && projectDetail.framework_back === "Node.js" ? <option selected>Node.js</option> : <option>Node.js</option>}
-                                    {id && projectDetail.framework_back === "Django" ? <option selected>Django</option> : <option>Django</option>}
-                                    {id && projectDetail.framework_back === "Flask" ? <option selected>Flask</option> : <option>Flask</option>}
-                                    {id && projectDetail.framework_back === "기타" ? <option selected>기타</option> : <option>기타</option>}
-                                </select>
-                            </div>
-                            <div>
-                                <h4>DB</h4>
-                                <select className='form-control' name='framework_db'>
-                                    {id && projectDetail.framework_db === "MySQL" ? <option selected>MySQL</option> : <option>MySQL</option>}
-                                    {id && projectDetail.framework_db === "Oracle" ? <option selected>Oracle</option> : <option>Oracle</option>}
-                                    {id && projectDetail.framework_db === "MariaDB" ? <option selected>MariaDB</option> : <option>MariaDB</option>}
-                                    {id && projectDetail.framework_db === "MongoDB" ? <option selected>MongoDB</option> : <option>MongoDB</option>}
-                                    {id && projectDetail.framework_db === "기타" ? <option selected>기타</option> : <option>기타</option>}
-                                </select>
-                            </div>
+                            <h4>프론트</h4>
+                            <select className='form-control' name='framework_front'>
+                                {id && projectDetail.frameword_front === "React" ? <option selected>React</option> : <option>React</option>}
+                                {id && projectDetail.frameword_front === "Next.js" ? <option selected>Next.js</option> : <option>Next.js</option>}
+                                {id && projectDetail.frameword_front === "Vue.js" ? <option selected>Vue.js</option> : <option>Vue.js</option>}
+                                {id && projectDetail.frameword_front === "기타" ? <option selected>기타</option> : <option>기타</option>}
+                            </select>
 
                         </div>
-
-                        <div className={style.space_box_2}>
-                            <h4>인원</h4>
-                            {id ? <input className="form-control" type="number" name='persons' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
-                        </div>
-
-                        <div className={style.space_box_2}>
-                            <h4>상태</h4>
-                            <select className='form-control' name='recruit'>
-                                <option>모집상태 선택</option>
-                                <option>모집중</option>
-                                <option>모집완료</option>
+                        <div>
+                            <h4>백엔드</h4>
+                            <select className='form-control' name='framework_back'>
+                                {id && projectDetail.framework_back === "Spring / Spring Boot" ? <option selected>Spring / Spring Boot</option> : <option>Spring / Spring Boot</option>}
+                                {id && projectDetail.framework_back === "Node.js" ? <option selected>Node.js</option> : <option>Node.js</option>}
+                                {id && projectDetail.framework_back === "Django" ? <option selected>Django</option> : <option>Django</option>}
+                                {id && projectDetail.framework_back === "Flask" ? <option selected>Flask</option> : <option>Flask</option>}
+                                {id && projectDetail.framework_back === "기타" ? <option selected>기타</option> : <option>기타</option>}
                             </select>
                         </div>
+                        <div>
+                            <h4>DB</h4>
+                            <select className='form-control' name='framework_db'>
+                                {id && projectDetail.framework_db === "MySQL" ? <option selected>MySQL</option> : <option>MySQL</option>}
+                                {id && projectDetail.framework_db === "Oracle" ? <option selected>Oracle</option> : <option>Oracle</option>}
+                                {id && projectDetail.framework_db === "MariaDB" ? <option selected>MariaDB</option> : <option>MariaDB</option>}
+                                {id && projectDetail.framework_db === "MongoDB" ? <option selected>MongoDB</option> : <option>MongoDB</option>}
+                                {id && projectDetail.framework_db === "기타" ? <option selected>기타</option> : <option>기타</option>}
+                            </select>
+                        </div>
+
                     </div>
 
-                    <h4 className={style.space_box_2}>내용</h4>
-                    <div className={style.quill_content}>
-                        <QuillTest />
+                    <div className={style.space_box_2}>
+                        <h4>인원</h4>
+                        {id ? <input className="form-control" type="number" name='persons' defaultValue={projectDetail.persons} /> : <input className="form-control" type="number" name='persons' placeholder='인원을 입력해주세요' />}
                     </div>
 
+                    <div className={style.space_box_2}>
+                        <h4>상태</h4>
+                        <select className='form-control' name='recruit'>
+                            <option>모집상태 선택</option>
+                            <option>모집중</option>
+                            <option>모집완료</option>
+                        </select>
+                    </div>
+                </div>
 
-                    {/* 전송 버튼 */}
-                    <button className={style.submit_btn} type='submit'>
-                        작성완료
+                <h4 className={style.space_box_2}>내용</h4>
+                <div className={style.quill_content}>
+                    <QuillTest />
+                </div>
+
+
+                {/* 전송 버튼 */}
+                <div className={style.button_group}>
+                    <button className={style.cancel_btn} type='submit'>
+                        취소
                     </button>
-                </form>
-            </div>
+                    <button className={style.submit_btn} type='submit'>
+                        작성
+                    </button>
+                </div>
+            </form>
         </div>
+
     )
 }
 

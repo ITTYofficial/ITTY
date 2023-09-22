@@ -78,7 +78,7 @@ const MarketList = () => {
       <div className={style.Market_content_text}>
         <h4>{props.title}</h4>
         <div className={style.Market_content_text2}>
-          <p className={style.market_content_price}>{props.price} 원</p>
+          <p className={style.market_content_price}>{parseInt(props.price).toLocaleString()} 원</p>
           <p className={style.market_content_date}>{getTimeAgoString(props.createdAt)}</p>
         </div>
       </div>

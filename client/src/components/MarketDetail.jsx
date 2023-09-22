@@ -91,7 +91,7 @@ const MarketDetail = () => {
   };
 
   // 댓글 삭제 함수
-  const deleteComment = (commentId) => {// <- commentId가 뭐죠??
+  const deleteComment = (commentId) => {
 
     axios.get(`http://localhost:8088/comment/delete/${commentId}`)
       .then((res) => {
@@ -329,7 +329,7 @@ const MarketDetail = () => {
             <div className={style.additional_content}>
               <p>👁‍🗨 {marketDetail.views} 💬 4</p>
               <p>{getTime(marketDetail.createdAt)}</p>
-              <h2>{marketDetail.price} 원</h2>
+              <h2>{parseInt(marketDetail.price).toLocaleString()} 원</h2>
             </div>
           </div>
         </div>

@@ -1,10 +1,10 @@
 .Main_container {
     /* max-width: 70%; */
-    width: 65%;
+    width: 55%;
     margin: 0 auto;
     /* display: grid; */
     justify-content: center;
-
+    margin-top: 8%;
 }
 
 .Main_container_box {
@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    margin-top: 4%;
+    margin-top: 6%;
 
 }
 
@@ -44,17 +44,17 @@
 
 .second_block>div:not(:nth-child(3)) {
     width: 48%;
-    height: 50px;
+    /* height: 50px; */
     display: inline-grid;
-    margin: 0px 12px 12px 0;
+    margin: 0px 12px 24px 0;
 }
 
 .frame_work_container {
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
     display: flex;
     justify-content: space-between;
-    margin: 12px 12px 12px 0;
+    margin: 0 12px 24px 0;
 }
 
 .frame_work_container>div {
@@ -95,32 +95,12 @@
 }
 
 .quill_content {
-    margin-top: 12px;
+    margin-top: 24px;
     margin-bottom: 24px;
 
 }
 
 
-
-.submit_btn {
-    color: #333333;
-    font-weight: 600;
-    font-size: 16px;
-    border-radius: 10px;
-    border: none;
-    display: inline-block;
-    background-color: #efefef;
-    padding: 12px 20px;
-    margin-right: 0;
-    float: right;
-}
-
-
-
-.submit_btn:hover {
-    background-color: #2a72ff;
-    color: #eeeeee;
-}
 
 @media (max-width:1024px) {
     .second_block>div:not(:nth-child(3)) {
@@ -135,17 +115,49 @@
     margin-bottom: 12px;
 }
 
-.frame_work_container h4 {
-    margin-top: 18px;
-}
-
 .space_box_2 h4 {
 
-    margin-top: 48px;
     margin-bottom: 8px;
 }
 
-.space_box_2{
-
-    margin-top: 78px;
+/* 작성버튼 css */
+.button_group{
+    display: flex;
+    justify-content: end;
 }
+
+.submit_btn {
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+
+}
+
+.submit_btn:hover {
+    background-color: #2a72ff;
+    color: #eeeeee;
+}
+
+.cancel_btn{
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+    margin-right: 12px;
+}
+
+.cancel_btn:hover{
+    background-color: #c1a6a6;
+}
+
+
+/* 작성버튼 css */

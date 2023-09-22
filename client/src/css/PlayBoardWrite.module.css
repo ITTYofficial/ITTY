@@ -1,7 +1,7 @@
 .Main_container {
 
     /* max-width: 70%; */
-    width: 65%;
+    width: 80%;
     margin: 0 auto;
     /* display: grid; */
     justify-content: center;
@@ -9,14 +9,14 @@
 
 .Main_container_box {
     margin-top: 4%;
-    width: 60%;
+    width: 90%;
     background-color: #ffffff;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    margin-top: 4%;
+    margin-top: 8%;
 
 }
 
@@ -28,10 +28,10 @@
 }
 
 
-.Main_container h2 {
+.Main_container>h2 {
     font-size: 24px;
     font-weight: bold;
-    line-height: 40px;
+    line-height: 100px;
     text-align: center;
     margin-bottom: 24px;
 }
@@ -87,6 +87,13 @@
     margin-bottom: 24px;
 }
 
+
+/* 작성버튼 css */
+.button_group {
+    display: flex;
+    justify-content: end;
+}
+
 .submit_btn {
     color: #333333;
     font-weight: 600;
@@ -96,11 +103,33 @@
     display: inline-block;
     background-color: #efefef;
     padding: 12px 20px;
-    margin-top: 24px;
-    float: right;
+
 }
 
 .submit_btn:hover {
     background-color: #2a72ff;
     color: #eeeeee;
+}
+
+.cancel_btn {
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px;
+    display: inline-block;
+    background-color: #efefef;
+    padding: 12px 20px;
+    margin-right: 12px;
+}
+
+.cancel_btn:hover {
+    background-color: #c1a6a6;
+}
+
+
+/* 작성버튼 css */
+
+.quill_div {
+    margin-bottom: 24px;
 }

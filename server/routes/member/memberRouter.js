@@ -4,7 +4,6 @@ const Member = require('../../schemas/member/member')
 
 // 회원가입
 router.post('/join', async (req, res) => {
-    console.log('Member 회원가입');
     try {
         let obj;
 
@@ -27,7 +26,29 @@ router.post('/join', async (req, res) => {
         console.log(err);
         res.json({ message: false });
       }
-})
+});
+
+// 정보수정
+router.post('/update', async (req, res) => {
+  try {
+    let obj;
+    console.log(req.body.nickname);
+    obj = {
+      nickname:req.body.nickname,
+        pw: req.body.pw,
+        // role: req.body.role,
+        // skill: req.body.skill,
+        // profileImg: req.body.profileImg
+    };
+    const member = new Member(obj);
+    await Member.updateOne(member);
+    res.json({ message: "회원정보수정이 완료되었습니다." });
+}catch (err) {
+  console.log(err);
+  res.json({ message: false });
+}
+});
+
 //아이디 중복체크
 router.post('/idCheck',async(req,res)=>{
   try { 
@@ -59,7 +80,7 @@ router.post('/nicknameCheck',async(req,res)=>{
         message: '닉네임을 입력해주세요.',
       });
     }
-  // 요청된 아이디를 데이터베이스에서 찾는다.
+  // 요청된 닉네임을 데이터베이스에서 찾는다.
     const nicknameChecking = await Member.findOne({ nickname: req.body.nickname });
 
     if (!nicknameChecking ) {
@@ -83,9 +104,9 @@ router.post('/nicknameCheck',async(req,res)=>{
 router.get('/memberSearching',async (req, res) => {
   try {
     const nickname = req.query.nickname;
-    console.log( '2. nickname',nickname);
+    console.log( '회원조회도착 nickname',nickname);
     const member = await Member.findOne({nickname:nickname});
-     console.log('3. class :',member.class);
+     console.log('회원조회도착 class :',member.class);
     if (member) {
       res.json( {member
                 // nickname:member.nickname,
