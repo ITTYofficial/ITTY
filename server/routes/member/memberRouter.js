@@ -49,6 +49,30 @@ router.post('/update', async (req, res) => {
   }
 });
 
+router.post('/updateNick', async (req, res) => {
+  try {
+   
+    // console.log('닉네임 도착',req.query.nickname);
+    // const nickname = {
+    //   nickname: nickname,
+
+    // };
+    let obj;
+    console.log('서버도착 닉네임:', req.body.nickname);
+    await Member.updateOne(        
+      { id: req.body.id },
+      {
+        $set: {
+          nickname: req.body.nickname
+        }
+      });
+    res.json({ message: "회원정보수정이 완료되었습니다.",
+              nickname: req.body.nickname});
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
 //아이디 중복체크
 router.post('/idCheck', async (req, res) => {
   try {

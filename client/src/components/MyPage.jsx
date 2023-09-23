@@ -201,6 +201,36 @@ const MyPage = () => {
     }
 
     /* 모달 */
+    // ********************************************************
+    const updateNickname = async (e) => {
+        e.preventDefault(); // 기본 폼 제출 방지
+        
+        // 폼 요소를 이름 또는 ID로 가져옵니다.
+        const form = document.querySelector('form[name="nicknameForm"]');
+        const formData = new FormData(form);
+        formData.append('id', sessionStorage.getItem('memberId'));
+        const obj = {};
+        formData.forEach((value, key) => {
+            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+            obj[key] = value;
+        });
+        obj['nickname']=nickname;
+        obj['id']= sessionStorage.getItem('memberId')
+        // const nickname = formData.get('nickname');
+        try {
+            console.log('닉네임:', nickname);
+            const response = await axios.post(`http://localhost:8088/member/updateNick`,obj);
+            if (response.data.message === "회원정보수정이 완료되었습니다.") {
+                sessionStorage.removeItem('memberNickname');
+                sessionStorage.setItem('memberNickname',response.data.nickname)
+            } else {
+                console.error("회원정보수정에 실패했습니다.");
+            }
+        } catch (error) {
+            console.error("오류 발생:", error);
+        }
+    };
+
 
     // ******************************************************** 
     // 회원정보수정 함수
@@ -267,23 +297,27 @@ const MyPage = () => {
             <h2>마이페이지</h2>
             <div className={styles.top_container}>
                 <div className={styles.top_container_left}>
-                    <form>
                         <div>
-                            <h4>닉네임</h4>
-                            <div className={styles.nickname_wrapper} style={{ display: nicknameVisable ? 'none' : 'flex' }}>
-                                <h5>김광홍</h5>
-                                <div onClick={toggleNick}>닉네임 변경</div>
-                            </div>
+                            <form name="nicknameForm" onSubmit={updateNickname}>
 
-                            {nicknameVisable &&
-                                <div className={styles.nickname_modify_wrapper}>
-                                    <input type="text" className="form-control" id="nickname" name='nickname' defaultValue={memberInfo.nickname} onBlur={nicknameCheck} placeholder={sessionStorage.getItem('memberNickname')} />
+                                <h4>닉네임</h4>
+                                <div className={styles.nickname_wrapper} style={{ display: nicknameVisable ? 'none' : 'flex' }}>
+                                    <h5>{memberInfo.nickname}</h5>
+                                    <div onClick={toggleNick}>닉네임 변경</div>
+                             </div>
+
+                             {nicknameVisable &&
+                                    <div className={styles.nickname_modify_wrapper}>
+                                    <input type="text" className="form-control" id="nickname" name='nickname' value={nickname} onChange={(e) => setNickname(e.target.value)} onBlur={nicknameCheck} placeholder={sessionStorage.getItem('memberNickname')}/>
                                     <div>수정완료</div>
+                                    <button type='submit'>수정완료</button>
                                 </div>
                             }
 
                             <div id="nickNameCheckmessage"></div>
+                            </form>
                         </div>
+                    <form>
                         <div>
                             <h4>비밀번호</h4>
                             <input type="text" placeholder='변경할 비밀번호를 입력해 주세요.' className="form-control" name="pw" id="pw" defaultValue={memberInfo.pw} onInput={engNumPwCheck} />
