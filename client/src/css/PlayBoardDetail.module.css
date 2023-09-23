@@ -287,7 +287,7 @@
   width: 100%;
   border: none;
   border-radius: 10px;
-  padding: 24px 24px 10px 24px;
+  padding: 30px 24px 10px 30px;
   background-color: #f0f9ff;
   box-shadow: 2px 2px 3px #b7b7b7;
   line-height: 1.2rem;
@@ -351,8 +351,8 @@
   font-weight: bold;
   color: #999999;
   position: absolute;
-  top: 50px;
-  left: 150px;
+  top: 60px;
+  left: 175px;
 }
 
 /* 수정삭제 버튼 */
