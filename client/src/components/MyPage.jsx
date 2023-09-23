@@ -44,23 +44,23 @@ const MyPage = () => {
         messageElement4.current = document.getElementById('nickNameCheckmessage');
       }, []);
 
-// 각 변경값이 있으면 usestate에 저장하고 없으면 기존의 정보를 저장
-    const onNicknameHandler =(e) =>{
+// 각 변경값이 있으면 usestate에 저장하고 없으면 기존의 정보를 저장 => defalutValue를 쓰면서 포기
+    // const onNicknameHandler =(e) =>{
 
-            setNickname(e.target.value);
+    //         setNickname(e.target.value);
         
-      }
-    const onPwHandler = (e) => {
+    //   }
+    // const onPwHandler = (e) => {
 
-            setPw(e.target.value);
+    //         setPw(e.target.value);
         
-      };
-    const onCheckPwHandler = (e) => {
+    //   };
+    // const onCheckPwHandler = (e) => {
 
        
-            setCheckPw(e.target.value);
+    //         setCheckPw(e.target.value);
         
-      };
+    //   };
 
 // 회원정보 조회
       const memberSearching = async () => {
@@ -263,17 +263,17 @@ console.log(memberInfo.pw);
                     <form>
                         <div>
                             <h4>닉네임</h4>
-                            <input type="text" className="form-control" id="nickname"  name='nickname' value={nickname} onChange={onNicknameHandler} onBlur={nicknameCheck} placeholder={sessionStorage.getItem('memberNickname')}/>
+                            <input type="text" className="form-control" id="nickname"  name='nickname' defaultValue={memberInfo.nickname} onBlur={nicknameCheck} placeholder={sessionStorage.getItem('memberNickname')}/>
                             <div  id="nickNameCheckmessage"></div>
                         </div>
                         <div>
                             <h4>비밀번호</h4>
-                            <input type="text" placeholder='변경할 비밀번호를 입력해 주세요.' className="form-control" name="pw" id="pw" defaultValue={memberInfo.pw} onChange={onPwHandler} onInput={engNumPwCheck}/>
+                            <input type="text" placeholder='변경할 비밀번호를 입력해 주세요.' className="form-control" name="pw" id="pw" defaultValue={memberInfo.pw}  onInput={engNumPwCheck}/>
                             <div id="pWmessage"></div>
                         </div>
                         <div>
                             <h4>비밀번호 확인</h4>
-                            <input type="text" placeholder='비밀번호를 한번 더 입력해 주세요' className="form-control" name="pw_check" id="pw_check" defaultValue={memberInfo.pw} onChange={onCheckPwHandler} onBlur={pwCheck}/>
+                            <input type="text" placeholder='비밀번호를 한번 더 입력해 주세요' className="form-control" name="pw_check" id="pw_check" defaultValue={memberInfo.pw} onBlur={pwCheck}/>
                             <div id="pWCheckmessage"></div>
                         </div>
                     </form>
