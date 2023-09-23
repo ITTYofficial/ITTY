@@ -56,7 +56,7 @@ const PlayBoardDetail = () => {
     getPlay();
     getComment();
     memberSearching();
-    
+
   }, []);
 
   // 날짜 변환 함수
@@ -257,7 +257,6 @@ const PlayBoardDetail = () => {
   const ReComment = ({ props, writerInfoArray }) => {
     /* writerInfoArray랑 일치하는 작성자정보 뽑기 */
     const writerInfo = writerInfoArray.find(info => info.nickname === props.writer);
-
 
     if (writerInfo) {
       return (

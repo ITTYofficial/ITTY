@@ -260,6 +260,7 @@
   /* background-color: #f0f9ff; */
   /* box-shadow: 2px 2px 8px #cdcdcd; */
   line-height: 1.5rem;
+  background-color: #f0f9ff;
 }
 
 .comment_write button {
@@ -288,7 +289,7 @@
   border-radius: 10px;
   padding: 24px 24px 10px 30px;
   background-color: #ffffff;
-  box-shadow: 1px 2px 2px 2px #dddddd;
+  box-shadow: 2px 2px 4px 2px #b8b8b85d;
   line-height: 1.2rem;
   margin-top: 2rem;
   position: relative;
@@ -452,11 +453,28 @@
   font-size: 14px;
 }
 
-.recomment_button_box_2 {
-
-  text-align: right;
+.recomment_write>button{
+  text-decoration: none;
+  float: right;
+  color: #eeeeee;
+  font-weight: 600;
   font-size: 14px;
+
+  border-radius: 10px;
+  border: none;
+  display: inline-block;
+  background-color: #999999;
+  padding: 8px 16px;
+  margin-right: 16px;
+
 }
+
+.recomment_write>button:hover{
+  font-weight: bold;
+  background-color: rgb(0, 119, 255);
+
+}
+
 
 .comment_cancel {
   position: absolute;
@@ -481,7 +499,8 @@
 
 .recomment_button_box:hover {
   font-weight: bold;
-  color: rgb(0, 119, 255);
+  color: rgb(2, 70, 164);
+
 
 
 }
@@ -493,22 +512,18 @@
 
 .recomment_list_box:hover {
   background-color: rgba(224, 248, 255, 0.59);
+  
 }
 
 .recomment_cancel>svg:hover {
   fill: black;
+  transform: scale(1.2);
 }
 
 .comment_cancel>svg:hover {
   fill: black;
+  transform: scale(1.1);
 }
-
-.recomment_button_box_2:hover {
-  font-weight: bold;
-  color: rgb(0, 119, 255);
-
-}
-
 .comment_time_box {
 
   left: 45px;
@@ -517,12 +532,13 @@
 .comment_time_box_2 {
   margin-left: 15px;
   position: relative;
+  margin-bottom: 12px;
 }
 
 /* 대댓글 */
 
 .recomment_write {
-  margin: 32px 0 2rem 0;
+  margin: 32px 0 3.5rem 0;
 }
 
 .recomment_write div {
@@ -550,7 +566,7 @@
   /* background-color: #f0f9ff; */
   /* box-shadow: 2px 2px 8px #cdcdcd; */
   line-height: 1.5rem;
-  background-color: rgb(234, 251, 255);
+  background-color: #f0f9ff
 }
 
 
