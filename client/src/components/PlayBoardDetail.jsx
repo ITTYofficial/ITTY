@@ -233,7 +233,7 @@ const PlayBoardDetail = () => {
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
-      <div>
+      <div className={PlayBoard.comment_time_box_2}>
         <p>{getTime(props.createdAt)}</p>
       </div>
       <div className={PlayBoard.recomment_button_box_2}>댓글쓰기</div>
@@ -313,7 +313,7 @@ const PlayBoardDetail = () => {
         {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
         <div>
-          <p>{getTime(props.createdAt)}</p>
+          <p className={PlayBoard.comment_time_box}>{getTime(props.createdAt)}</p>
         </div>
         <div className={PlayBoard.recomment_button_box}onClick={showRecommentWrite}>
           댓글쓰기
