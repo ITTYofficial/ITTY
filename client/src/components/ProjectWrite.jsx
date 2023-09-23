@@ -217,14 +217,14 @@ const ProjectWrite = () => {
                            {...(id ? {defaultValue: projectDetail.persons} : {placeholder: '인원을 입력해주세요'})} />
                     </div>
 
-                    <div className={style.space_box_2}>
+{/*                     <div className={style.space_box_2}>
                         <h4>상태</h4>
                         <select className='form-control' name='recruit'>
                             <option>모집상태 선택</option>
                             <option>모집중</option>
                             <option>모집완료</option>
                         </select>
-                    </div>
+                    </div> */}
                 </div>
 
                 <h4 className={style.space_box_2}>내용</h4>

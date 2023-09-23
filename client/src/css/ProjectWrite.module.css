@@ -5,6 +5,13 @@
     /* display: grid; */
     justify-content: center;
     margin-top: 8%;
+    
+}
+
+@media (max-width:768px) {
+    .Main_container{
+        width: 70%;
+    }
 }
 
 .Main_container_box {

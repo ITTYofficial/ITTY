@@ -1,25 +1,24 @@
 .Main_container {
 
     /* max-width: 70%; */
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
     /* display: grid; */
     justify-content: center;
-}
-
-.Main_container_box {
-    margin-top: 4%;
-    width: 90%;
-    background-color: #ffffff;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
     margin-top: 8%;
-
 }
 
+@media (max-width:1300px){
+    .Main_container{
+        width: 60%;
+    }
+}
+
+@media (max-width:778px){
+    .Main_container{
+        width: 70%;
+    }
+}
 
 .Main_container h4 {
     margin-bottom: 12px;

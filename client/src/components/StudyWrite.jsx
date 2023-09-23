@@ -184,7 +184,7 @@ const StudyWrite = () => {
 
                     </div>
 
-                    <div>
+{/*                     <div>
                         <h4>상태</h4>
                         <select className='form-control' name='recruit'>
                             <option>모집상태 선택</option>
@@ -192,7 +192,7 @@ const StudyWrite = () => {
                             <option>모집완료</option>
                         </select>
                     </div>
-
+ */}
                 </div>
 
                 <h4 className={style.margin_top_p_tag}>내용</h4>
