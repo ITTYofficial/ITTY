@@ -475,11 +475,6 @@
 
 }
 
-.recomment_button_box_2 {
-
-  text-align: right;
-  font-size: 14px;
-}
 
 .comment_cancel {
   position: absolute;
@@ -525,13 +520,6 @@
 .comment_cancel>svg:hover {
   fill: black;
 }
-
-.recomment_button_box_2:hover {
-  font-weight: bold;
-  color: rgb(0, 119, 255);
-
-}
-
 .comment_time_box {
 
   left: 45px;
@@ -540,6 +528,7 @@
 .comment_time_box_2 {
   margin-left: 15px;
   position: relative;
+  margin-bottom: 12px;
 }
 
 /* 대댓글 */
