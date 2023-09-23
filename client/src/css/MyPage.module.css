@@ -85,7 +85,7 @@
     position: absolute;
 }
 
-.img_uploads_btn{
+.img_uploads_btn {
     position: absolute;
     width: 60px;
     height: 60px;
@@ -131,26 +131,27 @@
     margin-bottom: 32px;
 }
 
-.bottom_content form{
+.bottom_content form {
     margin-top: 32px;
 }
 
-.bottom_content form svg{
+.bottom_content form svg {
     fill: #2972FF;
     width: 50px;
     height: 50px;
     margin-right: 12px;
 }
 
-.bottom_content form>div{
+.bottom_content form>div {
     display: flex;
     margin-bottom: 24px;
 }
 
-.bottom_content form h4{
+.bottom_content form h4 {
     margin-bottom: 4px;
 }
-.bottom_content form>div>div{
+
+.bottom_content form>div>div {
     width: 80%;
 }
 
@@ -158,14 +159,14 @@
     width: 60%;
 }
 
-.bottom_btn_group{
+.bottom_btn_group {
     display: flex;
     justify-content: flex-end;
     padding: 12px;
     border-bottom: 2px solid #eeeeee;
 }
 
-.bottom_btn_group>a:nth-child(1){
+.bottom_btn_group>a:nth-child(1) {
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
@@ -178,15 +179,16 @@
     border: 2px solid;
 }
 
-.bottom_btn_group>a:nth-child(1) p{
+.bottom_btn_group>a:nth-child(1) p {
     color: white;
 }
-.bottom_btn_group>a:nth-child(1)+a{
+
+.bottom_btn_group>a:nth-child(1)+a {
     text-decoration: none;
     color: #333333;
     font-weight: 600;
     font-size: 16px;
-  
+
     border-radius: 10px;
     display: inline-block;
     border: 2px solid gray;
@@ -194,9 +196,38 @@
     margin: 0 8px;
 }
 
-.bottom_btn_group a:hover{
+.bottom_btn_group a:hover {
     /* background-color: #2a72ff;
     color: #eeeeee;
     transition-duration: 200ms;
     border: 2px solid white; */
+}
+
+.nickname_wrapper {
+    display: flex;
+}
+
+.nickname_wrapper div {
+    background-color: #93DFFF;
+    padding: 8px 6px;
+    border-bottom: 2px solid #eeeeee;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-bottom: 32px;
+    margin-left: 12px;
+}
+
+.nickname_modify_wrapper {
+    display: flex;
+}
+
+.nickname_modify_wrapper div {
+    background-color: #93DFFF;
+    padding: 8px 6px;
+    border-bottom: 2px solid #eeeeee;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-bottom: 32px;
+    margin-left: 12px;
+    white-space: nowrap;
 }
