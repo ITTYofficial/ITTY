@@ -31,6 +31,7 @@
   .Wrap_main_imageSlide {
     display: none;
   }
+
   .right_container {
     width: 90%;
     /* background-color: whitesmoke; */
@@ -50,6 +51,7 @@
 
 .Main_grid_1 {
   width: 100%;
+  overflow: hidden;
 }
 
 .Main_grid_1 h3 {
@@ -67,21 +69,18 @@
 
 .Main_grid_detail {
   padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
 }
 
-.Main_grid_detail > h4:hover {
+.Main_grid_detail>h4:hover {
   color: #2474ff;
   cursor: pointer;
 }
 
-.Main_grid_detail > div {
-  display: grid;
-  grid-template-columns: minmax(34px, 10%) minmax(34px, 8%) minmax(34px, 8%) 1fr;
-  align-items: end;
-  margin-bottom: 12px;
-}
 
-.Main_grid_detail > h4 {
+.Main_grid_detail>h4 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 12px;
@@ -95,19 +94,25 @@
 .Main_grid_profile {
   display: flex;
   justify-content: end;
+  width: 25%;
+  white-space: nowrap;
+}
+
+.Main_grid_subcontent {
+  margin-bottom: 8px;
 }
 
 .profile_text {
   margin-right: 4px;
 }
 
-.profile_text > p {
+.profile_text>p {
   font-size: 12px;
   margin-bottom: 4px;
   text-align: right;
 }
 
-.profile_text > h4 {
+.profile_text>h4 {
   font-size: 16px;
   font-weight: bold;
   text-align: right;
@@ -122,6 +127,7 @@
 
 .Main_grid_2 {
   width: 100%;
+  overflow: hidden;
 }
 
 .Main_grid_2 h3 {
@@ -137,10 +143,28 @@
   color: #333333;
 }
 
-.Main_grid_detail::after {
+/* .Main_grid_detail::after {
   content: "";
   display: block;
   width: 100%;
   height: 1px;
   background-color: #999999;
+} */
+
+.Main_grid_right_container {
+  max-width: 75%;
+  margin-bottom: 12px;
+}
+
+.Main_grid_right_container h4{
+  font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile_pic img{
+  width: 100%;
+  height: 100%;
 }
