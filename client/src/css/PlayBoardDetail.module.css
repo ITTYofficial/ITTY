@@ -7,8 +7,6 @@
 
 .comment_cancel {
   position: absolute;
-  right: 20px;
-  top: 10px;
   transform: scale(1.2);
   fill: rgb(209, 209, 209);
   opacity: 50%;
@@ -288,8 +286,8 @@
   border: none;
   border-radius: 10px;
   padding: 24px 24px 10px 30px;
-  background-color: #f0f9ff;
-  box-shadow: 2px 2px 3px #b2b2b2;
+  background-color: #ffffff;
+  box-shadow: 1px 2px 2px 2px #dddddd;
   line-height: 1.2rem;
   margin-top: 2rem;
   position: relative;
@@ -351,7 +349,7 @@
   font-weight: bold;
   color: #999999;
   position: absolute;
-  left: 175px;
+  
 }
 
 /* 수정삭제 버튼 */
@@ -409,7 +407,7 @@
   margin-left: 5%;
   border-top: 2px solid #e0e0e0d7;
   padding: 15px;
-  width: 90%;    
+  width: 93%;    
 
 }
 
@@ -448,7 +446,7 @@
 
 .recomment_button_box{
   margin-bottom: 12px;
-  margin-right: 30px;
+  margin-right: 25px;
   text-align: right;
   font-size: 14px;
 }
@@ -462,19 +460,20 @@
 .comment_cancel{
   position: absolute;
   right: 50px;
-  top: 40px;
-  transform: scale(1.5);
+  top: 50px;
+  transform: scale(1.4);
   fill: rgb(209, 209, 209);
-  opacity: 50%;
+  opacity: 60%;
 }
 
 .recomment_cancel{
     position: absolute;
     right: 70px;
     transform: scale(1.2);
-    fill: rgb(209, 209, 209);
+    fill: rgb(29, 50, 244);
     opacity: 50%;
     padding: 12px;
+
 
 
 }
@@ -484,6 +483,11 @@
   color: rgb(0, 119, 255);
 
   
+}
+
+.comment_cancel>svg{
+  position: relative;
+  bottom: 15px;
 }
 
 .recomment_list_box:hover{
@@ -505,18 +509,19 @@ fill: black;
 }
 
 .comment_time_box{
-  top:50px;
+
+  left: 45px;
 }
 
 .comment_time_box_2{
+  margin-left: 15px;
   position: relative;
-  bottom:65px;
 }
 
 /* 대댓글 */
 
 .recomment_write {
-  margin: 32px 0 5rem 0;
+  margin: 32px 0 2rem 0;
 }
 
 .recomment_write div {
@@ -544,6 +549,7 @@ fill: black;
   /* background-color: #f0f9ff; */
   /* box-shadow: 2px 2px 8px #cdcdcd; */
   line-height: 1.5rem;
+  background-color: rgb(234, 251, 255);
 }
 
 
