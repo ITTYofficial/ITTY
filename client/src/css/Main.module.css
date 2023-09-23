@@ -54,15 +54,17 @@
 .Main_grid_1 {
   width: 100%;
   overflow: hidden;
+  box-shadow: 1px 1px 4px rgb(214, 214, 214);
+  border-radius: 15px;
+
 }
 
 .Main_grid_1 h3 {
   background-color: #2474ff;
   padding: 16px 24px;
   border-radius: 10px;
-  box-shadow: 2px 2px 6px #333333;
+  box-shadow: 1px 3px 2px #343434;
   margin-bottom: 24px;
-
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -70,10 +72,12 @@
 }
 
 .Main_grid_detail {
+  
   padding: 8px 16px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid;
+  border-bottom: 2px solid rgb(228, 228, 228);
+  margin: 4%;
 }
 
 .Main_grid_detail>h4:hover {
@@ -130,13 +134,15 @@
 .Main_grid_2 {
   width: 100%;
   overflow: hidden;
+  box-shadow: 1px 1px 4px rgb(214, 214, 214);
+  border-radius: 15px;
 }
 
 .Main_grid_2 h3 {
   background-color: #ffa329;
   padding: 16px 24px;
   border-radius: 10px;
-  box-shadow: 2px 2px 6px #333333;
+  box-shadow: 1px 3px 2px #737373;
   margin-bottom: 24px;
 
   font-size: 20px;
