@@ -3,6 +3,9 @@ import LeftContainer from "./LeftContainer";
 import style from "../css/Main.module.css";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 // import "../css/Community.css";
 
@@ -131,7 +134,13 @@ const Main = () => {
   return (
     <div className={style.Wrap_container}>
       {/* 메인 이미지슬라이드 시작 */}
-      <div className={style.Wrap_main_imageSlide}></div>
+      <div className={style.Wrap_main_imageSlide}>
+        <Slider>
+          <img src="https://media.istockphoto.com/id/1084725964/ko/%EC%82%AC%EC%A7%84/%EC%84%9C%EC%9A%B8-%EB%84%A4%EC%98%A8-%EB%B0%A4-%EB%8F%84%EC%8B%9C-%EC%8B%9C%EB%82%B4-%EB%A7%88%EC%B2%9C%EB%A3%A8-%EB%8C%80%EB%8F%84%EC%8B%9C-%ED%8C%8C%EB%85%B8%EB%9D%BC%EB%A7%88-%ED%95%9C%EA%B5%AD.jpg?s=1024x1024&w=is&k=20&c=2RWHR3E5bUgqwh4I1YePDgBg2tpeu0J_sk5XZqgMoVE=" alt="Slide" />
+          <img src="https://media.istockphoto.com/id/1084725964/ko/%EC%82%AC%EC%A7%84/%EC%84%9C%EC%9A%B8-%EB%84%A4%EC%98%A8-%EB%B0%A4-%EB%8F%84%EC%8B%9C-%EC%8B%9C%EB%82%B4-%EB%A7%88%EC%B2%9C%EB%A3%A8-%EB%8C%80%EB%8F%84%EC%8B%9C-%ED%8C%8C%EB%85%B8%EB%9D%BC%EB%A7%88-%ED%95%9C%EA%B5%AD.jpg?s=1024x1024&w=is&k=20&c=2RWHR3E5bUgqwh4I1YePDgBg2tpeu0J_sk5XZqgMoVE=" alt="Slide" />
+          <img src="https://media.istockphoto.com/id/1084725964/ko/%EC%82%AC%EC%A7%84/%EC%84%9C%EC%9A%B8-%EB%84%A4%EC%98%A8-%EB%B0%A4-%EB%8F%84%EC%8B%9C-%EC%8B%9C%EB%82%B4-%EB%A7%88%EC%B2%9C%EB%A3%A8-%EB%8C%80%EB%8F%84%EC%8B%9C-%ED%8C%8C%EB%85%B8%EB%9D%BC%EB%A7%88-%ED%95%9C%EA%B5%AD.jpg?s=1024x1024&w=is&k=20&c=2RWHR3E5bUgqwh4I1YePDgBg2tpeu0J_sk5XZqgMoVE=" alt="Slide" />
+        </Slider>
+      </div>
       {/* 메인 이미지슬라이드 끝 */}
 
       <div className={style.Main_container}>
