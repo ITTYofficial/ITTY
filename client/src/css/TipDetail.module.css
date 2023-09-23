@@ -140,7 +140,7 @@
   color: rgb(2, 119, 140);
 }
 
-.commant_box p {
+.comment_box p {
 
   font-size: 30px;
   line-height: 1.4rem;
@@ -236,168 +236,227 @@
   text-align: center;
   margin: 0 auto;
 }
+ 
+  /* 댓글 시작 */
+  .division_line_ant {
+    position: relative;
+  }
+  
+  .division_line_commant>div {
+    position: relative;
+    background-color: white;
+    color: #999999;
+    display: inline-block;
+    z-index: 9;
+    padding: 0 8px;
+  }
+  
+  .division_line_commant::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 50% 0;
+    background-color: #eeeeee;
+    height: 0.5px;
+  }
+  
+  .division_line_commant div h4 {
+    color: #333333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* 댓글 끝 */
+  .comment_write {
+    margin: 32px 0 5rem 0;
+  }
+  
+  .comment_write div {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 12px;
+  }
+  
+  .comment_write>div>div {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #999999;
+  }
+  
+  .comment_write textarea {
+    width: 90%;
+    height: 100px;
+    resize: none;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #999999;
+    /* background-color: #f0f9ff; */
+    /* box-shadow: 2px 2px 8px #cdcdcd; */
+    line-height: 1.5rem;
+    background-color: #f0f9ff;
+  }
+  
+  .comment_write button {
+    text-decoration: none;
+    float: right;
+    color: #eeeeee;
+    font-weight: 600;
+    font-size: 16px;
+  
+    border-radius: 10px;
+    border: none;
+    display: inline-block;
+    background-color: #999999;
+    padding: 12px 20px;
+    margin-right: 16px;
+  }
+  
+  .comment_write button:hover {
+    background-color: #2474ff;
+  }
+  
+  /* 댓글박스 */
+  .comment_list {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 24px 24px 10px 30px;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 4px 2px #b8b8b85d;
+    line-height: 1.2rem;
+    margin-top: 2rem;
+    position: relative;
+    align-items: center;
+  }
+  
+  .play_comment_profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .play_comment_profile span:first-child {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+  }
+  
+  .play_comment_profile span img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  
+  /* .play_comment_profile span:last-child p {
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: #999999;
+    line-height: 12px;
+  } */
+  
+  
+  
+  .comment_list div:nth-child(2) {
+    padding: 8px 16px;
+    line-height: 1.5rem;
+    font-size: 14px;
+  }
+  .comment_list>span>p {
+    margin-bottom: 18px;
 
-/* 댓글 시작 */
-.division_line_commant {
-  position: relative;
-}
+  }
+  
+  /* 댓글 닉네임, 소속 */
+  .play_comment_profile>span>p {
+    font-size: 12px;
+    margin-top: 8px;
+  
+  }
+  
+  .play_comment_profile>span>h4 {
+  
+    font-size: 16px;
+    font-weight: bold;
+  
+  }
+  
+  /* 댓글시간 absoulte->relative로 임시 */
+  .comment_list div:nth-child(3)>p {
+    font-size: 12px;
+    font-weight: bold;
+    color: #999999;
+    position: relative;
+  
+  
+  }
+  
+  
+  /* 수정삭제 버튼 */
+  
+  
+  .comment_cancel {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    transform: scale(1.4);
+    fill: rgb(209, 209, 209);
+    opacity: 60%;
+  }
+  
+  .comment_cancel>svg {
+    position: relative;
+    bottom: 15px;
+  }
+  
+  
+  .comment_cancel>svg:hover {
+    fill: black;
+    transform: scale(1.1);
+  }
+  .comment_time_box{
+    position:relative;
+    left:10px;
+  }
+  
+  .comment_time_box_2 {
+    margin-left: 15px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  
+  
+  .meatball {
+    text-align: end;
+  }
+  
+  .meatball>ul {
+    position: relative;
+  }
+  
+  .meat_dropdown {
+    font-size: 14px;
+    position: absolute;
+    right: 0;
+    box-shadow: 1px 1px 8px gray;
+    padding: 4px 8px;
+    width: 100px;
+    text-align: left;
+    border-radius: 8px;
+  }
+  
+  .meat_dropdown li {
+    margin: 8px;
+  }
 
-.division_line_commant>div {
-  position: relative;
-  background-color: white;
-  color: #999999;
-  display: inline-block;
-  z-index: 9;
-  padding: 0 8px;
-}
+  /* 리댓 */
 
-.division_line_commant::after {
-  content: "";
-  display: block;
-  position: absolute;
-  inset: 50% 0;
-  background-color: #eeeeee;
-  height: 0.5px;
-}
-
-.division_line_commant div h4 {
-  color: #333333;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* 댓글 끝 */
-.commant_write {
-  margin: 32px 0 5rem 0;
-}
-
-.commant_write div {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 12px;
-}
-
-.commant_write>div>div {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #999999;
-}
-
-.commant_write textarea {
-  width: 90%;
-  height: 100px;
-  resize: none;
-  border: none;
-  border-radius: 10px;
-  padding: 16px;
-  border: 1px solid #999999;
-  /* background-color: #f0f9ff; */
-  /* box-shadow: 2px 2px 8px #cdcdcd; */
-  line-height: 1.5rem;
-}
-
-.play_wrap_content button {
-  text-decoration: none;
-  float: right;
-  color: #eeeeee;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  border: none;
-  background-color: #999999;
-  padding: 12px 20px;
-  margin-right: 16px;
-}
-
-.play_wrap_content button:hover {
-  background-color: #2474ff;
-}
-
-.commant_list {
-  width: 100%;
-  border: none;
-  border-radius: 10px;
-  padding: 16px;
-  background-color: #f0f9ff;
-  box-shadow: 1px 1px 4px #cacaca;
-  line-height: 1.5rem;
-  margin-top: 2rem;
-
-  position: relative;
-}
-
-.play_commant_profile {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.play_commant_profile span:first-child {
-  width: 50px;
-  height: 50px;
-  margin-right: 8px;
-}
-
-.play_commant_profile span img {
-  width: 100%;
-  height: 100%;
-}
-
-.play_commant_profile span:last-child p {
-  font-size: 14px;
-  text-align: left;
-  color: #999999;
-}
-
-
-
-
-.play_commant_profile span:last-child h4 {
-  font-size: 16px;
-  text-align: right;
-  color: #000000;
-  font-weight: 600;
-}
-
-.commant_list div:nth-child(2) {
-  padding: 8px 16px;
-  font-size: 14px;
-  line-height: 1.4rem;
-}
-
-.commant_list div:nth-child(3)>p {
-  font-size: 14px;
-  color: #999999;
-  position: absolute;
-  top: 12px;
-  right: 16px;
-}
-
-
-.meatball {
-  text-align: end;
-}
-
-.meatball>ul {
-  position: relative;
-}
-
-.meat_dropdown {
-  font-size: 14px;
-  position: absolute;
-  right: 0;
-  box-shadow: 1px 1px 8px gray;
-  padding: 4px 8px;
-  width: 100px;
-  text-align: left;
-  border-radius: 8px;
-}
-
-.meat_dropdown li {
-  margin: 8px;
-}
+  .recomment_button_box {
+    margin-right: 25px;
+    text-align: right;
+    font-size: 14px;
+  }

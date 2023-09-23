@@ -10,7 +10,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 /* css는 project etail css 내용만 가져와서 추가해서 사용 중~ */
 
 const QnaDetail = () => {
-
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
 
@@ -29,36 +28,45 @@ const QnaDetail = () => {
   );
 
   const CommentItem = () => (
-    <div className={style.commant_list}>
-      <div className={style.play_commant_profile}>
+    <div className={style.comment_list}>
+      <div className={style.play_comment_profile}>
         <span></span>
         <span>
           {/* 댓글 프로필 */}
           <p>빅데이터분석</p>
           <h4>수업시간에롤</h4>
+          <div className={style.comment_cancel}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-trash"
+              viewBox="0 0 16 16"
+            >
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+            </svg>
+          </div>
         </span>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
       <span>
-        <p>
-          정말 꿀팁이라고 생각합니다.
-          <br />
-          정말 큰 도움이 되었다고 생각합니다
-          <br />
-          Qna 게시판을 이래서 사용하나봐요
-          <span className={style.qna_choice_box}>
-            <button type="button" class="btn btn-warning">
-              채택 👍
-            </button>
-          </span>
-        </p>
+        <p>정말 꿀팁이라고 생각합니다.</p>
+      </span>
+      <span className={style.qna_choice_box}>
+        <button type="button" class="btn btn-warning">
+          채택 👍
+        </button>
+        
       </span>
 
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
       <div>
-        <p>3시간 전</p>
+        <p className={style.comment_time_box}>3시간 전</p>
       </div>
+      <div className={style.recomment_button_box}>댓글쓰기</div>
     </div>
   );
 
@@ -70,17 +78,18 @@ const QnaDetail = () => {
   // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
   const getQnA = async () => {
     // projectRouter랑 통신해서 response에 결과값 저장
-    await axios.get(`http://localhost:8088/qna/qnaDetail/${id}`)
+    await axios
+      .get(`http://localhost:8088/qna/qnaDetail/${id}`)
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
         console.log(res.data);
         setQnADetail(res.data.detailQnA[0]);
-        const positionArr = res.data.detailQnA[0].category.split(',');
+        const positionArr = res.data.detailQnA[0].category.split(",");
         positionArr.map((item) => (visible[item - 1] = true));
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   // 페이지 렌더링시 조회함수 실행
@@ -95,7 +104,7 @@ const QnaDetail = () => {
     const month = createdAt.getMonth() + 1;
     const day = createdAt.getDate();
 
-    return `${year}년 ${month}월 ${day}일`
+    return `${year}년 ${month}월 ${day}일`;
   };
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
@@ -133,22 +142,22 @@ const QnaDetail = () => {
   // 수정 페이지 이동
   const nav = useNavigate();
   const moveUpdate = () => {
-    nav(`/qnaWrite?id=${id}`)
+    nav(`/qnaWrite?id=${id}`);
   };
 
   // 게시글 삭제
   const deleteQnA = async () => {
-    await axios.post(`http://localhost:8088/qna/delete/${id}`)
+    await axios
+      .post(`http://localhost:8088/qna/delete/${id}`)
       .then((res) => {
-        alert("삭제 완료")
-        window.location.href = '/qnaList'
+        alert("삭제 완료");
+        window.location.href = "/qnaList";
       })
       .catch((err) => {
-        alert("삭제 실패")
+        alert("삭제 실패");
         console.log(err);
-      })
-
-  }
+      });
+  };
 
   const toggleMeat = () => {
     if (meat) {
@@ -181,20 +190,22 @@ const QnaDetail = () => {
           <div className={style.play_wrap_top}>
             <div className={style.play_profile}>
               <span>
-
                 <span className={style.play_top_title}>
                   {visible[0] && <Develope />}
                   {visible[1] && <Study />}
                   {visible[2] && <Job />}
                   {visible[3] && <Life />}
-
                 </span>
                 <h4>{qnaDetail.title}</h4>
               </span>
 
               <span>
-                <div className={style.qna_time_box}>{getTimeAgoString(qnaDetail.createdAt)}</div>
-                <span className={style.qna_comment_box}>👁‍🗨 {qnaDetail.views} 💬 4</span>
+                <div className={style.qna_time_box}>
+                  {getTimeAgoString(qnaDetail.createdAt)}
+                </div>
+                <span className={style.qna_comment_box}>
+                  👁‍🗨 {qnaDetail.views} 💬 4
+                </span>
               </span>
             </div>
             <hr className={style.division_line_2}></hr>
@@ -222,26 +233,29 @@ const QnaDetail = () => {
               </ul>
             </div>
 
-            <span dangerouslySetInnerHTML={{ __html: qnaDetail.content }}></span>
+            <span
+              dangerouslySetInnerHTML={{ __html: qnaDetail.content }}
+            ></span>
           </div>
           {/* 게시글 content 끝 */}
 
           {/* 댓글달기 시작 */}
-          <div className={style.division_line_commant}>
+          <div className={style.division_line_comment}>
             <div>
               <h4>댓글 3</h4>
             </div>
           </div>
 
-          <div className={style.commant_write}>
+          <div className={style.comment_write}>
             <div>
               <div>
                 <img src="#" />
               </div>
               <textarea placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
             </div>
-            <button type="button">댓글쓰기</button>
+            <button type="submit">댓글쓰기</button>
           </div>
+
           {/* 댓글달기 끝 */}
 
           <CommentItem />
