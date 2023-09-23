@@ -1,8 +1,8 @@
 .Navigation {
   display: flex;
-  max-width: 1320px;
+  /* max-width: 1320px; */
   margin: 0 auto;
-  justify-content: space-between;
+  justify-content: space-around;
   position: fixed;
   z-index: 10;
   align-items: center;

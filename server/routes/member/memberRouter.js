@@ -4,28 +4,28 @@ const Member = require('../../schemas/member/member')
 
 // 회원가입
 router.post('/join', async (req, res) => {
-    try {
-        let obj;
+  try {
+    let obj;
 
-        obj = {
-            id: req.body.id,
-            pw: req.body.pw,
-            gender: req.body.gender,
-            name: req.body.name,
-            nickname:req.body.nickname,
-            role: req.body.role,
-            skill: req.body.skill,
-            point: req.body.point,
-            profileImg: req.body.profileImg
-        };
-        
-        const member = new Member(obj);
-        await Member.insertMany(member);
-        res.json({ message: "회원가입이 완료되었습니다." });
-      } catch (err) {
-        console.log(err);
-        res.json({ message: false });
-      }
+    obj = {
+      id: req.body.id,
+      pw: req.body.pw,
+      gender: req.body.gender,
+      name: req.body.name,
+      nickname: req.body.nickname,
+      role: req.body.role,
+      skill: req.body.skill,
+      point: req.body.point,
+      profileImg: req.body.profileImg
+    };
+
+    const member = new Member(obj);
+    await Member.insertMany(member);
+    res.json({ message: "회원가입이 완료되었습니다." });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
 });
 
 // 정보수정
@@ -34,85 +34,86 @@ router.post('/update', async (req, res) => {
     let obj;
     console.log(req.body.nickname);
     obj = {
-      nickname:req.body.nickname,
-        pw: req.body.pw,
-        // role: req.body.role,
-        // skill: req.body.skill,
-        // profileImg: req.body.profileImg
+      nickname: req.body.nickname,
+      pw: req.body.pw,
+      // role: req.body.role,
+      // skill: req.body.skill,
+      // profileImg: req.body.profileImg
     };
     const member = new Member(obj);
     await Member.updateOne(member);
     res.json({ message: "회원정보수정이 완료되었습니다." });
-}catch (err) {
-  console.log(err);
-  res.json({ message: false });
-}
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
 });
 
 //아이디 중복체크
-router.post('/idCheck',async(req,res)=>{
-  try { 
-  // 요청된 아이디를 데이터베이스에서 찾는다.
+router.post('/idCheck', async (req, res) => {
+  try {
+    // 요청된 아이디를 데이터베이스에서 찾는다.
     const idChecking = await Member.findOne({ id: req.body.id });
     if (!idChecking) {
       return res.json({
         idCheckingSuccess: true,
         message: '사용가능한 아이디입니다.',
       });
-    }else{
+    } else {
       return res.json({
         idCheckingfail: false,
         message: '아이디가 중복됩니다.',
       });
     }
-    } catch (err) {
-      console.log(err);
-      res.json({ message: false });
-    }
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
 });
 // 닉네임 중복체크 메소드
-router.post('/nicknameCheck',async(req,res)=>{
-  try { 
+router.post('/nicknameCheck', async (req, res) => {
+  try {
     // 닉네임이 null값일 때 출력할 말
     if (req.body.nickname === '') {
       return res.json({
-        nicknameCheckingfail : false,
+        nicknameCheckingfail: false,
         message: '닉네임을 입력해주세요.',
       });
     }
-  // 요청된 닉네임을 데이터베이스에서 찾는다.
+    // 요청된 닉네임을 데이터베이스에서 찾는다.
     const nicknameChecking = await Member.findOne({ nickname: req.body.nickname });
 
-    if (!nicknameChecking ) {
+    if (!nicknameChecking) {
       return res.json({
         nicknameCheckingSuccess: true,
         message: '사용가능한 닉네임입니다.',
       });
-    }else{
+    } else {
       return res.json({
         nicknameCheckingfail: false,
         message: '닉네임이 중복됩니다.',
       });
     }
-    } catch (err) {
-      console.log(err);
-      res.json({ message: false });
-    }
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
 });
 
 // 닉네임 값으로 특정 회원 조회
-router.get('/memberSearching',async (req, res) => {
+router.get('/memberSearching', async (req, res) => {
   try {
     const nickname = req.query.nickname;
-    console.log( '회원조회도착 nickname',nickname);
-    const member = await Member.findOne({nickname:nickname});
-     console.log('회원조회도착 class :',member.class);
+    console.log('회원조회도착 nickname', nickname);
+    const member = await Member.findOne({ nickname: nickname });
+    console.log('회원조회도착 class :', member.class);
     if (member) {
-      res.json( {member
-                // nickname:member.nickname,
-                // profileImg : member.profileImg,
-                // class:member.class           
-        });
+      res.json({
+        member
+        // nickname:member.nickname,
+        // profileImg : member.profileImg,
+        // class:member.class           
+      });
     } else {
       res.status(200).json({ member: '값을 찾지 못함' }); // 찾지 못한 경우 null을 반환하거나 다른 처리를 할 수 있습니다.
     }
@@ -121,15 +122,35 @@ router.get('/memberSearching',async (req, res) => {
     res.json({ message: false });
   }
 }
-  );
+);
+
+router.post('/getWriterInfo', async (req, res) => {
+  try {
+    const writers = req.body.writers;
+    const writerInfoArray = [];
+    
+    // writers 배열에서 하나씩 뽑아서 find돌려서 배열에 저장
+    for (const writer of writers) {
+      const member = await Member.findOne({ nickname: writer });
+      if (member) {
+        writerInfoArray.push({ nickname: member.nickname, profileImg: member.profileImg, class: member.class });
+      }
+    }
+    res.json({ writerInfoArray });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
+
 
 // 닉네임 값으로 특정 회원 조회 -> 위에꺼 안되서 시도
 router.get('/findMember', async (req, res) => {
   try {
     const nickname = req.query.nickname;
-    const member = await Member.find({nickname:nickname});    
+    const member = await Member.find({ nickname: nickname });
     res.json({ member })
-   
+
   } catch (err) {
     console.log(err);
     res.json({ message: false });
@@ -148,8 +169,8 @@ router.post('/login', async (req, res) => {
         message: '제공된 이메일에 해당하는 유저가 없습니다.',
       });
     }
-    console.log("db속 비밀번호 :",member.pw);
-    console.log("페이지 입력한 비밀번호 :",req.body.pw);
+    console.log("db속 비밀번호 :", member.pw);
+    console.log("페이지 입력한 비밀번호 :", req.body.pw);
     // 요청된 이메일이 데이터베이스에 있다면 비밀번호가 맞는지 확인.
     if (member.pw !== req.body.pw) {
       return res.json({
@@ -160,8 +181,8 @@ router.post('/login', async (req, res) => {
 
     await Member.updateOne({ id: req.body.id }, { $inc: { point: 1 } });
     // 비밀번호까지 맞다면 로그인 성공
-    res.status(200).json({ loginSuccess: true, memberId: member.id, memberNickname:member.nickname });
-    
+    res.status(200).json({ loginSuccess: true, memberId: member.id, memberNickname: member.nickname });
+
   } catch (err) {
     console.log(err);
     res.json({ message: false });

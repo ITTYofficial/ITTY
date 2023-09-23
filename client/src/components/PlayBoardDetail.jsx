@@ -56,6 +56,7 @@ const PlayBoardDetail = () => {
     getPlay();
     getComment();
     memberSearching();
+    
   }, []);
 
   // 날짜 변환 함수
@@ -139,17 +140,15 @@ const PlayBoardDetail = () => {
       })
   }
 
-
-
-
   // 댓글 리스트 저장할 State
   const [commentList, setCommentList] = useState([]);
 
+
   // 댓글 조회 함수
-  const getComment = async () => {
+  /* const getComment = async () => {
     try {
       const res = await axios.get(`http://localhost:8088/comment/commentList?postId=${id}`);
-      
+
       let commentsWithMemberInfo = await Promise.all(
         res.data.comment.map(async (comment) => {
           const writerInfoResponse = await axios.get(
@@ -159,7 +158,7 @@ const PlayBoardDetail = () => {
             class: writerInfoResponse.data.member.class,
             profileImg: writerInfoResponse.data.member.profileImg,
           };
-  
+
           if (comment.reComment) {
             comment.reComment = await Promise.all(
               comment.reComment.map(async (reComment) => {
@@ -174,23 +173,75 @@ const PlayBoardDetail = () => {
               })
             );
           }
-  
+
           return comment;
         })
       );
-  
+
       console.log("commentsWithMemberInfo 내용물 : ", commentsWithMemberInfo);
-  
+
       const sortedComments = commentsWithMemberInfo.sort((a, b) => {
         return new Date(a.createdAt) - new Date(b.createdAt);
       });
-  
+
       setCommentList(sortedComments);
     } catch (err) {
       alert("통신에 실패했습니다.");
       console.log(err);
     }
+  }; */
+
+
+
+
+  // 댓글 조회 함수
+  const getComment = () => {
+    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setCommentList(res.data.comment)
+      })
+  }
+
+  /* 작성자 정보 뭉탱이로 가져가서 받아오기 */
+  const [writerInfoArray, setWriterInfoArray] = useState([]);
+
+  const getWriter = async () => {
+    const obj = {};
+    commentList.forEach(comment => {
+      if (!obj[comment.writer]) {
+        obj[comment.writer] = true;
+      }
+
+      if (comment.reComment) {
+        comment.reComment.forEach(reComment => {
+          if (!obj[reComment.writer]) {
+            obj[reComment.writer] = true;
+          }
+        });
+      }
+    });
+    const writers = Object.keys(obj);
+
+    try {
+      const response = await axios.post('http://localhost:8088/member/getWriterInfo', { writers });
+      const writerInfoArray = response.data.writerInfoArray;
+      console.log('작성자 정보:', writerInfoArray);
+      setWriterInfoArray(writerInfoArray);
+
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  console.log('확인', writerInfoArray);
+
+
+  useEffect(() => {
+    getWriter();
+  }, [commentList]);
+
+  /* 작성자 정보 뭉탱이로 가져가서 받아오기 */
 
   // 댓글 삭제 함수
   const deleteComment = (commentId) => {
@@ -203,43 +254,46 @@ const PlayBoardDetail = () => {
       })
   }
 
-  const ReComment = ({ props }) => (
-    <div className={PlayBoard.recomment_list_box}>
-      <div className={PlayBoard.play_recomment_profile}>
-        <span>
-          <Image
-            src={props.writerInfo
-              .profileImg}
-            roundedCircle
-          />
-        </span>
-        <span>
-          <p>{props.writerInfo
-.class}</p>
-          <h4>{props.writer}</h4>
-        </span><div className={PlayBoard.recomment_cancel}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                        </svg>
-                    </div>
-        
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-      <div>
-        <p>
-          {props.content}
-        </p>
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
+  const ReComment = ({ props, writerInfoArray }) => {
+    /* writerInfoArray랑 일치하는 작성자정보 뽑기 */
+    const writerInfo = writerInfoArray.find(info => info.nickname === props.writer);
 
-      <div className={PlayBoard.comment_time_box_2}>
-        <p>{getTime(props.createdAt)}</p>
-      </div>
-      <div className={PlayBoard.recomment_button_box_2}>댓글쓰기</div>
-    </div>
 
-  );
+    if (writerInfo) {
+      return (
+        <div className={PlayBoard.recomment_list_box}>
+          <div className={PlayBoard.play_recomment_profile}>
+            <span>
+              <Image src={writerInfo.profileImg} roundedCircle />
+            </span>
+            <span>
+              <p>{writerInfo.class}</p>
+              <h4>{props.writer}</h4>
+            </span>
+            <div className={PlayBoard.recomment_cancel}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+              </svg>
+            </div>
+
+          </div>
+          {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
+          <div>
+            <p>
+              {props.content}
+            </p>
+          </div>
+          {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
+
+          <div className={PlayBoard.comment_time_box_2}>
+            <p>{getTime(props.createdAt)}</p>
+          </div>
+          <div className={PlayBoard.recomment_button_box_2}>댓글쓰기</div>
+        </div>
+      )
+    }
+  };
 
 
   const [recommentVisible, setRecommentVisible] = useState(false);
@@ -297,11 +351,11 @@ const PlayBoardDetail = () => {
             <p>{props.class}</p>
             <h4>{props.writer}</h4>
             <div className={PlayBoard.comment_cancel}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                        </svg>
-                    </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+              </svg>
+            </div>
           </span>
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
@@ -315,7 +369,7 @@ const PlayBoardDetail = () => {
         <div>
           <p className={PlayBoard.comment_time_box}>{getTime(props.createdAt)}</p>
         </div>
-        <div className={PlayBoard.recomment_button_box}onClick={showRecommentWrite}>
+        <div className={PlayBoard.recomment_button_box} onClick={showRecommentWrite}>
           댓글쓰기
         </div>
 
@@ -332,7 +386,7 @@ const PlayBoardDetail = () => {
             </div>
           </form>
         }
-        {props.reComment.map((item)=><ReComment props={item}/>)}
+        {props.reComment.map((item) => <ReComment props={item} writerInfoArray={writerInfoArray} />)}
 
       </div>
     );
