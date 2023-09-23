@@ -288,7 +288,7 @@ const PlayBoardDetail = () => {
           <div className={PlayBoard.comment_time_box_2}>
             <p>{getTime(props.createdAt)}</p>
           </div>
-          <div className={PlayBoard.recomment_button_box_2}>댓글쓰기</div>
+          
         </div>
       )
     }
