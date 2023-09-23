@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import style from "../css/Main.module.css";
 import axios from "axios";
+import Image from "react-bootstrap/Image";
 
 // import "../css/Community.css";
 
@@ -83,17 +84,22 @@ const Main = () => {
 
   const Main_detail_play = ({ props }) => (
     <div className={style.Main_grid_detail}>
-      <h4>{props.title}</h4>
-      <div>
-        <p>{getTimeAgoString(props.createdAt)}</p>
-        <p>👁‍🗨{props.views}</p>
-        <p>💬4</p>
-        <div className={style.Main_grid_profile}>
-          <span className={style.profile_text}>
-            <p>데이터디자인반</p>
-            <h4>자바노잼</h4>
-          </span>
-          <span className={style.profile_pic}>{/* <img src="#" />/ */}</span>
+      <div className={style.Main_grid_right_container}>
+        <div className={style.Main_grid_subcontent}>
+          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬4</p>
+        </div>
+        <h4>{props.title}</h4>
+      </div>
+      <div className={style.Main_grid_profile}>
+        <span className={style.profile_text}>
+          <p>데이터디자인반</p>
+          <h4>자바노잼</h4>
+        </span>
+        <div className={style.profile_pic}>
+          <Image
+            src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj"
+            roundedCircle
+          />
         </div>
       </div>
     </div>
@@ -101,17 +107,22 @@ const Main = () => {
 
   const Main_detail_project = ({ props }) => (
     <div className={style.Main_grid_detail}>
-      <h4>{props.title}</h4>
-      <div>
-        <p>{getTimeAgoString(props.createdAt)}</p>
-        <p>👁‍🗨{props.views}</p>
-        <p>💬4</p>
-        <div className={style.Main_grid_profile}>
-          <span className={style.profile_text}>
-            <p>데이터디자인반</p>
-            <h4>자바노잼</h4>
-          </span>
-          <span className={style.profile_pic}>{/* <img src="#" />/ */}</span>
+      <div className={style.Main_grid_right_container}>
+        <div className={style.Main_grid_subcontent}>
+          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬4</p>
+        </div>
+        <h4>{props.title}</h4>
+      </div>
+      <div className={style.Main_grid_profile}>
+        <span className={style.profile_text}>
+          <p>데이터디자인반</p>
+          <h4>자바노잼</h4>
+        </span>
+        <div className={style.profile_pic}>
+          <Image
+            src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj"
+            roundedCircle
+          />
         </div>
       </div>
     </div>
