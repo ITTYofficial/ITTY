@@ -499,7 +499,8 @@
 
 .recomment_button_box:hover {
   font-weight: bold;
-  color: rgb(0, 119, 255);
+  color: rgb(2, 70, 164);
+
 
 
 }
@@ -511,14 +512,17 @@
 
 .recomment_list_box:hover {
   background-color: rgba(224, 248, 255, 0.59);
+  
 }
 
 .recomment_cancel>svg:hover {
   fill: black;
+  transform: scale(1.2);
 }
 
 .comment_cancel>svg:hover {
   fill: black;
+  transform: scale(1.1);
 }
 .comment_time_box {
 
