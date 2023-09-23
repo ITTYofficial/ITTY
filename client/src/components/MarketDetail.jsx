@@ -300,7 +300,7 @@ const MarketDetail = () => {
   
 
   return (
-    <div className={style.Main_container}>
+    <div className={style.Main_container} onClick={toggleMeat}>
       <LeftContainer />
 
       <div className={style.right_container}>

@@ -20,13 +20,13 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  
+  margin-top: 8%;
+
 }
 
 .right_container {
   width: 80%;
   padding: 16px;
-  margin-top: 8%;
 }
 
 @media (max-width: 1024px) {
@@ -282,7 +282,7 @@
   background-color: #2474ff;
 }
 
-.comment_write img{
+.comment_write img {
   width: 100%;
   height: 100%;
 }
@@ -339,14 +339,14 @@
 .play_comment_profile>span>p {
   font-size: 12px;
   margin-top: 8px;
- 
+
 }
 
 .play_comment_profile>span>h4 {
 
   font-size: 16px;
   font-weight: bold;
-  
+
 }
 
 /* 댓글시간 */

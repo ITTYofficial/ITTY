@@ -11,9 +11,9 @@ const ReviewDetail = () => {
     // 특정 게시글 조회하기 위한 id값 가져오기
     const { id } = useParams();
 
-    const Rank = ({score}) => (
+    const Rank = ({ score }) => (
         <span className={`${styles.tag_button} ${styles.star}`}>
-            ⭐{Number(score/2)}
+            ⭐{Number(score / 2)}
         </span>
     );
     const Recomend = () => (
@@ -94,37 +94,6 @@ const ReviewDetail = () => {
         getReview();
     }, []);
 
-    // 날짜 변환 함수
-    const getTimeAgoString = (dateString) => {
-        const createdAt = new Date(dateString);
-        const year = createdAt.getFullYear();
-        const month = createdAt.getMonth() + 1;
-        const day = createdAt.getDate();
-
-        return `${year}년 ${month}월 ${day}일`
-    };
-
-    // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
-    const getTime = (dateString) => {
-        const createdAt = new Date(dateString);
-        const now = new Date();
-        const timeDifference = now - createdAt;
-        const minutesDifference = Math.floor(timeDifference / (1000 * 60));
-        const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-        const daysDifference = Math.floor(hoursDifference / 24);
-
-        if (daysDifference === 0) {
-            if (hoursDifference === 0) {
-                return "방금 전";
-            } else {
-                return `${minutesDifference}분 전`;
-            }
-        } else if (hoursDifference < 24) {
-            return `${hoursDifference}시간 전`;
-        } else {
-            return `${daysDifference}일 전`;
-        }
-    };
 
     // 수정 페이지 이동
     const nav = useNavigate();
@@ -176,8 +145,28 @@ const ReviewDetail = () => {
 
     /* 수정삭제 버튼 */
 
+    // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+    const getTimeAgoString = (dateString) => {
+        const createdAt = new Date(dateString);
+        const now = new Date();
+        const timeDifference = now - createdAt;
+        const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+        const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+        const daysDifference = Math.floor(hoursDifference / 24);
+
+        if (minutesDifference === 0) {
+            return "방금 전";
+        } else if (minutesDifference < 60) {
+            return `${minutesDifference}분 전`;
+        } else if (hoursDifference < 24) {
+            return `${hoursDifference}시간 전`;
+        } else {
+            return `${daysDifference}일 전`;
+        }
+    };
+
     return (
-        <div className={styles.Main_container}>
+        <div className={styles.Main_container} onClick={toggleMeat}>
             <LeftContainer />
             <div className={styles.right_container}>
                 <h2>수료생후기</h2>
@@ -189,15 +178,15 @@ const ReviewDetail = () => {
                         </div>
                         <div>
                             <p>데이터디자인</p>
-                            <p>종강만기다림</p>
+                            <h5>종강만기다림</h5>
                         </div>
                         <div className={styles.tag_buttons}>
-                            {visible[0] && <Rank score={reviewDetail.score}/>}
+                            {visible[0] && <Rank score={reviewDetail.score} />}
                             {visible[1] && <Recomend />}
                             {visible[2] && <Major />}
                         </div>
                     </div>
-                    <div>
+                    <div className={styles.top_sub_content}>
                         <p>{getTimeAgoString(reviewDetail.createdAt)} 👁‍🗨 {reviewDetail.views} 💬 4</p>
                     </div>
                 </div>

@@ -3,13 +3,14 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    margin-top: 8%;
 }
 
 .right_container {
     width: 80%;
     margin: 0 auto;
     padding: 16px;
-    
+
 }
 
 .right_container>h2 {
@@ -53,34 +54,33 @@
 
     background-color: hsl(62, 95%, 51%);
     color: #443807;
-  }
-  
-  .recommend {
-    background-color: #FF78F5 ;
+}
+
+.recommend {
+    background-color: #FF78F5;
     color: #4F0051
-  }
-  
-  .major{
+}
+
+.major {
     background-color: #2EFF55;
-    color:  #0E3311;
-  }
-  
-  .nomajor{
+    color: #0E3311;
+}
+
+.nomajor {
     background-color: #B3A1FF;
     color: #500084
-  
-  }
-  
-  .veryrecommend{
-  
+}
+
+.veryrecommend {
+
     background-color: #FF316C;
     color: #FFFFFF
-  }
-  
-  .notrecommend{
+}
+
+.notrecommend {
     background-color: #E0E0E0;
-    color:#000000;
-  }
+    color: #000000;
+}
 
 
 .tag_buttons {
@@ -91,11 +91,15 @@
     margin: 12px;
 }
 
+.middle_content {
+    position: relative;
+}
+
 .middle_content>h4 {
     font-size: 20px;
     font-weight: bold;
-    margin: 8px 0;
-    text-align: left;
+    margin: 16px 0;
+
 }
 
 /* 상단 구분선 시작*/
@@ -266,13 +270,15 @@
 
 .meatball {
     text-align: end;
-  }
-  
-  .meatball>ul {
+    position: absolute;
+    right: 0;
+}
+
+.meatball>ul {
     position: relative;
-  }
-  
-  .meat_dropdown {
+}
+
+.meat_dropdown {
     font-size: 14px;
     position: absolute;
     right: 0;
@@ -281,39 +287,39 @@
     width: 100px;
     text-align: left;
     border-radius: 8px;
-    z-index:99;
+    z-index: 99;
     background-color: white;
-  }
-  
-  .meat_dropdown li {
+}
+
+.meat_dropdown li {
     display: flex;
     align-items: center;
     margin: 8px;
-  }
-  
-  .meat_dropdown svg {
+}
+
+.meat_dropdown svg {
     margin-right: 8px;
-  }
-  
-  .meat_dropdown>li:hover svg {
+}
+
+.meat_dropdown>li:hover svg {
     fill: #1f6cf1;
-  }
-  
-  .meat_dropdown>li:hover span {
+}
+
+.meat_dropdown>li:hover span {
     color: #1f6cf1;
     font-weight: 600;
-  }
-  
-  .meat_dropdown svg {
+}
+
+.meat_dropdown svg {
     width: 1.25rem;
     height: 1.25rem;
-  
-  }
-  
-  /* 수정삭제 버튼 */
+
+}
+
+/* 수정삭제 버튼 */
 
 
-  .comment_cancel{
+.comment_cancel {
     position: absolute;
     right: 20px;
     top: 20px;
@@ -321,5 +327,24 @@
     fill: rgb(209, 209, 209);
     opacity: 50%;
 
+}
 
-  }
+.top_content>div>div h5 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.top_content>div>div p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #999999;
+}
+
+.top_sub_content p {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 12px 0;
+    color: #999999;
+}

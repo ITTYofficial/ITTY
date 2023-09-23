@@ -3,13 +3,13 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    margin-top: 8%;
 }
 
 .right_container {
     width: 80%;
 
     padding: 16px;
-    margin-top: 8%;
 }
 
 
@@ -384,13 +384,13 @@
     font-weight: 600;
 }
 
-.Top_right_container>div:first-child{
+.Top_right_container>div:first-child {
     display: flex;
     align-items: center;
 }
 
 
-.Top_right_container>div:last-child p{
+.Top_right_container>div:last-child p {
 
     margin: 0;
 }

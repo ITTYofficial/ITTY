@@ -150,8 +150,14 @@ const QnaDetail = () => {
 
   }
 
+  const toggleMeat = () => {
+    if (meat) {
+      setMeat(!meat);
+    }
+  };
+
   return (
-    <div className={style.Main_container}>
+    <div className={style.Main_container} onClick={toggleMeat}>
       <LeftContainer />
       <div className={style.right_container}>
         <div className={style.qna_font}>
@@ -175,13 +181,13 @@ const QnaDetail = () => {
           <div className={style.play_wrap_top}>
             <div className={style.play_profile}>
               <span>
-           
+
                 <span className={style.play_top_title}>
-                  {visible[0] &&<Develope />}
-                  {visible[1] &&<Study />}
-                  {visible[2] &&<Job />}
-                  {visible[3] &&<Life />}
-                  
+                  {visible[0] && <Develope />}
+                  {visible[1] && <Study />}
+                  {visible[2] && <Job />}
+                  {visible[3] && <Life />}
+
                 </span>
                 <h4>{qnaDetail.title}</h4>
               </span>
