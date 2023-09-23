@@ -5,18 +5,18 @@
 }
 
 .Join_content_box1 {
-    width: 30%;
+    width: 400px;
     background-color: #ffffff;
     height: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    margin-top: 4%;
+    margin-top: 8%;
 }
 
 .Join_content_box2 {
-    width: 60%
+    width: 100%;
 }
 
 .Join_content_box_font {

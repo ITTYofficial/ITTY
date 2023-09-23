@@ -67,7 +67,6 @@ const PlayBoardWrite = () => {
 
 
     return (
-        <div className={style.Main_container_box}>
             <div className={style.Main_container}>
                 <h2>자유게시판 ⚽</h2>
                 <div className={style.right_container}>
@@ -94,7 +93,6 @@ const PlayBoardWrite = () => {
                     </form>
                 </div>
             </div>
-        </div>
     )
 }
 

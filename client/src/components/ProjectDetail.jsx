@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import Button from "react-bootstrap/Button";
-import PlayBoard from "../css/PlayBoardDetail.module.css";
+import styles from "../css/ProjectDetail.module.css";
 import axios from "axios";
 import { Link, useParams, useLocation } from "react-router-dom";
 import Image from "react-bootstrap/Image";
@@ -11,25 +11,25 @@ const ProjectDetail = () => {
 
   // 내부 컴포넌트
   const Frontend = () => (
-    <span className={`${PlayBoard.play_title} ${PlayBoard.frontend}`}>
+    <span className={`${styles.play_title} ${styles.frontend}`}>
       프론트엔드✨
     </span>
   );
   const Backend = () => (
-    <span className={`${PlayBoard.play_title} ${PlayBoard.backend}`}>
+    <span className={`${styles.play_title} ${styles.backend}`}>
       백엔드👻
     </span>
   );
   const Db = () => (
-    <span className={`${PlayBoard.play_title} ${PlayBoard.db}`}>
+    <span className={`${styles.play_title} ${styles.db}`}>
       DataBase🎓
     </span>
   );
   const Uxui = () => (
-    <span className={`${PlayBoard.play_title} ${PlayBoard.uxui}`}>UX/UI🎨</span>
+    <span className={`${styles.play_title} ${styles.uxui}`}>UX/UI🎨</span>
   );
   const Fullstack = () => (
-    <span className={`${PlayBoard.play_title} ${PlayBoard.fullstack}`}>
+    <span className={`${styles.play_title} ${styles.fullstack}`}>
       풀스택💼
     </span>
   );
@@ -89,8 +89,8 @@ const ProjectDetail = () => {
 
   /* 댓글 컴포넌트 */
   const CommentItem = ({ props }) => (
-    <div className={PlayBoard.comment_list}>
-      <div className={PlayBoard.play_comment_profile}>
+    <div className={styles.comment_list}>
+      <div className={styles.play_comment_profile}>
         <span>
           <Image
             src="https://i.pinimg.com/736x/24/d2/97/24d2974e5cd0468587422e38c8aab210.jpg"
@@ -216,7 +216,7 @@ const ProjectDetail = () => {
   const [meat, setMeat] = useState(false);
 
   const Dropdown = () => (
-    <div className={PlayBoard.meat_dropdown}>
+    <div className={styles.meat_dropdown}>
       <li onClick={moveUpdate}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -260,20 +260,20 @@ const ProjectDetail = () => {
   /* 수정삭제 버튼 */
 
   return (
-    <div className={PlayBoard.Main_container}>
+    <div className={styles.Main_container}>
       <LeftContainer />
-      <div className={PlayBoard.right_container} onClick={toggleMeat}>
-        <div className={PlayBoard.division_line}>
+      <div className={styles.right_container} onClick={toggleMeat}>
+        <div className={styles.division_line}>
           <div>
             <a href="#">Community🌐</a> /{" "}
-            <a href="/playboardList">프로젝트 같이해요🛵</a>
+            <a href="/stylesList">프로젝트 같이해요🛵</a>
           </div>
         </div>
 
-        <div className={PlayBoard.play_wrap_content}>
+        <div className={styles.play_wrap_content}>
           {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
-          <div className={PlayBoard.play_wrap_top}>
-            <div className={PlayBoard.play_top_title}>
+          <div className={styles.play_wrap_top}>
+            <div className={styles.play_top_title}>
               {visible[0] && <Backend />}
               {visible[1] && <Frontend />}
               {visible[2] && <Fullstack />}
@@ -281,7 +281,7 @@ const ProjectDetail = () => {
               {visible[4] && <Uxui />}
             </div>
 
-            <div className={PlayBoard.play_profile}>
+            <div className={styles.play_profile}>
               <span>
                 <h4>
                   {projectDetail.title}
@@ -292,12 +292,12 @@ const ProjectDetail = () => {
               </span>
 
               <div>
-                <span className={PlayBoard.play_detail_profile}>
-                  <span className={PlayBoard.profile_text}>
+                <span className={styles.play_detail_profile}>
+                  <span className={styles.profile_text}>
                     <p>{memberInfo.class}</p>
                     <h4>{memberInfo.nickname}</h4>
                   </span>
-                  <span className={PlayBoard.profile_pic}>
+                  <span className={styles.profile_pic}>
                     <img src={memberInfo.profileImg} />
                   </span>
                 </span>
@@ -310,7 +310,7 @@ const ProjectDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 END!!!!! */}
 
           {/* 게시글 content 시작 */}
-          <div className={PlayBoard.meatball}>
+          <div className={styles.meatball}>
             <ul>
               <svg
                 onClick={() => {
@@ -329,22 +329,22 @@ const ProjectDetail = () => {
             </ul>
           </div>
 
-          <div className={PlayBoard.play_content}>
+          <div className={styles.play_content}>
             <span dangerouslySetInnerHTML={{ __html: projectDetail.content }}></span>
           </div>
           {/* 게시글 content 끝 */}
 
           {/* 댓글달기 시작 */}
-          <div className={PlayBoard.division_line_comment}>
+          <div className={styles.division_line_comment}>
             <div>
               <h4>댓글 3</h4>
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-            <div className={PlayBoard.comment_write}>
+            <div className={styles.comment_write}>
               <div>
                 <div>
-                <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
                 <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
               </div>
