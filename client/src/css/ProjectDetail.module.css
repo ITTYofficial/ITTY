@@ -1,98 +1,44 @@
+.clearfix::before,
+.clearfix::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.comment_cancel {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  transform: scale(1.2);
+  fill: rgb(209, 209, 209);
+  opacity: 50%;
+}
+
+
 .Main_container {
   max-width: 1320px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  
 }
 
 .right_container {
   width: 80%;
-
   padding: 16px;
+  margin-top: 8%;
 }
 
-.right_container>h2 {
+@media (max-width: 1024px) {
+  .right_container {
+    margin: 0 auto;
+  }
+}
+
+.right_container h2 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 16px;
-}
-
-
-/* 기본에서 추가된 css들 */
-
-.Button_margin Button {
-  margin: 8px 8px 8px 0;
-}
-
-.Top_container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.Profile_img {
-  width: 50px;
-  height: 50px;
-}
-
-.Profile_img img {
-  width: 100%;
-  height: 100%;
-}
-
-.Top_right_container {
-  margin-left: auto;
-}
-
-.Detail_content {
-  margin: 12px 12px 12px 0;
-}
-
-.Detail_content>p img {
-  max-width: 100%;
-}
-
-.Detail_comment {
-  background-color: #d8daf7;
-  margin: 16px;
-  border-radius: 8px;
-  padding: 12px;
-}
-
-.Profile_img_comment {
-  border-radius: 70%;
-  width: 50px;
-  height: 50px;
-  margin-right: 8px;
-  overflow: hidden;
-}
-
-.Profile_img_comment img {
-  width: 100%;
-  height: 100%;
-}
-
-.Comment_flex {
-  display: flex;
-}
-
-.Detail_comment_content {
-  margin: 12px;
-}
-
-.Comment_write {
-  background-color: #7fc3f0;
-  border-radius: 6px;
-  padding: 8px;
-  width: 100%;
-}
-
-.Comment_write_button {
-
-  margin: 8px;
-  display: flex;
-  justify-content: end;
-
 }
 
 /* 상단 구분선 시작*/
@@ -106,7 +52,7 @@
   background-color: white;
   color: #999999;
   display: inline-block;
-  /* margin-left: 1.5rem; */
+  margin-left: 1.5rem;
   z-index: 9;
   padding: 0 4px;
 }
@@ -138,21 +84,21 @@
   color: #7cacff;
 }
 
-.division_top_line {
-  background-color: white;
-  color: #999999;
-  display: inline-block;
-  margin-left: 1.5rem;
-  z-index: 9;
-  padding: 0 4px;
+/* 상단 구분선 끝 */
+.play_wrap_content {
+  padding: 4px 16px;
 }
 
-/* 상단 구분선 끝 */
+.play_wrap_top::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  /* margin: 16px auto; */
+  background-color: #eeeeee;
+}
 
-
-/* 키워드 css */
-
-.keyworld_buttons {
+.play_top_title {
   margin: 16px 0;
 }
 
@@ -166,28 +112,126 @@
   box-shadow: 1px 1px 2px rgb(144, 144, 144);
 }
 
-
-.type {
-  background-color: pink;
-  color: palevioletred;
+/* 왜 자유게시판에 프로젝트 버튼 css가 있을까유..?우선 여기에서 수정..~ */
+.frontend {
+  background-color: #2EFF55;
+  color: #0E3311;
 }
 
-.purpose {
-  background-color: rgb(139, 139, 228);
-  color: rgb(65, 65, 212);
+.backend {
+  background-color: #FF316C;
+  color: #FFFFFF;
 }
 
-.deadline {
-  background-color: rgb(165, 165, 165);
-  color: #eeeeee;
+.db {
+  background-color: #B3A1FF;
+  color: #500084;
 }
 
-/* 키워드 css */
+.uxui {
+  background-color: #71FFFF;
+  color: #003A47;
+}
+
+.fullstack {
+  background-color: #247DFF;
+  color: #FFFFFF;
+}
+
+/*  */
+.play_profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.play_profile>span>h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 16px 0;
+}
+
+.play_profile>span>p {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 12px 0;
+  color: #999999;
+
+}
+
+.play_detail_profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.profile_text {
+  margin-right: 8px;
+}
+
+.profile_text>p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: right;
+  color: #999999;
+}
+
+.profile_text>h4 {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.profile_pic {
+  width: 50px;
+  height: 50px;
+  background-color: #2474ff;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile_pic img {
+  width: 100%;
+}
 
 
-/* 댓글작성 */
+/* profile 끝~! */
+.play_content {
+  padding: 0 16px 16px 16px;
+}
 
+/* 댓글 시작 */
+.division_line_ant {
+  position: relative;
+}
 
+.division_line_commant>div {
+  position: relative;
+  background-color: white;
+  color: #999999;
+  display: inline-block;
+  z-index: 9;
+  padding: 0 8px;
+}
+
+.division_line_commant::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 50% 0;
+  background-color: #eeeeee;
+  height: 0.5px;
+}
+
+.division_line_commant div h4 {
+  color: #333333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 댓글 끝 */
 .comment_write {
   margin: 32px 0 5rem 0;
 }
@@ -219,11 +263,6 @@
   line-height: 1.5rem;
 }
 
-.comment_write img {
-  width: 100%;
-  height: 100%;
-}
-
 .comment_write button {
   text-decoration: none;
   float: right;
@@ -243,41 +282,24 @@
   background-color: #2474ff;
 }
 
-/* 댓글작성 */
+.comment_write img{
+  width: 100%;
+  height: 100%;
+}
 
-
-/* 댓글 */
-
+/* 댓글박스 */
 .comment_list {
   width: 100%;
   border: none;
   border-radius: 10px;
   padding: 16px;
   background-color: #f0f9ff;
-  box-shadow: 2px 2px 8px #cdcdcd;
-  line-height: 1.5rem;
+  box-shadow: 2px 2px 1px #d4d4d4;
+  line-height: 1.2rem;
   margin-top: 2rem;
-
   position: relative;
+  align-items: center;
 }
-
-
-.comment_list div:nth-child(2) {
-  padding: 8px 16px;
-  line-height: 1.3rem;
-  font-size: 14px;
-}
-
-.comment_list div:nth-child(3)>p {
-  font-size: 14px;
-  font-weight: bold;
-  color: #999999;
-  position: absolute;
-  top: 12px;
-  right: 16px;
-}
-
-
 
 .play_comment_profile {
   display: flex;
@@ -297,19 +319,45 @@
   height: 100%;
 }
 
-.play_comment_profile span:last-child p {
+/* .play_comment_profile span:last-child p {
   font-size: 12px;
   margin-bottom: 4px;
   color: #999999;
   line-height: 12px;
+} */
+
+
+
+.comment_list div:nth-child(2) {
+  padding: 8px 16px;
+
+  line-height: 1.5rem;
+  font-size: 14px;
 }
 
-.play_comment_profile span:last-child h4 {
-  font-size: 20px;
+/* 댓글 닉네임, 소속 */
+.play_comment_profile>span>p {
+  font-size: 12px;
+  margin-top: 8px;
+ 
+}
+
+.play_comment_profile>span>h4 {
+
+  font-size: 16px;
   font-weight: bold;
+  
 }
 
-/* 댓글 */
+/* 댓글시간 */
+.comment_list div:nth-child(3)>p {
+  font-size: 14px;
+  font-weight: bold;
+  color: #999999;
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+}
 
 /* 수정삭제 버튼 */
 
@@ -356,7 +404,108 @@
 .meat_dropdown svg {
   width: 1.25rem;
   height: 1.25rem;
-
 }
 
 /* 수정삭제 버튼 */
+
+
+/* 대댓글 */
+
+.recomment_write {
+  margin: 32px 0 5rem 0;
+}
+
+.recomment_write div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 12px;
+}
+
+.recomment_write>div>div {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #999999;
+}
+
+.recomment_write textarea {
+  width: 90%;
+  height: 100px;
+  resize: none;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #999999;
+  /* background-color: #f0f9ff; */
+  /* box-shadow: 2px 2px 8px #cdcdcd; */
+  line-height: 1.5rem;
+}
+
+.recomment_write button {
+  text-decoration: none;
+  float: right;
+  color: #eeeeee;
+  font-weight: 600;
+  font-size: 16px;
+
+  border-radius: 10px;
+  border: none;
+  display: inline-block;
+  background-color: #999999;
+  padding: 12px 20px;
+  margin-right: 16px;
+}
+
+.recomment_write button:hover {
+  background-color: #2474ff;
+}
+
+
+/* 대댓글 */
+
+/* 댓글 구분선 */
+
+.division_line_comment {
+  position: relative;
+  display: flex;
+  margin: 32px 0;
+}
+
+.division_line_comment>div {
+  background-color: white;
+  color: #999999;
+  display: inline-block;
+  /*   margin-left: 1.5rem; */
+  z-index: 9;
+  padding: 0 4px;
+}
+
+.division_line_comment::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 50% 0;
+  background-color: #999999;
+  height: 0.5px;
+}
+
+.division_line_comment div a {
+  color: #999999;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.division_line_comment div a:hover {
+  color: #2474ff;
+}
+
+.division_line_comment div a:nth-child(2) {
+  color: #2474ff;
+}
+
+.division_line_comment div a:nth-child(2):hover {
+  color: #7cacff;
+}
+
+/* 댓글 구분선 */
