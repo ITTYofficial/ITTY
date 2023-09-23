@@ -354,56 +354,105 @@
 
 }
 
+
 /* 수정삭제 버튼 */
 
-.meatball {
-  text-align: end;
-}
 
-.meatball>ul {
-  position: relative;
-}
-
-.meat_dropdown {
-  font-size: 14px;
+.comment_cancel {
   position: absolute;
-  right: 0;
-  box-shadow: 1px 1px 8px gray;
-  padding: 4px 8px;
-  width: 100px;
-  text-align: left;
-  border-radius: 8px;
-  z-index: 99;
-  background-color: white;
+  right: 50px;
+  top: 50px;
+  transform: scale(1.4);
+  fill: rgb(209, 209, 209);
+  opacity: 60%;
 }
 
-.meat_dropdown li {
+.comment_cancel>svg {
+  position: relative;
+  bottom: 15px;
+}
+
+
+.comment_cancel>svg:hover {
+  fill: black;
+  transform: scale(1.1);
+}
+.comment_time_box {
+
+  left: 45px;
+}
+
+.comment_time_box_2 {
+  margin-left: 15px;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+/* 대댓글 */
+
+
+.recomment_write {
+  margin: 32px 0 3.5rem 0;
+}
+
+.recomment_write div {
   display: flex;
   align-items: center;
-  margin: 8px;
+  justify-content: space-around;
+  margin-bottom: 12px;
 }
 
-.meat_dropdown svg {
-  margin-right: 8px;
+.recomment_write>div>div {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #999999;
 }
 
-.meat_dropdown>li:hover svg {
-  fill: #1f6cf1;
+.recomment_write textarea {
+  width: 90%;
+  height: 100px;
+  resize: none;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #999999;
+  /* background-color: #f0f9ff; */
+  /* box-shadow: 2px 2px 8px #cdcdcd; */
+  line-height: 1.5rem;
+  background-color: #f0f9ff
 }
 
-.meat_dropdown>li:hover span {
-  color: #1f6cf1;
-  font-weight: 600;
+.recomment_list_box:hover {
+  background-color: rgba(224, 248, 255, 0.59);
+  
 }
 
-.meat_dropdown svg {
-  width: 1.25rem;
-  height: 1.25rem;
+.recomment_cancel>svg:hover {
+  fill: black;
+  transform: scale(1.2);
 }
 
-/* 수정삭제 버튼 */
 
-/*리댓글 css -상지*/
+.recomment_cancel {
+  position: absolute;
+  right: 70px;
+  transform: scale(1.2);
+  fill: rgb(29, 50, 244);
+  opacity: 50%;
+  padding: 12px;
+
+
+
+}
+
+.recomment_button_box:hover {
+  font-weight: bold;
+  color: rgb(2, 70, 164);
+
+
+
+}
 .recomment_list_box {
 
   margin-left: 5%;
@@ -476,102 +525,6 @@
 }
 
 
-.comment_cancel {
-  position: absolute;
-  right: 50px;
-  top: 50px;
-  transform: scale(1.4);
-  fill: rgb(209, 209, 209);
-  opacity: 60%;
-}
-
-.recomment_cancel {
-  position: absolute;
-  right: 70px;
-  transform: scale(1.2);
-  fill: rgb(29, 50, 244);
-  opacity: 50%;
-  padding: 12px;
-
-
-
-}
-
-.recomment_button_box:hover {
-  font-weight: bold;
-  color: rgb(2, 70, 164);
-
-
-
-}
-
-.comment_cancel>svg {
-  position: relative;
-  bottom: 15px;
-}
-
-.recomment_list_box:hover {
-  background-color: rgba(224, 248, 255, 0.59);
-  
-}
-
-.recomment_cancel>svg:hover {
-  fill: black;
-  transform: scale(1.2);
-}
-
-.comment_cancel>svg:hover {
-  fill: black;
-  transform: scale(1.1);
-}
-.comment_time_box {
-
-  left: 45px;
-}
-
-.comment_time_box_2 {
-  margin-left: 15px;
-  position: relative;
-  margin-bottom: 12px;
-}
-
-/* 대댓글 */
-
-.recomment_write {
-  margin: 32px 0 3.5rem 0;
-}
-
-.recomment_write div {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 12px;
-}
-
-.recomment_write>div>div {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #999999;
-}
-
-.recomment_write textarea {
-  width: 90%;
-  height: 100px;
-  resize: none;
-  border: none;
-  border-radius: 10px;
-  padding: 16px;
-  border: 1px solid #999999;
-  /* background-color: #f0f9ff; */
-  /* box-shadow: 2px 2px 8px #cdcdcd; */
-  line-height: 1.5rem;
-  background-color: #f0f9ff
-}
-
-
-
-/* 대댓글 */
 
 /* 댓글 구분선 */
 
@@ -617,4 +570,50 @@
   color: #7cacff;
 }
 
-/* 댓글 구분선 */
+
+/* 수정삭제 버튼 */
+
+.meatball {
+  text-align: end;
+}
+
+.meatball>ul {
+  position: relative;
+}
+
+.meat_dropdown {
+  font-size: 14px;
+  position: absolute;
+  right: 0;
+  box-shadow: 1px 1px 8px gray;
+  padding: 4px 8px;
+  width: 100px;
+  text-align: left;
+  border-radius: 8px;
+  z-index: 99;
+  background-color: white;
+}
+
+.meat_dropdown li {
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+
+.meat_dropdown svg {
+  margin-right: 8px;
+}
+
+.meat_dropdown>li:hover svg {
+  fill: #1f6cf1;
+}
+
+.meat_dropdown>li:hover span {
+  color: #1f6cf1;
+  font-weight: 600;
+}
+
+.meat_dropdown svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
