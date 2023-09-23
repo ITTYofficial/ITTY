@@ -13,7 +13,9 @@
 .Wrap_main_imageSlide {
   height: 300px;
   margin-bottom: 30px;
-  /* border-top: 1px solid black;
+  overflow: hidden;
+  margin-top: 4%;
+    /* border-top: 1px solid black;
   border-bottom: 1px solid black; */
 }
 
@@ -156,15 +158,21 @@
   margin-bottom: 12px;
 }
 
-.Main_grid_right_container h4{
+.Main_grid_right_container h4 {
   font-size: 18px;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.profile_pic img{
+.profile_pic img {
   width: 100%;
   height: 100%;
+}
+
+.Wrap_main_imageSlide img{
+  object-fit: cover;
+  width: 100%;
+  height: 300px;
 }
