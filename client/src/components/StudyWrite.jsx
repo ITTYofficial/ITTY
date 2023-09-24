@@ -47,7 +47,7 @@ const StudyWrite = () => {
         console.log('프로젝트 종료일:', endDate);
         const formData = new FormData(event.target);
         formData.append('id', sessionStorage.getItem('memberId'));
-
+        formData.append('writer', sessionStorage.getItem('memberNickname'));
         const obj = {};
         formData.forEach((value, key) => {
             console.log(`폼 요소 이름: ${key}, 값: ${value}`);
