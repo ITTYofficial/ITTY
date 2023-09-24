@@ -3,17 +3,17 @@ import styles from '../css/PortWrite.module.css'
 import axios from 'axios'
 import QuillTest from './QuillTest';
 import Button from 'react-bootstrap/Button';
-import { PlayBoardContext } from '../context/PlayBoardContext';
 import { useLocation } from 'react-router-dom';
 import "cropperjs/dist/cropper.css";
 import Modal from 'react-bootstrap/Modal';
 import Cropper from "react-cropper";
 import "../css/Cropper.css";
+import { QuillContext } from '../context/QuillContext';
 
 const PortWrite = () => {
 
   // Quill value
-  const { value, setValue } = useContext(PlayBoardContext);
+  const { value, setValue } = useContext(QuillContext);
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const location = useLocation();

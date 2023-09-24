@@ -5,8 +5,8 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import "../css/Quill.css";
-import { PlayBoardContext } from "../context/PlayBoardContext";
 import { useLocation } from "react-router-dom";
+import { QuillContext } from "../context/QuillContext";
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
@@ -116,7 +116,7 @@ const QuillTest = ({ update }) => {
     "image",
   ];
 
-  const { value, setValue } = useContext(PlayBoardContext);
+  const { value, setValue } = useContext(QuillContext);
 
   // console.log("여기서 출력되는거에용", value);
 

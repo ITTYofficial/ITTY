@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import style from "../css/QnaDetail.module.css";
 import styles from "../css/Community.module.css";
@@ -6,6 +6,8 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { QuillContext } from "../context/QuillContext";
+import CommentItem from "./CommentItem";
 
 /* css는 project etail css 내용만 가져와서 추가해서 사용 중~ */
 
@@ -27,48 +29,6 @@ const QnaDetail = () => {
     <span className={`${style.play_title} ${style.life}`}>생활/기타🌷</span>
   );
 
-  const CommentItem = () => (
-    <div className={style.comment_list}>
-      <div className={style.play_comment_profile}>
-        <span></span>
-        <span>
-          {/* 댓글 프로필 */}
-          <p>빅데이터분석</p>
-          <h4>수업시간에롤</h4>
-          <div className={style.comment_cancel}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-trash"
-              viewBox="0 0 16 16"
-            >
-              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-            </svg>
-          </div>
-        </span>
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-      <span>
-        <p>정말 꿀팁이라고 생각합니다.</p>
-      </span>
-      <span className={style.qna_choice_box}>
-        <button type="button" class="btn btn-warning">
-          채택 👍
-        </button>
-
-      </span>
-
-      {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
-
-      <div>
-        <p className={style.comment_time_box}>3시간 전</p>
-      </div>
-      <div className={style.recomment_button_box}>댓글쓰기</div>
-    </div>
-  );
 
   // 게시글정보 저장할 State
   const [qnaDetail, setQnADetail] = useState([]);
@@ -92,9 +52,43 @@ const QnaDetail = () => {
       });
   };
 
+  // 댓글 내용 담을 State
+  const [comment, setComment] = useState();
+
+  // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
+  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+
+  // 댓글 내용 가져오는 함수
+  const commentChange = (e) => {
+    setComment(e.target.value);
+  }
+
+  // 댓글 작성완료 시 호출되는 함수
+  function commentSubmit(event) {
+    event.preventDefault();
+    const obj = {
+      writer: sessionStorage.getItem("memberNickname"),
+      postid: id,
+      content: comment
+    };
+    console.log(obj);
+
+    axios.post('http://localhost:8088/comment/write', obj)
+      .then((res) => {
+        alert("댓글이 등록되었습니다.")
+        console.log(res);
+        getComment(id);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("게시글 작성 실패")
+      })
+  }
+
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getQnA();
+    getComment(id);
   }, []);
 
   // 날짜 변환 함수
@@ -246,21 +240,20 @@ const QnaDetail = () => {
               <h4>댓글 3</h4>
             </div>
           </div>
-
-          <div className={style.comment_write}>
-            <div>
+          <form onSubmit={commentSubmit}>
+            <div className={style.comment_write}>
               <div>
-                <img src="#" />
+                <div>
+                  <img src="#" />
+                </div>
+                <textarea onBlur={commentChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
               </div>
-              <textarea placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+              <button type="submit">댓글쓰기</button>
             </div>
-            <button type="submit">댓글쓰기</button>
-          </div>
-
+          </form>
           {/* 댓글달기 끝 */}
 
-          <CommentItem />
-          <CommentItem />
+          {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} />))}
         </div>
       </div>
     </div>

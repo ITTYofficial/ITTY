@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import style from "../css/QnaWrite.module.css"
 import QuillTest from './QuillTest';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { PlayBoardContext } from '../context/PlayBoardContext';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { QuillContext } from '../context/QuillContext';
 
 
 const QnaWrite = () => {
@@ -25,7 +25,7 @@ const QnaWrite = () => {
     // 글 작성 관련
 
     // Quill value
-    const { value, setValue } = useContext(PlayBoardContext);
+    const { value, setValue } = useContext(QuillContext);
 
     // 특정 게시글 조회하기 위한 id값 가져오기
     const location = useLocation();
