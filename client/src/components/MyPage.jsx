@@ -220,6 +220,7 @@ const MyPage = () => {
         try {
             console.log('닉네임:', nickname);
             const response = await axios.post(`http://localhost:8088/member/updateNick`,obj);
+            // const res = await axios.post(`http://localhost:8088/`) 
             if (response.data.message === "회원정보수정이 완료되었습니다.") {
                 sessionStorage.removeItem('memberNickname');
                 sessionStorage.setItem('memberNickname',response.data.nickname)
@@ -309,7 +310,6 @@ const MyPage = () => {
                              {nicknameVisable &&
                                     <div className={styles.nickname_modify_wrapper}>
                                     <input type="text" className="form-control" id="nickname" name='nickname' value={nickname} onChange={(e) => setNickname(e.target.value)} onBlur={nicknameCheck} placeholder={sessionStorage.getItem('memberNickname')}/>
-                                    <div>수정완료</div>
                                     <button type='submit'>수정완료</button>
                                 </div>
                             }
