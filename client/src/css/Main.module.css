@@ -62,13 +62,15 @@
 .Main_grid_1 h3 {
   background-color: #2474ff;
   padding: 16px 24px;
-  border-radius: 10px;
+  border-radius: 20px 20px 0 0;
   box-shadow: 1px 1px #a0a0a0;
   margin-bottom: 24px;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 2px;
-  color: #eeeeee;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 2px 2px 2px #494949f5;
 }
 
 .Main_grid_detail {
@@ -139,16 +141,17 @@
 }
 
 .Main_grid_2 h3 {
-  background-color: #ffa329;
+  background-color: #ff8508;
   padding: 16px 24px;
-  border-radius: 10px;
+  border-radius: 20px 20px 0 0;
   box-shadow: 1px 1px #a0a0a0;
   margin-bottom: 24px;
-
+  text-shadow: 2px 2px 2px #494949f5;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 1.5px;
-  color: #333333;
+  text-align: center;
+  color: #ffffff;
 }
 
 /* .Main_grid_detail::after {
