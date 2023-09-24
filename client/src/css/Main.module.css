@@ -70,7 +70,7 @@
   letter-spacing: 2px;
   color: #ffffff;
   text-align: center;
-  text-shadow: 2px 2px 2px #494949f5;
+  text-shadow: -.03em .03em #182642;
 }
 
 .Main_grid_detail {
@@ -146,7 +146,7 @@
   border-radius: 20px 20px 0 0;
   box-shadow: 1px 1px #a0a0a0;
   margin-bottom: 24px;
-  text-shadow: 2px 2px 2px #494949f5;
+  text-shadow: -.03em .03em #182642;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 1.5px;
