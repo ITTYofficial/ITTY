@@ -58,7 +58,7 @@ const QnaDetail = () => {
         <button type="button" class="btn btn-warning">
           채택 👍
         </button>
-        
+
       </span>
 
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
@@ -232,10 +232,11 @@ const QnaDetail = () => {
                 {meat && <Dropdown />}
               </ul>
             </div>
-
-            <span
-              dangerouslySetInnerHTML={{ __html: qnaDetail.content }}
-            ></span>
+            <div className='quill_content_font_style'>
+              <span
+                dangerouslySetInnerHTML={{ __html: qnaDetail.content }}
+              ></span>
+            </div>
           </div>
           {/* 게시글 content 끝 */}
 

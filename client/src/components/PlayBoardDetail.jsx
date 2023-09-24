@@ -354,9 +354,11 @@ const PlayBoardDetail = () => {
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
         <div>
+
           <p>
             {props.content}
           </p>
+
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
@@ -494,8 +496,9 @@ const PlayBoardDetail = () => {
           </div>
 
           <div className={PlayBoard.play_content}>
-            <span dangerouslySetInnerHTML={{ __html: playDetail.content }}>
-            </span>
+            <div className='quill_content_font_style'>
+              <span dangerouslySetInnerHTML={{ __html: playDetail.content }}></span>
+            </div>
           </div>
           {/* 게시글 content 끝 */}
 

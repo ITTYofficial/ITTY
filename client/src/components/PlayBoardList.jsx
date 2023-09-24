@@ -31,8 +31,10 @@ const PlayBoardList = (props) => {
         console.log("1. writer :", res.data.play[0].writer);
         let memberPromises = res.data.play.map((play) => {
           const nickname = play.writer;
+          const id = play.id
+
           return axios.get(
-            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
+            `http://localhost:8088/member/memberSearching?id=${id}`
           );
         });
 
@@ -91,7 +93,7 @@ const PlayBoardList = (props) => {
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
-        <Link to={`/playboardDetail/${props._id}?nickname=${props.member.nickname}`}>
+        <Link to={`/playboardDetail/${props._id}?id=${props.member.nickname}`}>
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}

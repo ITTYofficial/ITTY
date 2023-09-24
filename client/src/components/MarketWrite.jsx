@@ -99,6 +99,7 @@ const MarketWrite = () => {
     e.preventDefault();
     console.log(e.target);
     const formData = new FormData(e.target);
+    formData.append('id', sessionStorage.getItem('memberId'));
 
     const obj = {};
     formData.forEach((value, key) => {

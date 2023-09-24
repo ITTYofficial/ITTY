@@ -127,13 +127,13 @@ router.post('/nicknameCheck', async (req, res) => {
 // 닉네임 값으로 특정 회원 조회
 router.get('/memberSearching', async (req, res) => {
   try {
-    const nickname = req.query.nickname;
-    console.log('회원조회도착 nickname', nickname);
-    const member = await Member.findOne({ nickname: nickname });
-    console.log('회원조회도착 class :', member.class);
+    const id = req.query.id;
+    console.log('회원조회도착 id', id);
+    const member = await Member.findOne({ id: id });
+    console.log('회원조회도착 class :', member);
     if (member) {
       res.json({
-        member
+        member : member
         // nickname:member.nickname,
         // profileImg : member.profileImg,
         // class:member.class           

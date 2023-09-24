@@ -32,7 +32,8 @@ router.post('/write', async (req, res) => {
         }else{
         // 글 작성 시
         obj = {
-            writer: "허허",
+            id : req.body.id,
+            writer: req.body.nickname,
             title: req.body.title,
             content: req.body.content,
             persons: req.body.persons,

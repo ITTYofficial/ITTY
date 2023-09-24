@@ -48,6 +48,7 @@ const ProjectWrite = () => {
         // console.log('프로젝트 시작일:', startDate);
         // console.log('프로젝트 종료일:', endDate);
         const formData = new FormData(event.target);
+        formData.append('id', sessionStorage.getItem('memberId'));
 
         const obj = {};
         formData.forEach((value, key) => {

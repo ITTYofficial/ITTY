@@ -21,6 +21,7 @@ const PlayBoardWrite = () => {
 
         const formData = new FormData(e.target);
         formData.append('writer', nickname);
+        formData.append('id', sessionStorage.getItem('memberId'));
         console.log(e.target);
 
         const obj = {};

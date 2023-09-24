@@ -271,7 +271,9 @@ const PortDetail = () => {
 
 
         <div>
-          <p dangerouslySetInnerHTML={{ __html: portDetail.content }}></p>
+          <div className='quill_content_font_style'>
+            <p dangerouslySetInnerHTML={{ __html: portDetail.content }}></p>
+          </div>
         </div>
 
         <div className={style.division_line_comment}>

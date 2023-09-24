@@ -60,7 +60,7 @@ router.post('/write', upload.single('img'), async (req, res) => {
     }else{
     // 글 작성 시
     obj = {
-
+      id : req.body.id,
       title: req.body.title,
       writer: "gg",
       content: req.body.content,
