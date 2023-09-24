@@ -316,7 +316,9 @@ const StudyDetail = () => {
                         </div>
 
                         <div className={style.Detail_content}>
-                            <p dangerouslySetInnerHTML={{ __html: studyDetail.content }}></p>
+                            <div className='quill_content_font_style'>
+                                <p dangerouslySetInnerHTML={{ __html: studyDetail.content }}></p>
+                            </div>
                         </div>
                     </div>
 

@@ -330,7 +330,9 @@ const ProjectDetail = () => {
           </div>
 
           <div className={styles.play_content}>
-            <span dangerouslySetInnerHTML={{ __html: projectDetail.content }}></span>
+            <div className='quill_content_font_style'>
+              <span dangerouslySetInnerHTML={{ __html: projectDetail.content }}></span>
+            </div>
           </div>
           {/* 게시글 content 끝 */}
 

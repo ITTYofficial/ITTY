@@ -1,0 +1,23 @@
+.quill_content_font_style h1 {
+    font-size: 2em;
+}
+
+.quill_content_font_style h2 {
+    font-size: 1.5em;
+}
+
+.quill_content_font_style h3 {
+    font-size: 1.17em;
+}
+
+.quill_content_font_style p {
+    font-size: 1em;
+}
+
+.quill_content_font_style strong {
+    font-weight: bold;
+}
+
+.quill_content_font_style em{
+    font-style: italic;
+}

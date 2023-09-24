@@ -204,7 +204,9 @@ const ReviewDetail = () => {
                         </ul>
                     </div>
                     <div>
-                        <p dangerouslySetInnerHTML={{ __html: reviewDetail.content }}></p>
+                        <div className='quill_content_font_style'>
+                            <p dangerouslySetInnerHTML={{ __html: reviewDetail.content }}></p>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.division_line}>

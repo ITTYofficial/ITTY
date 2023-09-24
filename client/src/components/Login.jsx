@@ -62,7 +62,7 @@ const Login = () => {
   return (
     <div>
       <div className={style.Join_content_box3}>
-        <div className={style.Join_content_box_2}>
+        <div className={style.Join_content_box2}>
           <div>
             <div className={style.Join_content_box_font}>
               <Link to={"/"}>

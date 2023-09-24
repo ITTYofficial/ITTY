@@ -38,6 +38,8 @@ import PortWrite from "./components/PortWrite";
 import MyPage from "./components/MyPage";
 import CropperTest from "./components/CropperTest";
 
+import "./css/quill_content_font_style.css"
+
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
 
