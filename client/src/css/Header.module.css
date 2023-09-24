@@ -6,11 +6,17 @@
   position: fixed;
   z-index: 10;
   align-items: flex-start;
-  background: linear-gradient(white 72px, #ffffffdc 50px);
+  background: linear-gradient(white 72px, #ffffffee 50px);
   border-bottom: 2px solid #999999;
   top: 0;
   left: 0;
   right: 0;
+  height: 65px;
+  transition-duration: 300ms;
+  overflow: hidden;
+}
+.NavDropdown{
+  height: 250px;
 }
 /* 로그인 이후 로그아웃 버튼에 검정선 생기는 현상 해결 */
 button {
@@ -32,17 +38,17 @@ button {
   overflow: hidden;
 }
 
-.NavDropdown {
+.Category ul {
   display: flex;
   margin: 8px 0;
-  height: 50px;
   text-align: center;
 }
+/* 
 .NavDropdownHover{
   display: flex;
   margin: 8px 0;
   text-align: center;
-}
+} */
 
 .Category > ul > li {
   display: inline-block;
@@ -127,11 +133,6 @@ button {
   width: 100%;
 }
 
-.Category > ul > li {
-  display: inline-block;
-  padding: 8px 16px;
-  margin: 8px 16px;
-}
 
 .Category > ul > li > a {
   text-decoration: none;
@@ -150,7 +151,8 @@ button {
 
 /* ===== 카테고리(소) ===== */
 .Category ul li ul{
-  margin-top: 25px;
+  margin-top: 35px;
+  flex-direction: column;
 }
 .Category ul li ul li a{
   font-size: 14px;

@@ -57,12 +57,18 @@ const Header = () => {
   // 네비게이션 hover시
   const [mouseEnter, setMouseEnter] = useState(false);
 
-  const navDropdown =() => {
-    setMouseEnter(!mouseEnter);
+  const navDropdownEnter =() => {
+    setMouseEnter(true);
+  }
+  const navDropdownLeave =() => {
+    setMouseEnter(false);
   }
 
   return (
-    <div className={Nav.Navigation} onMouseEnter={navDropdown} onMouseLeave={navDropdown}>
+    <div className={`${Nav.Navigation} ${mouseEnter ? Nav.NavDropdown : ""}`}
+    onMouseEnter={navDropdownEnter}
+    onMouseLeave={navDropdownLeave}
+    >
       <div className={Nav.logo_image}>
         <Link to={"/"}>
           <img src="https://i.ibb.co/YbFJpm1/logo.png" alt="Logo" />
@@ -71,7 +77,7 @@ const Header = () => {
 
       {/* className={`${Nav.aside} ${sidebar ? Nav.button_transform : ""}`} */}
       <div className={Nav.Category}>
-        <ul className={`${mouseEnter ? Nav.NavDropdown : Nav.NavDropdownHover}`}>
+        <ul>
           <li
             className={Nav.nav_hover}
           >
