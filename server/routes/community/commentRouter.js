@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Comment = require('../../schemas/community/comment')
+const Member = require('../../schemas/member/member')
 
 // 댓글 작성
 router.post('/write', async (req, res) => {
@@ -29,7 +30,7 @@ router.post('/reWrite', async (req, res) => {
   try {
 
     let obj;
-    
+
     obj = {
       writer: req.body.writer,
       content: req.body.content,
@@ -37,7 +38,7 @@ router.post('/reWrite', async (req, res) => {
     };
 
     await Comment.findOneAndUpdate(
-      { _id: req.body.commentID},
+      { _id: req.body.commentID },
       {
         $push: {
           reComment: obj
@@ -57,7 +58,7 @@ router.post('/reWrite', async (req, res) => {
 router.get('/commentList', async (req, res) => {
   const postId = req.query.postId;
   try {
-    console.log('댓글 리스트도착',postId);
+    console.log('댓글 리스트도착', postId);
     const comment = await Comment.find({ postId: postId });
     res.json({ comment })
   } catch (err) {
@@ -65,6 +66,66 @@ router.get('/commentList', async (req, res) => {
     res.json({ message: false });
   }
 })
+
+
+// 새로운 조회함수
+
+router.get('/commentList2', async (req, res) => {
+  console.time('소요시간');
+  const postId = req.query.postId;
+  try {
+    console.log('댓글 리스트 도착', postId);
+
+    // 댓글 및 대댓글 작성자 닉네임 모음
+    const writerNicknames = [];
+
+    const comments = await Comment.find({ postId: postId });
+
+    // 댓글 작성자 닉네임 수집
+    comments.forEach(comment => {
+      if (comment.writer) {
+        writerNicknames.push(comment.writer);
+      }
+      if (comment.reComment) {
+        comment.reComment.forEach(reComment => {
+          if (reComment.writer) {
+            writerNicknames.push(reComment.writer);
+          }
+        });
+      }
+    });
+
+
+    // 작성자 정보 일괄 조회
+    const writerInfos = await Member.find({ nickname: { $in: writerNicknames } });
+
+    const getWriterInformation = comments.map(comment => {
+      const writerInfo = writerInfos.find(info => info.nickname === comment.writer);
+
+      if (comment.reComment) {
+        comment.reComment.forEach(reComment => {
+          const reWriterInfo = writerInfos.find(info => info.nickname === reComment.writer);
+          reComment.writerInfo = reWriterInfo.toJSON();
+        });
+      }
+
+      return {
+        ...comment.toJSON(),
+        writerInfo: writerInfo.toJSON(),
+      };
+    });
+
+    res.json({ comments: getWriterInformation });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+  console.timeEnd('소요시간');
+})
+
+
+
+
 
 // 댓글 삭제
 router.get("/delete/:_id", async (req, res) => {
