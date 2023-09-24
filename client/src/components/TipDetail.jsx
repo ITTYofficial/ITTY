@@ -237,8 +237,9 @@ const TipDetail = () => {
                 {meat && <Dropdown />}
               </ul>
             </div>
-
-            <p dangerouslySetInnerHTML={{ __html: tipDetail.content }}></p>
+            <div className='quill_content_font_style'>
+              <p dangerouslySetInnerHTML={{ __html: tipDetail.content }}></p>
+            </div>
           </div>
           {/* 게시글 content 끝 */}
 

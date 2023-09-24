@@ -946,3 +946,7 @@
     border: 1px solid #ccc;
   }
   
+
+  .ql-editor strong{
+    font-weight: bold;
+  }

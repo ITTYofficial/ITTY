@@ -1,8 +1,6 @@
 .Main_container {
-    max-width: 70%;
+    width: 45%;
     margin: 0 auto;
-    display: grid;
-    justify-content: center;
     padding-bottom: 16px;
     margin-top: 8%;
 }
