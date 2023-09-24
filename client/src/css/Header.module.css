@@ -2,16 +2,16 @@
   display: flex;
   /* max-width: 1320px; */
   margin: 0 auto;
-  justify-content: space-around;
+  justify-content: space-between;
   position: fixed;
   z-index: 10;
-  align-items: center;
-  background-color: white;
+  align-items: flex-start;
+  background: linear-gradient(white 72px, #ffffffdc 50px);
+  border-bottom: 2px solid #999999;
   top: 0;
   left: 0;
   right: 0;
 }
-
 /* 로그인 이후 로그아웃 버튼에 검정선 생기는 현상 해결 */
 button {
   border: none;
@@ -32,9 +32,16 @@ button {
   overflow: hidden;
 }
 
-.Category > ul {
+.NavDropdown {
   display: flex;
   margin: 8px 0;
+  height: 50px;
+  text-align: center;
+}
+.NavDropdownHover{
+  display: flex;
+  margin: 8px 0;
+  text-align: center;
 }
 
 .Category > ul > li {
@@ -57,7 +64,7 @@ button {
 
 .Member > ul {
   display: flex;
-  margin: 8px 0;
+  margin: 4px 0;
 }
 
 .Member > ul > li {
@@ -99,11 +106,6 @@ button {
   background-color: #2a72ff;
   padding: 12px 20px;
 }
-
-.Category_mobile {
-  display: none;
-}
-
 /* .Navigation {
   display: flex;
   max-width: 1320px;
@@ -125,15 +127,6 @@ button {
   width: 100%;
 }
 
-.Category {
-  overflow: hidden;
-}
-
-.Category > ul {
-  display: flex;
-  margin: 8px 0;
-}
-
 .Category > ul > li {
   display: inline-block;
   padding: 8px 16px;
@@ -152,115 +145,24 @@ button {
   transition-duration: 200ms;
 }
 
-.Member > ul {
-  display: flex;
-  margin: 8px 0;
-}
 
-.Member > ul > li {
-  margin: 8px 16px 8px 0;
-}
 
-.Category_mobile {
-  display: none;
-}
-
-.Member_mobile {
-  display: none;
-}
 
 /* ===== 카테고리(소) ===== */
-.sub_Community {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 0 0 20px 20px;
+.Category ul li ul{
+  margin-top: 25px;
 }
-
-.sub_Community li {
-  float: left;
-  margin: 8px 16px;
-}
-
-.sub_Community li a {
+.Category ul li ul li a{
+  font-size: 14px;
+  font-weight: 400;
   text-decoration: none;
-  color: #333333;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  padding: 12px 20px;
+  color: #999999;
+  display: block;
+  padding: 12px 0;
+  transition-duration: 300ms;
 }
-
-.sub_share {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 0 0 20px 20px;
-}
-
-.sub_share {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 0 0 20px 20px;
-}
-
-.sub_share li {
-  float: left;
-  margin: 8px 16px;
-}
-
-.sub_share li a {
-  text-decoration: none;
-  color: #333333;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  padding: 12px 20px;
-}
-
-.sub_job {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 0 0 20px 20px;
-}
-
-.sub_job li {
-  float: left;
-  margin: 8px 16px;
-}
-
-.sub_job li a {
-  text-decoration: none;
-  color: #333333;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  padding: 12px 20px;
-}
-
-.active {
-  display: flex;
-  justify-content: center;
+.Category ul li ul li a:hover{
+  color: #73a1fc;
 }
 
 /* .nav_hover:hover .sub_Community{
@@ -354,99 +256,6 @@ button {
   }
 }
 
-/* ===== 카테고리(소) ===== */
-.sub_Community {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 0 0 20px 20px;
-}
-
-.sub_Community li {
-  float: left;
-  margin: 8px 16px;
-}
-
-.sub_Community li a {
-  text-decoration: none;
-  color: #333333;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  padding: 12px 20px;
-}
-
-.sub_share {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 0 0 20px 20px;
-}
-
-.sub_share {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 0 0 20px 20px;
-}
-
-.sub_share li {
-  float: left;
-  margin: 8px 16px;
-}
-
-.sub_share li a {
-  text-decoration: none;
-  color: #333333;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  padding: 12px 20px;
-}
-
-.sub_job {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 0 0 20px 20px;
-}
-
-.sub_job li {
-  float: left;
-  margin: 8px 16px;
-}
-
-.sub_job li a {
-  text-decoration: none;
-  color: #333333;
-  font-weight: 600;
-  font-size: 16px;
-
-  border-radius: 10px;
-  display: inline-block;
-  padding: 12px 20px;
-}
-
-.active {
-  display: flex;
-  justify-content: center;
-}
 /* 사이드 슬라이드 박스 */
 .aside {
   position: fixed;

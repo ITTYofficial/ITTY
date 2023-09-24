@@ -6,11 +6,11 @@ const Header = () => {
   /* 세션스토리지에서 id값을 불러옴 */
 
   const [loginOk, setLoginOk] = useState(false);
-  const [hoverStates, setHoverStates] = useState({
-    cate: false,
-    share: false,
-    job: false,
-  });
+  // const [hoverStates, setHoverStates] = useState({
+  //   cate: false,
+  //   share: false,
+  //   job: false,
+  // });
 
   useEffect(() => {
     const id = sessionStorage.getItem("memberId");
@@ -27,24 +27,24 @@ const Header = () => {
 
   let cateHoverTimer;
 
-  const handleHoverIn = (target) => {
-    clearTimeout(cateHoverTimer);
-    setHoverStates({
-      cate: target === "cate",
-      share: target === "share",
-      job: target === "job",
-    });
-  };
+  // const handleHoverIn = (target) => {
+  //   clearTimeout(cateHoverTimer);
+  //   setHoverStates({
+  //     cate: target === "cate",
+  //     share: target === "share",
+  //     job: target === "job",
+  //   });
+  // };
 
-  const handleHoverOut = (target) => {
-    cateHoverTimer = setTimeout(() => {
-      setHoverStates((prev) => ({ ...prev, [target]: false }));
-    }, 300);
-  };
+  // const handleHoverOut = (target) => {
+  //   cateHoverTimer = setTimeout(() => {
+  //     setHoverStates((prev) => ({ ...prev, [target]: false }));
+  //   }, 300);
+  // };
 
-  const handleHoverOut_im = (target) => {
-    setHoverStates((prev) => ({ ...prev, [target]: false }));
-  };
+  // const handleHoverOut_im = (target) => {
+  //   setHoverStates((prev) => ({ ...prev, [target]: false }));
+  // };
 
   // sideBar를 위해 필요
   const [sidebar, setSidebar] = useState(false);
@@ -53,27 +53,31 @@ const Header = () => {
     setSidebar(!sidebar);
   };
 
+
+  // 네비게이션 hover시
+  const [mouseEnter, setMouseEnter] = useState(false);
+
+  const navDropdown =() => {
+    setMouseEnter(!mouseEnter);
+  }
+
   return (
-    <div className={Nav.Navigation}>
+    <div className={Nav.Navigation} onMouseEnter={navDropdown} onMouseLeave={navDropdown}>
       <div className={Nav.logo_image}>
         <Link to={"/"}>
           <img src="https://i.ibb.co/YbFJpm1/logo.png" alt="Logo" />
         </Link>
       </div>
 
+      {/* className={`${Nav.aside} ${sidebar ? Nav.button_transform : ""}`} */}
       <div className={Nav.Category}>
-        <ul>
+        <ul className={`${mouseEnter ? Nav.NavDropdown : Nav.NavDropdownHover}`}>
           <li
-            className={`${Nav.nav_hover} ${hoverStates.cate ? Nav.active : ""}`}
-            onMouseEnter={() => handleHoverIn("cate")}
-            onMouseLeave={() => handleHoverOut("cate")}
+            className={Nav.nav_hover}
           >
             <a href="#">Community 🌐</a>
             <ul
-              className={`${Nav.sub_Community} ${
-                hoverStates.cate ? Nav.active : ""
-              }`}
-              onMouseLeave={() => handleHoverOut_im("cate")}
+              className={Nav.sub_Community}
             >
               <li>
                 <Link to={"/studyList"}>스터디 구해요🐣</Link>
@@ -91,18 +95,11 @@ const Header = () => {
           </li>
 
           <li
-            className={`${Nav.nav_hover} ${
-              hoverStates.share ? Nav.active : ""
-            }`}
-            onMouseEnter={() => handleHoverIn("share")}
-            onMouseLeave={() => handleHoverOut("share")}
+            className={Nav.nav_hover}
           >
             <a href="#">지식공유 💭</a>
             <ul
-              className={`${Nav.sub_share} ${
-                hoverStates.share ? Nav.active : ""
-              }`}
-              onMouseLeave={() => handleHoverOut("share")}
+              className={Nav.sub_share}
             >
               <li>
                 <Link to={"/tipList"}>Development Tip🧷</Link>
@@ -114,14 +111,11 @@ const Header = () => {
           </li>
 
           <li
-            className={`${Nav.nav_hover} ${hoverStates.job ? Nav.active : ""}`}
-            onMouseEnter={() => handleHoverIn("job")}
-            onMouseLeave={() => handleHoverOut("job")}
+            className={Nav.nav_hover}
           >
             <a href="#">Job 👩‍💻</a>
             <ul
-              className={`${Nav.sub_job} ${hoverStates.job ? Nav.active : ""}`}
-              onMouseLeave={() => handleHoverOut("job")}
+              className={Nav.sub_job}
             >
               <li>
                 <Link to={"/portList"}>포트폴리오🔍</Link>
