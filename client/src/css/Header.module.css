@@ -254,6 +254,17 @@ button {
 
 }
 
+/* 화면 축소시 버튼 글씨내려오는 현상 */
+@media (max-width: 1119px){
+  .Member button{
+    white-space: nowrap;
+  }
+
+  .Member a{
+    white-space: nowrap;
+  }
+}
+
 @media (max-width: 1024px) {
   .Member > ul > li:first-child > button {
     font-size: 14px;
