@@ -26,6 +26,7 @@ app.use("/review", require("./routes/community/reviewRouter"));
 app.use("/tip", require("./routes/community/tipRouter"));
 app.use("/qna", require("./routes/community/qnaRouter"));
 // app.use("/kakao", require("./routes/member/kakaoLoginRouter"));
+app.use("/board", require("./routes/community/boardSearchRouter"));
 
 
 app.listen(8088, () => {

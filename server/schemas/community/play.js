@@ -4,6 +4,9 @@ const { Schema } = mongoose;
 const playSchema = new Schema({
 
     // 게시판마다 반복되는 부분
+    id :{
+        type: String
+    },
     writer: {
         // 작성자
         type: String,
