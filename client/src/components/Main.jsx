@@ -14,52 +14,20 @@ const Main = () => {
   // console.log(sessionStorage.getItem("memberId"));
   // console.log(sessionStorage.getItem("memberNickname"));
 
-  // 자유게시판 리스트 담을 State
+  // 게시물 담을 State
   const [playList, setPlayList] = useState([]);
-
-  // 프로젝트,스터디게시판 리스트 담을 State
-  const [projectList, setProjectList] = useState([]);
-  const [studyList, setstudyList] = useState([]);
-
-  // 자유게시판 리스트 조회 함수
-  const readPlayList = async () => {
-    await axios
-      .get("http://localhost:8088/play/playList")
-      .then((res) => {
-        const sortedPlays = res.data.play.sort((a, b) => {
-          // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-        console.log(res);
-        setPlayList(sortedPlays);
-      })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
-      });
-  };
-
-  // 프로젝트,스터디게시판 리스트 조회함수
-  const readProjectList = async () => {
-    await axios
-      .get("http://localhost:8088/project/projectList")
-      .then(async (res) => { // 프로젝트 리스트
-        await axios
-          .get("http://localhost:8088/study/studyList")
-          .then((res2) => { // 스터디 리스트
-            const proAndStudy = res.data.project.concat(res2.data.study);
-            const sortedData = proAndStudy.sort((a, b) => {
-              // 게시글 데이터 작성 일자별 내림차순 정렬
-              return new Date(b.createdAt) - new Date(a.createdAt);
-            });
-            setProjectList(sortedData)
-          })
-      })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
-      });
-  };
+  const [proStuList, setProStuList] = useState([]);
+  // 메인 페이지 게시물 리스트 조회함수
+  const mainList = async () => {
+    await axios.get("http://localhost:8088/main/mainList")
+    .then((res)=>{
+      setPlayList(res.data.main.play);
+      setProStuList(res.data.main.proStu);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
   const getTimeAgoString = (dateString) => {
@@ -82,8 +50,7 @@ const Main = () => {
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    readPlayList();
-    readProjectList();
+    mainList();
   }, []);
 
   const Main_detail_play = ({ props }) => (
@@ -227,7 +194,7 @@ const Main = () => {
             <h3>프로젝트/스터디 구해요🙋‍♂️</h3>
 
             {/* 프로젝트 / 스터디 목록 리스트 반복시작 */}
-            {projectList.slice(0,5).map((item) => <Main_detail_project key={item._id} props={item} />)}
+            {proStuList.map((item) => <Main_detail_project key={item._id} props={item} />)}
             {/* 프로젝트 / 스터디 목록 리스트 끝 */}
           </div>
           <div className={style.Main_grid_3}>
