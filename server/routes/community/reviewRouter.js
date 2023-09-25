@@ -33,7 +33,7 @@ router.post('/write', async (req, res) => {
             obj = {
                 id :req.body.id,
                 title: req.body.title,
-                writer: "허허",
+                writer: req.body.writer,
                 content: req.body.content,
                 // createdAt: "알아서 들어감",
                 // views: "알아서 들어감",

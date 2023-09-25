@@ -4,21 +4,34 @@ import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
 import styles from "../css/Community.module.css";
 import style from "../css/QnaList.module.css";
-
+import Image from "react-bootstrap/Image";
 const QnaList = () => {
 
   // QnA 리스트 담을 State
   const [qnaList, setQnAList] = useState([]);
 
+// 회원만 작성 할 수 있도록 제한하는 함수-지홍
+const checkSessionStorage = (e) => {
+  // sessionStorage에서 값을 가져옴
+  var value = sessionStorage.getItem("memberId");
+
+  // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+  if (!value || value === "") {
+    alert("로그인해야합니다");
+    window.location.href = "/login";
+    e.preventDefault();
+  }
+};
+
   // QnA 리스트 조회 함수
   const readQnAList = async () => {
     await axios
       .get("http://localhost:8088/qna/qnaList")
-      .then(async(res) => {
-                // 회원정보조회-지홍
-                console.log("1. writer :", res.data.qna[0].writer);
+      .then(async (res) => {       
+        // 회원정보조회-지홍
+                // console.log("1. writer :", res.data.qna[0].writer);
                 let memberPromises = res.data.qna.map((qna) => {
-                  const nickname = qna.writer;
+            
                   const id = qna.id
         
                   return axios.get(
@@ -82,7 +95,7 @@ const QnaList = () => {
       {/* 글 제목 및 내용 */}
       <div className={style.Qna_text}>
         <Job />
-        <Link to={`/QnaDetail/${props._id}?`}>
+        <Link to={`/QnaDetail/${props._id}?nickname=${props.member.id}`}>
           <h5> {props.title}</h5>
         </Link>
         <div className={style.Qna_title_box_space_2}>
@@ -94,10 +107,12 @@ const QnaList = () => {
       {/* 프로필*/}
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-          <p>데이터 디자인</p>
-          <h4>수현쌤짱</h4>
+          <p>{props.member.class}</p>
+          <h4>{props.writer}</h4>
         </span>
-        <span className={style.profile_pic}></span>
+        <span className={style.profile_pic}>
+        <Image src={props.member.profileImg} roundedCircle />
+        </span>
       </div>
     </div>
   );
@@ -112,7 +127,7 @@ const QnaList = () => {
         <div className={styles.right_container_button}>
           <div></div>
           <h2>QnA 💡</h2>
-          <Link to={"/QnaWrite"}>
+          <Link to={"/QnaWrite"} onClick={checkSessionStorage}>
             <p>작성하기</p>
           </Link>
         </div>
