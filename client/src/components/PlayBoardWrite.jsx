@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import QuillTest from './QuillTest'
 import style from "../css/PlayBoardWrite.module.css";
 import LeftContainer from './LeftContainer';
-import { PlayBoardContext } from '../context/PlayBoardContext';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import { QuillContext } from '../context/QuillContext';
 
 const PlayBoardWrite = () => {
 
@@ -14,8 +14,9 @@ const PlayBoardWrite = () => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
     const nickname = sessionStorage.getItem("memberNickname");
-    const { value, setValue } = useContext(PlayBoardContext);
+    const { value, setValue } = useContext(QuillContext);
     console.log("id :", id);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 

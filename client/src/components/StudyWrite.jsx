@@ -6,8 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import QuillTest from './QuillTest';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
-import { PlayBoardContext } from '../context/PlayBoardContext';
 import { useLocation } from 'react-router-dom';
+import { QuillContext } from '../context/QuillContext';
 
 
 
@@ -19,7 +19,8 @@ const StudyWrite = () => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
 
-    const { value, setValue } = useContext(PlayBoardContext);
+    const { value, setValue } = useContext(QuillContext);
+    
     const [selectedValues, setSelectedValues] = useState([]);
 
     // 포지션 함수

@@ -14,7 +14,7 @@ import Join from "./components/Join";
 import Login from "./components/Login";
 import QuillTest from "./components/QuillTest";
 import PlayBoardWrite from "./components/PlayBoardWrite";
-import { PlayBoardContext } from "./context/PlayBoardContext";
+import { QuillContext } from "./context/QuillContext";
 import { useEffect, useState } from "react";
 import TestPage from "./components/TestPage";
 import ProjectWrite from "./components/ProjectWrite";
@@ -39,6 +39,7 @@ import MyPage from "./components/MyPage";
 import CropperTest from "./components/CropperTest";
 
 import "./css/quill_content_font_style.css"
+import axios from "axios";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -49,9 +50,34 @@ function App() {
     return location.pathname !== "/join" && location.pathname !== "/login";
   };
 
-  // playBoardContext로 게시판 작성 데이터를 전역적 사용하기 위한, 작성된 글 데이터를 담을 state
-  // 나중에 게시판 별로 새로 만들든, 통합하든해서 사용 할 필요가 있음
+  // 게시판 작성 데이터를 전역적 사용하기 위한, 작성된 글 데이터를 담을 State
   const [value, setValue] = useState("");
+
+  // 댓글 데이터를 전역적으로 사용하기 위한 State
+  const [commentList, setCommentList] = useState([]);
+
+  // 댓글 조회 함수
+  const getComment = (id) => {
+     console.time('소요시간');
+     axios.get(`http://localhost:8088/comment/commentList2?postId=${id}`)
+      .then((res) => {
+        console.log('확인!', res.data);
+        setCommentList(res.data.comments)
+        console.timeEnd('소요시간');
+      })
+  }
+  
+  // 댓글 삭제 함수
+  // 미사용중, 대댓글에는 삭제기능 적용안됨, 구조 변경 필요
+  const deleteComment = (commentId) => {
+    axios.get(`http://localhost:8088/comment/delete/${commentId}`)
+      .then((res) => {
+        getComment();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   // 새창을 열었을 로그인이 풀리는 문제 해결하기위한 코드
   useEffect(() => {
@@ -92,10 +118,19 @@ function App() {
     };
   }, []);
 
+  // QuillContext에 담길 데이터들
+  const inQuillContext = {
+    value: value,
+    setValue: setValue,
+    commentList: commentList,
+    setCommentList: setCommentList,
+    getComment: getComment,
+    deleteComment: deleteComment
+  }
 
   return (
     <div className="Container">
-      <PlayBoardContext.Provider value={{ value, setValue }}>
+      <QuillContext.Provider value={inQuillContext}>
         {RenderHeaderAndFooter() && <Header />}
         <Routes>
           <Route path="/" element={<Main />}></Route>
@@ -142,7 +177,7 @@ function App() {
 
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}
-      </PlayBoardContext.Provider>
+      </QuillContext.Provider>
     </div>
   );
 }

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import Button from "react-bootstrap/Button";
 import styles from "../css/ProjectDetail.module.css";
 import axios from "axios";
 import { Link, useParams, useLocation } from "react-router-dom";
 import Image from "react-bootstrap/Image";
+import { QuillContext } from "../context/QuillContext";
+import CommentItem from "./CommentItem";
 
 const ProjectDetail = () => {
   /* 키워드 컴포넌트 */
@@ -38,6 +40,9 @@ const ProjectDetail = () => {
   // 댓글 내용 담을 State
   const [comment, setComment] = useState();
 
+  // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
+  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
     setComment(e.target.value);
@@ -46,76 +51,32 @@ const ProjectDetail = () => {
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
     event.preventDefault();
-    const obj = {
-      postid: id,
-      content: comment
-    };
-    console.log(obj);
 
-    axios.post('http://localhost:8088/comment/write', obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.")
-        console.log(res);
-        getComment();
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패")
-      })
-  }
+    // 회원만 작성가능하게 수정 - 지홍
+    if (!sessionStorage.getItem('memberId')) {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      event.preventDefault();
+    } else {
+      const obj = {
+        postid: id,
+        content: comment,
+        writer: sessionStorage.getItem('memberNickname')
+      };
+      console.log(obj);
 
-  // 댓글 리스트 저장할 State
-  const [commentList, setCommentList] = useState([]);
-
-  // 댓글 조회 함수
-  const getComment = () => {
-    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
-      .then((res) => {
-        console.log(res.data);
-        setCommentList(res.data.comment)
-      })
-  }
-
-  // 댓글 삭제 함수
-  const deleteComment = (commentId) => {
-    axios.get(`http://localhost:8088/comment/delete/${commentId}`)
-      .then((res) => {
-        getComment();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  /* 댓글 컴포넌트 */
-  const CommentItem = ({ props }) => (
-    <div className={styles.comment_list}>
-      <div className={styles.play_comment_profile}>
-        <span>
-          <Image
-            src="https://i.pinimg.com/736x/24/d2/97/24d2974e5cd0468587422e38c8aab210.jpg"
-            roundedCircle
-          />
-        </span>
-        <span>
-          <p>빅데이터분석</p>
-          <h4>수업시간에롤</h4>
-        </span>
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-      <div>
-        <p>
-          {props.content}
-        </p>
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
-
-      <div>
-        <p>{getTime(props.createdAt)}</p>
-      </div>
-    </div>
-  );
-  /* 댓글 컴포넌트 */
+      axios.post('http://localhost:8088/comment/write', obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.")
+          console.log(res);
+          getComment(id);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패")
+        })
+    }
+  };
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
@@ -190,6 +151,7 @@ const ProjectDetail = () => {
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getProject();
+    getComment(id);
     memberSearching();
   }, []);
 
@@ -212,7 +174,6 @@ const ProjectDetail = () => {
   }
 
   /* 수정삭제 버튼 */
-
   const [meat, setMeat] = useState(false);
 
   const Dropdown = () => (
@@ -355,7 +316,7 @@ const ProjectDetail = () => {
           </form>
           {/* 댓글달기 끝 */}
 
-          {commentList.map((item) => (<CommentItem key={item._id} props={item} />))}
+          {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} />))}
         </div>
       </div>
     </div>

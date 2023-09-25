@@ -35,7 +35,6 @@ router.post('/write', upload.single('img'), async (req, res) => {
       obj = {
 
         title: req.body.title,
-        writer: "gg",
         content: req.body.content,
         // createdAt: "알아서 들어감",
         // views: "알아서 들어감",
@@ -60,9 +59,8 @@ router.post('/write', upload.single('img'), async (req, res) => {
     }else{
     // 글 작성 시
     obj = {
-      id : req.body.id,
       title: req.body.title,
-      writer: "gg",
+      writer: "허허",
       content: req.body.content,
       // createdAt: "알아서 들어감",
       // views: "알아서 들어감",

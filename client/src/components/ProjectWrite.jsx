@@ -5,9 +5,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import QuillTest from './QuillTest';
 import axios from 'axios';
-import { PlayBoardContext } from '../context/PlayBoardContext';
 import { useLocation, useParams } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import { QuillContext } from '../context/QuillContext';
 
 
 
@@ -21,7 +21,7 @@ const ProjectWrite = () => {
     const id = searchParams.get('id');
 
     const [position, setposition] = useState([]);
-    const { value, setValue } = useContext(PlayBoardContext);
+    const { value, setValue } = useContext(QuillContext);
 
     // 포지션 함수
     function changeColor(value) {

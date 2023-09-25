@@ -4,7 +4,7 @@ import styles from "../css/MarketWrite.module.css";
 import QuillTest from "./QuillTest";
 import { useState } from "react";
 import { useRef } from "react";
-import { PlayBoardContext } from "../context/PlayBoardContext";
+import { QuillContext } from "../context/QuillContext";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
@@ -93,7 +93,7 @@ const MarketWrite = () => {
 
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
-  const { value, setValue } = useContext(PlayBoardContext);
+  const { value, setValue } = useContext(QuillContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

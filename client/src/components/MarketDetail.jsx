@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -9,11 +9,16 @@ import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { QuillContext } from '../context/QuillContext';
+import CommentItem from './CommentItem';
 
 const MarketDetail = () => {
 
   // 댓글 내용 담을 State
   const [comment, setComment] = useState();
+
+  // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
+  const { commentList, setCommentList, getComment } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
@@ -41,7 +46,7 @@ const MarketDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.")
           console.log(res);
-          getComment();
+          getComment(id);
         })
         .catch((err) => {
           console.log(err);
@@ -49,88 +54,6 @@ const MarketDetail = () => {
         })
     }
   };
-
-  // 댓글 리스트 저장할 State
-  const [commentList, setCommentList] = useState([]);
-
-  // 댓글 조회 함수
-  const getComment = () => {
-    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
-      .then(async (res) => {
-        // 회원정보 조회 -지홍 (내림차순 정렬까지 내가 했다 광영아)
-        let memberPromises = res.data.comment.map((comment) => {
-          const nickname = comment.writer;
-          return axios.get(
-            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
-          );
-        });
-
-        let memberResponses = await Promise.all(memberPromises);
-        let member = memberResponses.map((response) => ({
-          member: response.data.member,
-        }));
-
-        console.log("member 내용물 : ", member.member);
-        // 게시판 정보랑 회원정보랑 하나로 합치는 함수
-        let fusion = member.map((item, index) => {
-          return { ...item, ...res.data.comment[index] };
-        });
-        console.log("퓨전", fusion);
-
-        const sortedcomments = fusion.sort((a, b) => {
-          // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(a.createdAt) - new Date(b.createdAt);
-        });
-
-        setCommentList(sortedcomments)
-      })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
-      });
-  };
-
-  // 댓글 삭제 함수
-  const deleteComment = (commentId) => {
-
-    axios.get(`http://localhost:8088/comment/delete/${commentId}`)
-      .then((res) => {
-        getComment();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  /* 댓글 컴포넌트 */
-  const CommentItem = ({ props }) => (
-    <div className={style.comment_list}>
-      <div className={style.play_comment_profile}>
-        <span>
-          <Image
-            src={props.member.profileImg}
-            roundedCircle
-          />
-        </span>
-        <span>
-          <p>{props.member.class}</p>
-          <h4>{props.member.nickname}</h4>
-        </span>
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-      <div>
-        <p>
-          {props.content}
-        </p>
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
-
-      <div>
-        <p>{getTime(props.createdAt)}</p>
-      </div>
-    </div>
-  );
-  /* 댓글 컴포넌트 */
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
@@ -142,6 +65,7 @@ const MarketDetail = () => {
 
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);
+
   // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
   // 게시글 조회함수
@@ -158,6 +82,7 @@ const MarketDetail = () => {
         console.log(err);
       })
   };
+
   console.log('확인!!', marketDetail.imgPath);
   // 회원 정보 조회 함수
   const memberSearching = async () => {
@@ -174,7 +99,7 @@ const MarketDetail = () => {
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getMarket();
-    getComment();
+    getComment(id);
     memberSearching();
     console.log(marketDetail.imgPath);
   }, []);
@@ -226,7 +151,6 @@ const MarketDetail = () => {
         console.log(err);
       })
   }
-
 
   const settings = {
     dots: true,
@@ -370,7 +294,7 @@ const MarketDetail = () => {
           </div>
         </form>
         {/* 댓글부분 */}
-        {commentList.map((item) => (<CommentItem key={item._id} props={item} />))}
+        {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id}/>))}
         {/* 댓글부분 */}
 
       </div>

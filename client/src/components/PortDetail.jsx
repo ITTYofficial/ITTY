@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import style from "../css/PortDetail.module.css";
 import LeftContainer from './LeftContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { QuillContext } from '../context/QuillContext';
+import CommentItem from './CommentItem';
 
 const PortDetail = () => {
 
@@ -14,6 +16,9 @@ const PortDetail = () => {
   // 댓글 내용 담을 State
   const [comment, setComment] = useState();
 
+  // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
+  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
     setComment(e.target.value);
@@ -22,6 +27,7 @@ const PortDetail = () => {
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
     event.preventDefault();
+
     // 회원만 작성가능하게 수정 - 지홍
     if (!sessionStorage.getItem('memberId')) {
       alert("로그인해야합니다");
@@ -30,7 +36,8 @@ const PortDetail = () => {
     } else {
       const obj = {
         postid: id,
-        content: comment
+        content: comment,
+        writer: sessionStorage.getItem('memberNickname')
       };
       console.log(obj);
 
@@ -38,7 +45,7 @@ const PortDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.")
           console.log(res);
-          getComment();
+          getComment(id);
         })
         .catch((err) => {
           console.log(err);
@@ -46,86 +53,6 @@ const PortDetail = () => {
         })
     }
   };
-
-  // 댓글 리스트 저장할 State
-  const [commentList, setCommentList] = useState([]);
-
-  // 댓글 조회 함수
-  const getComment = () => {
-    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
-      .then(async (res) => {
-        // 회원정보 조회 -지홍 (내림차순 정렬까지 내가 했다 광영아)
-        let memberPromises = res.data.comment.map((comment) => {
-          const nickname = comment.writer;
-          return axios.get(
-            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
-          );
-        });
-
-        let memberResponses = await Promise.all(memberPromises);
-        let member = memberResponses.map((response) => ({
-          member: response.data.member,
-        }));
-
-        console.log("member 내용물 : ", member.member);
-        // 게시판 정보랑 회원정보랑 하나로 합치는 함수
-        let fusion = member.map((item, index) => {
-          return { ...item, ...res.data.comment[index] };
-        });
-        console.log("퓨전", fusion);
-
-        const sortedcomments = fusion.sort((a, b) => {
-          // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-
-        setCommentList(sortedcomments)
-      })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
-      });
-  };
-
-  // 댓글 삭제 함수
-  const deleteComment = (commentId) => {// <- commentId가 뭐죠??
-
-    axios.get(`http://localhost:8088/comment/delete/${commentId}`)
-      .then((res) => {
-        getComment();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  const CommentItem = ({ props }) => (
-    <div className={style.comment_list}>
-      <div className={style.play_comment_profile}>
-        <span>
-          <Image
-            src="https://i.pinimg.com/736x/24/d2/97/24d2974e5cd0468587422e38c8aab210.jpg"
-            roundedCircle
-          />
-        </span>
-        <span>
-          <p>빅데이터분석</p>
-          <h4>수업시간에롤</h4>
-        </span>
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-      <div>
-        <p>
-          {props.content}
-        </p>
-      </div>
-      {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
-
-      <div>
-        <p>{getTime(props.createdAt)}</p>
-      </div>
-    </div>
-  );
 
   // 게시글정보 저장할 State
   const [portDetail, setPortDetail] = useState([]);
@@ -148,7 +75,7 @@ const PortDetail = () => {
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getPort();
-    getComment();
+    getComment(id);
   }, []);
 
   // 날짜 변환 함수
@@ -202,9 +129,7 @@ const PortDetail = () => {
       })
   }
 
-
   /* 수정삭제 버튼 */
-
   const [meat, setMeat] = useState(false);
 
   const Dropdown = () => (
@@ -281,18 +206,18 @@ const PortDetail = () => {
             <h4>댓글 3</h4>
           </div>
         </div>
-
-        <div className={style.comment_write}>
-          <div>
+        <form onSubmit={commentSubmit}>
+          <div className={style.comment_write}>
             <div>
-              <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+              <div>
+                <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+              </div>
+              <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
             </div>
-            <textarea placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+            <button type="submit">댓글쓰기</button>
           </div>
-          <button type="button">댓글쓰기</button>
-        </div>
-
-        {commentList.map((item) => (<CommentItem key={item._id} props={item} />))}
+        </form>
+        {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id}/>))}
 
       </div>
     </div>
