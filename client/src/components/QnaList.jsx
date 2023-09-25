@@ -17,7 +17,7 @@ const QnaList = () => {
       .then(async(res) => {
                 // 회원정보조회-지홍
                 console.log("1. writer :", res.data.qna[0].writer);
-                let memberPromises = res.data.play.map((qna) => {
+                let memberPromises = res.data.qna.map((qna) => {
                   const nickname = qna.writer;
                   const id = qna.id
         

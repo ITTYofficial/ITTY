@@ -29,7 +29,7 @@ const PlayBoardDetail = () => {
   const memberSearching = async () => {
 
     await axios
-      .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+      .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
         console.log('axios다음 니크네임', res.data.member.nickname);
         setMemberInfo(res.data.member);
