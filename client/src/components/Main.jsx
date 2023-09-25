@@ -6,6 +6,7 @@ import Image from "react-bootstrap/Image";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { Link } from "react-router-dom";
 
 // import "../css/Community.css";
 
@@ -131,11 +132,77 @@ const Main = () => {
     </div>
   );
 
+  const [marketList, setMarketList] = useState([]);
+
+  // 장터 리스트 조회 함수
+  const readMarketList = async () => {
+    await axios
+      .get("http://localhost:8088/market/marketList")
+      .then(async (res) => {
+        // 회원정보조회-지홍
+        console.log("1. writer :", res.data.market[0].writer);
+        let memberPromises = res.data.market.map((market) => {
+          const nickname = market.writer;
+          const id = market.id
+
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?id=${id}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.market[index] };
+        });
+        console.log("퓨전", fusion);
+        const sortedProjects = fusion.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setMarketList(sortedProjects);
+      })
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
+  };
+
+  // 페이지 렌더링시 조회 함수 실행
+  useEffect(() => {
+    readMarketList();
+  }, []);
+
+
+  const MarketItem = ({ props }) => (
+    <Link
+      to={`/marketDetail/${props._id}?nickname=${props.writer}`}
+      className={style.Market_content_item}
+    >
+      {/* <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover' }}> */}
+      <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url('https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg') no-repeat center`, backgroundSize: 'cover' }}>
+
+        {/* <img src={props.imgPath[0]}></img> */}
+      </div>
+      <div className={style.Market_content_text}>
+        <h4>{props.title}</h4>
+        <div className={style.Market_content_text2}>
+          <p className={style.market_content_price}>{parseInt(props.price).toLocaleString()} 원</p>
+          {/* <p className={style.market_content_date}>{getTimeAgoString(props.createdAt)}</p> */}
+        </div>
+      </div>
+    </Link>
+  );
+
   return (
     <div className={style.Wrap_container}>
       {/* 메인 이미지슬라이드 시작 */}
       <div className={style.Wrap_main_imageSlide}>
-        <Slider>
+        <Slider autoplay={true} autoplaySpeed={3000}>
           <img src="https://i.ibb.co/Y0CrVh6/Imageslide1.jpg" alt="Slide" />
           <img src="https://i.ibb.co/SwyKj0J/Imageslide2.jpg" alt="Slide" />
         </Slider>
@@ -150,7 +217,7 @@ const Main = () => {
             <h3>자유게시판⚽</h3>
 
             {/* 자유게시판 목록 리스트 반복시작 */}
-            {playList.map((item) => <Main_detail_play key={item._id} props={item} />)}
+            {playList.slice(0, 5).map((item) => <Main_detail_play key={item._id} props={item} />)}
             {/* 자유게시판 목록 리스트 반복 끝 */}
           </div>
 
@@ -160,8 +227,16 @@ const Main = () => {
             <h3>프로젝트/스터디 구해요🙋‍♂️</h3>
 
             {/* 프로젝트 / 스터디 목록 리스트 반복시작 */}
-            {projectList.map((item) => <Main_detail_project key={item._id} props={item} />)}
+            {projectList.slice(0,5).map((item) => <Main_detail_project key={item._id} props={item} />)}
             {/* 프로젝트 / 스터디 목록 리스트 끝 */}
+          </div>
+          <div className={style.Main_grid_3}>
+            <h3>교환 장터🥕</h3>
+            <div className={style.Market_list}>
+              {marketList.slice(0,5).map((item) => (
+                <MarketItem key={item._id} props={item} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
