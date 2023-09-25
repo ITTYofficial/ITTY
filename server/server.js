@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: false })); // 내부 url 파서 사용
 app.use(express.static(path.join(__dirname + '/public'))); // 정적 파일 위치 설정
 
 app.use("/board", require("./routes/boardRouter"));
+app.use("/main", require("./routes/community/mainRouter"));
 app.use("/study", require("./routes/community/studyRouter"));
 app.use("/project", require("./routes/community/projectRouter"));
 app.use("/market", require("./routes/community/marketRouter"));
