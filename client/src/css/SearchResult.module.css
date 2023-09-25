@@ -1,0 +1,14 @@
+.Main_container {
+    max-width: 1320px;
+    margin: 0 auto;
+    margin-top: 8%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right_container {
+    width: 80%;
+    /* background-color: whitesmoke; */
+    padding: 16px;
+    margin: 0 auto;
+}

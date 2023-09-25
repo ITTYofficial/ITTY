@@ -40,6 +40,7 @@ import CropperTest from "./components/CropperTest";
 
 import "./css/quill_content_font_style.css"
 import axios from "axios";
+import SearchResult from "./components/SearchResult";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
@@ -174,6 +175,9 @@ function App() {
 
           <Route path="/myPage" element={<MyPage />}></Route>
           <Route path="/cropperTest" element={<CropperTest />}></Route>
+
+          <Route path="/searchResult/:searchTerm" element={<SearchResult />}></Route>
+          
 
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}

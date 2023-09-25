@@ -77,7 +77,7 @@ button {
   margin: 8px 16px 8px 0;
 }
 
-.Member > ul > li:first-child > a {
+.Member > ul a {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
@@ -90,7 +90,7 @@ button {
 }
 
 /* 로그아웃 버튼 태그 ㄱ */
-.Member > ul > li:first-child > button {
+.Member > ul button {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
@@ -101,7 +101,7 @@ button {
   padding: 12px 20px;
 }
 
-.Member > ul > li:last-child > a {
+.Member > ul a {
   text-decoration: none;
   color: #eeeeee;
   font-weight: 600;
