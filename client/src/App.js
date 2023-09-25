@@ -60,7 +60,7 @@ function App() {
   // 댓글 조회 함수
   const getComment = (id) => {
     console.time('소요시간');
-    axios.get(`http://localhost:8088/comment/commentList2?postId=${id}`)
+    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
       .then((res) => {
         console.log('확인!', res.data);
         setCommentList(res.data.comments)
