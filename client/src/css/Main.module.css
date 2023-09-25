@@ -215,10 +215,15 @@
   grid-column-end: 3;
 }
 
+.right_container>div:nth-child(4) {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
 .Market_list {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 8px 16px;
   margin: 32px 0;
 }
@@ -267,3 +272,111 @@
   font-size: 16px;
   font-weight: bold;
 }
+
+
+.Main_grid_4 {
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .07);
+  border-radius: 15px;
+}
+
+.Main_grid_4 h3 {
+  background-color: #2474ff;
+  padding: 16px 24px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 1px 1px #a0a0a0;
+  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: -.03em .03em #182642;
+}
+
+/* 포폴 css */
+
+
+.port_content {
+  width: 90%;
+  /* 너비를 백분율로 지정 */
+  max-width: 100%;
+  /* 최대 너비를 제한 */
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+  /* 텍스트를 한 줄로만 표시 */
+  overflow: hidden;
+  /* 넘치는 내용을 숨김 처리 */
+  text-overflow: ellipsis;
+  /* 넘치는 내용을 '...'으로 중략 */
+}
+
+.port_content_img {
+  width: 100%;
+  overflow: hidden;
+  height: 70%;
+}
+
+.port_content_img img {
+  width: 100%;
+  max-height: 250px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.port_content_bottom {
+  padding: 8px 12px 12px 12px;
+}
+
+.port_content_bottom>div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+}
+
+.port_content_bottom2 {
+  display: flex;
+  align-items: center;
+}
+
+.port_content_bottom2+div {
+  display: flex;
+  align-items: flex-end;
+}
+
+
+.profile_img {
+  width: 40px;
+  height: 40px;
+}
+
+.profile_img img {
+  width: 100%;
+  height: 100%;
+}
+
+.little_p {
+  color: #999999;
+  font-size: 14px;
+  /* margin-bottom: 8px; */
+  font-weight: 500;
+}
+
+.large_p {
+  color: #000000;
+  font-size: 16px;
+  /* margin-bottom: 8px; */
+  font-weight: 500;
+}
+
+
+
+.port_list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  gap: 1rem;
+}
+
+
+/* 포폴 css */
