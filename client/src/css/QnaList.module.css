@@ -229,3 +229,7 @@
   background-color: #2474ff;
   border-radius: 50%;
 }
+.profile_pic img {
+  width: 100%;
+  height: 100%;
+}

@@ -4,7 +4,7 @@ import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
 import styles from "../css/Community.module.css";
 import style from "../css/QnaList.module.css";
-
+import Image from "react-bootstrap/Image";
 const QnaList = () => {
 
   // QnA 리스트 담을 State
@@ -107,10 +107,12 @@ const checkSessionStorage = (e) => {
       {/* 프로필*/}
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-          <p>데이터 디자인</p>
-          <h4>수현쌤짱</h4>
+          <p>{props.member.class}</p>
+          <h4>{props.writer}</h4>
         </span>
-        <span className={style.profile_pic}></span>
+        <span className={style.profile_pic}>
+        <Image src={props.member.profileImg} roundedCircle />
+        </span>
       </div>
     </div>
   );
