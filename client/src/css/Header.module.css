@@ -15,7 +15,7 @@
   transition-duration: 300ms;
   overflow: hidden;
 }
-.NavDropdown{
+.NavDropdown {
   height: 250px;
 }
 /* 로그인 이후 로그아웃 버튼에 검정선 생기는 현상 해결 */
@@ -67,7 +67,10 @@ button {
   color: #2a72ff;
   transition-duration: 200ms;
 }
-
+.form-control {
+  border-radius: 20px;
+  border: 2px solid #999999;
+}
 .Member > ul {
   display: flex;
   margin: 4px 0;
@@ -133,7 +136,6 @@ button {
   width: 100%;
 }
 
-
 .Category > ul > li > a {
   text-decoration: none;
   color: #333333;
@@ -146,15 +148,12 @@ button {
   transition-duration: 200ms;
 }
 
-
-
-
 /* ===== 카테고리(소) ===== */
-.Category ul li ul{
+.Category ul li ul {
   margin-top: 35px;
   flex-direction: column;
 }
-.Category ul li ul li a{
+.Category ul li ul li a {
   font-size: 14px;
   font-weight: 400;
   text-decoration: none;
@@ -163,7 +162,7 @@ button {
   padding: 12px 0;
   transition-duration: 300ms;
 }
-.Category ul li ul li a:hover{
+.Category ul li ul li a:hover {
   color: #73a1fc;
 }
 
@@ -245,13 +244,22 @@ button {
   .hamburger_content {
     display: block;
   }
- 
+
   /* 모바일 화면에서 기존 헤더 메뉴 중복 내려오는 현상 */
-  .NavDropdown{
+  .NavDropdown {
     height: 65px;
   }
+}
 
+/* 화면 축소시 버튼 글씨내려오는 현상 */
+@media (max-width: 1119px){
+  .Member button{
+    white-space: nowrap;
+  }
 
+  .Member a{
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -264,7 +272,6 @@ button {
     padding: 12px;
   }
 }
-
 
 /* 사이드 슬라이드 박스 */
 .aside {

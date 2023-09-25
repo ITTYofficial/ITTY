@@ -53,22 +53,21 @@ const Header = () => {
     setSidebar(!sidebar);
   };
 
-
   // 네비게이션 hover시
   const [mouseEnter, setMouseEnter] = useState(false);
 
   const navDropdownEnter = () => {
     setMouseEnter(true);
-  }
+  };
   const navDropdownLeave = () => {
     setMouseEnter(false);
-  }
+  };
 
   const [searchTerm, setSearchTerm] = useState("");
 
-
   return (
-    <div className={`${Nav.Navigation} ${mouseEnter ? Nav.NavDropdown : ""}`}
+    <div
+      className={`${Nav.Navigation} ${mouseEnter ? Nav.NavDropdown : ""}`}
       onMouseEnter={navDropdownEnter}
       onMouseLeave={navDropdownLeave}
     >
@@ -81,13 +80,9 @@ const Header = () => {
       {/* className={`${Nav.aside} ${sidebar ? Nav.button_transform : ""}`} */}
       <div className={Nav.Category}>
         <ul>
-          <li
-            className={Nav.nav_hover}
-          >
+          <li className={Nav.nav_hover}>
             <a href="#">Community 🌐</a>
-            <ul
-              className={Nav.sub_Community}
-            >
+            <ul className={Nav.sub_Community}>
               <li>
                 <Link to={"/studyList"}>스터디 구해요🐣</Link>
               </li>
@@ -103,13 +98,9 @@ const Header = () => {
             </ul>
           </li>
 
-          <li
-            className={Nav.nav_hover}
-          >
+          <li className={Nav.nav_hover}>
             <a href="#">지식공유 💭</a>
-            <ul
-              className={Nav.sub_share}
-            >
+            <ul className={Nav.sub_share}>
               <li>
                 <Link to={"/tipList"}>Development Tip🧷</Link>
               </li>
@@ -119,13 +110,9 @@ const Header = () => {
             </ul>
           </li>
 
-          <li
-            className={Nav.nav_hover}
-          >
+          <li className={Nav.nav_hover}>
             <a href="#">Job 👩‍💻</a>
-            <ul
-              className={Nav.sub_job}
-            >
+            <ul className={Nav.sub_job}>
               <li>
                 <Link to={"/portList"}>포트폴리오🔍</Link>
               </li>
@@ -139,17 +126,19 @@ const Header = () => {
       <div className={Nav.Member}>
         <ul>
           <li>
-            검색
             <input
               type="text"
               className="form-control"
               value={searchTerm}
+              placeholder="Search"
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  console.log('엔터누름');
+                if (e.key === "Enter") {
+                  console.log("엔터누름");
                   // 엔터 키를 눌렀을 때 searchingList 페이지로 이동
-                  {/* <Link to={`/searchResult/${searchTerm}`} />; */}
+                  {
+                    /* <Link to={`/searchResult/${searchTerm}`} />; */
+                  }
                   window.location.href = `/searchResult/${searchTerm}`;
                 }
               }}

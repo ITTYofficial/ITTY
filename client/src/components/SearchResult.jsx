@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 const SearchResult = () => {
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('Study');
+  
 
   const categoryButtons = [
     { label: "스터디🐣", value: "Study" },
@@ -37,6 +38,12 @@ const SearchResult = () => {
   }, [searchTerm]);
 
   console.log("받아온 값 확인", searchResults);
+
+  // 검색한 값 하이라이트
+  const boldSearchTerm = (text, searchTerm) => {
+    const regex = new RegExp(searchTerm, 'gi');
+    return text.replace(regex, (match) => `<span class="${styles.boldText}">${match}</span>`);
+  };
 
   //   const [studyDiv, setStudyDiv] = useState(false);
   //   const [projectDiv, setProjectDiv] = useState(false);
@@ -125,7 +132,9 @@ const SearchResult = () => {
                     <div className={styles.search_detail}>
                       <span>
                         <p>{item.createdAt}</p>
-                        <h4>{item.title}</h4>
+                        <h4>
+                          <div dangerouslySetInnerHTML={{ __html: boldSearchTerm(item.title, searchTerm) }} />
+                        </h4>
                       </span>
                       <span>
                         <h5>{item.writer}</h5>
