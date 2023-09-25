@@ -32,7 +32,7 @@ const CommentItem = ({ props, postId }) => {
     */
 
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-    const { commentList, setCommentList, getComment, deleteComment } = useContext(QuillContext);
+    const { getComment, deleteComment, deleteReComment } = useContext(QuillContext);
 
     // 대댓글 작성완료 시 호출되는 함수
     function reCommentSubmit(event, _id) {
@@ -42,7 +42,7 @@ const CommentItem = ({ props, postId }) => {
         const obj = {
             writer: sessionStorage.getItem("memberNickname"),
             content: reComment,
-            commentID: _id,
+            commentId: _id,
             createdAt: createdAt
         };
         console.log(obj);
@@ -96,7 +96,7 @@ const CommentItem = ({ props, postId }) => {
     };
 
     // 대댓글 컴포넌트
-    const ReComment = ({ props }) => {
+    const ReComment = ({ commentId, props, index }) => {
 
         return (
             <div className={PlayBoard.recomment_list_box}>
@@ -109,7 +109,7 @@ const CommentItem = ({ props, postId }) => {
                         <h4>{props.writer}</h4>
                     </span>
                     <div className={PlayBoard.recomment_cancel}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <svg onClick={() => deleteReComment(commentId, postId, index)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                         </svg>
@@ -142,7 +142,7 @@ const CommentItem = ({ props, postId }) => {
                     <p>{props.writerInfo.class}</p>
                     <h4>{props.writer}</h4>
                     <div className={PlayBoard.comment_cancel}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <svg onClick={() => deleteComment(props._id, postId)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                         </svg>
@@ -163,7 +163,7 @@ const CommentItem = ({ props, postId }) => {
                 <p className={PlayBoard.comment_time_box}>{getTime(props.createdAt)}</p>
             </div>
             <div className={PlayBoard.recomment_button_box} onClick={showRecommentWrite}>
-                댓글쓰기
+                <span className={PlayBoard.recomment_button_box_2}>댓글쓰기</span>
             </div>
 
             {recommentVisible &&
@@ -179,7 +179,7 @@ const CommentItem = ({ props, postId }) => {
                     </div>
                 </form>
             }
-            {props.reComment.map((item, index) => <ReComment key={index} props={item} />)}
+            {props.reComment.map((item, index) => <ReComment key={index} commentId={props._id} props={item} index={index} />)}
 
         </div>
     );
