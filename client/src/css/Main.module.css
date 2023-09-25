@@ -15,7 +15,7 @@
   margin-bottom: 30px;
   overflow: hidden;
   margin-top: 4%;
-    /* border-top: 1px solid black;
+  /* border-top: 1px solid black;
   border-bottom: 1px solid black; */
 }
 
@@ -38,9 +38,10 @@
     width: 90%;
     /* background-color: whitesmoke; */
     padding: 16px;
-    display: grid;
-    grid-template-columns: 1fr;
+    /* display: grid;
+    grid-template-columns: 1fr; */
     margin: 0 auto;
+    display: block;
   }
 }
 
@@ -54,7 +55,7 @@
 .Main_grid_1 {
   width: 100%;
   overflow: hidden;
-  box-shadow: 0 1px 2px 1px rgba(0,0,0,.07);
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .07);
   border-radius: 15px;
 
 }
@@ -74,7 +75,7 @@
 }
 
 .Main_grid_detail {
-  
+
   padding: 1px 3px 4px 6px;
   display: flex;
   justify-content: space-between;
@@ -136,7 +137,7 @@
 .Main_grid_2 {
   width: 100%;
   overflow: hidden;
-  box-shadow: 0 1px 2px 1px rgba(0,0,0,.07);
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .07);
   border-radius: 15px;
 }
 
@@ -180,8 +181,89 @@
   height: 100%;
 }
 
-.Wrap_main_imageSlide img{
+.Wrap_main_imageSlide img {
   object-fit: cover;
   width: 100%;
   height: 300px;
+}
+
+.Main_grid_3 {
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .07);
+  border-radius: 15px;
+}
+
+.Main_grid_3 h3 {
+  background-color: #2474ff;
+  padding: 16px 24px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 1px 1px #a0a0a0;
+  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: -.03em .03em #182642;
+}
+
+
+
+.right_container>div:nth-child(3) {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.Market_list {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 8px 16px;
+  margin: 32px 0;
+}
+
+.Market_content_item {
+  display: inline-block;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 2px 2px 8px #c4c4c4;
+  overflow: hidden;
+  /*   width: 300px;
+  height: 400px; */
+}
+
+.Market_content_item:hover {
+  background-color: #eeeeee;
+  transition-duration: 300ms;
+}
+
+.Market_content_text {
+  padding: 16px 16px;
+}
+
+.Market_content_text h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Market_content_text>p {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.Market_content_text2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.market_content_price {
+  font-size: 16px;
+  font-weight: bold;
 }
