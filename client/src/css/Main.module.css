@@ -18,7 +18,10 @@
   /* border-top: 1px solid black;
   border-bottom: 1px solid black; */
 }
-
+.Wrap_main_imageSlide button {
+  position: absolute;
+  right: 30px;
+}
 .right_container {
   width: 80%;
   /* background-color: whitesmoke; */
