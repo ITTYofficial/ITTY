@@ -16,9 +16,9 @@ const TipList = () => {
       .get("http://localhost:8088/tip/tipList")
       .then(async(res) => {
                 // 회원정보조회-지홍
-                console.log("1. writer :", res.data.tip[0].writer);
+                // console.log("1. writer :", res.data.tip[0].writer);
                 let memberPromises = res.data.tip.map((tip) => {
-                  const nickname = tip.writer;
+                  // const nickname = tip.writer;
                   const id = tip.id
         
                   return axios.get(
