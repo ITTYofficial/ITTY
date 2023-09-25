@@ -33,8 +33,9 @@ const ProjectList = () => {
         console.log("1. writer :", res.data.project[0].writer);
         let memberPromises = res.data.project.map((project) => {
           const nickname = project.writer;
+          const id = project.id
           return axios.get(
-            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
+            `http://localhost:8088/member/memberSearching?id=${id}`
           );
         });
 
