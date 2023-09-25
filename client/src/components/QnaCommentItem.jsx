@@ -172,7 +172,7 @@ const QnaCommentItem = ({ props, postId }) => {
                 <p className={PlayBoard.comment_time_box}>{getTime(props.createdAt)}</p>
             </div>
             <div className={PlayBoard.recomment_button_box} onClick={showRecommentWrite}>
-                댓글쓰기
+                <p className={PlayBoard.recomment_button_box_2}>댓글쓰기</p>
             </div>
 
             {recommentVisible &&
