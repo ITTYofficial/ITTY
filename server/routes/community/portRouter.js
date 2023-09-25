@@ -21,7 +21,7 @@ router.post('/write', async (req, res) => {
         } else {
             obj = {
                 id :req.body.id,
-                writer: "허광영",
+                writer: req.body.writer,
                 title: req.body.title,
                 content: req.body.content,
                 imgPath: req.body.imgPath,

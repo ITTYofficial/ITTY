@@ -17,7 +17,7 @@ const PlayBoardDetail = () => {
   // 특정 게시글 조회하기위한 nickname값 가져오기
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const nickname = params.get('nickname');
+  const nickname = params.get('id');
   // 게시글정보 저장할 State
   const [playDetail, setplayDetail] = useState([]);
   // 회원정보 저장할 state

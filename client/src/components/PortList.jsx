@@ -76,7 +76,7 @@ const PortList = () => {
     const PortItem = ({ props }) => (
         <div className={styles.port_content}>
             <div className={styles.port_content_img}>
-                <Link to={`/portDetail/${props._id}?nickname=${props.id}`}>
+                <Link to={`/portDetail/${props._id}?id=${props.member.id}`}>
                     <img src={props.imgPath}></img>
                     {/* <img src='https://i.ibb.co/dDnhbM9/image.png'></img> */}
                 </Link>

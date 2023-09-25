@@ -83,7 +83,7 @@ const ProjectDetail = () => {
   // 특정 게시글 조회하기위한 nickname값 가져오기 -지홍
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const nickname = params.get('nickname');
+  const nickname = params.get('id');
 
   // 게시글정보 저장할 State
   const [projectDetail, setProjectDetail] = useState([]);
@@ -96,7 +96,7 @@ const ProjectDetail = () => {
   const memberSearching = async () => {
 
     await axios
-      .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+      .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
         console.log('axios다음 니크네임', res.data.member.nickname);
         setMemberInfo(res.data.member);

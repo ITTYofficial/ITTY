@@ -61,7 +61,7 @@ const MarketDetail = () => {
   // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const nickname = params.get('nickname');
+  const nickname = params.get('id');
 
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);

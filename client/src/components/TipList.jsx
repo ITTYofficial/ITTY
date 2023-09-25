@@ -83,7 +83,7 @@ const TipList = () => {
       {/* 글 제목 및 내용 */}
       <div className={style.tip_text}>
         <Develope />
-        <Link to={`/tipDetail/${props._id}?nickname=${props.id}`}>
+        <Link to={`/tipDetail/${props._id}?id=${props.id}`}>
           <h5>{props.title}</h5>
         </Link>
         <div className={style.tip_title_box_space_2}>

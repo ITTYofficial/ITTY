@@ -94,7 +94,7 @@ const ReviewList = () => {
             </span>
 
           </div>
-          <Link to={`/reviewDetail/${props._id}?nickname=${props.id}`}>
+          <Link to={`/reviewDetail/${props._id}?id=${props.id}`}>
             <h3>{props.title}</h3>
           </Link>
         </span>
