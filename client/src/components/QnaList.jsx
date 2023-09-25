@@ -14,8 +14,29 @@ const QnaList = () => {
   const readQnAList = async () => {
     await axios
       .get("http://localhost:8088/qna/qnaList")
-      .then((res) => {
-        const sortedQnA = res.data.qna.sort((a, b) => {
+      .then(async(res) => {
+                // 회원정보조회-지홍
+                console.log("1. writer :", res.data.qna[0].writer);
+                let memberPromises = res.data.play.map((qna) => {
+                  const nickname = qna.writer;
+                  const id = qna.id
+        
+                  return axios.get(
+                    `http://localhost:8088/member/memberSearching?id=${id}`
+                  );
+                });
+        
+                let memberResponses = await Promise.all(memberPromises);
+                let member = memberResponses.map((response) => ({
+                  member: response.data.member,
+                }));
+        
+                console.log("member 내용물 : ", member.member);
+                let fusion = member.map((item, index) => {
+                  return { ...item, ...res.data.qna[index] };
+                });
+                console.log("퓨전", fusion);
+        const sortedQnA = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -61,7 +82,7 @@ const QnaList = () => {
       {/* 글 제목 및 내용 */}
       <div className={style.Qna_text}>
         <Job />
-        <Link to={`/QnaDetail/${props._id}`}>
+        <Link to={`/QnaDetail/${props._id}?`}>
           <h5> {props.title}</h5>
         </Link>
         <div className={style.Qna_title_box_space_2}>

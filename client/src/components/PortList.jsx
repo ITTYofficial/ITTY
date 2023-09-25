@@ -14,8 +14,29 @@ const PortList = () => {
     const readPortList = async () => {
         await axios
             .get("http://localhost:8088/port/portList")
-            .then((res) => {
-                const sortedPort = res.data.port.sort((a, b) => {
+            .then(async(res) => {
+                        // 회원정보조회-지홍
+        console.log("1. writer :", res.data.port[0].writer);
+        let memberPromises = res.data.port.map((port) => {
+          const nickname = port.writer;
+          const id = port.id
+
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?id=${id}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.port[index] };
+        });
+        console.log("퓨전", fusion);
+                const sortedPort =fusion.sort((a, b) => {
                     // 게시글 데이터 작성 일자별 내림차순 정렬
                     return new Date(b.createdAt) - new Date(a.createdAt);
                 });
