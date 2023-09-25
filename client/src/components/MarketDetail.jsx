@@ -86,7 +86,7 @@ const MarketDetail = () => {
   console.log('확인!!', marketDetail.imgPath);
   // 회원 정보 조회 함수
   const memberSearching = async () => {
-    await axios.get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+    await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
         console.log('axios다음 니크네임', res.data.member.nickname);
         setMemberInfo(res.data.member);
