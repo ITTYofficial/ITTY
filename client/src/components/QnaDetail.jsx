@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { QuillContext } from "../context/QuillContext";
-import CommentItem from "./CommentItem";
+import QnaCommentItem from "./QnaCommentItem";
 
 /* css는 project etail css 내용만 가져와서 추가해서 사용 중~ */
 
@@ -253,7 +253,7 @@ const QnaDetail = () => {
           </form>
           {/* 댓글달기 끝 */}
 
-          {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} />))}
+          {commentList.map((item) => (<QnaCommentItem key={item._id} props={item} postId={id} />))}
         </div>
       </div>
     </div>
