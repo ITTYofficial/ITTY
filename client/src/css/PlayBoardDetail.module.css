@@ -282,14 +282,46 @@
   background-color: #2474ff;
 }
 
+/* 채택하기 버튼 */
+.comment_choice button {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  display: inline-block;
+  background-color: #ffe839;
+  padding: 5px 10px;
+  margin-left: 20px;
+  box-shadow: 1px 1px 2px rgb(144, 144, 144);
+}
+
+.comment_choice_2 button {
+  text-decoration: none;
+  color: #0a0a0a;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  display: inline-block;
+  background-color: #f6f6f6;
+  padding: 5px 10px;
+  margin-left: 12px;
+  box-shadow: 1px 1px 2px rgb(144, 144, 144);
+
+
+}
+
+
 /* 댓글박스 */
 .comment_list {
   width: 100%;
   border: none;
   border-radius: 10px;
-  padding: 24px 24px 10px 30px;
+  padding: 24px 24px 35px 30px;
   background-color: #ffffff;
-  box-shadow: 0 1px 2px 2px rgba(0,0,0,.07);
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, .07);
   line-height: 1.2rem;
   margin-top: 2rem;
   position: relative;
@@ -377,6 +409,7 @@
   fill: black;
   transform: scale(1.1);
 }
+
 .comment_time_box {
 
   left: 45px;
@@ -425,7 +458,7 @@
 
 .recomment_list_box:hover {
   background-color: rgba(224, 248, 255, 0.59);
-  
+
 }
 
 .recomment_cancel>svg:hover {
@@ -442,17 +475,8 @@
   opacity: 50%;
   padding: 12px;
 
-
-
 }
 
-.recomment_button_box:hover {
-  font-weight: bold;
-  color: rgb(2, 70, 164);
-
-
-
-}
 .recomment_list_box {
 
   margin-left: 5%;
@@ -497,12 +521,14 @@
 
 .recomment_button_box {
   margin-bottom: 12px;
-  margin-right: 25px;
   text-align: right;
   font-size: 14px;
+  margin-right: 14px;
+  display: inline-block;
+  float: right;
 }
 
-.recomment_write>button{
+.recomment_write>button {
   text-decoration: none;
   float: right;
   color: #eeeeee;
@@ -518,12 +544,17 @@
 
 }
 
-.recomment_write>button:hover{
+.recomment_write>button:hover {
   font-weight: bold;
   background-color: rgb(0, 119, 255);
 
 }
 
+.recomment_button_box_2:hover{
+  font-weight: bold;
+  color: rgb(2, 70, 164);
+  display: block;
+}
 
 
 /* 댓글 구분선 */

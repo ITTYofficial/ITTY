@@ -166,7 +166,7 @@ const ReviewDetail = () => {
         <div className={styles.Main_container} onClick={toggleMeat}>
             <LeftContainer />
             <div className={styles.right_container}>
-                <h2>수료생후기</h2>
+                <h2>수료생후기 🔍</h2>
                 <hr />
                 <div className={styles.top_content}>
                     <div>

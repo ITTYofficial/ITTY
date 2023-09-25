@@ -48,11 +48,12 @@
     .second_block>div {
         width: 100%;
     }
+    .Main_container{
+        width:70%
+    }
 }
 
-.second_block>div>p {
-    margin-bottom: 8px;
-}
+
 
 
 
@@ -146,3 +147,5 @@
 .react-datepicker__input-container{
     margin-bottom: 24px;
 }
+
+

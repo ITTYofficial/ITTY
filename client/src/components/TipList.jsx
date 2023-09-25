@@ -4,7 +4,7 @@ import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
 import styles from "../css/Community.module.css";
 import style from "../css/TipList.module.css";
-
+import Image from "react-bootstrap/Image";
 const TipList = () => {
 
   // 팁 리스트 담을 State
@@ -14,8 +14,29 @@ const TipList = () => {
   const readTipList = async () => {
     await axios
       .get("http://localhost:8088/tip/tipList")
-      .then((res) => {
-        const sortedTip = res.data.tip.sort((a, b) => {
+      .then(async(res) => {
+                // 회원정보조회-지홍
+                // console.log("1. writer :", res.data.tip[0].writer);
+                let memberPromises = res.data.tip.map((tip) => {
+                  // const nickname = tip.writer;
+                  const id = tip.id
+        
+                  return axios.get(
+                    `http://localhost:8088/member/memberSearching?id=${id}`
+                  );
+                });
+        
+                let memberResponses = await Promise.all(memberPromises);
+                let member = memberResponses.map((response) => ({
+                  member: response.data.member,
+                }));
+        
+                console.log("member 내용물 : ", member.member);
+                let fusion = member.map((item, index) => {
+                  return { ...item, ...res.data.tip[index] };
+                });
+                console.log("퓨전", fusion);
+        const sortedTip =  fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -62,7 +83,7 @@ const TipList = () => {
       {/* 글 제목 및 내용 */}
       <div className={style.tip_text}>
         <Develope />
-        <Link to={`/tipDetail/${props._id}`}>
+        <Link to={`/tipDetail/${props._id}?nickname=${props.id}`}>
           <h5>{props.title}</h5>
         </Link>
         <div className={style.tip_title_box_space_2}>
@@ -74,10 +95,12 @@ const TipList = () => {
       {/* 프로필*/}
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-          <p>데이터 디자인</p>
-          <h4>글쓴이짱</h4>
+          <p>{props.member.class}</p>
+          <h4>{props.writer}</h4>
         </span>
-        <span className={style.profile_pic}></span>
+        <span className={style.profile_pic}>
+        <Image src={props.member.profileImg} roundedCircle />
+        </span>
       </div>
     </div>
   );
