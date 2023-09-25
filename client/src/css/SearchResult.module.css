@@ -12,22 +12,26 @@
   padding: 16px;
   margin: 0 auto;
 }
-.right_container > div:first-child {
+
+.right_container>div:first-child {
   width: 100%;
   background-color: #93baff;
   padding: 16px 32px;
   border-radius: 15px 15px 0 0;
 }
-.right_container > div:last-child {
+
+.right_container>div:last-child {
   border-right: 2px solid #eeeeee;
   border-bottom: 2px solid #eeeeee;
   border-left: 2px solid #eeeeee;
 }
+
 .search_Cate {
   display: flex;
   justify-content: space-between;
   margin: 18px 0;
 }
+
 .search_Cate button {
   display: inline-block;
   padding: 12px 18px;
@@ -39,23 +43,28 @@
   background-color: white;
   transition-duration: 200ms;
 }
+
 .search_Cate button:hover {
   background-color: #2474ff;
   color: #eeeeee;
 }
+
 .search_Cate .activeButton {
   background-color: #2474ff;
   color: #eeeeee;
 }
+
 .search_wrap_list {
   padding: 8px 16px;
 }
+
 .search_wrap_list h2 {
   font-size: 24px;
   font-weight: bold;
   margin: 16px 0 0 0;
   line-height: 40px;
 }
+
 .search_wrap_list h2::after {
   display: block;
   content: "";
@@ -65,23 +74,26 @@
   margin: 8px 0;
   background-color: #cccccc;
 }
+
 .search_wrap_list:not(:last-child) .search_detail {
   border-bottom: 2px solid rgb(228, 228, 228);
 }
+
 .search_detail {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: #f9f9f9;
   padding: 12px;
   align-items: center;
 }
+
 .search_detail span:first-child p {
   color: #999999;
   font-size: 14px;
   margin-bottom: 8px;
   font-weight: 500;
 }
+
 .search_detail span:first-child h4 {
   font-size: 18px;
   font-weight: bold;
@@ -89,21 +101,29 @@
   text-align: left;
   transition-duration: 200ms;
 }
+
 .search_detail span:first-child h4:hover {
   color: #2474ff;
   cursor: pointer;
 }
+
 .list_title {
   font-size: 18px;
   font-weight: 500;
   margin: 18px 0;
 }
+
 .list_title span {
   font-size: 24px;
   font-weight: 600;
   cursor: pointer;
   color: #555555;
 }
+
 .list_title span:hover {
   color: #2474ff;
+}
+
+.boldText {
+  background-color: burlywood;
 }
