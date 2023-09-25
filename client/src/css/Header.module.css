@@ -245,6 +245,13 @@ button {
   .hamburger_content {
     display: block;
   }
+ 
+  /* 모바일 화면에서 기존 헤더 메뉴 중복 내려오는 현상 */
+  .NavDropdown{
+    height: 65px;
+  }
+
+
 }
 
 @media (max-width: 1024px) {
@@ -257,6 +264,7 @@ button {
     padding: 12px;
   }
 }
+
 
 /* 사이드 슬라이드 박스 */
 .aside {
