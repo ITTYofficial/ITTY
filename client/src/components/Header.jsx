@@ -57,17 +57,20 @@ const Header = () => {
   // 네비게이션 hover시
   const [mouseEnter, setMouseEnter] = useState(false);
 
-  const navDropdownEnter =() => {
+  const navDropdownEnter = () => {
     setMouseEnter(true);
   }
-  const navDropdownLeave =() => {
+  const navDropdownLeave = () => {
     setMouseEnter(false);
   }
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+
   return (
     <div className={`${Nav.Navigation} ${mouseEnter ? Nav.NavDropdown : ""}`}
-    onMouseEnter={navDropdownEnter}
-    onMouseLeave={navDropdownLeave}
+      onMouseEnter={navDropdownEnter}
+      onMouseLeave={navDropdownLeave}
     >
       <div className={Nav.logo_image}>
         <Link to={"/"}>
@@ -135,6 +138,24 @@ const Header = () => {
       </div>
       <div className={Nav.Member}>
         <ul>
+          <li>
+            검색
+            <input
+              type="text"
+              className="form-control"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  console.log('엔터누름');
+                  // 엔터 키를 눌렀을 때 searchingList 페이지로 이동
+                  {/* <Link to={`/searchResult/${searchTerm}`} />; */}
+                  window.location.href = `/searchResult/${searchTerm}`;
+                }
+              }}
+            />
+          </li>
+
           <li>
             {loginOk ? (
               <button onClick={goLogout}>로그아웃</button>
