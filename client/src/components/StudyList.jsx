@@ -29,9 +29,10 @@ const StudyList = () => {
       .then(async(res) => {
         console.log("1. writer :", res.data.study[0].writer);
         let memberPromises = res.data.study.map((study) => {
-          const nickname = study.writer;
+          // const nickname = study.writer;
+          const id= study.id
           return axios.get(
-            `http://localhost:8088/member/memberSearching?nickname=${nickname}`
+            `http://localhost:8088/member/memberSearching?id=${id}`
           );
         });
 
@@ -103,7 +104,7 @@ const StudyList = () => {
                 <p className={styles.b_date}>
                   {getTimeAgoString(item.createdAt)}
                 </p>
-                <Link to={`/studyDetail/${item._id}?nickname=${item.member.nickname}`}>
+                <Link to={`/studyDetail/${item._id}?nickname=${item.member.id}`}>
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
