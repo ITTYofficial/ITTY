@@ -76,7 +76,7 @@ const PortList = () => {
     const PortItem = ({ props }) => (
         <div className={styles.port_content}>
             <div className={styles.port_content_img}>
-                <Link to={`/portDetail/${props._id}`}>
+                <Link to={`/portDetail/${props._id}?nickname=${props.id}`}>
                     <img src={props.imgPath}></img>
                     {/* <img src='https://i.ibb.co/dDnhbM9/image.png'></img> */}
                 </Link>
@@ -88,11 +88,11 @@ const PortList = () => {
                 <div>
                     <div className={styles.port_content_bottom2}>
                         <div className={styles.profile_img}>
-                            <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+                            <Image src={props.member.profileImg} roundedCircle />
                         </div>
                         <div>
-                            <p className={styles.little_p}>데이터디자인</p>
-                            <p className={styles.large_p}>종강만기다림</p>
+                            <p className={styles.little_p}>{props.member.class}</p>
+                            <p className={styles.large_p}>{props.writer}</p>
                         </div>
                     </div>
                     <div>
