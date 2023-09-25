@@ -33,7 +33,7 @@ router.post('/write', upload.single('img'), async (req, res) => {
     if(req.body._id){
       // 글 수정 시
       obj = {
-
+        id :req.body.id,
         title: req.body.title,
         content: req.body.content,
         // createdAt: "알아서 들어감",

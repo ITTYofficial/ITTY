@@ -25,8 +25,29 @@ const MarketList = () => {
   const readMarketList = async () => {
     await axios
       .get("http://localhost:8088/market/marketList")
-      .then((res) => {
-        const sortedProjects = res.data.market.sort((a, b) => {
+      .then(async(res) => {
+              // 회원정보조회-지홍
+              console.log("1. writer :", res.data.market[0].writer);
+              let memberPromises = res.data.market.map((market) => {
+                const nickname = market.writer;
+                const id = market.id
+      
+                return axios.get(
+                  `http://localhost:8088/member/memberSearching?id=${id}`
+                );
+              });
+      
+              let memberResponses = await Promise.all(memberPromises);
+              let member = memberResponses.map((response) => ({
+                member: response.data.member,
+              }));
+      
+              console.log("member 내용물 : ", member.member);
+              let fusion = member.map((item, index) => {
+                return { ...item, ...res.data.market[index] };
+              });
+              console.log("퓨전", fusion);
+        const sortedProjects = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
