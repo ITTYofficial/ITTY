@@ -94,18 +94,18 @@ const ReviewList = () => {
             </span>
 
           </div>
-          <Link to={`/reviewDetail/${props._id}`}>
+          <Link to={`/reviewDetail/${props._id}?nickname=${props.id}`}>
             <h3>{props.title}</h3>
           </Link>
         </span>
 
         <span className={style.Review_list_profile}>
           <div>
-            <p>빅데이터분석반</p>
-            <h4>언제취뽀</h4>
+            <p>{props.member.class}</p>
+            <h4>{props.writer}</h4>
           </div>
           <div>
-            <img src="#" alt="" />
+            <img src={props.member.profileImg}  />
           </div>
         </span>
       </div>
