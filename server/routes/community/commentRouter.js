@@ -38,7 +38,7 @@ router.post('/reWrite', async (req, res) => {
     };
 
     await Comment.findOneAndUpdate(
-      { _id: req.body.commentID },
+      { _id: req.body.commentId },
       {
         $push: {
           reComment: obj
@@ -54,23 +54,9 @@ router.post('/reWrite', async (req, res) => {
   }
 })
 
-// 댓글 리스트 조회
-router.get('/commentList', async (req, res) => {
-  const postId = req.query.postId;
-  try {
-    console.log('댓글 리스트도착', postId);
-    const comment = await Comment.find({ postId: postId });
-    res.json({ comment })
-  } catch (err) {
-    console.log(err);
-    res.json({ message: false });
-  }
-})
-
-
 // 새로운 조회함수
 
-router.get('/commentList2', async (req, res) => {
+router.get('/commentList', async (req, res) => {
   console.time('소요시간');
   const postId = req.query.postId;
   try {
@@ -94,7 +80,6 @@ router.get('/commentList2', async (req, res) => {
         });
       }
     });
-
 
     // 작성자 정보 일괄 조회
     const writerInfos = await Member.find({ nickname: { $in: writerNicknames } });
@@ -123,10 +108,6 @@ router.get('/commentList2', async (req, res) => {
   console.timeEnd('소요시간');
 })
 
-
-
-
-
 // 댓글 삭제
 router.get("/delete/:_id", async (req, res) => {
   console.log('delete진입');
@@ -142,5 +123,29 @@ router.get("/delete/:_id", async (req, res) => {
   }
 });
 
+// 대댓글 삭제
+router.post("/deleteRecomment/", async (req, res) => {
+  console.log('deleteReComment진입');
+  try {
+    const index = req.body.index;
+    const commentId = req.body.commentId;
+    await Comment.findOneAndUpdate(
+      { _id: commentId },
+      {
+        $set: { [`reComment.${index}`]: null }
+      }
+    );
+    await Comment.findOneAndUpdate(
+      { _id: commentId },
+      {
+        $pull: { reComment: null }
+      }
+    );
+    res.json({ message: true });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
 
 module.exports = router;

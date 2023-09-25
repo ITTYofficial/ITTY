@@ -59,21 +59,37 @@ function App() {
 
   // 댓글 조회 함수
   const getComment = (id) => {
-     console.time('소요시간');
-     axios.get(`http://localhost:8088/comment/commentList2?postId=${id}`)
+    console.time('소요시간');
+    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
       .then((res) => {
         console.log('확인!', res.data);
         setCommentList(res.data.comments)
         console.timeEnd('소요시간');
       })
   }
-  
+
   // 댓글 삭제 함수
   // 미사용중, 대댓글에는 삭제기능 적용안됨, 구조 변경 필요
-  const deleteComment = (commentId) => {
+  const deleteComment = (commentId, postId) => {
+    alert('댓글 삭제');
     axios.get(`http://localhost:8088/comment/delete/${commentId}`)
       .then((res) => {
-        getComment();
+        getComment(postId);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const deleteReComment = (commentId, postId, index) => {
+    alert('대댓글 삭제');
+    let obj = {
+      commentId: commentId,
+      index: index
+    }
+    axios.post(`http://localhost:8088/comment/deleteReComment`, obj)
+      .then((res) => {
+        getComment(postId);
       })
       .catch((err) => {
         console.log(err);
@@ -126,7 +142,8 @@ function App() {
     commentList: commentList,
     setCommentList: setCommentList,
     getComment: getComment,
-    deleteComment: deleteComment
+    deleteComment: deleteComment,
+    deleteReComment: deleteReComment
   }
 
   return (
@@ -138,7 +155,7 @@ function App() {
           <Route path="/playboardList" element={<PlayBoardList />}></Route>
           <Route path="/playBoardWrite" element={<PlayBoardWrite />}></Route>
           <Route path="/playboardDetail/:id" element={<PlayBoardDetail />}></Route>
-          
+
           <Route path="/studyList" element={<StudyList />}></Route>
           <Route path="/studyWrite" element={<StudyWrite />}></Route>
           <Route path="/studyDetail/:id" element={<StudyDetail />}></Route>
@@ -177,7 +194,7 @@ function App() {
           <Route path="/cropperTest" element={<CropperTest />}></Route>
 
           <Route path="/searchResult/:searchTerm" element={<SearchResult />}></Route>
-          
+
 
         </Routes>
         {RenderHeaderAndFooter() && <Footer />}

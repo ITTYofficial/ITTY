@@ -163,3 +163,9 @@ table {
   font-weight: 600;
   src: url("../../public/fonts/SUIT-Bold.ttf") format("woff");
 }
+@font-face {
+  font-family: "suit";
+  /* font-style: normal; */
+  font-weight: 800;
+  src: url("../../public/fonts/SUIT-Heavy.ttf") format("woff");
+}
