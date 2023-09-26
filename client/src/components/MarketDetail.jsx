@@ -54,6 +54,7 @@ const MarketDetail = () => {
         })
     }
   };
+  
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
