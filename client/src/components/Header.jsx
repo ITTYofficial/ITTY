@@ -161,7 +161,7 @@ const Header = () => {
             {loginOk ? (
               <button onClick={goLogout}>로그아웃</button>
             ) : (
-              <Link to={"/login"}>로그인</Link>
+              <Link to={"/login"} style={{backgroundColor:"gray", }}>로그인</Link>
             )}
           </li>
           <li>
