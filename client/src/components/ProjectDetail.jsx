@@ -77,6 +77,14 @@ const ProjectDetail = () => {
         })
     }
   };
+  
+  // 페이지 빠져나갈 때 댓글 리스트 초기화
+  useEffect(() => {
+    return () => {
+      setCommentList([]);
+    }
+  }, [])
+
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();

@@ -250,6 +250,13 @@ const StudyDetail = () => {
       });
   }
 
+  // 페이지 빠져나갈 때 댓글 리스트 초기화
+  useEffect(()=>{
+    return ()=>{
+      setCommentList([]);
+    }
+  },[])
+
   return (
     <div className={style.Main_container}>
       <LeftContainer />

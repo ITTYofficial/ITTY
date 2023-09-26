@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import style from "../css/TipDetail.module.css";
 import axios from "axios";
-import { useNavigate, useParams, useLocation} from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -51,12 +51,12 @@ const TipDetail = () => {
       });
   };
 
-   // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
-   const location = useLocation();
-   const params = new URLSearchParams(location.search);
-   const nickname = params.get('id');
- 
-    // 회원정보 저장할 state-지홍
+  // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const nickname = params.get('id');
+
+  // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
 
   // 댓글 내용 담을 State
@@ -103,6 +103,14 @@ const TipDetail = () => {
         alert("게시글 작성 실패")
       })
   }
+
+  // 페이지 빠져나갈 때 댓글 리스트 초기화
+  useEffect(() => {
+    return () => {
+      setCommentList([]);
+    }
+  }, [])
+
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
