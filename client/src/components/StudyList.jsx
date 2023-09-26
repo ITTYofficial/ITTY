@@ -4,6 +4,7 @@ import styles from "../css/Community.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
+import Pagination from "react-js-pagination";
 
 const StudyList = () => {
   // 장터리스트 담을 State
@@ -26,11 +27,11 @@ const StudyList = () => {
   const readstudyList = async () => {
     await axios
       .get("http://localhost:8088/study/studyList")
-      .then(async(res) => {
+      .then(async (res) => {
         console.log("1. writer :", res.data.study[0].writer);
         let memberPromises = res.data.study.map((study) => {
           // const nickname = study.writer;
-          const id= study.id
+          const id = study.id
           return axios.get(
             `http://localhost:8088/member/memberSearching?id=${id}`
           );
@@ -46,12 +47,13 @@ const StudyList = () => {
           return { ...item, ...res.data.study[index] };
         });
         console.log("퓨전", fusion);
-        
+
         const sortedStudy = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
         setstudyList(sortedStudy);
+        setMaxPage(sortedStudy.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -84,6 +86,21 @@ const StudyList = () => {
     }
   };
 
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 10;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
+
+
   return (
     <div className={styles.Main_container}>
       <LeftContainer />
@@ -98,7 +115,7 @@ const StudyList = () => {
 
         <div className={styles.Main_container_list}>
           {/* 글 반복 시작 */}
-          {studyList.map((item) => (
+          {studyList.slice(startIndex, endIndex).map((item) => (
             <div className={styles.Main_container_list_detail}>
               <div>
                 <p className={styles.b_date}>
@@ -125,6 +142,15 @@ const StudyList = () => {
             </div>
           ))}
           {/* 글 반복 끝 */}
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={maxPage}
+            pageRangeDisplayed={10}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+          />
         </div>
       </div>
     </div>
