@@ -210,16 +210,22 @@ const ReviewDetail = () => {
                             {visible[1] && <Recomend />}
                             {visible[2] && <Major />}
                         </div>
+
                     </div>
+
+                </div>
+
+                <span className={styles.middle_content}>
+                    <h4>{reviewDetail.title}</h4>
                     <div className={styles.top_sub_content}>
                         <p>{getTimeAgoString(reviewDetail.createdAt)} 👁‍🗨 {reviewDetail.views} 💬 4</p>
                     </div>
-                </div>
+                </span>
+                    <div className={styles.division_line_2}></div>
 
-                <div className={styles.middle_content}>
-                    <h4>{reviewDetail.title}</h4>
 
-                    {/* 글 내용 부분 */}
+                {/* 글 내용 부분 */}
+                <div className={styles.review_content}>
                     <div className={styles.meatball}>
                         <ul>
                             <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
@@ -233,6 +239,7 @@ const ReviewDetail = () => {
                             <p dangerouslySetInnerHTML={{ __html: reviewDetail.content }}></p>
                         </div>
                     </div>
+
                 </div>
                 <div className={styles.division_line}>
                     <div>

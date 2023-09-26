@@ -22,11 +22,16 @@
 .top_content {
     display: flex;
     justify-content: space-between;
+    white-space: nowrap;
 }
+
+
 
 .top_content>div {
     display: flex;
     align-items: center;
+    padding: 6px 12px 0 12px;
+   
 }
 
 .profile_img {
@@ -85,6 +90,7 @@
 
 .tag_buttons {
     margin-left: 8px;
+    white-space: nowrap;
 }
 
 .tag_buttons span {
@@ -99,6 +105,9 @@
     font-size: 20px;
     font-weight: bold;
     margin: 16px 0;
+    padding: 16px 16px 0 16px;
+    display: inline-block;
+    
 
 }
 
@@ -177,6 +186,15 @@
     /* background-color: #f0f9ff; */
     /* box-shadow: 2px 2px 8px #cdcdcd; */
     line-height: 1.5rem;
+}
+
+.division_line_2{
+    height: 1.5px;
+    border: none;
+    background-color: rgb(221, 221, 221);
+    text-align: center;
+    width: 100%;
+    margin: 16px 0 0px 12px;
 }
 
 .comment_write img {
@@ -341,10 +359,21 @@
     margin-bottom: 8px;
     color: #999999;
 }
+.top_sub_content{
+    display: inline-block;
+    right:0;
+}
 
 .top_sub_content p {
     font-size: 14px;
     font-weight: bold;
     margin: 12px 0;
     color: #999999;
+    margin-right: 8px;
+    text-align: right;
+}
+
+.review_content{
+
+    padding: 16px;
 }
