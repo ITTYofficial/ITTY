@@ -69,6 +69,7 @@ const ProjectDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.")
           console.log(res);
+          setComment('');
           getComment(id);
         })
         .catch((err) => {
@@ -77,7 +78,7 @@ const ProjectDetail = () => {
         })
     }
   };
-  
+
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
     return () => {
@@ -317,7 +318,11 @@ const ProjectDetail = () => {
                 <div>
                   <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
-                <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                <textarea
+                  onChange={commnetChange}
+                  placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                  value={comment}
+                ></textarea>
               </div>
               <button type="submit">댓글쓰기</button>
             </div>
