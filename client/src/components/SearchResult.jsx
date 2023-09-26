@@ -3,11 +3,15 @@ import styles from "../css/SearchResult.module.css";
 import LeftContainer from "./LeftContainer";
 import { useParams } from "react-router-dom";
 
+import Pagination from "react-js-pagination";
+
 const SearchResult = () => {
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
   const [activeCategory, setActiveCategory] = useState('Study');
-  
+  const [maxPage, setMaxPage] = useState();
+
+
 
   const categoryButtons = [
     { label: "스터디🐣", value: "Study" },
@@ -28,6 +32,8 @@ const SearchResult = () => {
         );
         const data = await response.json();
         setSearchResults(data.allBoards);
+        console.log('쳌', data.allBoards);
+        setMaxPage(data.allBoards[6].posts.length);
       } catch (error) {
         console.error("Error fetching search results:", error);
       }
@@ -38,6 +44,8 @@ const SearchResult = () => {
   }, [searchTerm]);
 
   console.log("받아온 값 확인", searchResults);
+  console.log('길이 확인', maxPage);
+
 
   // 검색한 값 하이라이트
   const boldSearchTerm = (text, searchTerm) => {
@@ -45,66 +53,44 @@ const SearchResult = () => {
     return text.replace(regex, (match) => `<span class="${styles.boldText}">${match}</span>`);
   };
 
-  //   const [studyDiv, setStudyDiv] = useState(false);
-  //   const [projectDiv, setProjectDiv] = useState(false);
-  //   const [marketDiv, setMarketDiv] = useState(false);
-  //   const [playDiv, setPlayDiv] = useState(false);
-  //   const [tipDiv, setTipDiv] = useState(false);
-  //   const [qnaDiv, setQnaDiv] = useState(false);
-
-  //   const visibleStudy = () => {
-  //     setStudyDiv(true);
-  //   };
-  //   const visibleProject = () => {
-  //     setProjectDiv(true);
-  //     setStudyDiv(false);
-  //   };
-  //   const visibleMarket = () => {
-  //     setMarketDiv(true);
-  //     setStudyDiv(false);
-  //     setProjectDiv(false);
-  //   };
-  //   const visiblePlay = () => {
-  //     setPlayDiv(true);
-  //   };
-  //   const visibleTip = () => {
-  //     setTipDiv(true);
-  //   };
-  //   const visibleQna = () => {
-  //     setQnaDiv(true);
-  //   };
-
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
+
+
+    // 페이징 부분
+    // 클릭된 카테고리의 결과 배열의 길이를 계산하여 maxPage 업데이트
+    const categoryResults = searchResults.find((result) => result.boardType === category);
+    if (categoryResults) {
+      setMaxPage(categoryResults.posts.length);
+      setPage(1); // 클릭된 카테고리가 바뀌었으므로 페이지를 1로 초기화
+    }
+    // 페이징 부분
   };
+
+  // 페이징 부분
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 5;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
+
 
   return (
     <div className={styles.Main_container}>
       <LeftContainer />
       <div className={styles.right_container}>
+
         <div>
           <h2 className={styles.list_title}>
             <span>{searchTerm}</span> 에 대한 검색 결과🔍
           </h2>
           <div className={styles.search_Cate}>
-            {/* <span>
-              <button onClick={() => handleCategoryClick("Study")}>
-                스터디🐣
-              </button>
-              <button onClick={() => handleCategoryClick("Project")}>
-                프로젝트🛵
-              </button>
-              <button onClick={() => handleCategoryClick("Market")}>
-                교환장터🥕
-              </button>
-              <button onClick={() => handleCategoryClick("Play")}>
-                자유게시판⚽
-              </button>
-            </span>
-            <span>
-              <button onClick={() => handleCategoryClick("Tip")}>Tip🧷</button>
-              <button onClick={() => handleCategoryClick("QnA")}>QnA💡</button>
-            </span> */}
             <span>
               {categoryButtons.map((button) => (
                 <button
@@ -126,7 +112,8 @@ const SearchResult = () => {
           <div>
             {searchResults
               .find((result) => result.boardType === activeCategory)
-              ?.posts.map((item) => (
+              ?.posts.slice(startIndex, endIndex) // 현재 페이지의 결과만 보여줍니다.
+              .map((item) => (
                 <div className={styles.search_wrap_list}>
                   <div>
                     <div className={styles.search_detail}>
@@ -143,27 +130,17 @@ const SearchResult = () => {
                   </div>
                 </div>
               ))}
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={itemsPerPage}
+              totalItemsCount={maxPage}
+              pageRangeDisplayed={10}
+              prevPageText={"‹"}
+              nextPageText={"›"}
+              onChange={handlePageChange}
+            />
           </div>
         )}
-
-        {/* {searchResults.map((item) => (
-          <div className={styles.search_wrap_list}>
-            <div>
-              <h2>{item.boardType}</h2>
-              {item.posts.map((board) => (
-                <div className={styles.search_detail}>
-                  <span>
-                    <p>{board.createdAt}</p>
-                    <h4>{board.title}</h4>
-                  </span>
-                  <span>
-                    <h5>{board.writer}</h5>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))} */}
       </div>
     </div>
   );

@@ -39,6 +39,7 @@ import MyPage from "./components/MyPage";
 import CropperTest from "./components/CropperTest";
 
 import "./css/quill_content_font_style.css"
+import "./css/Paging.css"
 import axios from "axios";
 import SearchResult from "./components/SearchResult";
 
