@@ -117,6 +117,13 @@ const AnonymityDetail = () => {
             });
     }
 
+    // 페이지 빠져나갈 때 댓글 리스트 초기화
+    useEffect(() => {
+        return () => {
+            setAnonyCommentList([]);
+        }
+    }, [])
+
     /* 수정삭제 버튼 */
 
     const [meat, setMeat] = useState(false);

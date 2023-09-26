@@ -6,7 +6,6 @@ import styles from "../css/Community.module.css";
 import style from "../css/TipList.module.css";
 import Image from "react-bootstrap/Image";
 const TipList = () => {
-
   // 팁 리스트 담을 State
   const [tipList, setTipList] = useState([]);
 
@@ -14,29 +13,29 @@ const TipList = () => {
   const readTipList = async () => {
     await axios
       .get("http://localhost:8088/tip/tipList")
-      .then(async(res) => {
-                // 회원정보조회-지홍
-                // console.log("1. writer :", res.data.tip[0].writer);
-                let memberPromises = res.data.tip.map((tip) => {
-                  // const nickname = tip.writer;
-                  const id = tip.id
-        
-                  return axios.get(
-                    `http://localhost:8088/member/memberSearching?id=${id}`
-                  );
-                });
-        
-                let memberResponses = await Promise.all(memberPromises);
-                let member = memberResponses.map((response) => ({
-                  member: response.data.member,
-                }));
-        
-                console.log("member 내용물 : ", member.member);
-                let fusion = member.map((item, index) => {
-                  return { ...item, ...res.data.tip[index] };
-                });
-                console.log("퓨전", fusion);
-        const sortedTip =  fusion.sort((a, b) => {
+      .then(async (res) => {
+        // 회원정보조회-지홍
+        // console.log("1. writer :", res.data.tip[0].writer);
+        let memberPromises = res.data.tip.map((tip) => {
+          // const nickname = tip.writer;
+          const id = tip.id;
+
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?id=${id}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.tip[index] };
+        });
+        console.log("퓨전", fusion);
+        const sortedTip = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -73,12 +72,11 @@ const TipList = () => {
     }
   };
 
-
   const Develope = () => (
     <span className={`${style.play_title} ${style.develope}`}>개발 🙋🏻‍♀️</span>
   );
 
-  const TipItem = ({props}) => (
+  const TipItem = ({ props }) => (
     <div className={style.Main_container_list_detail}>
       {/* 글 제목 및 내용 */}
       <div className={style.tip_text}>
@@ -99,7 +97,7 @@ const TipList = () => {
           <h4>{props.writer}</h4>
         </span>
         <span className={style.profile_pic}>
-        <Image src={props.member.profileImg} roundedCircle />
+          <Image src={props.member.profileImg} roundedCircle />
         </span>
       </div>
     </div>
@@ -114,14 +112,16 @@ const TipList = () => {
         </div>
         <div className={styles.right_container_button}>
           <div></div>
-          <h2>Tip 🥇</h2>
+          <h2>Tip 🧷</h2>
           <Link to={"/tipWrite"}>
             <p>작성하기</p>
           </Link>
         </div>
 
         <div className={styles.Main_container_list}>
-          {tipList.map((item) => (<TipItem key={item._id} props={item}/>))}
+          {tipList.map((item) => (
+            <TipItem key={item._id} props={item} />
+          ))}
         </div>
         <div className={style.tip_page_box}>1 2 3 4 5 6 7 8 9 10.....20</div>
       </div>
