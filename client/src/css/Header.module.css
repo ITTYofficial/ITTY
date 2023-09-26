@@ -23,6 +23,16 @@ button {
   border: none;
 }
 
+/*
+@media(max-width:1196px) {
+  .Category li a{
+    display: none;
+  }
+  
+}
+  */
+
+
 .logo_image {
   /* width: 7%; */
   /* padding: 4px 8px; */
