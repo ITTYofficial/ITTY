@@ -5,7 +5,7 @@ const Member = require('../../schemas/member/member')
 
 // 댓글 작성
 router.post('/write', async (req, res) => {
-  console.log(req.body);
+  console.log('확인', req.body);
   try {
     let obj;
 

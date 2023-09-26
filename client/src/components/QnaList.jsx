@@ -5,55 +5,57 @@ import { Link } from "react-router-dom";
 import styles from "../css/Community.module.css";
 import style from "../css/QnaList.module.css";
 import Image from "react-bootstrap/Image";
+import Pagination from "react-js-pagination";
 const QnaList = () => {
 
   // QnA 리스트 담을 State
   const [qnaList, setQnAList] = useState([]);
 
-// 회원만 작성 할 수 있도록 제한하는 함수-지홍
-const checkSessionStorage = (e) => {
-  // sessionStorage에서 값을 가져옴
-  var value = sessionStorage.getItem("memberId");
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
 
-  // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
-  if (!value || value === "") {
-    alert("로그인해야합니다");
-    window.location.href = "/login";
-    e.preventDefault();
-  }
-};
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      e.preventDefault();
+    }
+  };
 
   // QnA 리스트 조회 함수
   const readQnAList = async () => {
     await axios
       .get("http://localhost:8088/qna/qnaList")
-      .then(async (res) => {       
+      .then(async (res) => {
         // 회원정보조회-지홍
-                // console.log("1. writer :", res.data.qna[0].writer);
-                let memberPromises = res.data.qna.map((qna) => {
-            
-                  const id = qna.id
-        
-                  return axios.get(
-                    `http://localhost:8088/member/memberSearching?id=${id}`
-                  );
-                });
-        
-                let memberResponses = await Promise.all(memberPromises);
-                let member = memberResponses.map((response) => ({
-                  member: response.data.member,
-                }));
-        
-                console.log("member 내용물 : ", member.member);
-                let fusion = member.map((item, index) => {
-                  return { ...item, ...res.data.qna[index] };
-                });
-                console.log("퓨전", fusion);
+        // console.log("1. writer :", res.data.qna[0].writer);
+        let memberPromises = res.data.qna.map((qna) => {
+
+          const id = qna.id
+
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?id=${id}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.qna[index] };
+        });
+        console.log("퓨전", fusion);
         const sortedQnA = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
         setQnAList(sortedQnA);
+        setMaxPage(sortedQnA.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -111,11 +113,25 @@ const checkSessionStorage = (e) => {
           <h4>{props.writer}</h4>
         </span>
         <span className={style.profile_pic}>
-        <Image src={props.member.profileImg} roundedCircle />
+          <Image src={props.member.profileImg} roundedCircle />
         </span>
       </div>
     </div>
   );
+
+
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 10;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
 
   return (
     <div className={styles.Main_container}>
@@ -133,9 +149,17 @@ const checkSessionStorage = (e) => {
         </div>
 
         <div className={styles.Main_container_list}>
-          {qnaList.map((item) => (<QnaItem key={item._id} props={item} />))}
+          {qnaList.slice(startIndex, endIndex).map((item) => (<QnaItem key={item._id} props={item} />))}
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={maxPage}
+            pageRangeDisplayed={10}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+          />
         </div>
-        <div className={style.Qna_page_box}>1 2 3 4 5 6 7 8 9 10.....20</div>
       </div>
     </div>
   );

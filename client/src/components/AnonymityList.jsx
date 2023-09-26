@@ -6,9 +6,9 @@ import axios from "axios";
 import Image from "react-bootstrap/Image";
 import Pagination from "react-js-pagination";
 
-const PlayBoardList = (props) => {
+const AnonymityList = (props) => {
   // 장터리스트 담을 State
-  const [playList, setPlayList] = useState([]);
+  const [anonyList, setAnonyList] = useState([]);
 
   // 회원만 작성 할 수 있도록 제한하는 함수-지홍
   const checkSessionStorage = (e) => {
@@ -24,38 +24,18 @@ const PlayBoardList = (props) => {
   };
 
   // 게시판 리스트 조회 함수
-  const readPlayList = async () => {
+  const readAnonyList = async () => {
     await axios
-      .get("http://localhost:8088/play/playList")
+      .get("http://localhost:8088/anony/anonyList")
       .then(async (res) => {
-        // 회원정보조회-지홍
-        console.log("1. writer :", res.data.play[0].writer);
-        let memberPromises = res.data.play.map((play) => {
-          const nickname = play.writer;
-          const id = play.id
+        /* console.log('res확인 ', res.data.anony); */
+        const sortedAnony = res.data.anony.sort((a, b) => {
 
-          return axios.get(
-            `http://localhost:8088/member/memberSearching?id=${id}`
-          );
-        });
-
-        let memberResponses = await Promise.all(memberPromises);
-        let member = memberResponses.map((response) => ({
-          member: response.data.member,
-        }));
-
-        console.log("member 내용물 : ", member.member);
-        let fusion = member.map((item, index) => {
-          return { ...item, ...res.data.play[index] };
-        });
-        console.log("퓨전", fusion);
-
-        const sortedPlays = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        setPlayList(sortedPlays);
-        setMaxPage(sortedPlays.length);
+        setAnonyList(sortedAnony);
+        setMaxPage(sortedAnony.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -65,10 +45,7 @@ const PlayBoardList = (props) => {
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    readPlayList();
-    // const nickname = playList[0]
-    // console.log(nickname);
-    // memberSearching(nickname);
+    readAnonyList();
   }, []);
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
@@ -95,7 +72,7 @@ const PlayBoardList = (props) => {
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
-        <Link to={`/playboardDetail/${props._id}?id=${props.id}`}>
+        <Link to={`/anonymityDetail/${props._id}?id=${props.id}`}>
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
@@ -105,11 +82,13 @@ const PlayBoardList = (props) => {
       <div className={PlayBoard.Main_grid_profile}>
         <span className={PlayBoard.profile_text}>
           {/* <p>데이터 디자인</p> */}
-          <p>{props.member.class}</p>
-          <h4>{props.writer}</h4>
+          <h4>익명</h4>
         </span>
         <span className={PlayBoard.profile_pic}>
-          <Image src={props.member.profileImg} roundedCircle />
+          <Image
+            src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png"
+            roundedCircle
+          />
         </span>
       </div>
     </div>
@@ -129,25 +108,23 @@ const PlayBoardList = (props) => {
   const endIndex = startIndex + itemsPerPage;
   // 페이징 부분
 
-
-
   return (
     <div className={PlayBoard.Main_container}>
       <LeftContainer />
       <div className={PlayBoard.right_container}>
         <div className={PlayBoard.Main_container_banner}>
-          <img src="https://i.ibb.co/0m6fT0n/play.png" alt="play" />
+          <img src="https://i.ibb.co/QYbxpvT/private.png" alt="private" />
         </div>
         <div className={PlayBoard.right_container_button}>
-          <h2>자유게시판⚽</h2>
-          <a href="/playBoardWrite" onClick={checkSessionStorage}>
+          <h2>익명게시판 🕵️</h2>
+          <a href="/anonymityWrite" onClick={checkSessionStorage}>
             작성하기
           </a>
         </div>
 
         <div className={PlayBoard.Main_container_list}>
           {/* 글 반복 시작 */}
-          {playList.slice(startIndex, endIndex).map((item) => (
+          {anonyList.slice(startIndex, endIndex).map((item) => (
             <PlayItem key={item._id} props={item} />
           ))}
           {/* 글 반복 끝 */}
@@ -166,4 +143,4 @@ const PlayBoardList = (props) => {
   );
 };
 
-export default PlayBoardList;
+export default AnonymityList;

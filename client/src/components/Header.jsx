@@ -65,6 +65,8 @@ const Header = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  
+
   return (
     <div
       className={`${Nav.Navigation} ${mouseEnter ? Nav.NavDropdown : ""}`}
@@ -121,6 +123,15 @@ const Header = () => {
               </li>
             </ul>
           </li>
+
+          <li className={Nav.nav_hover}>
+            <a href="#">Private 🔒</a>
+            <ul className={Nav.sub_job}>
+              <li>
+                <Link to={"/anonymityList"}>익명게시판🤐</Link>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
       <div className={Nav.Member}>
@@ -149,7 +160,9 @@ const Header = () => {
             {loginOk ? (
               <button onClick={goLogout}>로그아웃</button>
             ) : (
-              <Link to={"/login"}>로그인</Link>
+              <Link to={"/login"} style={{ backgroundColor: "gray" }}>
+                로그인
+              </Link>
             )}
           </li>
           <li>

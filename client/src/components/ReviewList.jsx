@@ -3,6 +3,7 @@ import LeftContainer from "./LeftContainer";
 import style from "../css/ReviewList.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Pagination from "react-js-pagination";
 
 const ReviewList = () => {
   // 리뷰 리스트 담을 State
@@ -39,6 +40,7 @@ const ReviewList = () => {
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
         setReviewList(sortedReview);
+        setMaxPage(sortedReview.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -116,6 +118,20 @@ const ReviewList = () => {
     </div>
   );
 
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 10;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
+
   return (
     <div className={style.Main_container}>
       <LeftContainer />
@@ -127,9 +143,18 @@ const ReviewList = () => {
           </Link>
         </div>
         <div className={style.Review_container_list}>
-          {reviewList.map((item) => (
+          {reviewList.slice(startIndex, endIndex).map((item) => (
             <ReviewItem key={item._id} props={item} />
           ))}
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={maxPage}
+            pageRangeDisplayed={10}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+          />
         </div>
       </div>
     </div>

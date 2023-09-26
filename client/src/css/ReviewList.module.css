@@ -10,14 +10,17 @@
   width: 80%;
   /* background-color: whitesmoke; */
   padding: 16px;
-  margin-top: 6%;
+  margin-top: 4%;
 }
+
 .right_container h2 {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0 16px;
   line-height: 40px;
+  white-space: nowrap;
 }
+
 .right_container_button {
   display: flex;
   justify-content: space-between;
@@ -25,6 +28,7 @@
   padding: 12px;
   border-bottom: 2px solid #eeeeee;
 }
+
 .right_container_button a {
   text-decoration: none;
   color: #333333;
@@ -37,25 +41,30 @@
   padding: 12px 20px;
   margin: 0 8px;
 }
+
 .right_container_button a:hover {
   background-color: #2a72ff;
   color: #eeeeee;
   transition-duration: 200ms;
   border: 2px solid white;
 }
+
 .Review_container_list {
   padding: 12px;
 }
+
 /* ===== 리스트 클래스 ===== */
 .Main_container_list_detail {
-  padding: 16px 16px 12px 16px;
+  padding: 14px 16px 12px 16px;
   border-bottom: 2px solid #eeeeee;
 }
-.Main_container_list_detail > div {
+
+.Main_container_list_detail>div {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .Main_container_list_detail h3 {
   font-size: 18px;
   font-weight: 600;
@@ -71,6 +80,7 @@
 .Main_container_list_detail h3:hover {
   color: #2a72ff;
 }
+
 .Main_container_list_detail p {
   font-size: 14px;
   margin-bottom: 8px;
@@ -78,24 +88,29 @@
   color: #999999;
   font-weight: bold;
 }
+
 .Review_list_profile {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .Review_list_profile div:nth-child(1) {
   margin-right: 8px;
 }
+
 .Review_list_profile div:nth-child(1) p {
   color: #999999;
   font-size: 12px;
   text-align: right;
 }
+
 .Review_list_profile div:nth-child(1) h4 {
   text-align: right;
   font-size: 18px;
   font-weight: bold;
 }
+
 .Review_list_profile div:nth-child(2) {
   width: 50px;
   height: 50px;
@@ -103,12 +118,27 @@
   border-radius: 50%;
   overflow: hidden;
 }
-.Review_list_profile > div:last-child > img {
+
+.Review_list_profile>div:last-child>img {
   width: 100%;
 }
+
 .cateBox {
-  margin-bottom: 18px;
+
+  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+
+
+
 }
+.cateBox span{
+  white-space: nowrap;
+  padding: 7px 8px ;
+  margin-bottom: 2px;
+
+}
+
 .play_title {
   padding: 5px 8px;
   font-weight: bold;

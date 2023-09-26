@@ -19,7 +19,7 @@ const MyPage = () => {
     const cropperRef = useRef(null);
     const [image, setImage] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
-
+    
     // 정보 조회 데이터 관리
     const [memberInfo, setMemberInfo] = useState({})
     // 정보수정 데이터관리  

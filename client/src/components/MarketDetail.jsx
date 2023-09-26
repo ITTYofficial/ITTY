@@ -54,6 +54,15 @@ const MarketDetail = () => {
         })
     }
   };
+  
+
+  // 페이지 빠져나갈 때 댓글 리스트 초기화
+  useEffect(() => {
+    return () => {
+      setCommentList([]);
+    }
+  }, [])
+
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
@@ -294,7 +303,7 @@ const MarketDetail = () => {
           </div>
         </form>
         {/* 댓글부분 */}
-        {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id}/>))}
+        {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} />))}
         {/* 댓글부분 */}
 
       </div>

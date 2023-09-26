@@ -23,6 +23,16 @@ button {
   border: none;
 }
 
+/*
+@media(max-width:1196px) {
+  .Category li a{
+    display: none;
+  }
+  
+}
+  */
+
+
 .logo_image {
   /* width: 7%; */
   /* padding: 4px 8px; */
@@ -252,7 +262,7 @@ button {
 }
 
 /* 화면 축소시 버튼 글씨내려오는 현상 */
-@media (max-width: 1119px) {
+@media (max-width: 1300px) {
   .Member button {
     white-space: nowrap;
   }
@@ -262,17 +272,21 @@ button {
   }
 }
 
+
 @media (max-width: 1024px) {
   .Member > ul > li:first-child > button {
-    font-size: 14px;
-    padding: 12px;
+    display: none;
   }
   .Member > ul > li:last-child > a {
-    font-size: 14px;
-    padding: 12px;
+    display: none;
   }
 }
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 8a4b80e256fba011524e2e98041d7162a9da401e
 /* 사이드 슬라이드 박스 */
 .aside {
   position: fixed;

@@ -38,6 +38,10 @@ import PortWrite from "./components/PortWrite";
 import MyPage from "./components/MyPage";
 import CropperTest from "./components/CropperTest";
 
+import AnonymityList from "./components/AnonymityList"
+import AnonymityWrite from "./components/AnonymityWrite"
+import AnonymityDetail from "./components/AnonymityDetail"
+
 import "./css/quill_content_font_style.css"
 import "./css/Paging.css"
 import axios from "axios";
@@ -45,6 +49,7 @@ import SearchResult from "./components/SearchResult";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
+
 
   const location = useLocation();
 
@@ -57,9 +62,11 @@ function App() {
 
   // 댓글 데이터를 전역적으로 사용하기 위한 State
   const [commentList, setCommentList] = useState([]);
+  const [anonyCommentList, setAnonyCommentList] = useState([]);
 
   // 댓글 조회 함수
   const getComment = (id) => {
+    console.log('조회함수 진입');
     console.time('소요시간');
     axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
       .then((res) => {
@@ -68,6 +75,7 @@ function App() {
         console.timeEnd('소요시간');
       })
   }
+
 
   // 댓글 삭제 함수
   // 미사용중, 대댓글에는 삭제기능 적용안됨, 구조 변경 필요
@@ -82,6 +90,7 @@ function App() {
       })
   }
 
+  // 대댓글 삭제 함수
   const deleteReComment = (commentId, postId, index) => {
     alert('대댓글 삭제');
     let obj = {
@@ -96,6 +105,47 @@ function App() {
         console.log(err);
       })
   }
+
+  // 익명 댓글 조회 함수
+  const getAnonyComment = (id) => {
+    console.log('id 받아옴?', id);
+    axios.get(`http://localhost:8088/anony/anonyCommentList?postId=${id}`)
+      .then((res) => {
+        console.log('확인!', res.data);
+        setAnonyCommentList(res.data.anonyComment)
+      })
+  }
+
+  // 익명 댓글 삭제 함수
+  const deleteAnonyComment = (commentId, postId) => {
+    alert('댓글 삭제');
+    axios.get(`http://localhost:8088/anony/commentdelete/${commentId}`)
+      .then((res) => {
+        getAnonyComment(postId);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  // 익명 대댓글 삭제 함수
+  const deleteAnonyReComment = (commentId, postId, index) => {
+    alert('대댓글 삭제');
+    let obj = {
+      commentId: commentId,
+      index: index
+    }
+    axios.post(`http://localhost:8088/anony/deleteReComment`, obj)
+      .then((res) => {
+        getAnonyComment(postId);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+
+
 
   // 새창을 열었을 로그인이 풀리는 문제 해결하기위한 코드
   useEffect(() => {
@@ -141,10 +191,16 @@ function App() {
     value: value,
     setValue: setValue,
     commentList: commentList,
+    anonyCommentList: anonyCommentList,
     setCommentList: setCommentList,
     getComment: getComment,
     deleteComment: deleteComment,
-    deleteReComment: deleteReComment
+    deleteReComment: deleteReComment,
+    // 익명 댓글
+    getAnonyComment: getAnonyComment,
+    setAnonyCommentList: setAnonyCommentList,
+    deleteAnonyComment: deleteAnonyComment,
+    deleteAnonyReComment: deleteAnonyReComment,
   }
 
   return (
@@ -195,6 +251,12 @@ function App() {
           <Route path="/cropperTest" element={<CropperTest />}></Route>
 
           <Route path="/searchResult/:searchTerm" element={<SearchResult />}></Route>
+
+          <Route path="/anonymityList" element={<AnonymityList />}></Route>
+          <Route path="/anonymityWrite" element={<AnonymityWrite />}></Route>
+          <Route path="/anonymityDetail/:id" element={<AnonymityDetail />}></Route>
+
+
 
 
         </Routes>
