@@ -48,6 +48,9 @@ const PlayBoardDetail = () => {
         getAnony();
         getAnonyComment(id);
         /* memberSearching(); */
+        return () => {
+            setAnonyCommentList([]);
+        }
     }, []);
 
     // 날짜 변환 함수
@@ -114,6 +117,13 @@ const PlayBoardDetail = () => {
                 alert("게시글 작성 실패");
             });
     }
+
+    // 페이지 빠져나갈 때 댓글 리스트 초기화
+    useEffect(() => {
+        return () => {
+            setAnonyCommentList([]);
+        }
+    }, [])
 
     /* 수정삭제 버튼 */
 

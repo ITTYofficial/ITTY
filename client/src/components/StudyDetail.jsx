@@ -250,6 +250,13 @@ const StudyDetail = () => {
       });
   }
 
+  // 페이지 빠져나갈 때 댓글 리스트 초기화
+  useEffect(()=>{
+    return ()=>{
+      setCommentList([]);
+    }
+  },[])
+
   return (
     <div className={style.Main_container}>
       <LeftContainer />
@@ -257,7 +264,7 @@ const StudyDetail = () => {
       <div className={style.right_container} onClick={toggleMeat}>
         <div className={style.division_line}>
           <div className={style.division_top_line}>
-            <Link>Community🌐</Link>
+            <Link>Community🌐</Link> /{" "}
             <Link to={"/studyList"}>스터디 구해요🐣</Link>
           </div>
         </div>

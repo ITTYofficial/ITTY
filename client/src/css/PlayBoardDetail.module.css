@@ -350,6 +350,7 @@
 
   line-height: 1.5rem;
   font-size: 14px;
+  font-family: sans-serif;
 }
 
 /* 댓글 닉네임, 소속 */
@@ -361,6 +362,7 @@
 .play_comment_profile > span > h4 {
   font-size: 16px;
   font-weight: bold;
+  font-family: sans-serif;
 }
 
 /* 댓글시간 */
@@ -620,4 +622,8 @@
 .profile_img img {
   width: 100%;
   height: 100%;
+}
+
+.anonymous_profile_img{
+  border-radius: 50%;
 }

@@ -11,33 +11,23 @@
   margin: 0 auto;
 }
 
-@media (max-width:1304px) {
+@media (max-width: 1304px) {
   .right_container {
     width: 60%;
   }
-
-
-
-
 }
 
-@media (max-width:768px) {
+@media (max-width: 768px) {
   .right_container {
     width: 70%;
   }
-
-
 }
 
-
-
-
-
-.right_container>form>div:not(:nth-child(4)) {
+.right_container > form > div:not(:nth-child(4)) {
   margin-bottom: 24 px;
 }
 
-.right_container>h2 {
+.right_container > h2 {
   font-size: 24px;
   font-weight: bold;
   display: block;
@@ -52,8 +42,6 @@
   margin: 12px 0;
 }
 
-
-
 .market_title input {
   width: 100%;
   resize: none;
@@ -64,8 +52,6 @@
   line-height: 1.7rem;
   font-size: 18px;
 }
-
-
 
 .input_pic {
   display: flex;
@@ -81,7 +67,6 @@
   border: 1px solid #cecfce;
   line-height: 1.7rem;
   font-size: 18px;
-  
 }
 
 .market_sale {
@@ -135,11 +120,9 @@
   margin-top: 24px;
 }
 
-
 /* 이미지 업로드 */
 .real_upload {
   display: none;
-  
 }
 
 .upload_icon {
@@ -159,14 +142,13 @@
   align-items: center;
   align-content: center;
   white-space: nowrap;
-
+  cursor: pointer;
 }
 
 .fake_upload svg {
   width: 50px;
   height: 50px;
   fill: darkgray;
-  
 }
 
 .fake_upload span {
@@ -191,12 +173,9 @@
   object-fit: cover;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   position: grid;
-
 }
 
-
-.input_pic{
-
+.input_pic {
   display: grid;
   position: relative;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -204,9 +183,8 @@
   padding-top: 16px;
   padding-bottom: 4px;
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
-
 
 .show_preview_img svg {
   width: 23px;
@@ -215,10 +193,8 @@
   position: absolute;
   right: 6%;
   top: 6%;
-
+  cursor: pointer;
 }
-
-
 
 /* 작성버튼 css */
 .button_group {
@@ -235,7 +211,6 @@
   display: inline-block;
   background-color: #efefef;
   padding: 12px 20px;
-
 }
 
 .submit_btn:hover {
@@ -258,6 +233,5 @@
 .cancel_btn:hover {
   background-color: #c1a6a6;
 }
-
 
 /* 작성버튼 css */

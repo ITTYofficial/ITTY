@@ -57,6 +57,14 @@ const PortDetail = () => {
     }
   };
 
+  // 페이지 빠져나갈 때 댓글 리스트 초기화
+  useEffect(() => {
+    return () => {
+      setCommentList([]);
+    }
+  }, [])
+
+
   // 게시글정보 저장할 State
   const [portDetail, setPortDetail] = useState([]);
 
@@ -78,7 +86,7 @@ const PortDetail = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const nickname = params.get('id');
-  
+
   // 회원 정보 조회 함수
   const memberSearching = async () => {
     await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
@@ -237,7 +245,7 @@ const PortDetail = () => {
             <button type="submit">댓글쓰기</button>
           </div>
         </form>
-        {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id}/>))}
+        {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} />))}
 
       </div>
     </div>

@@ -77,11 +77,11 @@ const AnonymityComment = ({ props, postId }) => {
         return (
             <div className={PlayBoard.recomment_list_box}>
                 <div className={PlayBoard.play_recomment_profile}>
+                <span className={PlayBoard.anonymous_profile_img} style={{ backgroundColor: getColorByIndex(props.anonymousIndex) }}>
+                    <Image src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" roundedCircle />
+                </span>
                     <span>
-                        <Image src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" roundedCircle />
-                    </span>
-                    <span>
-                        <h4>익명</h4>
+                        <h4>익명{props.anonymousIndex}</h4>
                     </span>
                     <div className={PlayBoard.recomment_cancel}>
                         <svg onClick={() => deleteReComment(commentId, postId, index)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -107,14 +107,20 @@ const AnonymityComment = ({ props, postId }) => {
         )
     };
 
+    // 익명댓글 색깔
+    const getColorByIndex = (index) => {
+        const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+        return colors[index % colors.length];
+    }
+
     return (
         <div className={PlayBoard.comment_list}>
             <div className={PlayBoard.play_comment_profile}>
-                <span>
+                <span className={PlayBoard.anonymous_profile_img} style={{ backgroundColor: getColorByIndex(props.anonymousIndex) }}>
                     <Image src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" roundedCircle />
                 </span>
                 <span>
-                    <h4>익명</h4>
+                    <h4>익명{props.anonymousIndex}</h4>
                     <div className={PlayBoard.comment_cancel}>
                         <svg onClick={() => deleteComment(props._id, postId)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
@@ -146,7 +152,7 @@ const AnonymityComment = ({ props, postId }) => {
                         <div>
                             <div>
                                 <img src="#" />
-                            </div>``
+                            </div>
                             <textarea onBlur={reCommentChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
                         </div>
                         <button type="submit">댓글쓰기</button>

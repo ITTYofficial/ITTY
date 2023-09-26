@@ -27,8 +27,8 @@ const AnonymityList = (props) => {
     await axios
       .get("http://localhost:8088/anony/anonyList")
       .then(async (res) => {
-        console.log('res확인 ', res.data.anony);
-          const sortedAnony = res.data.anony.sort((a, b) => {
+        console.log("res확인 ", res.data.anony);
+        const sortedAnony = res.data.anony.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -82,7 +82,10 @@ const AnonymityList = (props) => {
           <h4>익명</h4>
         </span>
         <span className={PlayBoard.profile_pic}>
-          <Image src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" roundedCircle />
+          <Image
+            src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png"
+            roundedCircle
+          />
         </span>
       </div>
     </div>
@@ -93,7 +96,7 @@ const AnonymityList = (props) => {
       <LeftContainer />
       <div className={PlayBoard.right_container}>
         <div className={PlayBoard.Main_container_banner}>
-          <img src="https://i.ibb.co/0m6fT0n/play.png" alt="play" />
+          <img src="https://i.ibb.co/QYbxpvT/private.png" alt="private" />
         </div>
         <div className={PlayBoard.right_container_button}>
           <h2>익명게시판 🕵️</h2>
