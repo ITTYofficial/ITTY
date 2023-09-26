@@ -265,6 +265,7 @@ button {
   }
 }
 
+
 @media (max-width: 1024px) {
   .Member > ul > li:first-child > button {
     font-size: 14px;
@@ -275,6 +276,7 @@ button {
     padding: 12px;
   }
 }
+
 
 
 /* 사이드 슬라이드 박스 */

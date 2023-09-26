@@ -276,7 +276,7 @@ if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& g
               <div className="mb-3">
                 <h2 className={style.Join_font_box5}>포지션</h2>
               </div>
-              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="role"  onChange={onRoleHandler} >
+              <select className="form-control" style={{backgroundColor:"#f0f9ff"}} name="role"  onChange={onRoleHandler} >
                <option value="none">포지션을 선택해주세요</option>
                 <option value="back">Back-End 백앤드</option>
                 <option value="front">Front-End 프론트엔드</option>
@@ -292,7 +292,7 @@ if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& g
                 <h2 className={style.Join_font_box5}>스킬</h2>
                 <h5 className={style.Join_font_box6}>*선택사항입니다</h5>
               </div>
-              <select className="form-control" style={{backgroundColor:"rgb(229, 229, 229)"}} name="skill" onChange={onSkillHandler}>
+              <select className="form-control" style={{backgroundColor:"#f0f9ff"}} name="skill" onChange={onSkillHandler}>
               <option value="none">스킬을 선택해주세요</option>
                 <option value="java">Java</option>
                 <option value="javascript">JavaScript</option>

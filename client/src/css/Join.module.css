@@ -7,13 +7,12 @@
 .Join_content_box1 {
     width: 400px;
     background-color: #ffffff;
-    height: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
     margin-top: 8%;
-    margin-bottom:4%; 
+    margin-bottom:6%; 
 }
 
 
@@ -129,4 +128,8 @@
 
     background-color: rgb(229, 229, 229);
     
+}
+
+select>option {
+text-align: center;
 }

@@ -16,13 +16,23 @@
   .right_container{
     width: 60%;
   }
+
+
+
+
 }
 
 @media (max-width:768px){
   .right_container{
     width: 70%;
   }
+
+
 }
+
+
+
+
 
 .right_container>form>div:not(:nth-child(4)) {
   margin-bottom: 24 px;
@@ -43,6 +53,8 @@
   margin: 12px 0;
 }
 
+
+
 .market_title input {
   width: 100%;
   resize: none;
@@ -53,6 +65,8 @@
   line-height: 1.7rem;
   font-size: 18px;
 }
+
+
 
 .input_pic {
   display: flex;
@@ -68,6 +82,7 @@
   border: 1px solid #cecfce;
   line-height: 1.7rem;
   font-size: 18px;
+  
 }
 
 .market_sale {
@@ -125,6 +140,7 @@
 /* 이미지 업로드 */
 .real_upload {
   display: none;
+  
 }
 
 .upload_icon {
@@ -138,22 +154,25 @@
   border-radius: 20px;
   border: 1px solid #cecfce;
   margin-right: 16px;
-
   display: grid;
   justify-content: center;
   justify-items: center;
   align-items: center;
   align-content: center;
+  white-space: nowrap;
+
 }
 
 .fake_upload svg {
   width: 50px;
   height: 50px;
   fill: darkgray;
+  
 }
 
 .fake_upload span {
   color: darkgray;
+  font-size: 14px;
 }
 
 .input_pic>img {
@@ -164,7 +183,23 @@
   border-radius: 20px;
   border: 1px solid #cecfce;
   object-fit: cover;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  position: grid;
+
 }
+
+.input_pic{
+
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  padding-top: 16px;
+  padding-bottom: 4px;
+  display: flex;
+  flex-wrap: wrap; 
+}
+
 
 
 
