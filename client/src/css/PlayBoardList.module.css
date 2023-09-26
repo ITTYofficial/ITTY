@@ -101,6 +101,7 @@
 }
 .Main_container_list_detail > div:first-child > a > h4 {
   margin-bottom: 8px;
+  font-family: sans-serif;
 }
 .Main_container_list_detail > div:first-child > p:last-child {
   color: #999999;
@@ -129,6 +130,7 @@
   font-size: 18px;
   font-weight: bold;
   text-align: right;
+  font-family: sans-serif;
 }
 .profile_pic {
   width: 50px;

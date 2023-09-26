@@ -12,8 +12,8 @@ import Form from 'react-bootstrap/Form';
 
 const MarketWrite = () => {
   const [imgFiles, setImgFiles] = useState([]);
-  const imgRef = useRef();
   const writer = sessionStorage.getItem('nickname');
+  const imgRef = useRef();
   // 특정 게시글 조회하기 위한 id값 가져오기
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -27,6 +27,7 @@ const MarketWrite = () => {
     }
   };
 
+  const [prevImgFiles, setPrevImgFiles] = useState([]);
   // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
     if (imgRef.current && imgRef.current.files.length > 0) {
@@ -43,13 +44,12 @@ const MarketWrite = () => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = async () => {
-          if (imgFiles.length >= 3) {
+          if (prevImgFiles.length >= 3) {
             alert("최대 3개의 이미지 등록이 가능합니다.");
-            console.log(imgFiles); // 3개 이상 등록시 alert 메세지
+            console.log(prevImgFiles); // 3개 이상 등록시 alert 메세지
           } else {
             const base64data = reader.result;
-            // formData 만드는 함수
-            handlingDataForm(base64data);
+            setPrevImgFiles(prev => [...prev, base64data]); // 이미지 경로를 추가
           }
         };
       }
@@ -84,12 +84,14 @@ const MarketWrite = () => {
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
-      setImgFiles([...imgFiles, result.data.url]); // 새 이미지를 배열에 추가
+      return result;
     } catch (error) {
       console.log("실패했어요ㅠ");
       console.log(error);
     }
   };
+
+
 
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
@@ -111,20 +113,30 @@ const MarketWrite = () => {
     if (id) {
       obj["_id"] = id;
     }
-    setImgFiles([imgFiles.join(';')]);
-    obj["imgPath"] = imgFiles;
+
+    // 이미지를 서버에 업로드하고 URL을 받아오는 부분
+    const imgPaths = await Promise.all(prevImgFiles.map(async base64data => {
+      const result = await handlingDataForm(base64data);
+      console.log('화기이이', result);
+      return result.data.url;
+    }));
+
+    console.log('임패쓰', imgPaths);
+
+
+    obj["imgPath"] = imgPaths;
     console.log(obj);
     axios
       .post("http://localhost:8088/market/write", obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
-        window.location.href = `/marketDetail/${res.data._id}`
+        /* window.location.href = `/marketDetail/${res.data._id}` */
       })
       .catch((err) => {
         console.log(err);
         alert("게시글 작성 실패");
-        window.location.href = "/marketList"
+        /* window.location.href = "/marketList" */
       });
   };
 
@@ -153,6 +165,12 @@ const MarketWrite = () => {
   }, []);
 
   // 수정 요청시 데이터 가져오는거 까지 완료했고 이제 반영만 해주면 된다
+
+  const handleRemoveImage = (index) => {
+    const updatedImgFiles = [...imgFiles];
+    updatedImgFiles.splice(index, 1);
+    setImgFiles(updatedImgFiles);
+  };
 
   return (
     <div className={styles.right_container}>
@@ -199,10 +217,16 @@ const MarketWrite = () => {
               onChange={saveImgFile}
               ref={imgRef}
             />
-
-            {imgFiles.map((img, index) => (
-              <img key={index} src={img} alt={`이미지 ${index}`} />
+            {prevImgFiles.map((img, index) => (
+              <div className={styles.show_preview_img}>
+                <svg xmlns="http://www.w3.org/2000/svg" onClick={() => handleRemoveImage(index)} width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                </svg>
+                <img key={index} src={img} alt={`이미지 ${index}`} />
+              </div>
             ))}
+
           </div>
           <p>상품의 이미지는 1:1 비율로 보여집니다.</p>
         </div>

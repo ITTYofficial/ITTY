@@ -7,7 +7,7 @@
   z-index: 10;
   align-items: flex-start;
   background: linear-gradient(white 72px, #ffffffee 50px);
-  border-bottom: 2px solid #999999;
+  /* border-bottom: 2px solid #999999; */
   top: 0;
   left: 0;
   right: 0;
@@ -252,12 +252,12 @@ button {
 }
 
 /* 화면 축소시 버튼 글씨내려오는 현상 */
-@media (max-width: 1119px){
-  .Member button{
+@media (max-width: 1119px) {
+  .Member button {
     white-space: nowrap;
   }
 
-  .Member a{
+  .Member a {
     white-space: nowrap;
   }
 }
