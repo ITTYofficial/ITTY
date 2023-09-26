@@ -49,6 +49,7 @@ const MarketWrite = () => {
           } else {
             const base64data = reader.result;
             setPrevImgFiles((prev) => [...prev, base64data]); // 이미지 경로를 추가
+            imgRef.current.value = null;
           }
         };
       }
@@ -171,9 +172,9 @@ const MarketWrite = () => {
   // 수정 요청시 데이터 가져오는거 까지 완료했고 이제 반영만 해주면 된다
 
   const handleRemoveImage = (index) => {
-    const updatedImgFiles = [...imgFiles];
+    const updatedImgFiles = [...prevImgFiles];
     updatedImgFiles.splice(index, 1);
-    setImgFiles(updatedImgFiles);
+    setPrevImgFiles(updatedImgFiles);
   };
 
   return (
@@ -215,7 +216,7 @@ const MarketWrite = () => {
               type="file"
               className={styles.real_upload}
               accept="image/*"
-              required
+              {...(imgFiles ? null : {required: true})}
               multiple
               onChange={saveImgFile}
               ref={imgRef}
