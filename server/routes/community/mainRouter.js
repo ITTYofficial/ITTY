@@ -16,7 +16,11 @@ router.get('/mainList', async (req, res) => {
             Port.find().sort({ _id: -1 }).limit(4)
         ])
 
-        const proStu = mainList[2].concat(mainList[3]).slice(0, 5)
+        const proStu = mainList[2].concat(mainList[3]).slice(0, 5);
+        
+        proStu.sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+        })
 
         const main = {
             play: mainList[0],
