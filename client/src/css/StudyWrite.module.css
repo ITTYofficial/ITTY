@@ -54,7 +54,12 @@
 }
 
 
+@media (max-width:1355px){
 
+    .second_block>div  {
+        width:100%;
+    }
+}
 
 
 .frame_work_container {

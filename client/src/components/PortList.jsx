@@ -77,8 +77,8 @@ const PortList = () => {
     <div className={styles.port_content}>
       <div className={styles.port_content_img}>
         <Link to={`/portDetail/${props._id}?id=${props.member.id}`}>
-          <img src={props.imgPath}></img>
-          {/* <img src='https://i.ibb.co/dDnhbM9/image.png'></img> */}
+          {/* <img src={props.imgPath}></img> */}
+          <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png'></img>
         </Link>
       </div>
       <div className={styles.port_content_bottom}>
