@@ -61,7 +61,7 @@ const MarketDetail = () => {
   // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const nickname = params.get('nickname');
+  const nickname = params.get('id');
 
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);
@@ -86,7 +86,7 @@ const MarketDetail = () => {
   console.log('확인!!', marketDetail.imgPath);
   // 회원 정보 조회 함수
   const memberSearching = async () => {
-    await axios.get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+    await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
         console.log('axios다음 니크네임', res.data.member.nickname);
         setMemberInfo(res.data.member);

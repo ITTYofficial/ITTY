@@ -39,6 +39,7 @@ import MyPage from "./components/MyPage";
 import CropperTest from "./components/CropperTest";
 
 import "./css/quill_content_font_style.css"
+import "./css/Paging.css"
 import axios from "axios";
 import SearchResult from "./components/SearchResult";
 
@@ -60,7 +61,7 @@ function App() {
   // 댓글 조회 함수
   const getComment = (id) => {
     console.time('소요시간');
-    axios.get(`http://localhost:8088/comment/commentList2?postId=${id}`)
+    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
       .then((res) => {
         console.log('확인!', res.data);
         setCommentList(res.data.comments)

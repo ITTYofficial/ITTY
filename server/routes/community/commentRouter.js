@@ -54,23 +54,9 @@ router.post('/reWrite', async (req, res) => {
   }
 })
 
-// 댓글 리스트 조회
-router.get('/commentList', async (req, res) => {
-  const postId = req.query.postId;
-  try {
-    console.log('댓글 리스트도착', postId);
-    const comment = await Comment.find({ postId: postId });
-    res.json({ comment })
-  } catch (err) {
-    console.log(err);
-    res.json({ message: false });
-  }
-})
-
-
 // 새로운 조회함수
 
-router.get('/commentList2', async (req, res) => {
+router.get('/commentList', async (req, res) => {
   console.time('소요시간');
   const postId = req.query.postId;
   try {
@@ -94,7 +80,6 @@ router.get('/commentList2', async (req, res) => {
         });
       }
     });
-
 
     // 작성자 정보 일괄 조회
     const writerInfos = await Member.find({ nickname: { $in: writerNicknames } });

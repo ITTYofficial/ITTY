@@ -98,7 +98,7 @@ const StudyDetail = () => {
   // 특정 게시글 조회하기위한 nickname값 가져오기 -지홍
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const nickname = params.get("nickname");
+  const nickname = params.get("id");
 
   // 회원정보 저장할 state -지홍
   const [memberInfo, setMemberInfo] = useState({});
@@ -106,7 +106,7 @@ const StudyDetail = () => {
   //회원정보 조회 함수 -지홍
   const memberSearching = async () => {
     await axios
-      .get(`http://localhost:8088/member/memberSearching?nickname=${nickname}`)
+      .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
         console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
@@ -257,7 +257,7 @@ const StudyDetail = () => {
       <div className={style.right_container} onClick={toggleMeat}>
         <div className={style.division_line}>
           <div className={style.division_top_line}>
-            <Link>Community🌐</Link> /{" "}
+            <Link>Community🌐</Link>
             <Link to={"/studyList"}>스터디 구해요🐣</Link>
           </div>
         </div>

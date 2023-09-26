@@ -95,7 +95,7 @@ const checkSessionStorage = (e) => {
       {/* 글 제목 및 내용 */}
       <div className={style.Qna_text}>
         <Job />
-        <Link to={`/QnaDetail/${props._id}?nickname=${props.member.id}`}>
+        <Link to={`/QnaDetail/${props._id}?id=${props.id}`}>
           <h5> {props.title}</h5>
         </Link>
         <div className={style.Qna_title_box_space_2}>
