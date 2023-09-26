@@ -48,6 +48,9 @@ const PlayBoardDetail = () => {
         getAnony();
         getAnonyComment(id);
         /* memberSearching(); */
+        return () => {
+            setAnonyCommentList([]);
+        }
     }, []);
 
     // 날짜 변환 함수

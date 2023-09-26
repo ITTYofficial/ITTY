@@ -621,3 +621,7 @@
   width: 100%;
   height: 100%;
 }
+
+.anonymous_profile_img{
+  border-radius: 50%;
+}
