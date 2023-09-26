@@ -121,6 +121,18 @@ const Header = () => {
               </li>
             </ul>
           </li>
+
+
+          <li className={Nav.nav_hover}>
+            <a href="#">Private 🔒</a>
+            <ul className={Nav.sub_job}>
+              <li>
+                <Link to={"/anonymityList"}>익명게시판🤐</Link>
+              </li>
+            </ul>
+          </li>
+
+
         </ul>
       </div>
       <div className={Nav.Member}>

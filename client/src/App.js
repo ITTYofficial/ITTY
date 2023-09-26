@@ -38,6 +38,8 @@ import PortWrite from "./components/PortWrite";
 import MyPage from "./components/MyPage";
 import CropperTest from "./components/CropperTest";
 
+import AnonymityList from "./components/AnonymityList"
+
 import "./css/quill_content_font_style.css"
 import "./css/Paging.css"
 import axios from "axios";
@@ -45,6 +47,7 @@ import SearchResult from "./components/SearchResult";
 
 function App() {
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
+  
 
   const location = useLocation();
 
@@ -195,6 +198,7 @@ function App() {
           <Route path="/cropperTest" element={<CropperTest />}></Route>
 
           <Route path="/searchResult/:searchTerm" element={<SearchResult />}></Route>
+          <Route path="/anonymityList" element={<AnonymityList />}></Route>
 
 
         </Routes>
