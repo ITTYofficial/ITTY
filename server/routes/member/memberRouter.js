@@ -31,17 +31,25 @@ router.post('/join', async (req, res) => {
 // 정보수정
 router.post('/update', async (req, res) => {
   try {
-    let obj;
-    console.log(req.body.nickname);
-    obj = {
-      nickname: req.body.nickname,
-      pw: req.body.pw,
-      // role: req.body.role,
-      // skill: req.body.skill,
-      // profileImg: req.body.profileImg
-    };
-    const member = new Member(obj);
-    await Member.updateOne(member);
+    let pw= req.body.pw;
+    console.log('정보수정 도착',req.body.pw);
+    console.log('정보수정 도착',req.body.imgPath);
+    if(pw){
+      await Member.updateOne(
+        { id: req.body.id },
+        {
+            $set: {
+                pw: req.body.pw,
+                profileImg: req.body.imgPath,
+            }})
+    }else{
+      await Member.updateOne(
+        { id: req.body.id },
+        {
+            $set: {
+                
+                profileImg: req.body.imgPath,
+            }})}
     res.json({ message: "회원정보수정이 완료되었습니다." });
   } catch (err) {
     console.log(err);

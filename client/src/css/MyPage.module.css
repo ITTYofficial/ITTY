@@ -166,7 +166,7 @@
     border-bottom: 2px solid #eeeeee;
 }
 
-.bottom_btn_group>a:nth-child(1) {
+.bottom_btn_group>button:nth-child(1) {
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
@@ -179,11 +179,11 @@
     border: 2px solid;
 }
 
-.bottom_btn_group>a:nth-child(1) p {
+.bottom_btn_group>button:nth-child(1) p {
     color: white;
 }
 
-.bottom_btn_group>a:nth-child(1)+a {
+.bottom_btn_group>button:nth-child(1)+a {
     text-decoration: none;
     color: #333333;
     font-weight: 600;
@@ -196,7 +196,7 @@
     margin: 0 8px;
 }
 
-.bottom_btn_group a:hover {
+.bottom_btn_group button:hover {
     /* background-color: #2a72ff;
     color: #eeeeee;
     transition-duration: 200ms;

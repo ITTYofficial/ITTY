@@ -20,7 +20,7 @@ router.post('/write', async (req, res) => {
             _id = req.body._id
         } else {
             obj = {
-                id :req.body.id,
+                id: req.body.id,
                 writer: req.body.writer,
                 title: req.body.title,
                 content: req.body.content,
