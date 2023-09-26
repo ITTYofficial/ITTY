@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const ReviewList = () => {
-
   // 리뷰 리스트 담을 State
   const [reviewList, setReviewList] = useState([]);
 
@@ -13,11 +12,12 @@ const ReviewList = () => {
   const readReviewList = async () => {
     await axios
       .get("http://localhost:8088/review/reviewList")
-      .then(async(res) => {        // 회원정보조회-지홍
+      .then(async (res) => {
+        // 회원정보조회-지홍
         console.log("1. writer :", res.data.review[0].writer);
         let memberPromises = res.data.review.map((review) => {
           const nickname = review.writer;
-          const id = review.id
+          const id = review.id;
 
           return axios.get(
             `http://localhost:8088/member/memberSearching?id=${id}`
@@ -34,7 +34,7 @@ const ReviewList = () => {
           return { ...item, ...res.data.review[index] };
         });
         console.log("퓨전", fusion);
-        const sortedReview =fusion.sort((a, b) => {
+        const sortedReview = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -92,7 +92,6 @@ const ReviewList = () => {
             <span className={`${style.play_title} ${style.notrecommend}`}>
               비추천 👎🏻
             </span>
-
           </div>
           <Link to={`/reviewDetail/${props._id}?nickname=${props.id}`}>
             <h3>{props.title}</h3>
@@ -105,12 +104,14 @@ const ReviewList = () => {
             <h4>{props.writer}</h4>
           </div>
           <div>
-            <img src={props.member.profileImg}  />
+            <img src={props.member.profileImg} />
           </div>
         </span>
       </div>
       <span>
-        <p>{getTime(props.createdAt)} 👁‍🗨{props.views} 💬4</p>
+        <p>
+          {getTime(props.createdAt)} 👁‍🗨{props.views} 💬4
+        </p>
       </span>
     </div>
   );
@@ -126,7 +127,9 @@ const ReviewList = () => {
           </Link>
         </div>
         <div className={style.Review_container_list}>
-          {reviewList.map((item) => (<ReviewItem key={item._id} props={item} />))}
+          {reviewList.map((item) => (
+            <ReviewItem key={item._id} props={item} />
+          ))}
         </div>
       </div>
     </div>

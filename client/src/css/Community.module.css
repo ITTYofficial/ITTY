@@ -86,11 +86,13 @@
   font-weight: 500;
 }
 .Main_container_list_detail > div:first-child > a {
+  font-family: sans-serif;
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 12px;
   color: #333333;
   text-decoration: none;
+  letter-spacing: -1px;
 }
 .Main_container_list_detail > div:first-child > a:hover {
   font-size: 18px;
@@ -129,6 +131,7 @@
   font-size: 18px;
   font-weight: bold;
   text-align: right;
+  font-family: sans-serif;
 }
 .profile_pic {
   width: 50px;

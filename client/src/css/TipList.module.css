@@ -164,6 +164,8 @@
   vertical-align: middle;
   font-size: 18px;
   margin-top: 4px;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .b_date {
@@ -227,6 +229,7 @@
   font-size: 16px;
   font-weight: bold;
   text-align: right;
+  font-family: sans-serif;
 }
 
 .profile_pic {

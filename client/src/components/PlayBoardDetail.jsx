@@ -4,20 +4,19 @@ import PlayBoard from "../css/PlayBoardDetail.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useParams, useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import CommentItem from "./CommentItem";
 import { QuillContext } from "../context/QuillContext";
 
 const PlayBoardDetail = () => {
-
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
 
   // 특정 게시글 조회하기위한 nickname값 가져오기
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const nickname = params.get('nickname');
+  const nickname = params.get("nickname");
   // 게시글정보 저장할 State
   const [playDetail, setplayDetail] = useState([]);
   // 회원정보 저장할 state
@@ -27,16 +26,15 @@ const PlayBoardDetail = () => {
 
   //회원정보 조회 함수 -지홍
   const memberSearching = async () => {
-
     await axios
       .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
-        console.log('axios다음 니크네임', res.data.member.nickname);
+        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
-        console.log('err :', err);
-      })
+        console.log("err :", err);
+      });
   };
 
   // 게시글 조회함수
@@ -68,7 +66,7 @@ const PlayBoardDetail = () => {
     const month = createdAt.getMonth() + 1;
     const day = createdAt.getDate();
 
-    return `${year}년 ${month}월 ${day}일`
+    return `${year}년 ${month}월 ${day}일`;
   };
 
   // 수정 페이지 이동
@@ -100,7 +98,7 @@ const PlayBoardDetail = () => {
   // 댓글 내용 가져오는 함수
   const commentChange = (e) => {
     setComment(e.target.value);
-  }
+  };
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -108,20 +106,21 @@ const PlayBoardDetail = () => {
     const obj = {
       writer: sessionStorage.getItem("memberNickname"),
       postid: id,
-      content: comment
+      content: comment,
     };
     console.log(obj);
 
-    axios.post('http://localhost:8088/comment/write', obj)
+    axios
+      .post("http://localhost:8088/comment/write", obj)
       .then((res) => {
-        alert("댓글이 등록되었습니다.")
+        alert("댓글이 등록되었습니다.");
         console.log(res);
         getComment(id);
       })
       .catch((err) => {
         console.log(err);
-        alert("게시글 작성 실패")
-      })
+        alert("게시글 작성 실패");
+      });
   }
 
   /* 수정삭제 버튼 */
@@ -178,8 +177,8 @@ const PlayBoardDetail = () => {
       <div className={PlayBoard.right_container} onClick={toggleMeat}>
         <div className={PlayBoard.division_line}>
           <div>
-            <a href="#">Community🌐</a> /{" "}
-            <a href="/playboardList">자유게시판⚽</a>
+            <Link>Community🌐</Link> /{" "}
+            <Link to={"/playboardList"}>자유게시판⚽</Link>
           </div>
         </div>
 
@@ -188,9 +187,7 @@ const PlayBoardDetail = () => {
           <div className={PlayBoard.play_wrap_top}>
             <div className={PlayBoard.play_profile}>
               <span>
-                <h2>
-                  {playDetail.title}
-                </h2>
+                <h2>{playDetail.title}</h2>
                 <p>{getTimeAgoString(playDetail.createdAt)}</p>
               </span>
 
@@ -233,8 +230,10 @@ const PlayBoardDetail = () => {
           </div>
 
           <div className={PlayBoard.play_content}>
-            <div className='quill_content_font_style'>
-              <span dangerouslySetInnerHTML={{ __html: playDetail.content }}></span>
+            <div className="quill_content_font_style">
+              <span
+                dangerouslySetInnerHTML={{ __html: playDetail.content }}
+              ></span>
             </div>
           </div>
           {/* 게시글 content 끝 */}
@@ -251,14 +250,19 @@ const PlayBoardDetail = () => {
                 <div>
                   <img src="#" />
                 </div>
-                <textarea onBlur={commentChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                <textarea
+                  onBlur={commentChange}
+                  placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                ></textarea>
               </div>
               <button type="submit">댓글쓰기</button>
             </div>
           </form>
           {/* 댓글달기 끝 */}
 
-          {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} />))}
+          {commentList.map((item) => (
+            <CommentItem key={item._id} props={item} postId={id} />
+          ))}
         </div>
       </div>
     </div>

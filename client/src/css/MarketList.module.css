@@ -154,11 +154,13 @@
 .Market_content_text h4 {
   font-size: 20px;
   font-weight: bold;
+  font-family: sans-serif;
   margin: 8px 0;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -1px;
 }
 
 .Market_content_text > p {
