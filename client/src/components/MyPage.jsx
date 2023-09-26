@@ -64,9 +64,9 @@ const MyPage = () => {
 
     // 회원정보 조회
     const memberSearching = async () => {
-        const nick = sessionStorage.getItem('memberNickname')
+        const id = sessionStorage.getItem('memberId')
         await axios
-            .get(`http://localhost:8088/member/memberSearching?nickname=${nick}`)
+            .get(`http://localhost:8088/member/memberSearching?id=${id}`)
             .then((res) => {
                 console.log('axios다음 니크네임', res.data.member.nickname);
                 setMemberInfo(res.data.member);
