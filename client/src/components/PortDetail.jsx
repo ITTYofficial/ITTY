@@ -4,7 +4,7 @@ import LeftContainer from './LeftContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { QuillContext } from '../context/QuillContext';
 import CommentItem from './CommentItem';
 
@@ -15,6 +15,9 @@ const PortDetail = () => {
 
   // 댓글 내용 담을 State
   const [comment, setComment] = useState();
+
+  // 회원정보 저장할 state-지홍
+  const [memberInfo, setMemberInfo] = useState([]);
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment } = useContext(QuillContext);
@@ -71,11 +74,28 @@ const PortDetail = () => {
         console.log(err);
       })
   };
+  // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const nickname = params.get('id');
+  
+  // 회원 정보 조회 함수
+  const memberSearching = async () => {
+    await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
+      .then((res) => {
+        console.log('axios다음 니크네임', res.data.member.nickname);
+        setMemberInfo(res.data.member);
+      })
+      .catch((err) => {
+        console.log('err :', err);
+      })
+  }
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getPort();
     getComment(id);
+    memberSearching();
   }, []);
 
   // 날짜 변환 함수
@@ -170,8 +190,8 @@ const PortDetail = () => {
               <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
             </div>
             <div>
-              <p>빅데이터분석반</p>
-              <p>언제취뽀</p>
+              <p>{memberInfo.class}</p>
+              <p>{portDetail.writer}</p>
             </div>
           </div>
           <div>

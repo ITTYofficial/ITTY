@@ -90,7 +90,7 @@ const MarketList = () => {
   // 날짜 바꾸기
   const MarketItem = ({ props }) => (
     <Link
-      to={`/marketDetail/${props._id}?nickname=${props.id}`}
+      to={`/marketDetail/${props._id}?id=${props.id}`}
       className={style.Market_content_item}
     >
       <div className={style.Market_content_img} style={{width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover'}}>

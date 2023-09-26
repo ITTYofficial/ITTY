@@ -3,7 +3,7 @@ import styles from '../css/ReviewDetail.module.css'
 import LeftContainer from './LeftContainer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'react-bootstrap/Image';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams , useLocation} from 'react-router-dom';
 import axios from 'axios';
 import { QuillContext } from '../context/QuillContext';
 import CommentItem from './CommentItem';
@@ -31,6 +31,14 @@ const ReviewDetail = () => {
         </span>
     );
 
+  // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const nickname = params.get('id');
+
+  // 회원정보 저장할 state-지홍
+  const [memberInfo, setMemberInfo] = useState([]);
+
     // 게시글정보 저장할 State
     const [reviewDetail, setReviewDetail] = useState([]);
     const [visible, setVisible] = useState([false, false, false]);
@@ -51,6 +59,17 @@ const ReviewDetail = () => {
                 console.log(err);
             })
     };
+  // 회원 정보 조회 함수
+  const memberSearching = async () => {
+    await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
+      .then((res) => {
+        console.log('axios다음 니크네임', res.data.member.nickname);
+        setMemberInfo(res.data.member);
+      })
+      .catch((err) => {
+        console.log('err :', err);
+      })
+  }
 
     // 댓글 내용 담을 State
     const [comment, setComment] = useState();
@@ -89,6 +108,7 @@ const ReviewDetail = () => {
     useEffect(() => {
         getReview();
         getComment(id);
+        memberSearching();
     }, []);
 
 
@@ -171,11 +191,11 @@ const ReviewDetail = () => {
                 <div className={styles.top_content}>
                     <div>
                         <div className={styles.profile_img}>
-                            <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+                            <Image src={memberInfo.profileImg} roundedCircle />
                         </div>
                         <div>
-                            <p>데이터디자인</p>
-                            <h5>종강만기다림</h5>
+                            <p>{memberInfo.class}</p>
+                            <h5>{memberInfo.nickname}</h5>
                         </div>
                         <div className={styles.tag_buttons}>
                             {visible[0] && <Rank score={reviewDetail.score} />}

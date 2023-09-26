@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import style from "../css/TipDetail.module.css";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -51,6 +51,14 @@ const TipDetail = () => {
       });
   };
 
+   // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
+   const location = useLocation();
+   const params = new URLSearchParams(location.search);
+   const nickname = params.get('id');
+ 
+    // 회원정보 저장할 state-지홍
+  const [memberInfo, setMemberInfo] = useState([]);
+
   // 댓글 내용 담을 State
   const [comment, setComment] = useState();
 
@@ -60,6 +68,18 @@ const TipDetail = () => {
   // 댓글 내용 가져오는 함수
   const commentChange = (e) => {
     setComment(e.target.value);
+  }
+
+  // 회원 정보 조회 함수
+  const memberSearching = async () => {
+    await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
+      .then((res) => {
+        console.log('axios다음 니크네임', res.data.member.nickname);
+        setMemberInfo(res.data.member);
+      })
+      .catch((err) => {
+        console.log('err :', err);
+      })
   }
 
   // 댓글 작성완료 시 호출되는 함수
@@ -88,6 +108,7 @@ const TipDetail = () => {
   useEffect(() => {
     getTip();
     getComment(id);
+    memberSearching();
   }, []);
 
   // 날짜 변환 함수

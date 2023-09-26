@@ -1,246 +1,243 @@
 .Main_container {
-    max-width: 1320px;
-    margin: 0 auto;
-    display: flex;
-    margin-top: 8%;
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 8%;
 }
 
 .right_container {
-    width: 50%;
-    padding: 16px;
-    /* text-align: center; */
-    margin: 0 auto;
+  width: 50%;
+  padding: 16px;
+  /* text-align: center; */
+  margin: 0 auto;
 }
 
-
-.right_container>h4 {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 8px 0;
-    text-align: left;
+.right_container > h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 0;
+  text-align: left;
+  font-family: sans-serif;
 }
 
-.right_container>div {
-    /* background-color: aqua; */
+.right_container > div {
+  /* background-color: aqua; */
 }
 
 .top_container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .top_container_sub {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .profile_img {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .profile_img img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
-.top_container_sub>div:nth-child(2) {
-    text-align: left;
+.top_container_sub > div:nth-child(2) {
+  text-align: left;
 }
 
 .middle_container img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 /* 댓글 시작 */
 .division_line_comment {
-    position: relative;
+  position: relative;
 }
 
-.division_line_comment>div {
-    position: relative;
-    background-color: white;
-    color: #999999;
-    display: inline-block;
-    z-index: 9;
-    padding: 0 8px;
+.division_line_comment > div {
+  position: relative;
+  background-color: white;
+  color: #999999;
+  display: inline-block;
+  z-index: 9;
+  padding: 0 8px;
 }
 
 .division_line_comment::after {
-    content: "";
-    display: block;
-    position: absolute;
-    inset: 50% 0;
-    background-color: #eeeeee;
-    height: 0.5px;
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 50% 0;
+  background-color: #eeeeee;
+  height: 0.5px;
 }
 
 .division_line_comment div h4 {
-    color: #333333;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
+  color: #333333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 /* 댓글 끝 */
 
 .comment_write {
-    margin: 32px 0 5rem 0;
+  margin: 32px 0 5rem 0;
 }
 
 .comment_write div {
-    display: flex;
-    /* align-items: center; */
-    justify-content: space-around;
-    margin-bottom: 12px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-around;
+  margin-bottom: 12px;
 }
 
-.comment_write>div>div {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: #999999;
+.comment_write > div > div {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #999999;
 }
 
 .comment_write textarea {
-    width: 90%;
-    height: 100px;
-    resize: none;
-    border: none;
-    border-radius: 10px;
-    padding: 16px;
-    border: 1px solid #999999;
-    /* background-color: #f0f9ff; */
-    /* box-shadow: 2px 2px 8px #cdcdcd; */
-    line-height: 1.5rem;
+  width: 90%;
+  height: 100px;
+  resize: none;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #999999;
+  /* background-color: #f0f9ff; */
+  /* box-shadow: 2px 2px 8px #cdcdcd; */
+  line-height: 1.5rem;
 }
 
+.comment_write > button {
+  text-decoration: none;
+  float: right;
+  color: #eeeeee;
+  font-weight: 600;
+  font-size: 16px;
 
-.comment_write>button {
-    text-decoration: none;
-    float: right;
-    color: #eeeeee;
-    font-weight: 600;
-    font-size: 16px;
-
-    border-radius: 10px;
-    border: none;
-    display: inline-block;
-    background-color: #999999;
-    padding: 12px 20px;
-    margin-right: 16px;
+  border-radius: 10px;
+  border: none;
+  display: inline-block;
+  background-color: #999999;
+  padding: 12px 20px;
+  margin-right: 16px;
 }
 
-.comment_write>button:hover {
-    background-color: #2474ff;
+.comment_write > button:hover {
+  background-color: #2474ff;
 }
 
 .comment_list {
-    width: 100%;
-    border: none;
-    border-radius: 10px;
-    padding: 16px;
-    background-color: #f0f9ff;
-    box-shadow: 2px 2px 8px #cdcdcd;
-    line-height: 1.5rem;
-    margin-top: 2rem;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  background-color: #f0f9ff;
+  box-shadow: 2px 2px 8px #cdcdcd;
+  line-height: 1.5rem;
+  margin-top: 2rem;
 
-    position: relative;
+  position: relative;
 }
-
 
 .comment_list div:nth-child(2) {
-    padding: 8px 16px;
-    line-height: 1.3rem;
-    font-size: 14px;
+  padding: 8px 16px;
+  line-height: 1.3rem;
+  font-size: 14px;
 }
 
-.comment_list div:nth-child(3)>p {
-    font-size: 14px;
-    font-weight: bold;
-    color: #999999;
-    position: absolute;
-    top: 12px;
-    right: 16px;
+.comment_list div:nth-child(3) > p {
+  font-size: 14px;
+  font-weight: bold;
+  color: #999999;
+  position: absolute;
+  top: 12px;
+  right: 16px;
 }
 
 .play_comment_profile {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .play_comment_profile span:first-child {
-    width: 40px;
-    height: 40px;
-    margin-right: 8px;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
 }
 
 .play_comment_profile span img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .play_comment_profile span:last-child p {
-    font-size: 12px;
-    margin-bottom: 4px;
-    color: #999999;
-    line-height: 12px;
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #999999;
+  line-height: 12px;
 }
 
 .play_comment_profile span:last-child h4 {
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 /* 수정삭제 버튼 */
 
 .meatball {
-    text-align: end;
+  text-align: end;
 }
 
-.meatball>ul {
-    position: relative;
+.meatball > ul {
+  position: relative;
 }
 
 .meat_dropdown {
-    font-size: 14px;
-    position: absolute;
-    right: 0;
-    box-shadow: 1px 1px 8px gray;
-    padding: 4px 8px;
-    width: 100px;
-    text-align: left;
-    border-radius: 8px;
-    z-index: 99;
-    background-color: white;
+  font-size: 14px;
+  position: absolute;
+  right: 0;
+  box-shadow: 1px 1px 8px gray;
+  padding: 4px 8px;
+  width: 100px;
+  text-align: left;
+  border-radius: 8px;
+  z-index: 99;
+  background-color: white;
 }
 
 .meat_dropdown li {
-    display: flex;
-    align-items: center;
-    margin: 8px;
+  display: flex;
+  align-items: center;
+  margin: 8px;
 }
 
 .meat_dropdown svg {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
-.meat_dropdown>li:hover svg {
-    fill: #1f6cf1;
+.meat_dropdown > li:hover svg {
+  fill: #1f6cf1;
 }
 
-.meat_dropdown>li:hover span {
-    color: #1f6cf1;
-    font-weight: 600;
+.meat_dropdown > li:hover span {
+  color: #1f6cf1;
+  font-weight: 600;
 }
 
 .meat_dropdown svg {
-    width: 1.25rem;
-    height: 1.25rem;
-
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 /* 수정삭제 버튼 */

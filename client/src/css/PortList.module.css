@@ -35,6 +35,8 @@
   white-space: nowrap; /* 추가 */
   overflow: hidden; /* 추가 */
   text-overflow: ellipsis; /* 추가 */
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .port_list {

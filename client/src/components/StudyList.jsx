@@ -104,7 +104,7 @@ const StudyList = () => {
                 <p className={styles.b_date}>
                   {getTimeAgoString(item.createdAt)}
                 </p>
-                <Link to={`/studyDetail/${item._id}?nickname=${item.member.id}`}>
+                <Link to={`/studyDetail/${item._id}?id=${item.id}`}>
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
