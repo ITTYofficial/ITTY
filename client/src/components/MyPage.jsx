@@ -204,7 +204,7 @@ const MyPage = () => {
     // ********************************************************
     const updateNickname = async (e) => {
         e.preventDefault(); // 기본 폼 제출 방지
-        
+
         // 폼 요소를 이름 또는 ID로 가져옵니다.
         const form = document.querySelector('form[name="nicknameForm"]');
         const formData = new FormData(form);
@@ -214,16 +214,16 @@ const MyPage = () => {
             console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
-        obj['nickname']=nickname;
-        obj['id']= sessionStorage.getItem('memberId')
+        obj['nickname'] = nickname;
+        obj['id'] = sessionStorage.getItem('memberId')
         // const nickname = formData.get('nickname');
         try {
             console.log('닉네임:', nickname);
-            const response = await axios.post(`http://localhost:8088/member/updateNick`,obj);
+            const response = await axios.post(`http://localhost:8088/member/updateNick`, obj);
             // const res = await axios.post(`http://localhost:8088/`) 
             if (response.data.message === "회원정보수정이 완료되었습니다.") {
                 sessionStorage.removeItem('memberNickname');
-                sessionStorage.setItem('memberNickname',response.data.nickname)
+                sessionStorage.setItem('memberNickname', response.data.nickname)
             } else {
                 console.error("회원정보수정에 실패했습니다.");
             }
@@ -298,25 +298,25 @@ const MyPage = () => {
             <h2>마이페이지</h2>
             <div className={styles.top_container}>
                 <div className={styles.top_container_left}>
-                        <div>
-                            <form name="nicknameForm" onSubmit={updateNickname}>
+                    <div>
+                        <form name="nicknameForm" onSubmit={updateNickname}>
 
-                                <h4>닉네임</h4>
-                                <div className={styles.nickname_wrapper} style={{ display: nicknameVisable ? 'none' : 'flex' }}>
-                                    <h5>{memberInfo.nickname}</h5>
-                                    <div onClick={toggleNick}>닉네임 변경</div>
-                             </div>
+                            <h4>닉네임</h4>
+                            <div className={styles.nickname_wrapper} style={{ display: nicknameVisable ? 'none' : 'flex' }}>
+                                <h5>{memberInfo.nickname}</h5>
+                                <div onClick={toggleNick}>닉네임 변경</div>
+                            </div>
 
-                             {nicknameVisable &&
-                                    <div className={styles.nickname_modify_wrapper}>
-                                    <input type="text" className="form-control" id="nickname" name='nickname' value={nickname} onChange={(e) => setNickname(e.target.value)} onBlur={nicknameCheck} placeholder={sessionStorage.getItem('memberNickname')}/>
+                            {nicknameVisable &&
+                                <div className={styles.nickname_modify_wrapper}>
+                                    <input type="text" className="form-control" id="nickname" name='nickname' value={nickname} onChange={(e) => setNickname(e.target.value)} onBlur={nicknameCheck} placeholder={sessionStorage.getItem('memberNickname')} />
                                     <button type='submit'>수정완료</button>
                                 </div>
                             }
 
                             <div id="nickNameCheckmessage"></div>
-                            </form>
-                        </div>
+                        </form>
+                    </div>
                     <form>
                         <div>
                             <h4>비밀번호</h4>
@@ -424,15 +424,15 @@ const MyPage = () => {
                         </div>
                     </div>
                     {/* p태그로 이메일 주소남겨두기 */}
+                    <div className={styles.bottom_btn_group}>
+                        <Link to="/" onClick={updateMember}>
+                            <p>수정</p>
+                        </Link>
+                        <Link to="/">
+                            <p>취소</p>
+                        </Link>
+                    </div>
                 </form>
-            </div>
-            <div className={styles.bottom_btn_group}>
-                <Link to="/" onClick={updateMember}>
-                    <p>수정</p>
-                </Link>
-                <Link to="/">
-                    <p>취소</p>
-                </Link>
             </div>
         </div>
     )
