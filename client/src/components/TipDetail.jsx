@@ -106,6 +106,13 @@ const TipDetail = () => {
       });
   }
 
+  // 페이지 빠져나갈 때 댓글 리스트 초기화
+  useEffect(() => {
+    return () => {
+      setCommentList([]);
+    };
+  }, []);
+
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getTip();

@@ -3,7 +3,7 @@ import styles from '../css/ReviewDetail.module.css'
 import LeftContainer from './LeftContainer'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'react-bootstrap/Image';
-import { useNavigate, useParams , useLocation} from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { QuillContext } from '../context/QuillContext';
 import CommentItem from './CommentItem';
@@ -31,13 +31,13 @@ const ReviewDetail = () => {
         </span>
     );
 
-  // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const nickname = params.get('id');
+    // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const nickname = params.get('id');
 
-  // 회원정보 저장할 state-지홍
-  const [memberInfo, setMemberInfo] = useState([]);
+    // 회원정보 저장할 state-지홍
+    const [memberInfo, setMemberInfo] = useState([]);
 
     // 게시글정보 저장할 State
     const [reviewDetail, setReviewDetail] = useState([]);
@@ -59,17 +59,17 @@ const ReviewDetail = () => {
                 console.log(err);
             })
     };
-  // 회원 정보 조회 함수
-  const memberSearching = async () => {
-    await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
-      .then((res) => {
-        console.log('axios다음 니크네임', res.data.member.nickname);
-        setMemberInfo(res.data.member);
-      })
-      .catch((err) => {
-        console.log('err :', err);
-      })
-  }
+    // 회원 정보 조회 함수
+    const memberSearching = async () => {
+        await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
+            .then((res) => {
+                console.log('axios다음 니크네임', res.data.member.nickname);
+                setMemberInfo(res.data.member);
+            })
+            .catch((err) => {
+                console.log('err :', err);
+            })
+    }
 
     // 댓글 내용 담을 State
     const [comment, setComment] = useState();
@@ -103,6 +103,14 @@ const ReviewDetail = () => {
                 alert("게시글 작성 실패")
             })
     }
+
+    // 페이지 빠져나갈 때 댓글 리스트 초기화
+    useEffect(() => {
+        return () => {
+            setCommentList([]);
+        }
+    }, [])
+
 
     // 페이지 렌더링시 조회함수 실행
     useEffect(() => {

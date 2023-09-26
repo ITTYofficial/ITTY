@@ -3,7 +3,7 @@ import LeftContainer from "./LeftContainer";
 import style from "../css/QnaDetail.module.css";
 import styles from "../css/Community.module.css";
 import axios from "axios";
-import { useNavigate, useParams,useLocation } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { QuillContext } from "../context/QuillContext";
@@ -55,11 +55,11 @@ const QnaDetail = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const nickname = params.get('id');
- 
+
   // 회원정보 저장할 state-지홍
-   const [memberInfo, setMemberInfo] = useState([]);
- 
-   // 회원 정보 조회 함수
+  const [memberInfo, setMemberInfo] = useState([]);
+
+  // 회원 정보 조회 함수
   const memberSearching = async () => {
     await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
@@ -102,7 +102,15 @@ const QnaDetail = () => {
         console.log(err);
         alert("게시글 작성 실패")
       })
-  }
+  };
+
+  // 페이지 빠져나갈 때 댓글 리스트 초기화
+  useEffect(() => {
+    return () => {
+      setCommentList([]);
+    }
+  }, [])
+
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
