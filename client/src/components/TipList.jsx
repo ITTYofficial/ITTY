@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import styles from "../css/Community.module.css";
 import style from "../css/TipList.module.css";
 import Image from "react-bootstrap/Image";
+import Pagination from "react-js-pagination";
 const TipList = () => {
   // 팁 리스트 담을 State
   const [tipList, setTipList] = useState([]);
@@ -40,6 +41,7 @@ const TipList = () => {
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
         setTipList(sortedTip);
+        setMaxPage(sortedTip.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -103,6 +105,21 @@ const TipList = () => {
     </div>
   );
 
+
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 10;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
+
   return (
     <div className={styles.Main_container}>
       <LeftContainer />
@@ -119,11 +136,20 @@ const TipList = () => {
         </div>
 
         <div className={styles.Main_container_list}>
-          {tipList.map((item) => (
+          {tipList.slice(startIndex, endIndex).map((item) => (
             <TipItem key={item._id} props={item} />
           ))}
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={maxPage}
+            pageRangeDisplayed={10}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+          />
         </div>
-        <div className={style.tip_page_box}>1 2 3 4 5 6 7 8 9 10.....20</div>
+
       </div>
     </div>
   );

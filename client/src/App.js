@@ -76,16 +76,6 @@ function App() {
       })
   }
 
-  // 익명 댓글 조회 함수
-  const getAnonyComment = (id) => {
-    console.log('함수 도착');
-    axios.get(`http://localhost:8088/anonyComment/anonyCommentList?postId=${id}`)
-      .then((res) => {
-        console.log('확인!', res.data);
-        setAnonyCommentList(res.data.anonyComment)
-      })
-  }
-
 
   // 댓글 삭제 함수
   // 미사용중, 대댓글에는 삭제기능 적용안됨, 구조 변경 필요
@@ -93,13 +83,14 @@ function App() {
     alert('댓글 삭제');
     axios.get(`http://localhost:8088/comment/delete/${commentId}`)
       .then((res) => {
-        setCommentList(postId);
+        getComment(postId);
       })
       .catch((err) => {
         console.log(err);
       })
   }
 
+  // 대댓글 삭제 함수
   const deleteReComment = (commentId, postId, index) => {
     alert('대댓글 삭제');
     let obj = {
@@ -114,6 +105,47 @@ function App() {
         console.log(err);
       })
   }
+
+  // 익명 댓글 조회 함수
+  const getAnonyComment = (id) => {
+    console.log('id 받아옴?', id);
+    axios.get(`http://localhost:8088/anony/anonyCommentList?postId=${id}`)
+      .then((res) => {
+        console.log('확인!', res.data);
+        setAnonyCommentList(res.data.anonyComment)
+      })
+  }
+
+  // 익명 댓글 삭제 함수
+  const deleteAnonyComment = (commentId, postId) => {
+    alert('댓글 삭제');
+    axios.get(`http://localhost:8088/anony/commentdelete/${commentId}`)
+      .then((res) => {
+        getAnonyComment(postId);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  // 익명 대댓글 삭제 함수
+  const deleteAnonyReComment = (commentId, postId, index) => {
+    alert('대댓글 삭제');
+    let obj = {
+      commentId: commentId,
+      index: index
+    }
+    axios.post(`http://localhost:8088/anony/deleteReComment`, obj)
+      .then((res) => {
+        getAnonyComment(postId);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+
+
 
   // 새창을 열었을 로그인이 풀리는 문제 해결하기위한 코드
   useEffect(() => {
@@ -159,13 +191,16 @@ function App() {
     value: value,
     setValue: setValue,
     commentList: commentList,
-    anonyCommentList : anonyCommentList,
+    anonyCommentList: anonyCommentList,
     setCommentList: setCommentList,
-    setAnonyCommentList : setAnonyCommentList,
     getComment: getComment,
     deleteComment: deleteComment,
     deleteReComment: deleteReComment,
-    getAnonyComment: getAnonyComment
+    // 익명 댓글
+    getAnonyComment: getAnonyComment,
+    setAnonyCommentList: setAnonyCommentList,
+    deleteAnonyComment: deleteAnonyComment,
+    deleteAnonyReComment: deleteAnonyReComment,
   }
 
   return (

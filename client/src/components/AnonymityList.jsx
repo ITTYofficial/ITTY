@@ -4,6 +4,7 @@ import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
+import Pagination from "react-js-pagination";
 
 const AnonymityList = (props) => {
   // 장터리스트 담을 State
@@ -27,12 +28,14 @@ const AnonymityList = (props) => {
     await axios
       .get("http://localhost:8088/anony/anonyList")
       .then(async (res) => {
-        console.log("res확인 ", res.data.anony);
+        /* console.log('res확인 ', res.data.anony); */
         const sortedAnony = res.data.anony.sort((a, b) => {
+
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
         setAnonyList(sortedAnony);
+        setMaxPage(sortedAnony.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -91,6 +94,20 @@ const AnonymityList = (props) => {
     </div>
   );
 
+
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 10;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
   return (
     <div className={PlayBoard.Main_container}>
       <LeftContainer />
@@ -107,10 +124,19 @@ const AnonymityList = (props) => {
 
         <div className={PlayBoard.Main_container_list}>
           {/* 글 반복 시작 */}
-          {anonyList.map((item) => (
+          {anonyList.slice(startIndex, endIndex).map((item) => (
             <PlayItem key={item._id} props={item} />
           ))}
           {/* 글 반복 끝 */}
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={maxPage}
+            pageRangeDisplayed={10}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+          />
         </div>
       </div>
     </div>

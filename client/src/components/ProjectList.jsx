@@ -5,6 +5,7 @@ import axios from "axios";
 // import "../css/Community.css";
 import styles from "../css/Community.module.css";
 import Image from "react-bootstrap/Image";
+import Pagination from "react-js-pagination";
 
 const ProjectList = () => {
   // 게시글 리스트 담을 State
@@ -56,6 +57,7 @@ const ProjectList = () => {
         });
 
         setProjectList(sortedProjects);
+        setMaxPage(sortedProjects.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -88,6 +90,22 @@ const ProjectList = () => {
     }
   };
 
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 10;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
+
+
+
   return (
     <div className={styles.Main_container}>
       <LeftContainer />
@@ -105,7 +123,7 @@ const ProjectList = () => {
 
         <div className={styles.Main_container_list}>
           {/* 글 반복 시작 */}
-          {projectList.map((item) => (
+          {projectList.slice(startIndex, endIndex).map((item) => (
             <div className={styles.Main_container_list_detail}>
               <div>
                 <p className={styles.b_date}>
@@ -129,6 +147,15 @@ const ProjectList = () => {
             </div>
           ))}
           {/* 글 반복 끝 */}
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={maxPage}
+            pageRangeDisplayed={10}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+          />
         </div>
       </div>
     </div>

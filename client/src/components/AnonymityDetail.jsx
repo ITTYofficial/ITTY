@@ -10,7 +10,7 @@ import CommentItem from "./CommentItem";
 import { QuillContext } from "../context/QuillContext";
 import AnonymityComment from "./AnonymityComment";
 
-const PlayBoardDetail = () => {
+const AnonymityDetail = () => {
     // 특정 게시글 조회하기 위한 id값 가져오기
     const { id } = useParams();
     console.log('아이디 옴?', id);
@@ -34,7 +34,7 @@ const PlayBoardDetail = () => {
             .get(`http://localhost:8088/anony/anonyDetail/${id}`)
             .then((res) => {
                 // respnse에서 데이터 꺼내서 State에 저장
-                console.log('res 확인', res.data.detailAnony[0]);
+                /* console.log('res 확인', res.data.detailAnony[0]); */
                 setAnonyDetail(res.data.detailAnony[0]);
 
             })
@@ -66,16 +66,16 @@ const PlayBoardDetail = () => {
     // 수정 페이지 이동
     const nav = useNavigate();
     const moveUpdate = () => {
-        nav(`/playBoardWrite?id=${id}`);
+        nav(`/anonymityWrite?id=${id}`);
     };
 
     // 게시글 삭제
     const deletePlay = async () => {
         await axios
-            .post(`http://localhost:8088/play/delete/${id}`)
+            .post(`http://localhost:8088/anony/delete/${id}`)
             .then((res) => {
                 alert("삭제 완료");
-                window.location.href = "/playBoardList";
+                window.location.href = "/anonymityList";
             })
             .catch((err) => {
                 alert("삭제 실패");
@@ -97,16 +97,15 @@ const PlayBoardDetail = () => {
     // 댓글 작성완료 시 호출되는 함수
     function commentSubmit(event) {
         event.preventDefault();
-        console.log('아뒤 가져옴?', sessionStorage.getItem("memberId"));
         const obj = {
             writer: sessionStorage.getItem("memberId"),
-            postid: id,
+            postId: id,
             content: comment,
         };
         console.log(obj);
 
         axios
-            .post("http://localhost:8088/anonyComment/write", obj)
+            .post("http://localhost:8088/anony/commentWrite", obj)
             .then((res) => {
                 alert("댓글이 등록되었습니다.");
                 console.log(res);
@@ -271,4 +270,4 @@ const PlayBoardDetail = () => {
     );
 };
 
-export default PlayBoardDetail;
+export default AnonymityDetail;
