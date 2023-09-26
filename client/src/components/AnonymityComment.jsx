@@ -9,21 +9,22 @@ const AnonymityComment = ({ props, postId }) => {
 
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
     const { getAnonyComment, deleteComment, deleteReComment } = useContext(QuillContext);
+    console.log('게시글 id 넘어옴?', postId);
 
     // 대댓글 작성완료 시 호출되는 함수
     function reCommentSubmit(event, _id) {
         event.preventDefault();
-        console.log(_id);
         const createdAt = new Date().toISOString();
         const obj = {
-            writer: sessionStorage.getItem("memberNickname"),
+            postId : postId,
+            writer: sessionStorage.getItem("memberId"),
             content: reComment,
             commentId: _id,
             createdAt: createdAt
         };
         console.log(obj);
 
-        axios.post('http://localhost:8088/anonyComment/reWrite', obj)
+        axios.post('http://localhost:8088/anony/reCommentWrite', obj)
             .then((res) => {
                 alert("댓글이 등록되었습니다.")
                 console.log(res);

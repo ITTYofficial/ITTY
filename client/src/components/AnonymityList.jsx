@@ -27,7 +27,7 @@ const AnonymityList = (props) => {
     await axios
       .get("http://localhost:8088/anony/anonyList")
       .then(async (res) => {
-        console.log('res확인 ', res.data.anony);
+        /* console.log('res확인 ', res.data.anony); */
           const sortedAnony = res.data.anony.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);

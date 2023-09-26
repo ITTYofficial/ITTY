@@ -78,8 +78,8 @@ function App() {
 
   // 익명 댓글 조회 함수
   const getAnonyComment = (id) => {
-    console.log('함수 도착');
-    axios.get(`http://localhost:8088/anonyComment/anonyCommentList?postId=${id}`)
+    console.log('id 받아옴?', id);
+    axios.get(`http://localhost:8088/anony/anonyCommentList?postId=${id}`)
       .then((res) => {
         console.log('확인!', res.data);
         setAnonyCommentList(res.data.anonyComment)

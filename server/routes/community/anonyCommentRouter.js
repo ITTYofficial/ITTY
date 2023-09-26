@@ -5,10 +5,20 @@ const AnonyComment = require('../../schemas/community/anonyComment')
 // 익명 순번을 위한
 let anonymousIndexMap = {};
 
+// 게시판마다 익명 순번을 초기화하는 함수
+function initializeAnonymousIndex(boardId) {
+  anonymousIndexMap[boardId] = {};
+}
+
 // 댓글 작성
 router.post('/write', async (req, res) => {
   console.log('확인', req.body);
   try {
+
+    const postId = req.body.postId;
+    if (!anonymousIndexMap.hasOwnProperty(postId)) {
+      initializeAnonymousIndex(postId);
+    }
 
     const writer = req.body.writer;
     let anonymousIndex;
@@ -89,12 +99,13 @@ router.post('/reWrite', async (req, res) => {
 })
 
 
-// 댓글글 리스트 조회
+// 댓글 리스트 조회
 router.get('/anonyCommentList', async (req, res) => {
   try {
-    const anonyComment = await AnonyComment.find();
+    console.log('조회함수 확인', req.query.postId);
+    const postId = req.query.postId;
+    const anonyComment = await AnonyComment.find({ postId: postId });
     res.json({ anonyComment })
-    console.log('조회성공');
   } catch (err) {
     console.log(err);
     res.json({ message: false });
