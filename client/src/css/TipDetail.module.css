@@ -121,23 +121,24 @@
 }
 
 .develope {
-  background-color: rgb(224, 255, 166);
-  color: rgb(0, 86, 44);
+  background-color: #FF6D00;
+  color: #551a01;
 }
 
 .study {
-  background-color: rgb(194, 194, 255);
-  color: rgb(55, 0, 123);
+  background-color: #247DFF;
+  color: #FFFFFF;
 }
 
 .job {
-  background-color: rgb(255, 201, 201);
-  color: #ca1384;
+  background-color: #FF78F5;
+  color: #4F0051;
 }
 
 .life {
-  background-color: rgb(163, 249, 255);
-  color: rgb(2, 119, 140);
+  background-color: #00FFAA ;
+  color: #103A27;
+ 
 }
 
 .comment_box p {
