@@ -28,6 +28,9 @@ app.use("/tip", require("./routes/community/tipRouter"));
 app.use("/qna", require("./routes/community/qnaRouter"));
 // app.use("/kakao", require("./routes/member/kakaoLoginRouter"));
 app.use("/board", require("./routes/community/boardSearchRouter"));
+app.use("/anony", require("./routes/community/anonyRouter"));
+app.use("/anonyComment", require("./routes/community/anonyCommentRouter"));
+
 
 
 app.listen(8088, () => {

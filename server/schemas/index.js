@@ -42,5 +42,7 @@ module.exports = () => {
     require("./community/review");
     require("./community/tip");
     require("./community/qna");
+    require("./community/anony");
+    require("./community/anonyComment");
     require("./member/member");
 };
