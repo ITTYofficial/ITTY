@@ -14,14 +14,12 @@
   opacity: 50%;
 }
 
-
 .Main_container {
   max-width: 1320px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   margin-top: 8%;
-
 }
 
 .right_container {
@@ -48,7 +46,7 @@
   margin: 32px 0;
 }
 
-.division_line>div {
+.division_line > div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -114,28 +112,28 @@
 
 /* 왜 자유게시판에 프로젝트 버튼 css가 있을까유..?우선 여기에서 수정..~ */
 .frontend {
-  background-color: #2EFF55;
-  color: #0E3311;
+  background-color: #2eff55;
+  color: #0e3311;
 }
 
 .backend {
-  background-color: #FF316C;
-  color: #FFFFFF;
+  background-color: #ff316c;
+  color: #ffffff;
 }
 
 .db {
-  background-color: #B3A1FF;
+  background-color: #b3a1ff;
   color: #500084;
 }
 
 .uxui {
-  background-color: #71FFFF;
-  color: #003A47;
+  background-color: #71ffff;
+  color: #003a47;
 }
 
 .fullstack {
-  background-color: #247DFF;
-  color: #FFFFFF;
+  background-color: #247dff;
+  color: #ffffff;
 }
 
 /*  */
@@ -146,18 +144,17 @@
   margin: 16px 0;
 }
 
-.play_profile>span>h4 {
+.play_profile > span > h4 {
   font-size: 20px;
   font-weight: bold;
   margin: 16px 0;
 }
 
-.play_profile>span>p {
+.play_profile > span > p {
   font-size: 14px;
   font-weight: bold;
   margin: 12px 0;
   color: #999999;
-
 }
 
 .play_detail_profile {
@@ -170,14 +167,14 @@
   margin-right: 8px;
 }
 
-.profile_text>p {
+.profile_text > p {
   font-size: 14px;
   margin-bottom: 8px;
   text-align: right;
   color: #999999;
 }
 
-.profile_text>h4 {
+.profile_text > h4 {
   font-size: 18px;
   font-weight: bold;
   text-align: right;
@@ -195,7 +192,6 @@
   width: 100%;
 }
 
-
 /* profile 끝~! */
 .play_content {
   padding: 0 16px 16px 16px;
@@ -206,7 +202,7 @@
   position: relative;
 }
 
-.division_line_commant>div {
+.division_line_commant > div {
   position: relative;
   background-color: white;
   color: #999999;
@@ -243,7 +239,7 @@
   margin-bottom: 12px;
 }
 
-.comment_write>div>div {
+.comment_write > div > div {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -258,6 +254,7 @@
   border-radius: 10px;
   padding: 16px;
   border: 1px solid #999999;
+  font-family: sans-serif;
   /* background-color: #f0f9ff; */
   /* box-shadow: 2px 2px 8px #cdcdcd; */
   line-height: 1.5rem;
@@ -326,8 +323,6 @@
   line-height: 12px;
 } */
 
-
-
 .comment_list div:nth-child(2) {
   padding: 8px 16px;
 
@@ -336,21 +331,18 @@
 }
 
 /* 댓글 닉네임, 소속 */
-.play_comment_profile>span>p {
+.play_comment_profile > span > p {
   font-size: 12px;
   margin-top: 8px;
-
 }
 
-.play_comment_profile>span>h4 {
-
+.play_comment_profile > span > h4 {
   font-size: 16px;
   font-weight: bold;
-
 }
 
 /* 댓글시간 */
-.comment_list div:nth-child(3)>p {
+.comment_list div:nth-child(3) > p {
   font-size: 14px;
   font-weight: bold;
   color: #999999;
@@ -365,7 +357,7 @@
   text-align: end;
 }
 
-.meatball>ul {
+.meatball > ul {
   position: relative;
 }
 
@@ -392,11 +384,11 @@
   margin-right: 8px;
 }
 
-.meat_dropdown>li:hover svg {
+.meat_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.meat_dropdown>li:hover span {
+.meat_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -407,7 +399,6 @@
 }
 
 /* 수정삭제 버튼 */
-
 
 /* 대댓글 */
 
@@ -422,7 +413,7 @@
   margin-bottom: 12px;
 }
 
-.recomment_write>div>div {
+.recomment_write > div > div {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -461,7 +452,6 @@
   background-color: #2474ff;
 }
 
-
 /* 대댓글 */
 
 /* 댓글 구분선 */
@@ -472,7 +462,7 @@
   margin: 32px 0;
 }
 
-.division_line_comment>div {
+.division_line_comment > div {
   background-color: white;
   color: #999999;
   display: inline-block;

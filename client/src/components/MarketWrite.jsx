@@ -7,12 +7,11 @@ import { useRef } from "react";
 import { QuillContext } from "../context/QuillContext";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import Form from 'react-bootstrap/Form';
-
+import Form from "react-bootstrap/Form";
 
 const MarketWrite = () => {
   const [imgFiles, setImgFiles] = useState([]);
-  const writer = sessionStorage.getItem('nickname');
+  const writer = sessionStorage.getItem("nickname");
   const imgRef = useRef();
   // 특정 게시글 조회하기 위한 id값 가져오기
   const location = useLocation();
@@ -49,7 +48,7 @@ const MarketWrite = () => {
             console.log(prevImgFiles); // 3개 이상 등록시 alert 메세지
           } else {
             const base64data = reader.result;
-            setPrevImgFiles(prev => [...prev, base64data]); // 이미지 경로를 추가
+            setPrevImgFiles((prev) => [...prev, base64data]); // 이미지 경로를 추가
           }
         };
       }
@@ -91,8 +90,6 @@ const MarketWrite = () => {
     }
   };
 
-
-
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
   const { value, setValue } = useContext(QuillContext);
@@ -101,7 +98,7 @@ const MarketWrite = () => {
     e.preventDefault();
     console.log(e.target);
     const formData = new FormData(e.target);
-    formData.append('id', sessionStorage.getItem('memberId'));
+    formData.append("id", sessionStorage.getItem("memberId"));
 
     const obj = {};
     formData.forEach((value, key) => {
@@ -109,20 +106,21 @@ const MarketWrite = () => {
       obj[key] = value;
     });
     obj["content"] = value;
-    obj["writer"] = sessionStorage.getItem('memberNickname');
+    obj["writer"] = sessionStorage.getItem("memberNickname");
     if (id) {
       obj["_id"] = id;
     }
 
     // 이미지를 서버에 업로드하고 URL을 받아오는 부분
-    const imgPaths = await Promise.all(prevImgFiles.map(async base64data => {
-      const result = await handlingDataForm(base64data);
-      console.log('화기이이', result);
-      return result.data.url;
-    }));
+    const imgPaths = await Promise.all(
+      prevImgFiles.map(async (base64data) => {
+        const result = await handlingDataForm(base64data);
+        console.log("화기이이", result);
+        return result.data.url;
+      })
+    );
 
-    console.log('임패쓰', imgPaths);
-
+    console.log("임패쓰", imgPaths);
 
     obj["imgPath"] = imgPaths;
     console.log(obj);
@@ -131,12 +129,12 @@ const MarketWrite = () => {
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
-        /* window.location.href = `/marketDetail/${res.data._id}` */
+        window.location.href = `/marketDetail/${res.data._id}`;
       })
       .catch((err) => {
         console.log(err);
         alert("게시글 작성 실패");
-        /* window.location.href = "/marketList" */
+        window.location.href = "/marketList";
       });
   };
 
@@ -183,7 +181,9 @@ const MarketWrite = () => {
             className="form-control"
             type="text"
             name="market_title"
-            {...(id ? { defaultValue: marketDetail.title } : { placeholder: "상품명을 입력해주세요." })}
+            {...(id
+              ? { defaultValue: marketDetail.title }
+              : { placeholder: "상품명을 입력해주세요." })}
           />
         </div>
 
@@ -191,10 +191,7 @@ const MarketWrite = () => {
         <div className={styles.market_pic}>
           <h4>상품 이미지</h4>
           <div className={styles.input_pic}>
-            <div
-              className={styles.fake_upload}
-              onClick={handleFakeUploadClick}
-            >
+            <div className={styles.fake_upload} onClick={handleFakeUploadClick}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -219,25 +216,33 @@ const MarketWrite = () => {
             />
             {prevImgFiles.map((img, index) => (
               <div className={styles.show_preview_img}>
-                <svg xmlns="http://www.w3.org/2000/svg" onClick={() => handleRemoveImage(index)} width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  onClick={() => handleRemoveImage(index)}
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-dash-circle"
+                  viewBox="0 0 16 16"
+                >
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                   <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
                 </svg>
                 <img key={index} src={img} alt={`이미지 ${index}`} />
               </div>
             ))}
-
           </div>
           <p>상품의 이미지는 1:1 비율로 보여집니다.</p>
         </div>
-
 
         <div>
           <h4>상품 가격</h4>
           <input
             type="number"
             name="market_price"
-            {...(id ? { defaultValue: marketDetail.price } : { placeholder: "상품 가격을 입력해주세요." })}
+            {...(id
+              ? { defaultValue: marketDetail.price }
+              : { placeholder: "상품 가격을 입력해주세요." })}
             className="form-control"
           />
         </div>
@@ -254,22 +259,22 @@ const MarketWrite = () => {
           <h4>상품 설명</h4>
           <QuillTest />
         </div>
-        <input type="hidden" name={writer} value={sessionStorage.getItem('nickname')} />
+        <input
+          type="hidden"
+          name={writer}
+          value={sessionStorage.getItem("nickname")}
+        />
 
         <div className={styles.button_group}>
-          <button className={styles.cancel_btn} type='submit'>
+          <button className={styles.cancel_btn} type="submit">
             취소
           </button>
-          <button className={styles.submit_btn} type='submit'>
+          <button className={styles.submit_btn} type="submit">
             작성
           </button>
         </div>
-
       </form>
     </div>
-
-
-
   );
 };
 

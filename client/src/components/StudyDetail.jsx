@@ -257,7 +257,7 @@ const StudyDetail = () => {
       <div className={style.right_container} onClick={toggleMeat}>
         <div className={style.division_line}>
           <div className={style.division_top_line}>
-            <Link>Community🌐</Link>
+            <Link>Community🌐</Link> /{" "}
             <Link to={"/studyList"}>스터디 구해요🐣</Link>
           </div>
         </div>
