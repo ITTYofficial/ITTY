@@ -247,7 +247,7 @@ const MyPage = () => {
           .then((res) => {
             alert("회원정보가 수정되었습니다.");
             console.log(res);
-            window.location.href = `/myPage`
+            // window.location.href = `/myPage`
           })
           .catch((err) => {
             console.log(err);
@@ -291,8 +291,8 @@ const MyPage = () => {
 
     return (
         <div className={styles.Main_container}>
-            <form onSubmit={updateSubmit}>
                 <h2>마이페이지</h2>
+            <form onSubmit={updateSubmit}>
 
                 <div className={styles.top_container}>
                     <div className={styles.top_container_left}>
