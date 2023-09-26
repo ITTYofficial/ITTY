@@ -8,7 +8,7 @@ import { QuillContext } from '../context/QuillContext';
 const AnonymityComment = ({ props, postId }) => {
 
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-    const { getAnonyComment, deleteComment, deleteReComment } = useContext(QuillContext);
+    const { getAnonyComment, deleteAnonyComment, deleteAnonyReComment } = useContext(QuillContext);
     console.log('게시글 id 넘어옴?', postId);
 
     // 대댓글 작성완료 시 호출되는 함수
@@ -16,7 +16,7 @@ const AnonymityComment = ({ props, postId }) => {
         event.preventDefault();
         const createdAt = new Date().toISOString();
         const obj = {
-            postId : postId,
+            postId: postId,
             writer: sessionStorage.getItem("memberId"),
             content: reComment,
             commentId: _id,
@@ -78,14 +78,14 @@ const AnonymityComment = ({ props, postId }) => {
         return (
             <div className={PlayBoard.recomment_list_box}>
                 <div className={PlayBoard.play_recomment_profile}>
-                <span className={PlayBoard.anonymous_profile_img} style={{ backgroundColor: getColorByIndex(props.anonymousIndex) }}>
-                    <Image src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" roundedCircle />
-                </span>
+                    <span className={PlayBoard.anonymous_profile_img} style={{ backgroundColor: getColorByIndex(props.anonymousIndex) }}>
+                        <Image src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" roundedCircle />
+                    </span>
                     <span>
                         <h4>익명{props.anonymousIndex}</h4>
                     </span>
                     <div className={PlayBoard.recomment_cancel}>
-                        <svg onClick={() => deleteReComment(commentId, postId, index)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <svg onClick={() => deleteAnonyReComment(commentId, postId, index)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                         </svg>
@@ -123,7 +123,7 @@ const AnonymityComment = ({ props, postId }) => {
                 <span>
                     <h4>익명{props.anonymousIndex}</h4>
                     <div className={PlayBoard.comment_cancel}>
-                        <svg onClick={() => deleteComment(props._id, postId)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <svg onClick={() => deleteAnonyComment(props._id, postId)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                         </svg>

@@ -103,7 +103,7 @@ router.post("/delete/:_id", async (req, res) => {
 
 
 
-// 댓글 함수
+// 댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수
 
 // 익명 순번을 위한
 let anonymousIndexMap = {};
@@ -210,6 +210,47 @@ router.get('/anonyCommentList', async (req, res) => {
         res.json({ message: false });
     }
 })
+
+// 댓글 삭제
+router.get("/commentdelete/:_id", async (req, res) => {
+    console.log('delete진입');
+    try {
+        const id = req.params._id;
+        await AnonyComment.deleteOne({
+            _id: id
+        });
+        res.json({ message: true });
+    } catch (err) {
+        console.log(err);
+        res.json({ message: false });
+    }
+});
+
+
+// 대댓글 삭제
+router.post("/deleteRecomment/", async (req, res) => {
+    console.log('deleteReComment진입');
+    try {
+      const index = req.body.index;
+      const commentId = req.body.commentId;
+      await AnonyComment.findOneAndUpdate(
+        { _id: commentId },
+        {
+          $set: { [`reComment.${index}`]: null }
+        }
+      );
+      await AnonyComment.findOneAndUpdate(
+        { _id: commentId },
+        {
+          $pull: { reComment: null }
+        }
+      );
+      res.json({ message: true });
+    } catch (err) {
+      console.log(err);
+      res.json({ message: false });
+    }
+  });
 
 
 
