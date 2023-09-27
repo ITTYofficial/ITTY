@@ -68,6 +68,7 @@ const PortWrite = () => {
           console.log(res);
           setPortDetail(res.data.detailPort[0]);
           setValue(res.data.detailPort[0].content);
+          setCroppedImage(res.data.detailPort[0].imgPath);
         });
       // respnse에서 데이터 꺼내서 State에 저장
     }
@@ -136,35 +137,39 @@ const PortWrite = () => {
 
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
-    // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
-    const byteString = atob(dataURI.split(",")[1]);
-    // const nickname = sessionStorage.getItem("memberNickname");
-    // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([ia], {
-      type: "image/jpeg",
-    });
-    const file = new File([blob], "image.jpg");
-    // 위 과정을 통해 만든 image폼을 FormData에
-    // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
-    const formData = new FormData();
-    formData.append("img", file);
-    // formData.append("writer",nickname)
-    try {
-      const result = await axios.post(
-        "http://localhost:8088/save/save",
-        formData
-      );
-      console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
-      const url = result.data.url;
-      return url;
-    } catch (error) {
-      console.log("실패했어요ㅠ");
-      console.log(error);
+    if (dataURI.length > 200) {
+      // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
+      const byteString = atob(dataURI.split(",")[1]);
+      // const nickname = sessionStorage.getItem("memberNickname");
+      // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ia], {
+        type: "image/jpeg",
+      });
+      const file = new File([blob], "image.jpg");
+      // 위 과정을 통해 만든 image폼을 FormData에
+      // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
+      const formData = new FormData();
+      formData.append("img", file);
+      // formData.append("writer",nickname)
+      try {
+        const result = await axios.post(
+          "http://localhost:8088/save/save",
+          formData
+        );
+        console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
+        const url = result.data.url;
+        return url;
+      } catch (error) {
+        console.log("실패했어요ㅠ");
+        console.log(error);
+      }
+    } else {
+      return dataURI;
     }
 
   };

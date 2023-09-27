@@ -211,6 +211,7 @@ const StudyDetail = () => {
       .then((res) => {
         alert("댓글이 등록되었습니다.");
         console.log(res);
+        setComment('');
         getComment();
       })
       .catch((err) => {
@@ -351,6 +352,7 @@ const StudyDetail = () => {
                 <textarea
                   onChange={commnetChange}
                   placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                  value={comment}
                 ></textarea>
               </div>
               <Button type="submit" variant="outline-primary">

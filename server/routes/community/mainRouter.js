@@ -8,20 +8,26 @@ const Port = require('../../schemas/community/port');
 
 router.get('/mainList', async (req, res) => {
     try {
-        const play = await Play.find().sort({ _id: -1 }).limit(5);
-        const market = await Market.find().sort({ _id: -1 }).limit(4);
-        const project = await Project.find().sort({ _id: -1 }).limit(5);
-        const study = await Study.find().sort({ _id: -1 }).limit(5);
-        const port = await Port.find().sort({ _id: -1 }).limit(4);
-        const proStu = project.concat(study).slice(0, 5);
+        const mainList = await Promise.all([
+            Play.find().sort({ _id: -1 }).limit(5),
+            Market.find().sort({ _id: -1 }).limit(4),
+            Project.find().sort({ _id: -1 }).limit(5),
+            Study.find().sort({ _id: -1 }).limit(5),
+            Port.find().sort({ _id: -1 }).limit(4)
+        ])
+
+        const proStu = mainList[2].concat(mainList[3]).slice(0, 5);
+        
+        proStu.sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+        })
 
         const main = {
-            play: play,
-            market: market,
+            play: mainList[0],
+            market: mainList[1],
             proStu: proStu,
-            port: port
+            port: mainList[4]
         }
-
         res.json({ main })
     } catch (err) {
 
