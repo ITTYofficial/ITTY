@@ -23,6 +23,20 @@ const PlayBoardList = (props) => {
     }
   };
 
+  // 새로운 게시판 리스트 함수
+  const getList = async() => {
+    console.log('조회함수 진입');
+    console.time('소요시간');
+   await axios.get(`http://localhost:8088/total/findMemberInfo?play=play`)
+      .then((res) => {
+        console.log('확인!', res.data);
+        setPlayList(res.data.lists);
+        setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
+      })
+  }
+
   // 게시판 리스트 조회 함수
   const readPlayList = async () => {
     await axios
@@ -56,10 +70,8 @@ const PlayBoardList = (props) => {
         });
 
         // 댓글 개수 카운팅
-        console.time()
         const counting = sortedPlays.map((item) => (item._id))
         const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-        console.timeEnd()
         const play = sortedPlays.map((obj, index) => ({
           ...obj,
           count: countList[index],
@@ -75,7 +87,8 @@ const PlayBoardList = (props) => {
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    readPlayList();
+     readPlayList();
+// getList(); -> 오늘 집가서 광영이가 올린거 합쳐서 활성화 시킬게요~~~
     // const nickname = playList[0]
     // console.log(nickname);
     // memberSearching(nickname);
