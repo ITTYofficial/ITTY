@@ -134,6 +134,7 @@ router.post('/nicknameCheck', async (req, res) => {
 
 // 닉네임 값으로 특정 회원 조회
 router.get('/memberSearching', async (req, res) => {
+  console.time('회원조회 도착');
   try {
     console.log('쿼리스트링',req.query);
     const id = req.query.id;

@@ -177,8 +177,6 @@
   font-size: 18px;
   font-weight: bold;
   text-align: right;
-  font-family: sans-serif;
-  letter-spacing: -1px;
 }
 
 .profile_pic {
@@ -307,7 +305,7 @@
   line-height: 12px;
 } */
 
-.comment_list div:nth-child(2) {
+.comment_list>div:nth-child(2) {
   /* padding: 8px 16px; */
   margin: 8px 0;
   line-height: 1.5rem;
@@ -356,41 +354,6 @@
 }
 
 /* 대댓글 */
-
-.recomment_write {
-  margin: 32px 0 3.5rem 0;
-}
-
-.recomment_write>div {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  margin-bottom: 12px;
-}
-
-.recomment_write>div>div {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #999999;
-}
-
-.recomment_write textarea {
-  width: 90%;
-  height: 40px;
-  resize: none;
-  border: none;
-  border-radius: 10px;
-  padding: 8px;
-  border: 1px solid #999999;
-  /* background-color: #f0f9ff; */
-  /* box-shadow: 2px 2px 8px #cdcdcd; */
-  /* line-height: 1.5rem; */
-  background-color: #f0f9ff;
-  overflow-y: hidden;
-  font-size: 14px;
-}
-
 
 .recomment_list_box:hover {
   background-color: rgba(224, 248, 255, 0.59);
@@ -453,25 +416,6 @@
 
 .recomment_button_box_2 {
   cursor: pointer;
-}
-
-.recomment_write>button {
-  text-decoration: none;
-  float: right;
-  color: #eeeeee;
-  font-weight: 600;
-  font-size: 14px;
-  border-radius: 10px;
-  border: none;
-  display: inline-block;
-  background-color: #999999;
-  padding: 8px 16px;
-  /* margin-right: 16px; */
-}
-
-.recomment_write>button:hover {
-  font-weight: bold;
-  background-color: rgb(0, 119, 255);
 }
 
 .recomment_button_box_2:hover {
@@ -588,22 +532,27 @@
   border-radius: 50%;
 }
 
+
 /* 댓글 작성 quill버전 css */
+.comment_write {
+  margin-top: 16px;
+}
+
 .comment_write_profile {
   margin-right: 16px;
 }
 
 .comment_write_profile img {
-  width: 65px;
-  height: 65px;
+  width: 50px;
+  height: 50px;
 }
 
-.comment_write>div {
+.comment_write>div:first-child {
   display: flex;
 }
 
 
-.quillComment_container{
+.quillComment_container {
   width: 90%;
 }
 
@@ -616,19 +565,18 @@
   text-decoration: none;
   color: #eeeeee;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 10px;
   border: none;
   display: inline-block;
   background-color: #999999;
-  padding: 12px 20px;
+  padding: 8px 15px;
   margin-right: 16px;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .submit_btn_group button:hover {
   background-color: #2474ff;
 }
+
 /* 댓글 작성 quill버전 css */
-
-

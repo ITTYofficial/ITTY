@@ -9,33 +9,8 @@ const QnaCommentItem = ({ props, postId }) => {
 
     /* QnaCommentItem입니다. 채택 버튼으로 따로 관리합니다! */
 
-    /* 댓글 컴포넌트 작업하러 오신 분에게 남기는 말
-
-    프론트 작업자에게
-    PlayBoardDetail에서 떼어온 CommentItem 컴포넌트를 사용해서 이전 작업을 진행 했기때문에
-    이 컴포넌트는 css를 PlayBoardDetail.module.css를 사용하고 있는 상태입니다
-    문제가 없다면 이대로 사용해도 무방할 듯 하지만
-    혹여 댓글 css를 따로 만들 필요가 있을듯 하여 편지를 적어놓습니다
-    ======================================================================
-    ======================================================================
-    백엔드 작업자에게
-    통합 하면서 새로 생긴 문제인데
-    현재 한 게시글에 들어간 후에 다른 게시글에 들어갈 경우
-    댓글 정보가 이전 게시글의 정보로 순간적으로 출력되는 문제가 있습니다
-    Detail 페이지를 빠져나갈떄 commentList를 초기화 시키는 구문을 적어주면 해결될듯하지만
-    현재 시각 03:04분으로 매우 피곤한 상태이므로 이 편지를 남기고 자러갑니다
-    
-    사실 제가 정신없어서 다음에 작업할떄 까먹을까봐 적어놓는겁니다
-    지금 약간 의식의 흐름대로 적고있어서 횡설수설하는거같애요
-    
-    여튼 이만 갑니다
-    
-    -허허-
-    */
-
-
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-    const { commentList, setCommentList, getComment, deleteComment } = useContext(QuillContext);
+    const { commentList, setCommentList, getComment, deleteComment, deleteReComment } = useContext(QuillContext);
 
     // 대댓글 작성완료 시 호출되는 함수
     function reCommentSubmit(event, _id) {
@@ -99,7 +74,7 @@ const QnaCommentItem = ({ props, postId }) => {
     };
 
     // 대댓글 컴포넌트
-    const ReComment = ({ props }) => {
+    const ReComment = ({ commentId, props, index }) => {
 
         return (
             <div className={PlayBoard.recomment_list_box}>
@@ -112,7 +87,7 @@ const QnaCommentItem = ({ props, postId }) => {
                         <h4>{props.writer}</h4>
                     </span>
                     <div className={PlayBoard.recomment_cancel}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <svg onClick={() => deleteReComment(commentId, postId, index)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                         </svg>
@@ -145,18 +120,18 @@ const QnaCommentItem = ({ props, postId }) => {
                     <p>{props.writerInfo.class}</p>
                     <h4>{props.writer}</h4>
                     <div className={PlayBoard.comment_cancel}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <svg onClick={() => deleteComment(props._id, postId)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                         </svg>
                     </div>
                 </span>
-                    <span className={PlayBoard.comment_choice}>
-                        <button>👍  0 </button>
-                    </span>
-                    <span className={PlayBoard.comment_choice_2}>
-                        <button> 질문자 채택 🏆 </button>
-                    </span>
+                <span className={PlayBoard.comment_choice}>
+                    <button>👍  0 </button>
+                </span>
+                <span className={PlayBoard.comment_choice_2}>
+                    <button> 질문자 채택 🏆 </button>
+                </span>
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
             <div>
@@ -188,8 +163,7 @@ const QnaCommentItem = ({ props, postId }) => {
                     </div>
                 </form>
             }
-            {props.reComment.map((item, index) => <ReComment key={index} props={item} />)}
-
+            {props.reComment.map((item, index) => <ReComment key={index} commentId={props._id} props={item} index={index} />)}
         </div>
     );
 }

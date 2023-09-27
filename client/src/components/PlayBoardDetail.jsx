@@ -8,6 +8,7 @@ import { useNavigate, useParams, useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import CommentItem from "./CommentItem";
 import { QuillContext } from "../context/QuillContext";
+import QuillComment from './QuillComment'
 
 const PlayBoardDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
@@ -89,16 +90,10 @@ const PlayBoardDetail = () => {
       });
   };
 
-  // 댓글 내용 담을 State
-  const [comment, setComment] = useState();
-
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
 
-  // 댓글 내용 가져오는 함수
-  const commentChange = (e) => {
-    setComment(e.target.value);
-  };
+
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -106,7 +101,7 @@ const PlayBoardDetail = () => {
     const obj = {
       writer: sessionStorage.getItem("memberNickname"),
       postid: id,
-      content: comment,
+      content: coValue,
     };
     console.log(obj);
 
@@ -115,7 +110,7 @@ const PlayBoardDetail = () => {
       .then((res) => {
         alert("댓글이 등록되었습니다.");
         console.log(res);
-        setComment('');
+        setCoValue('');
         getComment(id);
       })
       .catch((err) => {
@@ -255,16 +250,21 @@ const PlayBoardDetail = () => {
           <form onSubmit={commentSubmit}>
             <div className={PlayBoard.comment_write}>
               <div>
-                <div>
-                  <img src="#" />
+                <div className={PlayBoard.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
-                <textarea
+                <div className={PlayBoard.quillComment_container}>
+                  <QuillComment />
+                </div>
+                {/* <textarea
                   onChange={commentChange}
                   placeholder="댓글을 쓰려면 로그인이 필요합니다."
                   value={comment}
-                ></textarea>
+                ></textarea> */}
               </div>
-              <button type="submit">댓글쓰기</button>
+              <div className={PlayBoard.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
           </form>
           {/* 댓글달기 끝 */}

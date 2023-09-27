@@ -86,7 +86,6 @@ router.get('/commentList', async (req, res) => {
 
     const getWriterInformation = comments.map(comment => {
       const writerInfo = writerInfos.find(info => info.nickname === comment.writer);
-
       if (comment.reComment) {
         comment.reComment.forEach(reComment => {
           const reWriterInfo = writerInfos.find(info => info.nickname === reComment.writer);
@@ -96,16 +95,42 @@ router.get('/commentList', async (req, res) => {
 
       return {
         ...comment.toJSON(),
-        writerInfo: writerInfo.toJSON(),
+        writerInfo: writerInfo ? writerInfo.toJSON() : null
       };
     });
 
-    res.json({ comments: getWriterInformation });
+    res.json({
+      comments: getWriterInformation,
+    });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
   }
   console.timeEnd('소요시간');
+})
+
+// 리스트 페이지용 댓글 개수 카운팅
+router.post("/commentCount", async (req, res) => {
+  const idList = req.body;
+
+  try {
+    const promises = idList.map(async (i) => {
+      const comment = await Comment.find({ postId: i });
+      let count = comment.length;
+      for (const j of comment) {
+        count += j.reComment.length;
+      }
+      return count;
+    });
+
+    const countList = await Promise.all(promises);
+    console.log(countList);
+    res.json({ countList });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+
 })
 
 // 댓글 삭제

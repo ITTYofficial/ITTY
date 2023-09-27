@@ -48,12 +48,21 @@ const MarketList = () => {
           return { ...item, ...res.data.market[index] };
         });
         console.log("퓨전", fusion);
-        const sortedProjects = fusion.sort((a, b) => {
+        const sortedMarkets = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        setMarketList(sortedProjects);
-        setMaxPage(sortedProjects.length);
+
+        // 댓글 개수 카운팅
+        const counting = sortedMarkets.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const market = sortedMarkets.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
+
+        setMarketList(sortedMarkets);
+        setMaxPage(sortedMarkets.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");

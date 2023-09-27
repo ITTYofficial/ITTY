@@ -1,37 +1,15 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import PlayBoard from "../css/PlayBoardDetail.module.css";
+import styles from "../css/CommentItem.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import { QuillContext } from "../context/QuillContext";
+import QuillReComment from './QuillReComment'
 
 const CommentItem = ({ props, postId }) => {
-  /* 댓글 컴포넌트 작업하러 오신 분에게 남기는 말
-
-    프론트 작업자에게
-    PlayBoardDetail에서 떼어온 CommentItem 컴포넌트를 사용해서 이전 작업을 진행 했기때문에
-    이 컴포넌트는 css를 PlayBoardDetail.module.css를 사용하고 있는 상태입니다
-    문제가 없다면 이대로 사용해도 무방할 듯 하지만
-    혹여 댓글 css를 따로 만들 필요가 있을듯 하여 편지를 적어놓습니다
-    ======================================================================
-    ======================================================================
-    백엔드 작업자에게
-    통합 하면서 새로 생긴 문제인데
-    현재 한 게시글에 들어간 후에 다른 게시글에 들어갈 경우
-    댓글 정보가 이전 게시글의 정보로 순간적으로 출력되는 문제가 있습니다
-    Detail 페이지를 빠져나갈떄 commentList를 초기화 시키는 구문을 적어주면 해결될듯하지만
-    현재 시각 03:04분으로 매우 피곤한 상태이므로 이 편지를 남기고 자러갑니다
-    
-    사실 제가 정신없어서 다음에 작업할떄 까먹을까봐 적어놓는겁니다
-    지금 약간 의식의 흐름대로 적고있어서 횡설수설하는거같애요
-    
-    여튼 이만 갑니다
-    
-    -허허-
-    */
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { getComment, deleteComment, deleteReComment } =
+  const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue } =
     useContext(QuillContext);
 
   // 대댓글 작성완료 시 호출되는 함수
@@ -41,7 +19,7 @@ const CommentItem = ({ props, postId }) => {
     const createdAt = new Date().toISOString();
     const obj = {
       writer: sessionStorage.getItem("memberNickname"),
-      content: reComment,
+      content: reCoValue,
       commentId: _id,
       createdAt: createdAt,
     };
@@ -52,6 +30,7 @@ const CommentItem = ({ props, postId }) => {
       .then((res) => {
         alert("댓글이 등록되었습니다.");
         console.log(res);
+        setReCoValue('');
         getComment(postId);
       })
       .catch((err) => {
@@ -59,15 +38,6 @@ const CommentItem = ({ props, postId }) => {
         alert("게시글 작성 실패");
       });
   }
-
-  // 대댓글 내용 담을 State
-  const [reComment, setReComment] = useState();
-
-  // 대댓글 내용 가져오는 함수
-  const reCommentChange = (e) => {
-    setReComment(e.target.value);
-    console.log(e.target.value);
-  };
 
   // 대댓글 작성 칸 출력 조절 State
   const [recommentVisible, setRecommentVisible] = useState(false);
@@ -99,8 +69,8 @@ const CommentItem = ({ props, postId }) => {
   // 대댓글 컴포넌트
   const ReComment = ({ commentId, props, index }) => {
     return (
-      <div className={PlayBoard.recomment_list_box}>
-        <div className={PlayBoard.play_recomment_profile}>
+      <div className={styles.recomment_list_box}>
+        <div className={styles.play_recomment_profile}>
           <span>
             <Image src={props.writerInfo.profileImg} roundedCircle />
           </span>
@@ -108,7 +78,7 @@ const CommentItem = ({ props, postId }) => {
             <p>{props.writerInfo.class}</p>
             <h4>{props.writer}</h4>
           </span>
-          <div className={PlayBoard.recomment_cancel}>
+          <div className={styles.recomment_cancel}>
             <svg
               onClick={() => deleteReComment(commentId, postId, index)}
               xmlns="http://www.w3.org/2000/svg"
@@ -125,11 +95,11 @@ const CommentItem = ({ props, postId }) => {
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
         <div>
-          <p>{props.content}</p>
+          <p dangerouslySetInnerHTML={{ __html: props.content }}></p>
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
-        <div className={PlayBoard.comment_time_box_2}>
+        <div className={styles.comment_time_box_2}>
           <p>{getTime(props.createdAt)}</p>
         </div>
       </div>
@@ -137,15 +107,15 @@ const CommentItem = ({ props, postId }) => {
   };
 
   return (
-    <div className={PlayBoard.comment_list}>
-      <div className={PlayBoard.play_comment_profile}>
+    <div className={styles.comment_list}>
+      <div className={styles.play_comment_profile}>
         <span>
           <Image src={props.writerInfo.profileImg} roundedCircle />
         </span>
         <span>
           <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
-          <div className={PlayBoard.comment_cancel}>
+          <div className={styles.comment_cancel}>
             <svg
               onClick={() => deleteComment(props._id, postId)}
               xmlns="http://www.w3.org/2000/svg"
@@ -163,21 +133,21 @@ const CommentItem = ({ props, postId }) => {
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
       <div>
-        <p>{props.content}</p>
+        <p dangerouslySetInnerHTML={{ __html: props.content }}></p>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
       <div>
-        <p className={PlayBoard.comment_time_box}>{getTime(props.createdAt)}</p>
+        <p className={styles.comment_time_box}>{getTime(props.createdAt)}</p>
         <span
-          className={PlayBoard.recomment_button_box_2}
+          className={styles.recomment_button_box_2}
           onClick={showRecommentWrite}
         >
           댓글쓰기
         </span>
       </div>
       {/* <div
-        className={PlayBoard.recomment_button_box}
+        className={styles.recomment_button_box}
         
       >
         
@@ -185,18 +155,24 @@ const CommentItem = ({ props, postId }) => {
 
       {recommentVisible && (
         <form onSubmit={(event) => reCommentSubmit(event, props._id)}>
-          <div className={PlayBoard.recomment_write}>
-            <div>
+            <div className={styles.comment_write}>
               <div>
-                <img src="#" />
+                <div className={styles.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                </div>
+                <div className={styles.quillComment_container}>
+                  <QuillReComment />
+                </div>
+                {/* <textarea
+                  onChange={commentChange}
+                  placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                  value={comment}
+                ></textarea> */}
               </div>
-              <textarea
-                onBlur={reCommentChange}
-                placeholder="댓글을 쓰려면 로그인이 필요합니다."
-              ></textarea>
+              <div className={styles.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
-            <button type="submit">댓글쓰기</button>
-          </div>
         </form>
       )}
       {props.reComment.map((item, index) => (

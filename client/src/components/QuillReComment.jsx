@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useMemo, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
-import  "../css/Quill.css";
 import { useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 
@@ -116,18 +115,15 @@ const QuillTest = ({ update }) => {
     "image",
   ];
 
-  const { value, setValue } = useContext(QuillContext);
-
-  // console.log("여기서 출력되는거에용", value);
-
+  const {reCoValue, setReCoValue} = useContext(QuillContext);
   return (
     <div>
-      <ReactQuill style={{height:"600px"}}
+      <ReactQuill
         ref={quillRef} // useRef로 생성한 ref를 연결
         theme="snow"
         placeholder="내용을 입력해주세요."
-        value={value}
-        onChange={setValue}
+        value={reCoValue}
+        onChange={setReCoValue}
         modules={modules}
         /* formats={formats} */
       />

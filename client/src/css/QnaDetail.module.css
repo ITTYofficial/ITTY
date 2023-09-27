@@ -148,6 +148,8 @@
   margin: 8px 0;
   display: inline-block;
   vertical-align: middle;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .play_profile > span > p {
