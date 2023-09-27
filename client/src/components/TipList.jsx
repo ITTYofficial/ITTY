@@ -10,6 +10,9 @@ const TipList = () => {
   // 팁 리스트 담을 State
   const [tipList, setTipList] = useState([]);
 
+  // 댓글 개수 담을 State
+  const [commentCount, setCommentCount] = useState();
+
   // 팁 리스트 조회 함수
   const readTipList = async () => {
     await axios
@@ -40,6 +43,16 @@ const TipList = () => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
+        
+        // 댓글 개수 카운팅
+        const counting = sortedTip.map((item)=>(item._id))
+        axios.post(`http://localhost:8088/comment/commentCount`, counting)
+        .then((res)=>{
+          console.log(res);
+          // setCommentCount(res.data.count);
+        })
+
+
         setTipList(sortedTip);
         setMaxPage(sortedTip.length);
       })
@@ -107,7 +120,7 @@ const TipList = () => {
         </Link>
         <div className={style.tip_title_box_space_2}>
           <p>{getTime(props.createdAt)}</p>
-          <p>👁‍🗨 {props.views} 💬 4</p>
+          <p>👁‍🗨 {props.views} 💬 {4}</p>
         </div>
       </div>
 
