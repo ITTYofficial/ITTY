@@ -19,7 +19,7 @@
 .sub_content > h2 {
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 0 16px;
+  /* margin: 0 16px; */
   line-height: 40px;
   font-family: sans-serif;
 }
@@ -27,8 +27,8 @@
 .additional_content > h2 {
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 0 16px;
-  line-height: 40px;
+  /* margin: 0 16px; */
+  /* line-height: 40px; */
 }
 
 .additional_content {
@@ -84,7 +84,7 @@
 
 .right_middle_container :nth-child(2) {
   display: grid;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   /* flex-direction: column;
     justify-content: center; */
 }
@@ -125,7 +125,7 @@
 .division_line {
   position: relative;
   display: flex;
-  margin: 32px 0;
+  margin: 16px 0;
 }
 
 .division_line > div {
@@ -210,13 +210,13 @@
 /* 댓글작성 */
 
 .comment_write {
-  margin: 32px 0 5rem 0;
+  margin: 16px 0;
 }
 
-.comment_write div {
+.comment_write > div {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  align-items: flex-start;
+  justify-content: space-between;
   margin-bottom: 12px;
 }
 
@@ -228,12 +228,12 @@
 }
 
 .comment_write textarea {
-  width: 90%;
-  height: 100px;
+  width: 85%;
+  height: 70px;
   resize: none;
   border: none;
   border-radius: 10px;
-  padding: 16px;
+  padding: 8px;
   border: 1px solid #999999;
   /* background-color: #f0f9ff; */
   /* box-shadow: 2px 2px 8px #cdcdcd; */
@@ -258,7 +258,7 @@
   display: inline-block;
   background-color: #999999;
   padding: 12px 20px;
-  margin-right: 16px;
+  /* margin-right: 16px; */
 }
 
 .comment_write button:hover {
@@ -331,7 +331,7 @@
 /* 수정삭제 버튼 */
 
 .meatball {
-  text-align: end;
+  cursor: pointer;
   position: absolute;
   right: 0;
 }
@@ -382,6 +382,7 @@
 .right_middle_wrapper {
   display: flex;
   justify-content: center;
+  margin: 16px 0;
 }
 
 /* 폰트 css */

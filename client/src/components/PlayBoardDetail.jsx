@@ -8,6 +8,7 @@ import { useNavigate, useParams, useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import CommentItem from "./CommentItem";
 import { QuillContext } from "../context/QuillContext";
+import QuillComment from './QuillComment'
 
 const PlayBoardDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
@@ -128,8 +129,8 @@ const PlayBoardDetail = () => {
   useEffect(() => {
     return () => {
       setCommentList([]);
-    }
-  }, [])
+    };
+  }, []);
 
   /* 수정삭제 버튼 */
 
@@ -218,26 +219,26 @@ const PlayBoardDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 END!!!!! */}
 
           {/* 게시글 content 시작 */}
-          <div className={PlayBoard.meatball}>
-            <ul>
-              <svg
-                onClick={() => {
-                  setMeat(!meat);
-                }}
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-              {meat && <Dropdown />}
-            </ul>
-          </div>
 
           <div className={PlayBoard.play_content}>
+            <div className={PlayBoard.meatball}>
+              <ul>
+                <svg
+                  onClick={() => {
+                    setMeat(!meat);
+                  }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-three-dots"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                </svg>
+                {meat && <Dropdown />}
+              </ul>
+            </div>
             <div className="quill_content_font_style">
               <span
                 dangerouslySetInnerHTML={{ __html: playDetail.content }}
@@ -255,16 +256,21 @@ const PlayBoardDetail = () => {
           <form onSubmit={commentSubmit}>
             <div className={PlayBoard.comment_write}>
               <div>
-                <div>
-                  <img src="#" />
+                <div className={PlayBoard.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
-                <textarea
+                <div className={PlayBoard.quillComment_container}>
+                  <QuillComment />
+                </div>
+                {/* <textarea
                   onChange={commentChange}
                   placeholder="댓글을 쓰려면 로그인이 필요합니다."
                   value={comment}
-                ></textarea>
+                ></textarea> */}
               </div>
-              <button type="submit">댓글쓰기</button>
+              <div className={PlayBoard.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
           </form>
           {/* 댓글달기 끝 */}
