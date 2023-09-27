@@ -125,6 +125,8 @@
   font-size: 16px;
   font-weight: bold;
   text-align: right;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .profile_pic {
@@ -174,6 +176,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .profile_pic img {
@@ -323,7 +327,11 @@
 .port_content_bottom {
   padding: 8px 12px 12px 12px;
 }
-
+.port_content_bottom > div:first-child {
+  font-family: sans-serif;
+  letter-spacing: -1px;
+  margin: 8px 0;
+}
 .port_content_bottom > div:nth-child(2) {
   display: flex;
   justify-content: space-between;

@@ -29,7 +29,6 @@ const QnaDetail = () => {
     <span className={`${style.play_title} ${style.life}`}>생활/기타🌷</span>
   );
 
-
   // 게시글정보 저장할 State
   const [qnaDetail, setQnADetail] = useState([]);
   const [visible, setVisible] = useState([false, false, false, false]);
@@ -54,22 +53,23 @@ const QnaDetail = () => {
   // 특정 게시글의 작성자 정보를 조회하기 위한 nickname값 가져오기-지홍
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const nickname = params.get('id');
+  const nickname = params.get("id");
 
   // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
 
   // 회원 정보 조회 함수
   const memberSearching = async () => {
-    await axios.get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
+    await axios
+      .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
-        console.log('axios다음 니크네임', res.data.member.nickname);
+        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
-        console.log('err :', err);
-      })
-  }
+        console.log("err :", err);
+      });
+  };
 
   // 댓글 내용 담을 State
   const [comment, setComment] = useState();
@@ -80,7 +80,7 @@ const QnaDetail = () => {
   // 댓글 내용 가져오는 함수
   const commentChange = (e) => {
     setComment(e.target.value);
-  }
+  };
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -88,29 +88,29 @@ const QnaDetail = () => {
     const obj = {
       writer: sessionStorage.getItem("memberNickname"),
       postid: id,
-      content: comment
+      content: comment,
     };
     console.log(obj);
 
-    axios.post('http://localhost:8088/comment/write', obj)
+    axios
+      .post("http://localhost:8088/comment/write", obj)
       .then((res) => {
-        alert("댓글이 등록되었습니다.")
+        alert("댓글이 등록되었습니다.");
         console.log(res);
         getComment(id);
       })
       .catch((err) => {
         console.log(err);
-        alert("게시글 작성 실패")
-      })
-  };
+        alert("게시글 작성 실패");
+      });
+  }
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
     return () => {
       setCommentList([]);
-    }
-  }, [])
-
+    };
+  }, []);
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
@@ -230,7 +230,7 @@ const QnaDetail = () => {
                 </span>
               </span>
             </div>
-            <hr className={style.division_line_2}></hr>
+            <hr />
           </div>
           {/* 자유게시판 상세페이지 상단 제목부분 Finish */}
 
@@ -254,7 +254,7 @@ const QnaDetail = () => {
                 {meat && <Dropdown />}
               </ul>
             </div>
-            <div className='quill_content_font_style'>
+            <div className="quill_content_font_style">
               <span
                 dangerouslySetInnerHTML={{ __html: qnaDetail.content }}
               ></span>
@@ -274,17 +274,22 @@ const QnaDetail = () => {
                 <div>
                   <img src="#" />
                 </div>
-                <textarea onBlur={commentChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                <textarea
+                  onBlur={commentChange}
+                  placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                ></textarea>
               </div>
               <button type="submit">댓글쓰기</button>
             </div>
           </form>
           {/* 댓글달기 끝 */}
 
-          {commentList.map((item) => (<QnaCommentItem key={item._id} props={item} postId={id} />))}
+          {commentList.map((item) => (
+            <QnaCommentItem key={item._id} props={item} postId={id} />
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};
 export default QnaDetail;
