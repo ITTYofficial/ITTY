@@ -22,16 +22,31 @@
 .top_content {
     display: flex;
     justify-content: space-between;
+    white-space: nowrap;
 }
+
+
 
 .top_content>div {
     display: flex;
     align-items: center;
+    padding: 6px 12px 0 12px;
+   
+}
+.profile_container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+
 }
 
+
 .profile_img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 5px;
 }
 
 .profile_img img {
@@ -85,6 +100,7 @@
 
 .tag_buttons {
     margin-left: 8px;
+    white-space: nowrap;
 }
 
 .tag_buttons span {
@@ -92,13 +108,19 @@
 }
 
 .middle_content {
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 
 .middle_content>h4 {
     font-size: 20px;
     font-weight: bold;
     margin: 16px 0;
+    padding: 0 16px 0 16px;
+    display: inline-block;
+    
 
 }
 
@@ -177,6 +199,17 @@
     /* background-color: #f0f9ff; */
     /* box-shadow: 2px 2px 8px #cdcdcd; */
     line-height: 1.5rem;
+}
+
+.division_line_2{
+    height: 1.5px;
+    border: none;
+    background-color: rgb(221, 221, 221);
+    text-align: center;
+    width: 98%;
+    margin-left: 1%;
+   
+  
 }
 
 .comment_write img {
@@ -270,8 +303,7 @@
 
 .meatball {
     text-align: end;
-    position: absolute;
-    right: 0;
+ 
 }
 
 .meatball>ul {
@@ -329,17 +361,20 @@
 
 }
 
-.top_content>div>div h5 {
+.top_content>div>div h4 {
     font-size: 18px;
-    margin-bottom: 8px;
-    color: #000000;
-    font-weight: 600;
+    font-weight: bold;
+    text-align: left;
 }
 
 .top_content>div>div p {
     font-size: 14px;
     margin-bottom: 8px;
+    text-align: left;
     color: #999999;
+}
+.top_sub_content{
+    display: inline-block;
 }
 
 .top_sub_content p {
@@ -347,4 +382,12 @@
     font-weight: bold;
     margin: 12px 0;
     color: #999999;
+    margin-right: 8px;
+    text-align: right;
+}
+
+.review_content{
+
+    padding: 16px;
+    margin-left: 16px;
 }

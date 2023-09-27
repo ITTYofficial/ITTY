@@ -130,8 +130,8 @@ const Main = () => {
     <div className={style.port_content}>
       <div className={style.port_content_img}>
         <Link to={`/portDetail/${props._id}`}>
-          <img src={props.imgPath}></img>
-          {/* <img src='https://i.ibb.co/dDnhbM9/image.png'></img> */}
+          {/* <img src={props.imgPath}></img> */}
+          <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png'></img>
         </Link>
       </div>
       <div className={style.port_content_bottom}>
@@ -199,7 +199,7 @@ const Main = () => {
             </div>
           </div>
 
-          
+
           {/* 마켓리스트 */}
           <div className={style.Main_grid_3}>
             <h3>교환 장터🥕</h3>

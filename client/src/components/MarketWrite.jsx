@@ -8,6 +8,11 @@ import { QuillContext } from "../context/QuillContext";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Form from "react-bootstrap/Form";
+import Modal from 'react-bootstrap/Modal';
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import "../css/Cropper.css";
+import Button from 'react-bootstrap/Button';
 
 const MarketWrite = () => {
   const [imgFiles, setImgFiles] = useState([]);
@@ -18,77 +23,47 @@ const MarketWrite = () => {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
 
-  const handleFakeUploadClick = () => {
-    // 파일 입력 엘리먼트에서 클릭 이벤트를 트리거합니다.
-    if (imgRef.current) {
-      imgRef.current.click();
-      console.log("Click check");
-    }
-  };
-
-  const [prevImgFiles, setPrevImgFiles] = useState([]);
-  // 이미지 업로드 input의 onChange
-  const saveImgFile = () => {
-    if (imgRef.current && imgRef.current.files.length > 0) {
-      let file = imgRef.current.files[0];
-      if (
-        file.type !== "image/jpg" &&
-        file.type !== "image/jpeg" &&
-        file.type !== "image/png"
-      ) {
-        alert("jpg, jpeg, png 이미지 파일만 업로드가 가능합니다.");
-        file = null;
-      } else {
-        console.log(file.type);
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = async () => {
-          if (prevImgFiles.length >= 3) {
-            alert("최대 3개의 이미지 등록이 가능합니다.");
-            console.log(prevImgFiles); // 3개 이상 등록시 alert 메세지
-          } else {
-            const base64data = reader.result;
-            setPrevImgFiles((prev) => [...prev, base64data]); // 이미지 경로를 추가
-          }
-        };
-      }
-    }
-  };
 
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
-    // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
-    const byteString = atob(dataURI.split(",")[1]);
-    // const nickname = sessionStorage.getItem("memberNickname");
-    // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([ia], {
-      type: "image/jpeg",
-    });
-    console.log(blob);
-    const file = new File([blob], "image.jpg");
-    console.log(file);
-    // 위 과정을 통해 만든 image폼을 FormData에
-    // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
-    const formData = new FormData();
-    formData.append("img", file);
-    // formData.append("writer",nickname)
-    try {
-      const result = await axios.post(
-        "http://localhost:8088/save/save",
-        formData
-      );
-      console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
-      return result;
-    } catch (error) {
-      console.log("실패했어요ㅠ");
-      console.log(error);
+    if (dataURI.length > 200) {
+      console.log(dataURI.length);
+      // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
+      const byteString = atob(dataURI.split(",")[1]);
+      // const nickname = sessionStorage.getItem("memberNickname");
+      // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ia], {
+        type: "image/jpeg",
+      });
+      console.log(blob);
+      const file = new File([blob], "image.jpg");
+      console.log(file);
+      // 위 과정을 통해 만든 image폼을 FormData에
+      // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
+      const formData = new FormData();
+      formData.append("img", file);
+      // formData.append("writer",nickname)
+      try {
+        const result = await axios.post(
+          "http://localhost:8088/save/save",
+          formData
+        );
+        console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
+        return result.data.url;
+      } catch (error) {
+        console.log("실패했어요ㅠ");
+        console.log(error);
+      }
+    } else {
+      return dataURI;
     }
   };
+
 
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
@@ -113,10 +88,10 @@ const MarketWrite = () => {
 
     // 이미지를 서버에 업로드하고 URL을 받아오는 부분
     const imgPaths = await Promise.all(
-      prevImgFiles.map(async (base64data) => {
+      croppedImage.map(async (base64data) => {
         const result = await handlingDataForm(base64data);
         console.log("화기이이", result);
-        return result.data.url;
+        return result;
       })
     );
 
@@ -151,6 +126,7 @@ const MarketWrite = () => {
           console.log(res);
           setmarketDetail(res.data.detailMarket[0]);
           setValue(res.data.detailMarket[0].content);
+          setCroppedImage(res.data.detailMarket[0].imgPath)
         });
       // respnse에서 데이터 꺼내서 State에 저장
     }
@@ -165,10 +141,69 @@ const MarketWrite = () => {
   // 수정 요청시 데이터 가져오는거 까지 완료했고 이제 반영만 해주면 된다
 
   const handleRemoveImage = (index) => {
-    const updatedImgFiles = [...imgFiles];
+    const updatedImgFiles = [...croppedImage];
     updatedImgFiles.splice(index, 1);
-    setImgFiles(updatedImgFiles);
+    setCroppedImage(updatedImgFiles);
   };
+
+  /* 크로퍼 */
+  const inputRef = useRef(null);
+  const cropperRef = useRef(null);
+  const [image, setImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState([]);
+
+  /* 크로퍼 */
+  const handleCropperClick = () => {
+    if (inputRef.current) {
+      inputRef.current.value = ''; // input 요소 초기화
+      inputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    e.preventDefault();
+
+    const files = e.target.files;
+
+    if (!files) return;
+    handleShow();
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(files[0]);
+  };
+
+  const getCropData = () => {
+    if (cropperRef.current && cropperRef.current.cropper) {
+      const croppedDataUrl = cropperRef.current.cropper.getCroppedCanvas().toDataURL();
+      setCroppedImage((prev) => [...prev, croppedDataUrl]);
+      setImage(null);
+    }
+    setShow(false);
+  };
+
+
+  console.log('크롭이미지 배열 확인', croppedImage);
+  /* 크로퍼 */
+
+  /* 모달 */
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    setImage(null);
+  }
+  const handleShow = () => {
+    /* setCroppedImage(null); */
+    setShow(true);
+    /* handleCropperClick(); */
+  }
+
+  /* 모달 */
+
+
+
 
   return (
     <div className={styles.right_container}>
@@ -191,30 +226,72 @@ const MarketWrite = () => {
         <div className={styles.market_pic}>
           <h4>상품 이미지</h4>
           <div className={styles.input_pic}>
-            <div className={styles.fake_upload} onClick={handleFakeUploadClick}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-camera"
-                viewBox="0 0 16 16"
-              >
-                <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
-                <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-              </svg>
-              <span>이미지 등록</span>
-            </div>
+            {croppedImage.length < 3 && (
+              <div className={styles.fake_upload} onClick={handleCropperClick}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-camera"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                  <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                </svg>
+                <span>이미지 등록</span>
+              </div>
+            )}
+
+            {/* 크로퍼 */}
             <input
               type="file"
-              className={styles.real_upload}
-              accept="image/*"
-              required
               multiple
-              onChange={saveImgFile}
-              ref={imgRef}
+              ref={inputRef}
+              style={{ display: "none" }}
+              {...(croppedImage? null : {required: true})}
+              onChange={handleFileChange}
             />
-            {prevImgFiles.map((img, index) => (
+            {/* 크로퍼 */}
+
+            {/* 모달 */}
+
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>이미지 사이즈 조절</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {image && (
+                  <div className="container">
+                    <Cropper
+                      ref={cropperRef}
+                      aspectRatio={1} // 크롭 영역을 정사각형으로 제한
+                      src={image}
+                      viewMode={1}
+                      width={800}
+                      height={500}
+                      background={false}
+                      responsive
+                      autoCropArea={1}
+                      checkOrientation={false}
+                      guides
+                    />
+                  </div>
+                )}
+
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  취소
+                </Button>
+                <Button variant="primary" onClick={getCropData}>
+                  이미지 저장
+                </Button>
+              </Modal.Footer>
+            </Modal>
+            {/* 모달 */}
+
+            {croppedImage.map((img, index) => (
               <div className={styles.show_preview_img}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -231,6 +308,7 @@ const MarketWrite = () => {
                 <img key={index} src={img} alt={`이미지 ${index}`} />
               </div>
             ))}
+
           </div>
           <p>상품의 이미지는 1:1 비율로 보여집니다.</p>
         </div>

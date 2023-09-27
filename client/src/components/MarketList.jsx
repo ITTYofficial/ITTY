@@ -3,6 +3,7 @@ import LeftContainer from "./LeftContainer";
 import style from "../css/MarketList.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Pagination from "react-js-pagination";
 
 const MarketList = () => {
   // 장터리스트 담을 State
@@ -25,39 +26,41 @@ const MarketList = () => {
   const readMarketList = async () => {
     await axios
       .get("http://localhost:8088/market/marketList")
-      .then(async(res) => {
-              // 회원정보조회-지홍
-              console.log("1. writer :", res.data.market[0].writer);
-              let memberPromises = res.data.market.map((market) => {
-                const nickname = market.writer;
-                const id = market.id
-      
-                return axios.get(
-                  `http://localhost:8088/member/memberSearching?id=${id}`
-                );
-              });
-      
-              let memberResponses = await Promise.all(memberPromises);
-              let member = memberResponses.map((response) => ({
-                member: response.data.member,
-              }));
-      
-              console.log("member 내용물 : ", member.member);
-              let fusion = member.map((item, index) => {
-                return { ...item, ...res.data.market[index] };
-              });
-              console.log("퓨전", fusion);
+      .then(async (res) => {
+        // 회원정보조회-지홍
+        console.log("1. writer :", res.data.market[0].writer);
+        let memberPromises = res.data.market.map((market) => {
+          const nickname = market.writer;
+          const id = market.id
+
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?id=${id}`
+          );
+        });
+
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
+
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.market[index] };
+        });
+        console.log("퓨전", fusion);
         const sortedProjects = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
         setMarketList(sortedProjects);
+        setMaxPage(sortedProjects.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
         console.log(err);
       });
   };
+  console.log('마켓리스트 검사', marketList);
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
@@ -84,32 +87,65 @@ const MarketList = () => {
     }
   };
 
-  
+
 
   // 각 장터 게시글 정보를 담을 내부 컴포넌트
   // 날짜 바꾸기
-  const MarketItem = ({ props }) => (
-    <Link
-      to={`/marketDetail/${props._id}?id=${props.id}`}
-      className={style.Market_content_item}
-    >
-      <div className={style.Market_content_img} style={{width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover'}}>
+  const MarketItem = ({ props }) => {
+    console.log('프롭스 확인', props.sold);
+    return (
+      <Link
+        to={`/marketDetail/${props._id}?id=${props.id}`}
+        className={style.Market_content_item}
+      >
+        {/* <div className={style.Market_content_img} style={{width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover'}}> */}
 
-        {/* <img src={props.imgPath[0]}></img> */}
-      </div>
-      <div className={style.Market_content_text}>
-        <h4>{props.title}</h4>
-        <div className={style.Market_content_text2}>
-          <p className={style.market_content_price}>{parseInt(props.price).toLocaleString()} 원</p>
-          <p className={style.market_content_date}>{getTimeAgoString(props.createdAt)}</p>
+        {/*       <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover', position: 'relative', filter: 'grayscale(1)' }}>
+        <div>
+          <h4>판매완료</h4>
         </div>
-      </div>
-    </Link>
-  );
+      </div> */}
+
+        {props.sold == 1 ?
+          <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover', position: 'relative', filter: 'grayscale(1)' }}>
+            <div>
+              <h4>판매완료</h4>
+            </div>
+          </div>
+          :
+          <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover' }}></div>
+        }
+
+
+        <div className={style.Market_content_text}>
+          <h4>{props.title}</h4>
+          <div className={style.Market_content_text2}>
+            <p className={style.market_content_price}>{parseInt(props.price).toLocaleString()} 원</p>
+            <p className={style.market_content_date}>{getTimeAgoString(props.createdAt)}</p>
+          </div>
+        </div>
+      </Link>
+    )
+  };
+
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 15;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
+
 
   return (
     <div className={style.Main_container}>
-      <LeftContainer/>
+      <LeftContainer />
       <div className={style.right_container}>
         <div className={style.right_container_button}>
           <h2>교환 장터🥕</h2>
@@ -117,10 +153,20 @@ const MarketList = () => {
         </div>
 
         <div className={style.Market_list}>
-          {marketList.map((item) => (
+          {marketList.slice(startIndex, endIndex).map((item) => (
             <MarketItem key={item._id} props={item} />
           ))}
+
         </div>
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={itemsPerPage}
+          totalItemsCount={maxPage}
+          pageRangeDisplayed={10}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );

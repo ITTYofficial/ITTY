@@ -29,6 +29,10 @@ const TipDetail = () => {
     <span className={`${style.play_title} ${style.life}`}>생활/기타🌷</span>
   );
 
+  const Others = () => (
+    <span className={`${style.play_title} ${style.others}`}>기타 ✨</span>
+  );
+
   // 게시글정보 저장할 State
   const [tipDetail, setTipDetail] = useState([]);
   const [visible, setVisible] = useState([false, false, false, false]);
@@ -98,6 +102,7 @@ const TipDetail = () => {
       .then((res) => {
         alert("댓글이 등록되었습니다.");
         console.log(res);
+        setComment('');
         getComment(id);
       })
       .catch((err) => {
@@ -218,6 +223,7 @@ const TipDetail = () => {
                   {visible[1] && <Study />}
                   {visible[2] && <Job />}
                   {visible[3] && <Life />}
+                  {visible[4] && <Others />}
                 </span>
                 <h4>{tipDetail.title}</h4>
               </span>
@@ -277,6 +283,7 @@ const TipDetail = () => {
                 <textarea
                   onBlur={commentChange}
                   placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                  value={comment}
                 ></textarea>
               </div>
               <button type="submit">댓글쓰기</button>

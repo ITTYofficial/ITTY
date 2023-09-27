@@ -108,9 +108,10 @@ const AnonymityComment = ({ props, postId }) => {
         )
     };
 
-    // 익명댓글 색깔
+    // 익명댓글 색깔 - 잇티 키워드 백그라운드 컬러 10가지 적용!
     const getColorByIndex = (index) => {
-        const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+        const colors = ['#71FFFF', '#F3F90B', '#FF6D00', '#247DFF', '#B3A1FF', '#2EFF55', '#E0E0E0',
+        '#FF78F5','#00FFAA','#FF316C'];
         return colors[index % colors.length];
     }
 

@@ -96,6 +96,7 @@ const ReviewDetail = () => {
             .then((res) => {
                 alert("댓글이 등록되었습니다.")
                 console.log(res);
+                setComment('');
                 getComment(id);
             })
             .catch((err) => {
@@ -197,29 +198,35 @@ const ReviewDetail = () => {
                 <h2>수료생후기 🔍</h2>
                 <hr />
                 <div className={styles.top_content}>
-                    <div>
+                    <div className={styles.profile_container}>
                         <div className={styles.profile_img}>
                             <Image src={memberInfo.profileImg} roundedCircle />
                         </div>
                         <div>
                             <p>{memberInfo.class}</p>
-                            <h5>{memberInfo.nickname}</h5>
+                            <h4>{memberInfo.nickname}</h4>
                         </div>
                         <div className={styles.tag_buttons}>
                             {visible[0] && <Rank score={reviewDetail.score} />}
                             {visible[1] && <Recomend />}
                             {visible[2] && <Major />}
                         </div>
+
                     </div>
+
+                </div>
+
+                <span className={styles.middle_content}>
+                    <h4>{reviewDetail.title}</h4>
                     <div className={styles.top_sub_content}>
                         <p>{getTimeAgoString(reviewDetail.createdAt)} 👁‍🗨 {reviewDetail.views} 💬 4</p>
                     </div>
-                </div>
+                </span>
+                <div className={styles.division_line_2}></div>
 
-                <div className={styles.middle_content}>
-                    <h4>{reviewDetail.title}</h4>
 
-                    {/* 글 내용 부분 */}
+                {/* 글 내용 부분 */}
+                <div className={styles.review_content}>
                     <div className={styles.meatball}>
                         <ul>
                             <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
@@ -228,11 +235,12 @@ const ReviewDetail = () => {
                             {meat && <Dropdown />}
                         </ul>
                     </div>
-                    <div>
-                        <div className='quill_content_font_style'>
-                            <p dangerouslySetInnerHTML={{ __html: reviewDetail.content }}></p>
-                        </div>
+                    <div className='quill_content_font_style'>
+                        <span
+                            dangerouslySetInnerHTML={{ __html: reviewDetail.content }}
+                        ></span>
                     </div>
+
                 </div>
                 <div className={styles.division_line}>
                     <div>
@@ -245,7 +253,11 @@ const ReviewDetail = () => {
                             <div>
                                 <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
                             </div>
-                            <textarea onBlur={commentChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                            <textarea
+                                onBlur={commentChange}
+                                placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                                value={comment}
+                            ></textarea>
                         </div>
                         <button type="submit">댓글쓰기</button>
                     </div>

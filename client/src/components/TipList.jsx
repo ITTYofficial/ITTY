@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import styles from "../css/Community.module.css";
 import style from "../css/TipList.module.css";
 import Image from "react-bootstrap/Image";
+import Pagination from "react-js-pagination";
 const TipList = () => {
   // 팁 리스트 담을 State
   const [tipList, setTipList] = useState([]);
@@ -40,6 +41,7 @@ const TipList = () => {
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
         setTipList(sortedTip);
+        setMaxPage(sortedTip.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
@@ -72,15 +74,34 @@ const TipList = () => {
     }
   };
 
+  /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
   const Develope = () => (
-    <span className={`${style.play_title} ${style.develope}`}>개발 🙋🏻‍♀️</span>
+    <span className={`${style.play_title} ${style.develope}`}>개발 👩🏻‍💻</span>
   );
+  const Study = () => (
+    <span className={`${style.play_title} ${style.study}`}>공부 📚</span>
+  );
+  const Job = () => (
+    <span className={`${style.play_title} ${style.job}`}>취업 🎓</span>
+  );
+  const Life = () => (
+    <span className={`${style.play_title} ${style.life}`}>생활 🌷</span>
+  );
+
+  const Others = () => (
+    <span className={`${style.play_title} ${style.others}`}>기타 ✨</span>
+  );
+
 
   const TipItem = ({ props }) => (
     <div className={style.Main_container_list_detail}>
       {/* 글 제목 및 내용 */}
       <div className={style.tip_text}>
-        <Develope />
+        {props.category === '1' && <Develope />}
+        {props.category === '2' && <Study />}
+        {props.category === '3' && <Job />}
+        {props.category === '4' && <Life />}
+        {props.category === '5' && <Others />}
         <Link to={`/tipDetail/${props._id}?id=${props.id}`}>
           <h5>{props.title}</h5>
         </Link>
@@ -103,6 +124,21 @@ const TipList = () => {
     </div>
   );
 
+
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 10;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
+
   return (
     <div className={styles.Main_container}>
       <LeftContainer />
@@ -119,11 +155,20 @@ const TipList = () => {
         </div>
 
         <div className={styles.Main_container_list}>
-          {tipList.map((item) => (
+          {tipList.slice(startIndex, endIndex).map((item) => (
             <TipItem key={item._id} props={item} />
           ))}
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={maxPage}
+            pageRangeDisplayed={10}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+          />
         </div>
-        <div className={style.tip_page_box}>1 2 3 4 5 6 7 8 9 10.....20</div>
+
       </div>
     </div>
   );

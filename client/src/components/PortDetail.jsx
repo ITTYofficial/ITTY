@@ -48,6 +48,7 @@ const PortDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           console.log(res);
+          setComment("");
           getComment(id);
         })
         .catch((err) => {
@@ -281,6 +282,7 @@ const PortDetail = () => {
               <textarea
                 onChange={commnetChange}
                 placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                value={comment}
               ></textarea>
             </div>
             <button type="submit">댓글쓰기</button>

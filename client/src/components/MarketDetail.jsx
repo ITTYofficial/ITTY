@@ -46,6 +46,7 @@ const MarketDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.")
           console.log(res);
+          setComment('');
           getComment(id);
         })
         .catch((err) => {
@@ -54,6 +55,7 @@ const MarketDetail = () => {
         })
     }
   };
+  
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
@@ -296,7 +298,11 @@ const MarketDetail = () => {
               <div>
                 <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
               </div>
-              <textarea onChange={commnetChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+              <textarea
+              onChange={commnetChange}
+              placeholder="댓글을 쓰려면 로그인이 필요합니다."
+              value={comment}
+              ></textarea>
             </div>
             <Button type='submit' variant="outline-primary">댓글쓰기</Button>{' '}
           </div>

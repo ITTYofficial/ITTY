@@ -16,7 +16,7 @@ const TipWrite = () => {
             setposition(position.filter(item => item !== value));
         } else {
             // 누른 버튼 값 추가
-            setposition([...position, value]);
+            setposition([value]);
         }
     }
 
