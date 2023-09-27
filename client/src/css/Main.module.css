@@ -281,6 +281,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .Market_content_text > p {
