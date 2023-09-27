@@ -93,7 +93,7 @@ const QnaList = () => {
     <span className={`${style.play_title} ${style.develope}`}>개발 👩🏻‍💻</span>
   );
   const Study = () => (
-    <span className={`${style.play_title} ${style.study}`}>공부 ✨</span>
+    <span className={`${style.play_title} ${style.study}`}>공부 📚</span>
   );
   const Job = () => (
     <span className={`${style.play_title} ${style.job}`}>취업 🎓</span>
