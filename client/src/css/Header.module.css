@@ -248,6 +248,10 @@ button {
   .hamburger_content {
     display: block;
   }
+  /* 우선 버튼 출력 막아놓음 */
+  .aside_button{
+    display: none;
+  }
 
   /* 모바일 화면에서 기존 헤더 메뉴 중복 내려오는 현상 */
   .NavDropdown {

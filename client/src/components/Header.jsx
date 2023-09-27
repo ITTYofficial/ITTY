@@ -241,10 +241,10 @@ const Header = () => {
                 <a href="#">지식공유 💭</a>
                 <ul>
                   <li>
-                    <Link to={"/tipList"}>Tip 🧷</Link>
+                    <Link to={"/tipList"}>팁 공유 📢</Link>
                   </li>
                   <li>
-                    <Link to={"/qnaList"}>QnA 💡</Link>
+                    <Link to={"/qnaList"}>Q & A 💡</Link>
                   </li>
                 </ul>
               </li>
