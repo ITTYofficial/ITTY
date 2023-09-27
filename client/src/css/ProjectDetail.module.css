@@ -178,6 +178,8 @@
   font-size: 18px;
   font-weight: bold;
   text-align: right;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .profile_pic {
