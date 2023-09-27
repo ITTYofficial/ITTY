@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
+import QuillComment from './QuillComment'
 
 const PortDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
@@ -19,7 +20,7 @@ const PortDetail = () => {
   const [memberInfo, setMemberInfo] = useState([]);
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue  } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
@@ -38,7 +39,7 @@ const PortDetail = () => {
     } else {
       const obj = {
         postid: id,
-        content: comment,
+        content: coValue,
         writer: sessionStorage.getItem("memberNickname"),
       };
       console.log(obj);
@@ -48,7 +49,7 @@ const PortDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           console.log(res);
-          setComment("");
+          setCoValue("");
           getComment(id);
         })
         .catch((err) => {
@@ -271,22 +272,23 @@ const PortDetail = () => {
           </div>
         </div>
         <form onSubmit={commentSubmit}>
-          <div className={style.comment_write}>
-            <div>
+        <div className={style.comment_write}>
+          
               <div>
-                <Image
-                  src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png"
-                  roundedCircle
-                />
+                <div className={style.comment_write_profile}>
+                  
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                </div>
+                <div className={style.quillComment_container}>
+                  
+                  <QuillComment />
+                </div>
               </div>
-              <textarea
-                onChange={commnetChange}
-                placeholder="댓글을 쓰려면 로그인이 필요합니다."
-                value={comment}
-              ></textarea>
+              <div className={style.submit_btn_group}>
+                
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
-            <button type="submit">댓글쓰기</button>
-          </div>
         </form>
         {commentList.map((item) => (
           <CommentItem key={item._id} props={item} postId={id} />

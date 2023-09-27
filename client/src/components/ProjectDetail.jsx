@@ -7,6 +7,7 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
+import QuillComment from './QuillComment'
 
 const ProjectDetail = () => {
   /* 키워드 컴포넌트 */
@@ -35,7 +36,7 @@ const ProjectDetail = () => {
   const [comment, setComment] = useState();
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
@@ -54,7 +55,7 @@ const ProjectDetail = () => {
     } else {
       const obj = {
         postid: id,
-        content: comment,
+        content: coValue,
         writer: sessionStorage.getItem("memberNickname"),
       };
       console.log(obj);
@@ -64,7 +65,7 @@ const ProjectDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           console.log(res);
-          setComment("");
+          setCoValue("");
           getComment(id);
         })
         .catch((err) => {
@@ -313,21 +314,23 @@ const ProjectDetail = () => {
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-            <div className={styles.comment_write}>
+          <div className={styles.comment_write}>
               <div>
-                <div>
-                  <Image
-                    src="https://i.ibb.co/XsypSbQ/profile-01.png"
-                    roundedCircle
-                  />
+                <div className={styles.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
-                <textarea
-                  onChange={commnetChange}
+                <div className={styles.quillComment_container}>
+                  <QuillComment />
+                </div>
+                {/* <textarea
+                  onChange={commentChange}
                   placeholder="댓글을 쓰려면 로그인이 필요합니다."
                   value={comment}
-                ></textarea>
+                ></textarea> */}
               </div>
-              <button type="submit">댓글쓰기</button>
+              <div className={styles.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
           </form>
           {/* 댓글달기 끝 */}

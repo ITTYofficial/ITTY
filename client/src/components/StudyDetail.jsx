@@ -7,6 +7,7 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
+import QuillComment from './QuillComment'
 
 const StudyDetail = () => {
   /* 키워드 컴포넌트 */
@@ -221,7 +222,7 @@ const StudyDetail = () => {
   }
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commentChange = (e) => {
@@ -234,7 +235,7 @@ const StudyDetail = () => {
     const obj = {
       writer: sessionStorage.getItem("memberNickname"),
       postid: id,
-      content: comment,
+      content: coValue,
     };
     console.log(obj);
 
@@ -243,6 +244,7 @@ const StudyDetail = () => {
       .then((res) => {
         alert("댓글이 등록되었습니다.");
         console.log(res);
+        setCoValue('');
         getComment(id);
       })
       .catch((err) => {
@@ -341,23 +343,23 @@ const StudyDetail = () => {
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-            <div className={style.comment_write}>
+          <div className={style.comment_write}>
               <div>
-                <div>
-                  <Image
-                    src="https://i.ibb.co/XsypSbQ/profile-01.png"
-                    roundedCircle
-                  />
+                <div className={style.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
-                <textarea
-                  onChange={commnetChange}
+                <div className={style.quillComment_container}>
+                  <QuillComment />
+                </div>
+                {/* <textarea
+                  onChange={commentChange}
                   placeholder="댓글을 쓰려면 로그인이 필요합니다."
                   value={comment}
-                ></textarea>
+                ></textarea> */}
               </div>
-              <Button type="submit" variant="outline-primary">
-                댓글쓰기
-              </Button>{" "}
+              <div className={style.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
           </form>
 

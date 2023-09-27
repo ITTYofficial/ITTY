@@ -256,11 +256,6 @@ const PlayBoardDetail = () => {
                 <div className={PlayBoard.quillComment_container}>
                   <QuillComment />
                 </div>
-                {/* <textarea
-                  onChange={commentChange}
-                  placeholder="댓글을 쓰려면 로그인이 필요합니다."
-                  value={comment}
-                ></textarea> */}
               </div>
               <div className={PlayBoard.submit_btn_group}>
                 <button type="submit">댓글쓰기</button>

@@ -4,6 +4,7 @@ import styles from "../css/CommentItem.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import { QuillContext } from '../context/QuillContext';
+import QuillReComment from './QuillReComment'
 
 const AnonymityComment = ({ props, postId }) => {
 
@@ -143,21 +144,25 @@ const AnonymityComment = ({ props, postId }) => {
 
             <div>
                 <p className={styles.comment_time_box}>{getTime(props.createdAt)}</p>
-            </div>
-            <div className={styles.recomment_button_box} onClick={showRecommentWrite}>
-                <span className={styles.recomment_button_box_2}>댓글쓰기</span>
+                <span className={styles.recomment_button_box_2} onClick={showRecommentWrite} >
+                    댓글쓰기
+                </span>
             </div>
 
             {recommentVisible &&
                 <form onSubmit={(event) => reCommentSubmit(event, props._id)}>
-                    <div className={styles.recomment_write}>
+                    <div className={styles.comment_write}>
                         <div>
-                            <div>
-                                <img src="#" />
+                            <div className={styles.comment_write_profile}>
+                                <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                             </div>
-                            <textarea onBlur={reCommentChange} placeholder="댓글을 쓰려면 로그인이 필요합니다."></textarea>
+                            <div className={styles.quillComment_container}>
+                                <QuillReComment />
+                            </div>
                         </div>
-                        <button type="submit">댓글쓰기</button>
+                        <div className={styles.submit_btn_group}>
+                            <button type="submit">댓글쓰기</button>
+                        </div>
                     </div>
                 </form>
             }

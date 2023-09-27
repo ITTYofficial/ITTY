@@ -146,10 +146,10 @@ const QnaCommentItem = ({ props, postId }) => {
             <div>
                 <p className={PlayBoard.comment_time_box}>{getTime(props.createdAt)}</p>
             </div>
-            <div className={PlayBoard.recomment_button_box} onClick={showRecommentWrite}>
+{/*             <div className={PlayBoard.recomment_button_box} onClick={showRecommentWrite}>
                 <p className={PlayBoard.recomment_button_box_2}>댓글쓰기</p>
-            </div>
-
+            </div> */}
+{/* 
             {recommentVisible &&
                 <form onSubmit={(event) => reCommentSubmit(event, props._id)}>
                     <div className={PlayBoard.recomment_write}>
@@ -162,7 +162,7 @@ const QnaCommentItem = ({ props, postId }) => {
                         <button type="submit">댓글쓰기</button>
                     </div>
                 </form>
-            }
+            } */}
             {props.reComment.map((item, index) => <ReComment key={index} commentId={props._id} props={item} index={index} />)}
         </div>
     );

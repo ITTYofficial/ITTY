@@ -8,6 +8,7 @@ import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
+import QuillComment from './QuillComment'
 
 /* css는 project etail css 내용만 가져와서 추가해서 사용 중~ */
 
@@ -67,7 +68,7 @@ const TipDetail = () => {
   const [comment, setComment] = useState();
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commentChange = (e) => {
@@ -93,7 +94,7 @@ const TipDetail = () => {
     const obj = {
       writer: sessionStorage.getItem("memberNickname"),
       postid: id,
-      content: comment,
+      content: coValue,
     };
     console.log(obj);
 
@@ -102,7 +103,7 @@ const TipDetail = () => {
       .then((res) => {
         alert("댓글이 등록되었습니다.");
         console.log(res);
-        setComment('');
+        setCoValue('');
         getComment(id);
       })
       .catch((err) => {
@@ -275,18 +276,23 @@ const TipDetail = () => {
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-            <div className={style.comment_write}>
+          <div className={style.comment_write}>
               <div>
-                <div>
-                  <img src="#" />
+                <div className={style.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
-                <textarea
-                  onBlur={commentChange}
+                <div className={style.quillComment_container}>
+                  <QuillComment />
+                </div>
+                {/* <textarea
+                  onChange={commentChange}
                   placeholder="댓글을 쓰려면 로그인이 필요합니다."
                   value={comment}
-                ></textarea>
+                ></textarea> */}
               </div>
-              <button type="submit">댓글쓰기</button>
+              <div className={style.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
           </form>
           {/* 댓글달기 끝 */}

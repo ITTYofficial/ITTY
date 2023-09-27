@@ -9,6 +9,7 @@ import axios from "axios";
 import CommentItem from "./CommentItem";
 import { QuillContext } from "../context/QuillContext";
 import AnonymityComment from "./AnonymityComment";
+import QuillComment from './QuillComment'
 
 const AnonymityDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
@@ -247,20 +248,18 @@ const AnonymityDetail = () => {
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-            <div className={styles.comment_write}>
+          <div className={styles.comment_write}>
               <div>
-                <div className={styles.profile_img}>
-                  <Image
-                    src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png"
-                    roundedCircle
-                  />
+                <div className={styles.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
                 </div>
-                <textarea
-                  onBlur={commentChange}
-                  placeholder="댓글을 쓰려면 로그인이 필요합니다."
-                ></textarea>
+                <div className={styles.quillComment_container}>
+                  <QuillComment />
+                </div>
               </div>
-              <button type="submit">댓글쓰기</button>
+              <div className={styles.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
           </form>
           {/* 댓글달기 끝 */}
