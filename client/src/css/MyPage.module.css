@@ -205,6 +205,8 @@
 
 .nickname_wrapper {
     display: flex;
+    margin-bottom: 24px;
+    align-items: center;
 }
 
 .nickname_wrapper div {
@@ -213,7 +215,6 @@
     border-bottom: 2px solid #eeeeee;
     border-radius: 10px;
     font-weight: bold;
-    margin-bottom: 32px;
     margin-left: 12px;
 }
 
@@ -230,4 +231,11 @@
     margin-bottom: 32px;
     margin-left: 12px;
     white-space: nowrap;
+}
+
+.nickname_wrapper h5{
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif;
+    letter-spacing: -1px;
 }
