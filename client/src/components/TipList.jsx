@@ -74,15 +74,29 @@ const TipList = () => {
     }
   };
 
+  /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
   const Develope = () => (
     <span className={`${style.play_title} ${style.develope}`}>개발 🙋🏻‍♀️</span>
   );
+  const Study = () => (
+    <span className={`${style.play_title} ${style.study}`}>공부✨</span>
+  );
+  const Job = () => (
+    <span className={`${style.play_title} ${style.job}`}>취업🎓</span>
+  );
+  const Life = () => (
+    <span className={`${style.play_title} ${style.life}`}>생활/기타🌷</span>
+  );
+
 
   const TipItem = ({ props }) => (
     <div className={style.Main_container_list_detail}>
       {/* 글 제목 및 내용 */}
       <div className={style.tip_text}>
-        <Develope />
+        {props.category === '1' && <Develope />}
+        {props.category === '2' && <Study />}
+        {props.category === '3' && <Job />}
+        {props.category === '4' && <Life />}
         <Link to={`/tipDetail/${props._id}?id=${props.id}`}>
           <h5>{props.title}</h5>
         </Link>

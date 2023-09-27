@@ -23,15 +23,9 @@ button {
   border: none;
 }
 
-/*
-@media(max-width:1196px) {
-  .Category li a{
-    display: none;
-  }
-  
+.Category li a{
+  white-space: nowrap;
 }
-  */
-
 
 .logo_image {
   /* width: 7%; */
@@ -254,12 +248,25 @@ button {
   .hamburger_content {
     display: block;
   }
+  /* 우선 버튼 출력 막아놓음 */
+  .aside_button{
+    display: none;
+  }
 
   /* 모바일 화면에서 기존 헤더 메뉴 중복 내려오는 현상 */
   .NavDropdown {
     height: 65px;
   }
 }
+
+/* 특정 화면에서 헤더 메뉴 이모지 숨기기 */
+@media (max-width: 1225px) {
+
+  .emoji_container{
+    display: none;
+  }
+}
+
 
 /* 화면 축소시 버튼 글씨내려오는 현상 */
 @media (max-width: 1300px) {
@@ -272,12 +279,27 @@ button {
   }
 }
 
+/* 특정 화면 크기에서 검색창 숨기기 */
+
+
+@media (max-width: 1150px) {
+  .Member input{
+    display: none;
+  }
+}
 
 @media (max-width: 1024px) {
   .Member > ul > li:first-child > button {
     display: none;
   }
   .Member > ul > li:last-child > a {
+    display: none;
+  }
+}
+
+
+@media (max-width:840px){
+  .Member > ul > li {
     display: none;
   }
 }
