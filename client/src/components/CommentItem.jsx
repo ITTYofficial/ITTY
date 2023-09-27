@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import PlayBoard from "../css/PlayBoardDetail.module.css";
+import styles from "../css/CommentItem.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import { QuillContext } from "../context/QuillContext";
@@ -9,8 +9,8 @@ const CommentItem = ({ props, postId }) => {
   /* 댓글 컴포넌트 작업하러 오신 분에게 남기는 말
 
     프론트 작업자에게
-    PlayBoardDetail에서 떼어온 CommentItem 컴포넌트를 사용해서 이전 작업을 진행 했기때문에
-    이 컴포넌트는 css를 PlayBoardDetail.module.css를 사용하고 있는 상태입니다
+    stylesDetail에서 떼어온 CommentItem 컴포넌트를 사용해서 이전 작업을 진행 했기때문에
+    이 컴포넌트는 css를 stylesDetail.module.css를 사용하고 있는 상태입니다
     문제가 없다면 이대로 사용해도 무방할 듯 하지만
     혹여 댓글 css를 따로 만들 필요가 있을듯 하여 편지를 적어놓습니다
     ======================================================================
@@ -99,8 +99,8 @@ const CommentItem = ({ props, postId }) => {
   // 대댓글 컴포넌트
   const ReComment = ({ commentId, props, index }) => {
     return (
-      <div className={PlayBoard.recomment_list_box}>
-        <div className={PlayBoard.play_recomment_profile}>
+      <div className={styles.recomment_list_box}>
+        <div className={styles.play_recomment_profile}>
           <span>
             <Image src={props.writerInfo.profileImg} roundedCircle />
           </span>
@@ -108,7 +108,7 @@ const CommentItem = ({ props, postId }) => {
             <p>{props.writerInfo.class}</p>
             <h4>{props.writer}</h4>
           </span>
-          <div className={PlayBoard.recomment_cancel}>
+          <div className={styles.recomment_cancel}>
             <svg
               onClick={() => deleteReComment(commentId, postId, index)}
               xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +129,7 @@ const CommentItem = ({ props, postId }) => {
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
-        <div className={PlayBoard.comment_time_box_2}>
+        <div className={styles.comment_time_box_2}>
           <p>{getTime(props.createdAt)}</p>
         </div>
       </div>
@@ -137,15 +137,15 @@ const CommentItem = ({ props, postId }) => {
   };
 
   return (
-    <div className={PlayBoard.comment_list}>
-      <div className={PlayBoard.play_comment_profile}>
+    <div className={styles.comment_list}>
+      <div className={styles.play_comment_profile}>
         <span>
           <Image src={props.writerInfo.profileImg} roundedCircle />
         </span>
         <span>
           <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
-          <div className={PlayBoard.comment_cancel}>
+          <div className={styles.comment_cancel}>
             <svg
               onClick={() => deleteComment(props._id, postId)}
               xmlns="http://www.w3.org/2000/svg"
@@ -168,16 +168,16 @@ const CommentItem = ({ props, postId }) => {
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
       <div>
-        <p className={PlayBoard.comment_time_box}>{getTime(props.createdAt)}</p>
+        <p className={styles.comment_time_box}>{getTime(props.createdAt)}</p>
         <span
-          className={PlayBoard.recomment_button_box_2}
+          className={styles.recomment_button_box_2}
           onClick={showRecommentWrite}
         >
           댓글쓰기
         </span>
       </div>
       {/* <div
-        className={PlayBoard.recomment_button_box}
+        className={styles.recomment_button_box}
         
       >
         
@@ -185,7 +185,7 @@ const CommentItem = ({ props, postId }) => {
 
       {recommentVisible && (
         <form onSubmit={(event) => reCommentSubmit(event, props._id)}>
-          <div className={PlayBoard.recomment_write}>
+          <div className={styles.recomment_write}>
             <div>
               <div>
                 <img src="#" />

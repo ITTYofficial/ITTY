@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
-import PlayBoard from "../css/PlayBoardDetail.module.css";
+import styles from "../css/AnonymityDetail.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -127,7 +127,7 @@ const AnonymityDetail = () => {
   const [meat, setMeat] = useState(false);
 
   const Dropdown = () => (
-    <div className={PlayBoard.meat_dropdown}>
+    <div className={styles.meat_dropdown}>
       <li onClick={moveUpdate}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -171,32 +171,32 @@ const AnonymityDetail = () => {
   /* 수정삭제 버튼 */
 
   return (
-    <div className={PlayBoard.Main_container}>
+    <div className={styles.Main_container}>
       <LeftContainer />
-      <div className={PlayBoard.right_container} onClick={toggleMeat}>
-        {/*                 <div className={PlayBoard.division_line}>
+      <div className={styles.right_container} onClick={toggleMeat}>
+        {/*                 <div className={styles.division_line}>
                     <div>
                         <Link>Community🌐</Link> /{" "}
-                        <Link to={"/playboardList"}>자유게시판⚽</Link>
+                        <Link to={"/stylesList"}>자유게시판⚽</Link>
                     </div>
                 </div> */}
 
-        <div className={PlayBoard.play_wrap_content}>
+        <div className={styles.play_wrap_content}>
           {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
-          <div className={PlayBoard.play_wrap_top}>
-            <div className={PlayBoard.play_profile}>
+          <div className={styles.play_wrap_top}>
+            <div className={styles.play_profile}>
               <span>
                 <h2>{anonyDetail.title}</h2>
                 <p>{getTimeAgoString(anonyDetail.createdAt)}</p>
               </span>
 
               <div>
-                <span className={PlayBoard.play_detail_profile}>
-                  <span className={PlayBoard.profile_text}>
+                <span className={styles.play_detail_profile}>
+                  <span className={styles.profile_text}>
                     <p>{memberInfo.class}</p>
                     <h4>{memberInfo.nickname}</h4>
                   </span>
-                  <span className={PlayBoard.profile_pic}>
+                  <span className={styles.profile_pic}>
                     <Image
                       src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png"
                       roundedCircle
@@ -213,8 +213,8 @@ const AnonymityDetail = () => {
 
           {/* 게시글 content 시작 */}
 
-          <div className={PlayBoard.play_content}>
-            <div className={PlayBoard.meatball}>
+          <div className={styles.play_content}>
+            <div className={styles.meatball}>
               <ul>
                 <svg
                   onClick={() => {
@@ -241,15 +241,15 @@ const AnonymityDetail = () => {
           {/* 게시글 content 끝 */}
 
           {/* 댓글달기 시작 */}
-          <div className={PlayBoard.division_line_comment}>
+          <div className={styles.division_line_comment}>
             <div>
               <h4>댓글 3</h4>
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-            <div className={PlayBoard.comment_write}>
+            <div className={styles.comment_write}>
               <div>
-                <div className={PlayBoard.profile_img}>
+                <div className={styles.profile_img}>
                   <Image
                     src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png"
                     roundedCircle
