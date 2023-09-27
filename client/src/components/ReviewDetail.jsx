@@ -198,13 +198,13 @@ const ReviewDetail = () => {
                 <h2>수료생후기 🔍</h2>
                 <hr />
                 <div className={styles.top_content}>
-                    <div>
+                    <div className={styles.profile_container}>
                         <div className={styles.profile_img}>
                             <Image src={memberInfo.profileImg} roundedCircle />
                         </div>
                         <div>
                             <p>{memberInfo.class}</p>
-                            <h5>{memberInfo.nickname}</h5>
+                            <h4>{memberInfo.nickname}</h4>
                         </div>
                         <div className={styles.tag_buttons}>
                             {visible[0] && <Rank score={reviewDetail.score} />}
@@ -235,10 +235,10 @@ const ReviewDetail = () => {
                             {meat && <Dropdown />}
                         </ul>
                     </div>
-                    <div>
-                        <div className='quill_content_font_style'>
-                            <p dangerouslySetInnerHTML={{ __html: reviewDetail.content }}></p>
-                        </div>
+                    <div className='quill_content_font_style'>
+                        <span
+                            dangerouslySetInnerHTML={{ __html: reviewDetail.content }}
+                        ></span>
                     </div>
 
                 </div>
