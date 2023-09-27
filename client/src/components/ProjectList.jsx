@@ -64,7 +64,7 @@ const ProjectList = () => {
           count: countList[index],
         }));
 
-        setProjectList(sortedProjects);
+        setProjectList(project);
         setMaxPage(sortedProjects.length);
       })
       .catch((err) => {
@@ -141,6 +141,7 @@ const ProjectList = () => {
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <div>{item.content}</div> */}
+                <p>👁‍🗨{item.views} 💬{item.count}</p>
               </div>
 
               <div className={styles.Main_grid_profile}>

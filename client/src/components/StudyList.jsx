@@ -61,7 +61,7 @@ const StudyList = () => {
           count: countList[index],
         }));
 
-        setstudyList(sortedStudy);
+        setstudyList(study);
         setMaxPage(sortedStudy.length);
       })
       .catch((err) => {
@@ -134,6 +134,7 @@ const StudyList = () => {
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
+                <p>👁‍🗨{item.views} 💬{item.count}</p>
               </div>
 
               <div className={styles.Main_grid_profile}>
