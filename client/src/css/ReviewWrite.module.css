@@ -49,6 +49,13 @@
   font-weight: bold;
 }
 
+.Main_container form h4 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
 .keyworld_content > button {
   font-weight: 600;
   font-size: 16px;
