@@ -59,6 +59,10 @@ function App() {
 
   // 게시판 작성 데이터를 전역적 사용하기 위한, 작성된 글 데이터를 담을 State
   const [value, setValue] = useState("");
+  // 댓글 작성 데이터
+  const [coValue, setCoValue] = useState("");
+  // 대댓글 작성 데이터
+  const [reCoValue, setReCoValue] = useState("");
 
   // 댓글 데이터를 전역적으로 사용하기 위한 State
   const [commentList, setCommentList] = useState([]);
@@ -188,8 +192,15 @@ function App() {
 
   // QuillContext에 담길 데이터들
   const inQuillContext = {
+    // 게시판 Quill 
     value: value,
     setValue: setValue,
+    // 댓글 Quill
+    coValue: coValue,
+    setCoValue: setCoValue,
+    reCoValue: reCoValue,
+    setReCoValue: setReCoValue,
+    // 댓글 관리
     commentList: commentList,
     anonyCommentList: anonyCommentList,
     setCommentList: setCommentList,

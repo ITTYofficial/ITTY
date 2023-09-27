@@ -56,10 +56,8 @@ const PlayBoardList = (props) => {
         });
 
         // 댓글 개수 카운팅
-        console.time()
         const counting = sortedPlays.map((item) => (item._id))
         const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-        console.timeEnd()
         const play = sortedPlays.map((obj, index) => ({
           ...obj,
           count: countList[index],

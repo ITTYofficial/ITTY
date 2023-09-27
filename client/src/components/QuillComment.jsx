@@ -115,7 +115,7 @@ const QuillTest = ({ update }) => {
     "image",
   ];
 
-  const { value, setValue } = useContext(QuillContext);
+  const { coValue, setCoValue } = useContext(QuillContext);
 
   // console.log("여기서 출력되는거에용", value);
 
@@ -125,8 +125,8 @@ const QuillTest = ({ update }) => {
         ref={quillRef} // useRef로 생성한 ref를 연결
         theme="snow"
         placeholder="내용을 입력해주세요."
-        value={value}
-        onChange={setValue}
+        value={coValue}
+        onChange={setCoValue}
         modules={modules}
         /* formats={formats} */
       />
