@@ -8,10 +8,8 @@ import Pagination from "react-js-pagination";
 const SearchResult = () => {
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
-  const [activeCategory, setActiveCategory] = useState('Study');
+  const [activeCategory, setActiveCategory] = useState("Study");
   const [maxPage, setMaxPage] = useState();
-
-
 
   const categoryButtons = [
     { label: "스터디🐣", value: "Study" },
@@ -32,7 +30,7 @@ const SearchResult = () => {
         );
         const data = await response.json();
         setSearchResults(data.allBoards);
-        console.log('쳌', data.allBoards);
+        console.log("쳌", data.allBoards);
         setMaxPage(data.allBoards[6].posts.length);
       } catch (error) {
         console.error("Error fetching search results:", error);
@@ -44,22 +42,25 @@ const SearchResult = () => {
   }, [searchTerm]);
 
   console.log("받아온 값 확인", searchResults);
-  console.log('길이 확인', maxPage);
-
+  console.log("길이 확인", maxPage);
 
   // 검색한 값 하이라이트
   const boldSearchTerm = (text, searchTerm) => {
-    const regex = new RegExp(searchTerm, 'gi');
-    return text.replace(regex, (match) => `<span class="${styles.boldText}">${match}</span>`);
+    const regex = new RegExp(searchTerm, "gi");
+    return text.replace(
+      regex,
+      (match) => `<span class="${styles.boldText}">${match}</span>`
+    );
   };
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
 
-
     // 페이징 부분
     // 클릭된 카테고리의 결과 배열의 길이를 계산하여 maxPage 업데이트
-    const categoryResults = searchResults.find((result) => result.boardType === category);
+    const categoryResults = searchResults.find(
+      (result) => result.boardType === category
+    );
     if (categoryResults) {
       setMaxPage(categoryResults.posts.length);
       setPage(1); // 클릭된 카테고리가 바뀌었으므로 페이지를 1로 초기화
@@ -71,7 +72,7 @@ const SearchResult = () => {
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
     setPage(page);
-    console.log('페이지 확인', page);
+    console.log("페이지 확인", page);
   };
 
   const itemsPerPage = 5;
@@ -87,7 +88,6 @@ const SearchResult = () => {
     <div className={styles.Main_container}>
       <LeftContainer />
       <div className={styles.right_container}>
-
         <div>
           <h2 className={styles.list_title}>
             <span>{searchTerm}</span> 에 대한 검색 결과🔍
@@ -122,7 +122,11 @@ const SearchResult = () => {
                       <span>
                         <p>{item.createdAt}</p>
                         <h4>
-                          <div dangerouslySetInnerHTML={{ __html: boldSearchTerm(item.title, searchTerm) }} />
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: boldSearchTerm(item.title, searchTerm),
+                            }}
+                          />
                         </h4>
                       </span>
                       <span>

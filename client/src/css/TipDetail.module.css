@@ -114,24 +114,23 @@
 }
 
 .develope {
-  background-color: #FF6D00;
+  background-color: #ff6d00;
   color: #551a01;
 }
 
 .study {
-  background-color: #247DFF;
-  color: #FFFFFF;
+  background-color: #247dff;
+  color: #ffffff;
 }
 
 .job {
-  background-color: #FF78F5;
-  color: #4F0051;
+  background-color: #ff78f5;
+  color: #4f0051;
 }
 
 .life {
-  background-color: #00FFAA ;
-  color: #103A27;
- 
+  background-color: #00ffaa;
+  color: #103a27;
 }
 .others {
   background-color: #F3F90B;
@@ -220,6 +219,7 @@
 /* profile 끝~! */
 .play_content {
   padding: 16px;
+  position: relative;
 }
 
 .division_line_2 {
@@ -419,7 +419,9 @@
 }
 
 .meatball {
-  text-align: end;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
 }
 
 .meatball > ul {

@@ -35,7 +35,7 @@
 }
 
 @media (max-width: 768px) {
-  .Main_container{
+  .Main_container {
     margin: 80px auto;
   }
 
@@ -70,7 +70,6 @@
   .Market_list {
     grid-template-columns: repeat(2, 1fr) !important;
   }
-
 }
 
 .Main_container_banner {
@@ -109,12 +108,12 @@
   margin: 0 4% 1% 4%;
 }
 
-.Main_grid_detail>h4:hover {
+.Main_grid_detail > h4:hover {
   color: #2474ff;
   cursor: pointer;
 }
 
-.Main_grid_detail>h4 {
+.Main_grid_detail > h4 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 12px;
@@ -140,16 +139,18 @@
   margin-right: 4px;
 }
 
-.profile_text>p {
+.profile_text > p {
   font-size: 12px;
   margin-bottom: 4px;
   text-align: right;
 }
 
-.profile_text>h4 {
+.profile_text > h4 {
   font-size: 16px;
   font-weight: bold;
   text-align: right;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .profile_pic {
@@ -199,6 +200,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .profile_pic img {
@@ -233,12 +236,12 @@
   text-shadow: -0.03em 0.03em #182642;
 }
 
-.right_container>div:nth-child(3) {
+.right_container > div:nth-child(3) {
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.right_container>div:nth-child(4) {
+.right_container > div:nth-child(4) {
   grid-column-start: 1;
   grid-column-end: 3;
 }
@@ -280,7 +283,7 @@
   text-overflow: ellipsis;
 }
 
-.Market_content_text>p {
+.Market_content_text > p {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 12px;
@@ -350,13 +353,17 @@
 .port_content_bottom {
   padding: 8px 12px 12px 12px;
 }
-
-.port_content_bottom>div:nth-child(2) {
+.port_content_bottom > div:first-child {
+  font-family: sans-serif;
+  letter-spacing: -1px;
+  margin: 8px 0;
+}
+.port_content_bottom > div:nth-child(2) {
   display: flex;
   justify-content: space-between;
 }
 
-.port_content_bottom>div>h4 {
+.port_content_bottom > div > h4 {
   font-size: 18px;
   font-weight: bold;
   margin: 4px 0;
@@ -376,7 +383,7 @@
   align-items: center;
 }
 
-.port_content_bottom2+div {
+.port_content_bottom2 + div {
   display: flex;
   align-items: flex-end;
 }
@@ -416,13 +423,13 @@
 
 /* 포폴 css */
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .right_container {
     width: 85%;
   }
 }
 
-@media (max-width:924px) {
+@media (max-width: 924px) {
   .Market_list {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -435,7 +442,7 @@
     font-size: 16px;
   }
 
-  .profile_text>h4 {
+  .profile_text > h4 {
     font-size: 14px;
   }
 
@@ -459,7 +466,7 @@
     height: 28px;
   }
 
-  .port_content_bottom>div>h4 {
+  .port_content_bottom > div > h4 {
     font-size: 16px;
   }
 
@@ -489,11 +496,11 @@
   }
 }
 
-@media (max-width: 700px){
-  .port_list{
+@media (max-width: 700px) {
+  .port_list {
     grid-template-columns: 1fr;
   }
-  .port_content_bottom{
+  .port_content_bottom {
     padding: 20px 12px 12px 12px !important;
   }
 }

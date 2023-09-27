@@ -36,7 +36,7 @@
 }
 
 .Detail_content {
-  margin: 12px 12px 12px 0;
+  margin: 12px;
 }
 
 .Profile_img_comment {
@@ -295,6 +295,7 @@
   text-align: end;
   position: absolute;
   right: 0;
+  cursor: pointer;
 }
 
 .meatball > ul {

@@ -128,8 +128,8 @@ const PlayBoardDetail = () => {
   useEffect(() => {
     return () => {
       setCommentList([]);
-    }
-  }, [])
+    };
+  }, []);
 
   /* 수정삭제 버튼 */
 
@@ -218,26 +218,26 @@ const PlayBoardDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 END!!!!! */}
 
           {/* 게시글 content 시작 */}
-          <div className={PlayBoard.meatball}>
-            <ul>
-              <svg
-                onClick={() => {
-                  setMeat(!meat);
-                }}
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-              {meat && <Dropdown />}
-            </ul>
-          </div>
 
           <div className={PlayBoard.play_content}>
+            <div className={PlayBoard.meatball}>
+              <ul>
+                <svg
+                  onClick={() => {
+                    setMeat(!meat);
+                  }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-three-dots"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                </svg>
+                {meat && <Dropdown />}
+              </ul>
+            </div>
             <div className="quill_content_font_style">
               <span
                 dangerouslySetInnerHTML={{ __html: playDetail.content }}
