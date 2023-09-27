@@ -4,6 +4,7 @@ import styles from "../css/CommentItem.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import { QuillContext } from "../context/QuillContext";
+import QuillReComment from './QuillReComment'
 
 const CommentItem = ({ props, postId }) => {
   /* 댓글 컴포넌트 작업하러 오신 분에게 남기는 말
@@ -185,18 +186,24 @@ const CommentItem = ({ props, postId }) => {
 
       {recommentVisible && (
         <form onSubmit={(event) => reCommentSubmit(event, props._id)}>
-          <div className={styles.recomment_write}>
-            <div>
+            <div className={styles.comment_write}>
               <div>
-                <img src="#" />
+                <div className={styles.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                </div>
+                <div className={styles.quillComment_container}>
+                  <QuillReComment />
+                </div>
+                {/* <textarea
+                  onChange={commentChange}
+                  placeholder="댓글을 쓰려면 로그인이 필요합니다."
+                  value={comment}
+                ></textarea> */}
               </div>
-              <textarea
-                onBlur={reCommentChange}
-                placeholder="댓글을 쓰려면 로그인이 필요합니다."
-              ></textarea>
+              <div className={styles.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
             </div>
-            <button type="submit">댓글쓰기</button>
-          </div>
         </form>
       )}
       {props.reComment.map((item, index) => (
