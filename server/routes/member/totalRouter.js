@@ -18,10 +18,11 @@ router.get('/findMemberInfo', async (req, res) => {
         console.time("게시판 리스트조회 도착")
         console.log('플레이 쿼리스트링', req.query);
         
+        let lists = [];
+        lists = await Study.find();
 
         // 리스트 작성자 아이디 모음
         const writerId = [];
-        let lists = [];
         // 클라이언트에서 쿼리스트링으로 문자(Study등)를 보내 일치하는 걸로 실행
         if (req.query.study == 'study') {
             lists = await Study.find();
