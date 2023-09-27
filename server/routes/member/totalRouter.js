@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Member = require('../../schemas/member/member')
 const Study = require('../../schemas/community/study')
-const tip = require('../../schemas/community/tip')
+const Tip = require('../../schemas/community/tip')
 const Review = require("../../schemas/community/review")
 const QnA = require("../../schemas/community/qna")
 const Project = require('../../schemas/community/project')
@@ -15,28 +15,35 @@ const Market = require('../../schemas/community/market')
 // 전체를 한번에?
 router.get('/findMemberInfo', async (req, res) => {
     try {
-        const id = req.query
+        console.time("게시판 리스트조회 도착")
+        console.log('플레이 쿼리스트링', req.query);
+        
 
         // 리스트 작성자 아이디 모음
         const writerId = [];
         let lists = [];
         // 클라이언트에서 쿼리스트링으로 문자(Study등)를 보내 일치하는 걸로 실행
         if (req.query.study == 'study') {
-            lists = await Study.find({ id: id });
+            lists = await Study.find();
         } else if (req.query.tip == 'tip') {
-            lists = await Tip.find({ id: id });
+            lists = await Tip.find();
         } else if (req.query.review == 'review') {
-            lists = await Review.find({ id: id });
+            lists = await Review.find();
         } else if (req.query.qna == 'qna') {
-            lists = await QnA.find({ id: id });
+            lists = await QnA.find();
         } else if (req.query.project == 'project') {
-            lists = await Project.find({ id: id });
+            lists = await Project.find();
         } else if (req.query.port == 'port') {
-            lists = await Port.find({ id: id });
-        } else if (req.query.play == 'Play') {
-            lists = await Play.find({ id: id });
+            lists = await Port.find();
+        } else if (req.query.play == 'play') {
+            console.log('조건문까지 왔나 확인');
+            console.log('확인', req.query.play);
+            lists = await Play.find();
+            /* console.log('리스츠 확인',lists); */
         } else if (req.query.market == 'market') {
-            lists = await Market.find({ id: id });
+            lists = await Market.find();
+        }else {
+            console.log('엘스조건');
         }
         // 리스트 작성자 아이디 수집
         lists.forEach(list => {

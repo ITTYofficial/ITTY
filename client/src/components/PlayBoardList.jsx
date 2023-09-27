@@ -22,50 +22,65 @@ const PlayBoardList = (props) => {
       e.preventDefault();
     }
   };
+  // 새로운 게시판 리스트 함수
+  const getList = async() => {
+    console.log('조회함수 진입');
+    console.time('소요시간');
+   await axios.get(`http://localhost:8088/total/findMemberInfo?play=play`)
+      .then((res) => {
+        console.log('확인!', res.data);
+        setPlayList(res.data.lists);
+        setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
+      })
+  }
+
 
   // 게시판 리스트 조회 함수
-  const readPlayList = async () => {
-    await axios
-      .get("http://localhost:8088/play/playList")
-      .then(async (res) => {
-        // 회원정보조회-지홍
-        console.log("1. writer :", res.data.play[0].writer);
-        let memberPromises = res.data.play.map((play) => {
-          const nickname = play.writer;
-          const id = play.id
+  // const readPlayList = async () => {
+  //   await axios
+  //     .get("http://localhost:8088/play/playList")
+  //     .then(async (res) => {
+  //       // 회원정보조회-지홍
+  //       console.log("1. writer :", res.data.play[0].writer);
+  //       let memberPromises = res.data.play.map((play) => {
+  //         const nickname = play.writer;
+  //         const id = play.id
 
-          return axios.get(
-            `http://localhost:8088/member/memberSearching?id=${id}`
-          );
-        });
+  //         return axios.get(
+  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //         );
+  //       });
 
-        let memberResponses = await Promise.all(memberPromises);
-        let member = memberResponses.map((response) => ({
-          member: response.data.member,
-        }));
+  //       let memberResponses = await Promise.all(memberPromises);
+  //       let member = memberResponses.map((response) => ({
+  //         member: response.data.member,
+  //       }));
 
-        console.log("member 내용물 : ", member.member);
-        let fusion = member.map((item, index) => {
-          return { ...item, ...res.data.play[index] };
-        });
-        console.log("퓨전", fusion);
+  //       console.log("member 내용물 : ", member.member);
+  //       let fusion = member.map((item, index) => {
+  //         return { ...item, ...res.data.play[index] };
+  //       });
+  //       console.log("퓨전", fusion);
 
-        const sortedPlays = fusion.sort((a, b) => {
-          // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-        setPlayList(sortedPlays);
-        setMaxPage(sortedPlays.length);
-      })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
-      });
-  };
+  //       const sortedPlays = fusion.sort((a, b) => {
+  //         // 게시글 데이터 작성 일자별 내림차순 정렬
+  //         return new Date(b.createdAt) - new Date(a.createdAt);
+  //       });
+  //       setPlayList(sortedPlays);
+  //       setMaxPage(sortedPlays.length);
+  //     })
+  //     .catch((err) => {
+  //       alert("통신에 실패했습니다.");
+  //       console.log(err);
+  //     });
+  // };
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    readPlayList();
+    //readPlayList();
+    getList();
     // const nickname = playList[0]
     // console.log(nickname);
     // memberSearching(nickname);
@@ -91,7 +106,10 @@ const PlayBoardList = (props) => {
     }
   };
 
-  const PlayItem = ({ props }) => (
+  const PlayItem = ({ props }) => {
+console.log(props);
+  
+  return (
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
@@ -105,16 +123,16 @@ const PlayBoardList = (props) => {
       <div className={PlayBoard.Main_grid_profile}>
         <span className={PlayBoard.profile_text}>
           {/* <p>데이터 디자인</p> */}
-          <p>{props.member.class}</p>
+          <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <span className={PlayBoard.profile_pic}>
-          <Image src={props.member.profileImg} roundedCircle />
+          <Image src={props.writerInfo.profileImg} roundedCircle />
         </span>
       </div>
     </div>
   );
-
+}
 
   // 페이징 부분
   const [maxPage, setMaxPage] = useState();
