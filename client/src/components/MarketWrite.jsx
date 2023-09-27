@@ -249,6 +249,7 @@ const MarketWrite = () => {
               multiple
               ref={inputRef}
               style={{ display: "none" }}
+              {...(croppedImage? null : {required: true})}
               onChange={handleFileChange}
             />
             {/* 크로퍼 */}
