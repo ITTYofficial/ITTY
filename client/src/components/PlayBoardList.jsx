@@ -54,7 +54,17 @@ const PlayBoardList = (props) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        setPlayList(sortedPlays);
+
+        // 댓글 개수 카운팅
+        console.time()
+        const counting = sortedPlays.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        console.timeEnd()
+        const play = sortedPlays.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
+        setPlayList(play);
         setMaxPage(sortedPlays.length);
       })
       .catch((err) => {
@@ -99,7 +109,7 @@ const PlayBoardList = (props) => {
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
-        <p>👁‍🗨{props.views} 💬4</p>
+        <p>👁‍🗨{props.views} 💬{props.count}</p>
       </div>
 
       <div className={PlayBoard.Main_grid_profile}>

@@ -56,6 +56,14 @@ const ProjectList = () => {
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
 
+        // 댓글 개수 카운팅
+        const counting = sortedProjects.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const project = sortedProjects.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
+
         setProjectList(sortedProjects);
         setMaxPage(sortedProjects.length);
       })

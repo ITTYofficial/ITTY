@@ -52,6 +52,15 @@ const StudyList = () => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
+
+        // 댓글 개수 카운팅
+        const counting = sortedStudy.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const study = sortedStudy.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
+
         setstudyList(sortedStudy);
         setMaxPage(sortedStudy.length);
       })

@@ -34,11 +34,9 @@ const TipList = () => {
           member: response.data.member,
         }));
 
-        console.log("member 내용물 : ", member.member);
         let fusion = member.map((item, index) => {
           return { ...item, ...res.data.tip[index] };
         });
-        console.log("퓨전", fusion);
         const sortedTip = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
@@ -46,14 +44,13 @@ const TipList = () => {
         
         // 댓글 개수 카운팅
         const counting = sortedTip.map((item)=>(item._id))
-        axios.post(`http://localhost:8088/comment/commentCount`, counting)
-        .then((res)=>{
-          console.log(res);
-          // setCommentCount(res.data.count);
-        })
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const tip = sortedTip.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
 
-
-        setTipList(sortedTip);
+        setTipList(tip);
         setMaxPage(sortedTip.length);
       })
       .catch((err) => {
@@ -120,7 +117,7 @@ const TipList = () => {
         </Link>
         <div className={style.tip_title_box_space_2}>
           <p>{getTime(props.createdAt)}</p>
-          <p>👁‍🗨 {props.views} 💬 {4}</p>
+          <p>👁‍🗨 {props.views} 💬 {props.count}</p>
         </div>
       </div>
 

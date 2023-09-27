@@ -113,19 +113,19 @@ router.get('/commentList', async (req, res) => {
 router.post("/commentCount", async (req, res) => {
   const idList = req.body;
 
-  // 댓글 개수
-  let countList = [];
   try {
-    for (const i of idList) {
-      const comment = await Comment.find({ postId: i })
+    const promises = idList.map(async (i) => {
+      const comment = await Comment.find({ postId: i });
       let count = comment.length;
       for (const j of comment) {
-        count += j.reComment.length
+        count += j.reComment.length;
       }
-      countList.push(count)
-    }
+      return count;
+    });
+
+    const countList = await Promise.all(promises);
     console.log(countList);
-    res.json({ countList })
+    res.json({ countList });
   } catch (err) {
     console.log(err);
     res.json({ message: false });

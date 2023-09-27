@@ -39,7 +39,16 @@ const ReviewList = () => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        setReviewList(sortedReview);
+
+        // 댓글 개수 카운팅
+        const counting = sortedReview.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const review = sortedReview.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
+
+        setReviewList(review);
         setMaxPage(sortedReview.length);
       })
       .catch((err) => {
@@ -112,7 +121,7 @@ const ReviewList = () => {
       </div>
       <span>
         <p>
-          {getTime(props.createdAt)} 👁‍🗨{props.views} 💬4
+          {getTime(props.createdAt)} 👁‍🗨{props.views} 💬{props.count}
         </p>
       </span>
     </div>
