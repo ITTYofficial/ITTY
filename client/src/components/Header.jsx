@@ -65,7 +65,7 @@ const Header = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  
+
 
   return (
     <div
@@ -83,7 +83,7 @@ const Header = () => {
       <div className={Nav.Category}>
         <ul>
           <li className={Nav.nav_hover}>
-            <a href="#">Community 🌐</a>
+            <a href="#"><span>Community</span> <span className={Nav.emoji_container}>🌐</span></a>
             <ul className={Nav.sub_Community}>
               <li>
                 <Link to={"/studyList"}>스터디 구해요🐣</Link>
@@ -101,19 +101,19 @@ const Header = () => {
           </li>
 
           <li className={Nav.nav_hover}>
-            <a href="#">지식공유 💭</a>
+            <a href="#"><span>지식공유</span> <span className={Nav.emoji_container}>💭</span></a>
             <ul className={Nav.sub_share}>
               <li>
-                <Link to={"/tipList"}>Development Tip🧷</Link>
+                <Link to={"/tipList"}>팁 공유 📢</Link>
               </li>
               <li>
-                <Link to={"/qnaList"}>Knowledge QnA💡</Link>
+                <Link to={"/qnaList"}>Q & A 💡</Link>
               </li>
             </ul>
           </li>
 
           <li className={Nav.nav_hover}>
-            <a href="#">Job 👩‍💻</a>
+            <a href="#"><span>Job</span> <span className={Nav.emoji_container}>👩‍💻</span></a>
             <ul className={Nav.sub_job}>
               <li>
                 <Link to={"/portList"}>포트폴리오🔍</Link>
@@ -125,7 +125,7 @@ const Header = () => {
           </li>
 
           <li className={Nav.nav_hover}>
-            <a href="#">Private 🔒</a>
+            <a href="#"><span>Private</span> <span className={Nav.emoji_container}>🔒</span></a>
             <ul className={Nav.sub_job}>
               <li>
                 <Link to={"/anonymityList"}>익명게시판🤐</Link>
@@ -241,10 +241,10 @@ const Header = () => {
                 <a href="#">지식공유 💭</a>
                 <ul>
                   <li>
-                    <Link to={"/tipList"}>Development Tip🧷</Link>
+                    <Link to={"/tipList"}>팁 공유 📢</Link>
                   </li>
                   <li>
-                    <Link to={"/qnaList"}>Knowledge QnA💡</Link>
+                    <Link to={"/qnaList"}>Q & A 💡</Link>
                   </li>
                 </ul>
               </li>

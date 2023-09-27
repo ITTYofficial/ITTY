@@ -16,7 +16,7 @@ const QnaWrite = () => {
             setposition(position.filter(item => item !== value));
         } else {
             // 누른 버튼 값 추가
-            setposition([...position, value]);
+            setposition([value]);
         }
     }
 
@@ -139,7 +139,15 @@ const QnaWrite = () => {
                             onClick={() => changeColor('4')}
                             style={{ backgroundColor: position.includes('4') ? '#ABE9FF' : '' }}
                         >
-                            생활 / 기타
+                            생활
+                        </button>
+                        <button
+                            className={style.Qna_button_container}
+                            type="button"
+                            onClick={() => changeColor('5')}
+                            style={{ backgroundColor: position.includes('5') ? '#ABE9FF' : '' }}
+                        >
+                            기타
                         </button>
                         <input type="hidden" name="category" value={position.join(',')} />
                         <div className="mb-3">

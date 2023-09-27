@@ -44,17 +44,17 @@ const AnonymityList = () => {
     }
 
     // 게시글정보 저장할 State
-    const [playDetail, setPlayDetail] = useState([]);
+    const [anonyDetail, setAnonyDetail] = useState([]);
 
     // 수정 요청시 기존 게시글 데이터 가져올 함수
-    const getPlay = async () => {
+    const getAnony = async () => {
         if (id) {
             // projectRouter랑 통신해서 response에 결과값 저장
-            await axios.get(`http://localhost:8088/play/playboardDetail/${id}`)
+            await axios.get(`http://localhost:8088/anony/anonyDetail/${id}`)
                 .then((res) => {
                     console.log(res);
-                    setPlayDetail(res.data.detailPlay[0]);
-                    setValue(res.data.detailPlay[0].content)
+                    setAnonyDetail(res.data.detailAnony[0]);
+                    setValue(res.data.detailAnony[0].content)
                 });
             // respnse에서 데이터 꺼내서 State에 저장
         }
@@ -62,7 +62,7 @@ const AnonymityList = () => {
 
     useEffect(() => {
         setValue(null);
-        getPlay();
+        getAnony();
     }, []);
 
 
@@ -76,7 +76,7 @@ const AnonymityList = () => {
                             className="form-control"
                             type="text"
                             name='title'
-                            {...(id ? { defaultValue: playDetail.title } : { placeholder: '제목을 입력해주세요' })} />
+                            {...(id ? { defaultValue: anonyDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                         <h4>본문</h4>
                         <div className={style.quill_div}>
                             <QuillTest />
