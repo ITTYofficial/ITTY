@@ -1,0 +1,172 @@
+.Main_container {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 8%;
+  /* justify-content: space-between; */
+}
+
+/* 상단 구분선 시작*/
+.division_line {
+  position: relative;
+  display: flex;
+  margin: 32px 0;
+}
+
+.division_line > div {
+  background-color: white;
+  color: #999999;
+  display: inline-block;
+  margin-left: 1.5rem;
+  z-index: 9;
+  padding: 0 4px;
+}
+
+.division_line::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 50% 0;
+  background-color: #999999;
+  height: 0.5px;
+}
+
+.division_line div a {
+  color: #999999;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.division_line div a:hover {
+  color: #2474ff;
+}
+
+.division_line div a:nth-child(2) {
+  color: #2474ff;
+}
+
+.division_line div a:nth-child(2):hover {
+  color: #7cacff;
+}
+
+/* 컨텐츠 시작 */
+.right_main_content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 4px 16px;
+}
+
+.right_container {
+  width: 80%;
+  padding: 16px;
+}
+
+.Img_slide div {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.Img_slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.market_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 12px 0;
+}
+.market_title > h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+.market_title > p {
+  color: #999999;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 가격 */
+.right_main_content > div:nth-child(2) > div > h2 {
+  font-size: 40px;
+  font-weight: 500;
+  margin: 12px 0;
+}
+.right_main_content > div:nth-child(2) > div > h2 > span {
+  font-size: 28px;
+  font-weight: 600;
+}
+.right_main_content > div:nth-child(2) > div > h2::after {
+  content: "";
+  clear: both;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #999999;
+  margin: 12px 0;
+}
+
+/* 프로필 및 조회수, 댓글 */
+.market_profile {
+  display: flex;
+  justify-content: space-between;
+}
+.market_profile > div:first-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.profile_img {
+  width: 50px;
+  height: 50px;
+  margin-right: 8px;
+}
+.profile_img > img {
+  width: 100%;
+}
+
+.market_profile > div:last-child > p {
+  color: #999999;
+  font-size: 14px;
+  font-weight: 500;
+}
+.market_profile > div:first-child > div:last-child > p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: left;
+  color: #999999;
+}
+.market_profile > div:first-child > div:last-child > h5 {
+  font-size: 18px;
+  /* margin-bottom: 8px; */
+  text-align: left;
+  color: #000000;
+  font-weight: 600;
+}
+.market_right_buttonFlex {
+  display: grid;
+  align-content: space-between;
+}
+
+.market_buttons > button {
+  padding: 16px 24px;
+  font-size: 24px;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-right: 16px;
+  color: #f1f1f1;
+}
+.market_buttons > button:first-child {
+  background-color: #e8c32d;
+}
+.market_buttons > button:nth-child(2) {
+  background-color: #999999;
+}
+.market_buttons > button:last-child {
+  background-color: #ff6f0f;
+}
