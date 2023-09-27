@@ -87,7 +87,14 @@
   padding: 12px;
   align-items: center;
 }
-
+.search_none {
+  display: block;
+  height: 50px;
+  margin: 32px auto;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 50px;
+}
 .search_detail span:first-child p {
   color: #999999;
   font-size: 14px;
