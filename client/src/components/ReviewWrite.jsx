@@ -123,7 +123,7 @@ const ReviewWrite = () => {
                             step="1" min="0" max="10" /> {/* 수정된 부분 */}
                     </span>
                 </div>
-                <h4>키워드 (중복선택 가능)</h4>
+                <h4>추천 키워드</h4>
                 <div className={styles.keyworld_content}>
                     <button
                         type="button"
@@ -146,6 +146,7 @@ const ReviewWrite = () => {
                     >
                         비추천
                     </button>
+                    <h4>전공 여부</h4>
                     <button
                         type="button"
                         onClick={() => changeColor('4')}

@@ -17,17 +17,22 @@ const QnaDetail = () => {
 
   /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
   const Develope = () => (
-    <span className={`${style.play_title} ${style.develope}`}>개발 🙋🏻‍♀️</span>
+    <span className={`${style.play_title} ${style.develope}`}>개발 👩🏻‍💻</span>
   );
   const Study = () => (
-    <span className={`${style.play_title} ${style.study}`}>공부✨</span>
+    <span className={`${style.play_title} ${style.study}`}>공부 📚</span>
   );
   const Job = () => (
-    <span className={`${style.play_title} ${style.job}`}>취업🎓</span>
+    <span className={`${style.play_title} ${style.job}`}>취업 🎓</span>
   );
   const Life = () => (
-    <span className={`${style.play_title} ${style.life}`}>생활/기타🌷</span>
+    <span className={`${style.play_title} ${style.life}`}>생활 🌷</span>
   );
+  const Others = () => (
+    <span className={`${style.play_title} ${style.others}`}>기타 ✨</span>
+  );
+
+  
 
 
   // 게시글정보 저장할 State
@@ -218,6 +223,7 @@ const QnaDetail = () => {
                   {visible[1] && <Study />}
                   {visible[2] && <Job />}
                   {visible[3] && <Life />}
+                  {visible[4] && <Others />}
                 </span>
                 <h4>{qnaDetail.title}</h4>
               </span>

@@ -29,6 +29,10 @@ const TipDetail = () => {
     <span className={`${style.play_title} ${style.life}`}>생활/기타🌷</span>
   );
 
+  const Others = () => (
+    <span className={`${style.play_title} ${style.others}`}>기타 ✨</span>
+  );
+
   // 게시글정보 저장할 State
   const [tipDetail, setTipDetail] = useState([]);
   const [visible, setVisible] = useState([false, false, false, false]);
@@ -219,6 +223,7 @@ const TipDetail = () => {
                   {visible[1] && <Study />}
                   {visible[2] && <Job />}
                   {visible[3] && <Life />}
+                  {visible[4] && <Others />}
                 </span>
                 <h4>{tipDetail.title}</h4>
               </span>
