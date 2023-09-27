@@ -4,7 +4,6 @@ import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
-import  "../css/Quill.css";
 import { useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 
@@ -122,7 +121,7 @@ const QuillTest = ({ update }) => {
 
   return (
     <div>
-      <ReactQuill style={{height:"600px"}}
+      <ReactQuill
         ref={quillRef} // useRef로 생성한 ref를 연결
         theme="snow"
         placeholder="내용을 입력해주세요."

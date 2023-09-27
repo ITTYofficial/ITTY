@@ -248,9 +248,13 @@ button {
   .hamburger_content {
     display: block;
   }
+
+  .aside{
+    display: block;
+  }
   /* 우선 버튼 출력 막아놓음 */
   .aside_button{
-    display: none;
+    display: block;
   }
 
   /* 모바일 화면에서 기존 헤더 메뉴 중복 내려오는 현상 */
@@ -304,11 +308,6 @@ button {
   }
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 8a4b80e256fba011524e2e98041d7162a9da401e
 /* 사이드 슬라이드 박스 */
 .aside {
   position: fixed;

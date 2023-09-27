@@ -8,14 +8,14 @@
     margin-top: 8%;
 }
 
-@media (max-width:1300px){
-    .Main_container{
+@media (max-width:1300px) {
+    .Main_container {
         width: 60%;
     }
 }
 
-@media (max-width:778px){
-    .Main_container{
+@media (max-width:778px) {
+    .Main_container {
         width: 70%;
     }
 }
@@ -131,4 +131,5 @@
 
 .quill_div {
     margin-bottom: 24px;
+    height: 600px;
 }

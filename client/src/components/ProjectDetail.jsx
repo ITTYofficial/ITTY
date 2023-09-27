@@ -18,22 +18,16 @@ const ProjectDetail = () => {
     </span>
   );
   const Backend = () => (
-    <span className={`${styles.play_title} ${styles.backend}`}>
-      백엔드👻
-    </span>
+    <span className={`${styles.play_title} ${styles.backend}`}>백엔드👻</span>
   );
   const Db = () => (
-    <span className={`${styles.play_title} ${styles.db}`}>
-      DataBase🎓
-    </span>
+    <span className={`${styles.play_title} ${styles.db}`}>DataBase🎓</span>
   );
   const Uxui = () => (
     <span className={`${styles.play_title} ${styles.uxui}`}>UX/UI🎨</span>
   );
   const Fullstack = () => (
-    <span className={`${styles.play_title} ${styles.fullstack}`}>
-      풀스택💼
-    </span>
+    <span className={`${styles.play_title} ${styles.fullstack}`}>풀스택💼</span>
   );
   /* 키워드 컴포넌트 */
 
@@ -46,14 +40,14 @@ const ProjectDetail = () => {
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
     setComment(e.target.value);
-  }
+  };
 
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
     event.preventDefault();
 
     // 회원만 작성가능하게 수정 - 지홍
-    if (!sessionStorage.getItem('memberId')) {
+    if (!sessionStorage.getItem("memberId")) {
       alert("로그인해야합니다");
       window.location.href = "/login";
       event.preventDefault();
@@ -61,38 +55,38 @@ const ProjectDetail = () => {
       const obj = {
         postid: id,
         content: comment,
-        writer: sessionStorage.getItem('memberNickname')
+        writer: sessionStorage.getItem("memberNickname"),
       };
       console.log(obj);
 
-      axios.post('http://localhost:8088/comment/write', obj)
+      axios
+        .post("http://localhost:8088/comment/write", obj)
         .then((res) => {
-          alert("댓글이 등록되었습니다.")
+          alert("댓글이 등록되었습니다.");
           console.log(res);
-          setComment('');
+          setComment("");
           getComment(id);
         })
         .catch((err) => {
           console.log(err);
-          alert("게시글 작성 실패")
-        })
+          alert("게시글 작성 실패");
+        });
     }
-  };
+  }
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
     return () => {
       setCommentList([]);
-    }
-  }, [])
-
+    };
+  }, []);
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
   // 특정 게시글 조회하기위한 nickname값 가져오기 -지홍
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const nickname = params.get('id');
+  const nickname = params.get("id");
 
   // 게시글정보 저장할 State
   const [projectDetail, setProjectDetail] = useState([]);
@@ -103,16 +97,15 @@ const ProjectDetail = () => {
 
   //회원정보 조회 함수 -지홍
   const memberSearching = async () => {
-
     await axios
       .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
-        console.log('axios다음 니크네임', res.data.member.nickname);
+        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
-        console.log('err :', err);
-      })
+        console.log("err :", err);
+      });
   };
 
   // 게시글 조회함수
@@ -124,7 +117,7 @@ const ProjectDetail = () => {
     );
     // respnse에서 데이터 꺼내서 State에 저장
     setProjectDetail(response.data.detailProject[0]);
-    const positionArr = response.data.detailProject[0].position.split(',');
+    const positionArr = response.data.detailProject[0].position.split(",");
     positionArr.map((item) => (visible[item - 1] = true));
   };
 
@@ -135,7 +128,7 @@ const ProjectDetail = () => {
     const month = createdAt.getMonth() + 1;
     const day = createdAt.getDate();
 
-    return `${year}년 ${month}월 ${day}일`
+    return `${year}년 ${month}월 ${day}일`;
   };
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
@@ -171,16 +164,17 @@ const ProjectDetail = () => {
 
   // 게시글 삭제
   const deleteProject = async () => {
-    await axios.post(`http://localhost:8088/project/delete/${id}`)
+    await axios
+      .post(`http://localhost:8088/project/delete/${id}`)
       .then((res) => {
-        alert("삭제 완료")
-        window.location.href = '/ProjectList'
+        alert("삭제 완료");
+        window.location.href = "/ProjectList";
       })
       .catch((err) => {
-        alert("삭제 실패")
+        alert("삭제 실패");
         console.log(err);
-      })
-  }
+      });
+  };
 
   /* 수정삭제 버튼 */
   const [meat, setMeat] = useState(false);
@@ -253,12 +247,16 @@ const ProjectDetail = () => {
 
             <div className={styles.play_profile}>
               <span>
-                <h4>
-                  {projectDetail.title}
-                </h4>
-                <p>📆 기간 {getTimeAgoString(projectDetail.startDate)} ~ {getTimeAgoString(projectDetail.endDate)}</p>
+                <h4>{projectDetail.title}</h4>
+                <p>
+                  📆 기간 {getTimeAgoString(projectDetail.startDate)} ~{" "}
+                  {getTimeAgoString(projectDetail.endDate)}
+                </p>
                 <p>🙍‍♂️ 인원 {projectDetail.persons}명</p>
-                <p>📝 활용기술 {projectDetail.framework_front}, {projectDetail.framework_back}, {projectDetail.framework_db}</p>
+                <p>
+                  📝 활용기술 {projectDetail.framework_front},{" "}
+                  {projectDetail.framework_back}, {projectDetail.framework_db}
+                </p>
               </span>
 
               <div>
@@ -280,28 +278,30 @@ const ProjectDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 END!!!!! */}
 
           {/* 게시글 content 시작 */}
-          <div className={styles.meatball}>
-            <ul>
-              <svg
-                onClick={() => {
-                  setMeat(!meat);
-                }}
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-              {meat && <Dropdown />}
-            </ul>
-          </div>
 
           <div className={styles.play_content}>
-            <div className='quill_content_font_style'>
-              <span dangerouslySetInnerHTML={{ __html: projectDetail.content }}></span>
+            <div className={styles.meatball}>
+              <ul>
+                <svg
+                  onClick={() => {
+                    setMeat(!meat);
+                  }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-three-dots"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                </svg>
+                {meat && <Dropdown />}
+              </ul>
+            </div>
+            <div className="quill_content_font_style">
+              <p
+                dangerouslySetInnerHTML={{ __html: projectDetail.content }}
+              ></p>
             </div>
           </div>
           {/* 게시글 content 끝 */}
@@ -316,7 +316,10 @@ const ProjectDetail = () => {
             <div className={styles.comment_write}>
               <div>
                 <div>
-                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                  <Image
+                    src="https://i.ibb.co/XsypSbQ/profile-01.png"
+                    roundedCircle
+                  />
                 </div>
                 <textarea
                   onChange={commnetChange}
@@ -329,7 +332,9 @@ const ProjectDetail = () => {
           </form>
           {/* 댓글달기 끝 */}
 
-          {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} />))}
+          {commentList.map((item) => (
+            <CommentItem key={item._id} props={item} postId={id} />
+          ))}
         </div>
       </div>
     </div>

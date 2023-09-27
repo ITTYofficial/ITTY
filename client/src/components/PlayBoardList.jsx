@@ -22,6 +22,7 @@ const PlayBoardList = (props) => {
       e.preventDefault();
     }
   };
+
   // 새로운 게시판 리스트 함수
   const getList = async() => {
     console.log('조회함수 진입');
@@ -36,51 +37,58 @@ const PlayBoardList = (props) => {
       })
   }
 
-
   // 게시판 리스트 조회 함수
-  // const readPlayList = async () => {
-  //   await axios
-  //     .get("http://localhost:8088/play/playList")
-  //     .then(async (res) => {
-  //       // 회원정보조회-지홍
-  //       console.log("1. writer :", res.data.play[0].writer);
-  //       let memberPromises = res.data.play.map((play) => {
-  //         const nickname = play.writer;
-  //         const id = play.id
+  const readPlayList = async () => {
+    await axios
+      .get("http://localhost:8088/play/playList")
+      .then(async (res) => {
+        // 회원정보조회-지홍
+        console.log("1. writer :", res.data.play[0].writer);
+        let memberPromises = res.data.play.map((play) => {
+          const nickname = play.writer;
+          const id = play.id
 
-  //         return axios.get(
-  //           `http://localhost:8088/member/memberSearching?id=${id}`
-  //         );
-  //       });
+          return axios.get(
+            `http://localhost:8088/member/memberSearching?id=${id}`
+          );
+        });
 
-  //       let memberResponses = await Promise.all(memberPromises);
-  //       let member = memberResponses.map((response) => ({
-  //         member: response.data.member,
-  //       }));
+        let memberResponses = await Promise.all(memberPromises);
+        let member = memberResponses.map((response) => ({
+          member: response.data.member,
+        }));
 
-  //       console.log("member 내용물 : ", member.member);
-  //       let fusion = member.map((item, index) => {
-  //         return { ...item, ...res.data.play[index] };
-  //       });
-  //       console.log("퓨전", fusion);
+        console.log("member 내용물 : ", member.member);
+        let fusion = member.map((item, index) => {
+          return { ...item, ...res.data.play[index] };
+        });
+        console.log("퓨전", fusion);
 
-  //       const sortedPlays = fusion.sort((a, b) => {
-  //         // 게시글 데이터 작성 일자별 내림차순 정렬
-  //         return new Date(b.createdAt) - new Date(a.createdAt);
-  //       });
-  //       setPlayList(sortedPlays);
-  //       setMaxPage(sortedPlays.length);
-  //     })
-  //     .catch((err) => {
-  //       alert("통신에 실패했습니다.");
-  //       console.log(err);
-  //     });
-  // };
+        const sortedPlays = fusion.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+
+        // 댓글 개수 카운팅
+        const counting = sortedPlays.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const play = sortedPlays.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
+        setPlayList(play);
+        setMaxPage(sortedPlays.length);
+      })
+      .catch((err) => {
+        alert("통신에 실패했습니다.");
+        console.log(err);
+      });
+  };
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    //readPlayList();
-    getList();
+     readPlayList();
+// getList(); -> 오늘 집가서 광영이가 올린거 합쳐서 활성화 시킬게요~~~
     // const nickname = playList[0]
     // console.log(nickname);
     // memberSearching(nickname);
@@ -106,10 +114,7 @@ const PlayBoardList = (props) => {
     }
   };
 
-  const PlayItem = ({ props }) => {
-console.log(props);
-  
-  return (
+  const PlayItem = ({ props }) => (
     <div className={PlayBoard.Main_container_list_detail}>
       <div>
         <p className={PlayBoard.b_date}>{getTimeAgoString(props.createdAt)}</p>
@@ -117,22 +122,22 @@ console.log(props);
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
-        <p>👁‍🗨{props.views} 💬4</p>
+        <p>👁‍🗨{props.views} 💬{props.count}</p>
       </div>
 
       <div className={PlayBoard.Main_grid_profile}>
         <span className={PlayBoard.profile_text}>
           {/* <p>데이터 디자인</p> */}
-          <p>{props.writerInfo.class}</p>
+          <p>{props.member.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <span className={PlayBoard.profile_pic}>
-          <Image src={props.writerInfo.profileImg} roundedCircle />
+          <Image src={props.member.profileImg} roundedCircle />
         </span>
       </div>
     </div>
   );
-}
+
 
   // 페이징 부분
   const [maxPage, setMaxPage] = useState();

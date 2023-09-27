@@ -114,24 +114,27 @@
 }
 
 .develope {
-  background-color: #FF6D00;
+  background-color: #ff6d00;
   color: #551a01;
 }
 
 .study {
-  background-color: #247DFF;
-  color: #FFFFFF;
+  background-color: #247dff;
+  color: #ffffff;
 }
 
 .job {
-  background-color: #FF78F5;
-  color: #4F0051;
+  background-color: #ff78f5;
+  color: #4f0051;
 }
 
 .life {
-  background-color: #00FFAA ;
-  color: #103A27;
- 
+  background-color: #00ffaa;
+  color: #103a27;
+}
+.others {
+  background-color: #F3F90B;
+  color: #443807;
 }
 
 .comment_box p {
@@ -216,6 +219,7 @@
 /* profile 끝~! */
 .play_content {
   padding: 16px;
+  position: relative;
 }
 
 .division_line_2 {
@@ -231,7 +235,14 @@
   position: relative;
 }
 
-.division_line_commant > div {
+.division_line_comment{
+  position: relative;
+    display: flex;
+    margin: 32px 0;
+    
+}
+
+.division_line_comment > div {
   position: relative;
   background-color: white;
   color: #999999;
@@ -240,16 +251,16 @@
   padding: 0 8px;
 }
 
-.division_line_commant::after {
+.division_line_comment::after {
   content: "";
   display: block;
   position: absolute;
   inset: 50% 0;
-  background-color: #eeeeee;
+  background-color: #999999;
   height: 0.5px;
 }
 
-.division_line_commant div h4 {
+.division_line_comment div h4 {
   color: #333333;
   text-decoration: none;
   font-size: 16px;
@@ -408,7 +419,9 @@
 }
 
 .meatball {
-  text-align: end;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
 }
 
 .meatball > ul {

@@ -18,10 +18,12 @@
   /* border-top: 1px solid black;
   border-bottom: 1px solid black; */
 }
+
 .Wrap_main_imageSlide button {
   position: absolute;
   right: 30px;
 }
+
 .right_container {
   width: 80%;
   /* background-color: whitesmoke; */
@@ -33,6 +35,10 @@
 }
 
 @media (max-width: 768px) {
+  .Main_container {
+    margin: 80px auto;
+  }
+
   .Wrap_main_imageSlide {
     display: none;
   }
@@ -45,6 +51,24 @@
     grid-template-columns: 1fr; */
     margin: 0 auto;
     display: block;
+  }
+
+  .Main_grid_1,
+  .Main_grid_2,
+  .Main_grid_3,
+  .Main_grid_4 {
+    margin-bottom: 20px;
+  }
+
+  .Main_grid_right_container {
+    margin-bottom: 4px !important;
+  }
+
+  .port_content_bottom {
+    padding: 0 12px 12px 12px !important;
+  }
+  .Market_list {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
@@ -81,7 +105,7 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 2px solid rgb(228, 228, 228);
-  margin: 4%;
+  margin: 0 4% 1% 4%;
 }
 
 .Main_grid_detail > h4:hover {
@@ -125,6 +149,8 @@
   font-size: 16px;
   font-weight: bold;
   text-align: right;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .profile_pic {
@@ -174,6 +200,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .profile_pic img {
@@ -186,6 +214,7 @@
   width: 100%;
   height: 300px;
 }
+
 .Main_grid_3 {
   width: 100%;
   overflow: hidden;
@@ -245,9 +274,9 @@
 }
 
 .Market_content_text h4 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  margin: 8px 0;
+  /* margin: 8px 0; */
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -262,12 +291,13 @@
 
 .Market_content_text2 {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
 }
 
 .market_content_price {
   font-size: 16px;
   font-weight: bold;
+  margin-top: 8px;
 }
 
 .Main_grid_4 {
@@ -323,10 +353,29 @@
 .port_content_bottom {
   padding: 8px 12px 12px 12px;
 }
-
+.port_content_bottom > div:first-child {
+  font-family: sans-serif;
+  letter-spacing: -1px;
+  margin: 8px 0;
+}
 .port_content_bottom > div:nth-child(2) {
   display: flex;
   justify-content: space-between;
+}
+
+.port_content_bottom > div > h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 4px 0;
+  text-align: left;
+  white-space: nowrap;
+  /* 추가 */
+  overflow: hidden;
+  /* 추가 */
+  text-overflow: ellipsis;
+  /* 추가 */
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .port_content_bottom2 {
@@ -340,8 +389,9 @@
 }
 
 .profile_img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
+  margin-right: 4px;
 }
 
 .profile_img img {
@@ -368,6 +418,89 @@
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   gap: 1rem;
+  margin-bottom: 20px;
 }
 
 /* 포폴 css */
+
+@media (max-width: 1024px) {
+  .right_container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 924px) {
+  .Market_list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .Main_grid_detail div p {
+    font-size: 12px;
+  }
+
+  .Main_grid_right_container h4 {
+    font-size: 16px;
+  }
+
+  .profile_text > h4 {
+    font-size: 14px;
+  }
+
+  .Main_grid_profile {
+    width: 35%;
+  }
+
+  .Main_grid_right_container {
+    max-width: 65%;
+  }
+
+  .Main_grid_1 h3,
+  .Main_grid_2 h3,
+  .Main_grid_3 h3,
+  .Main_grid_4 h3 {
+    font-size: 18px;
+  }
+
+  .profile_pic {
+    width: 28px;
+    height: 28px;
+  }
+
+  .port_content_bottom > div > h4 {
+    font-size: 16px;
+  }
+
+  .profile_img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .little_p {
+    font-size: 12px;
+  }
+
+  .large_p {
+    font-size: 14px;
+  }
+
+  .Main_grid_subcontent {
+    margin-bottom: 4px;
+  }
+
+  .Main_grid_right_container {
+    margin-bottom: 8px;
+  }
+
+  .Market_content_text h4 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 700px) {
+  .port_list {
+    grid-template-columns: 1fr;
+  }
+  .port_content_bottom {
+    padding: 20px 12px 12px 12px !important;
+  }
+}

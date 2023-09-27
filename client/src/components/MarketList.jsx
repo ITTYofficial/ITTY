@@ -48,18 +48,28 @@ const MarketList = () => {
           return { ...item, ...res.data.market[index] };
         });
         console.log("퓨전", fusion);
-        const sortedProjects = fusion.sort((a, b) => {
+        const sortedMarkets = fusion.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        setMarketList(sortedProjects);
-        setMaxPage(sortedProjects.length);
+
+        // 댓글 개수 카운팅
+        const counting = sortedMarkets.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const market = sortedMarkets.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
+
+        setMarketList(sortedMarkets);
+        setMaxPage(sortedMarkets.length);
       })
       .catch((err) => {
         alert("통신에 실패했습니다.");
         console.log(err);
       });
   };
+  console.log('마켓리스트 검사', marketList);
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
@@ -90,25 +100,42 @@ const MarketList = () => {
 
   // 각 장터 게시글 정보를 담을 내부 컴포넌트
   // 날짜 바꾸기
-  const MarketItem = ({ props }) => (
-    <Link
-      to={`/marketDetail/${props._id}?id=${props.id}`}
-      className={style.Market_content_item}
-    >
-      {/* <div className={style.Market_content_img} style={{width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover'}}> */}
-      <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover' }}>
+  const MarketItem = ({ props }) => {
+    console.log('프롭스 확인', props.sold);
+    return (
+      <Link
+        to={`/marketDetail/${props._id}?id=${props.id}`}
+        className={style.Market_content_item}
+      >
+        {/* <div className={style.Market_content_img} style={{width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover'}}> */}
 
-        {/* <img src={props.imgPath[0]}></img> */}
-      </div>
-      <div className={style.Market_content_text}>
-        <h4>{props.title}</h4>
-        <div className={style.Market_content_text2}>
-          <p className={style.market_content_price}>{parseInt(props.price).toLocaleString()} 원</p>
-          <p className={style.market_content_date}>{getTimeAgoString(props.createdAt)}</p>
+        {/*       <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover', position: 'relative', filter: 'grayscale(1)' }}>
+        <div>
+          <h4>판매완료</h4>
         </div>
-      </div>
-    </Link>
-  );
+      </div> */}
+
+        {props.sold == 1 ?
+          <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover', position: 'relative', filter: 'grayscale(1)' }}>
+            <div>
+              <h4>판매완료</h4>
+            </div>
+          </div>
+          :
+          <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover' }}></div>
+        }
+
+
+        <div className={style.Market_content_text}>
+          <h4>{props.title}</h4>
+          <div className={style.Market_content_text2}>
+            <p className={style.market_content_price}>{parseInt(props.price).toLocaleString()} 원</p>
+            <p className={style.market_content_date}>{getTimeAgoString(props.createdAt)}</p>
+          </div>
+        </div>
+      </Link>
+    )
+  };
 
   // 페이징 부분
   const [maxPage, setMaxPage] = useState();
@@ -140,15 +167,15 @@ const MarketList = () => {
           ))}
 
         </div>
-          <Pagination
-            activePage={page}
-            itemsCountPerPage={itemsPerPage}
-            totalItemsCount={maxPage}
-            pageRangeDisplayed={10}
-            prevPageText={"‹"}
-            nextPageText={"›"}
-            onChange={handlePageChange}
-          />
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={itemsPerPage}
+          totalItemsCount={maxPage}
+          pageRangeDisplayed={10}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );

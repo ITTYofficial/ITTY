@@ -54,7 +54,16 @@ const QnaList = () => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        setQnAList(sortedQnA);
+
+        // 댓글 개수 카운팅
+        const counting = sortedQnA.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const qna = sortedQnA.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        }));
+
+        setQnAList(qna);
         setMaxPage(sortedQnA.length);
       })
       .catch((err) => {
@@ -93,7 +102,7 @@ const QnaList = () => {
     <span className={`${style.play_title} ${style.develope}`}>개발 👩🏻‍💻</span>
   );
   const Study = () => (
-    <span className={`${style.play_title} ${style.study}`}>공부 ✨</span>
+    <span className={`${style.play_title} ${style.study}`}>공부 📚</span>
   );
   const Job = () => (
     <span className={`${style.play_title} ${style.job}`}>취업 🎓</span>
@@ -121,7 +130,7 @@ const QnaList = () => {
         </Link>
         <div className={style.Qna_title_box_space_2}>
           <p>{getTime(props.createdAt)}</p>
-          <p>👁‍🗨 {props.views} 💬 4 </p>
+          <p>👁‍🗨 {props.views} 💬 {props.count} </p>
         </div>
       </div>
 
