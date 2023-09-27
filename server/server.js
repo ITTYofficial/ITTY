@@ -30,6 +30,7 @@ app.use("/qna", require("./routes/community/qnaRouter"));
 app.use("/board", require("./routes/community/boardSearchRouter"));
 app.use("/anony", require("./routes/community/anonyRouter"));
 app.use("/anonyComment", require("./routes/community/anonyCommentRouter"));
+app.use("/total", require("./routes/member/totalRouter"));
 
 
 

@@ -132,6 +132,7 @@
   font-weight: bold;
   text-align: right;
   font-family: sans-serif;
+  letter-spacing: -1px;
 }
 .profile_pic {
   width: 50px;

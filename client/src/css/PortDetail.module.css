@@ -68,6 +68,8 @@
   font-size: 18px;
   color: #000000;
   font-weight: 600;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 
 .middle_container img {
