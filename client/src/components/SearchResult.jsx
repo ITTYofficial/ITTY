@@ -79,6 +79,8 @@ const SearchResult = () => {
   const endIndex = startIndex + itemsPerPage;
   // 페이징 부분
 
+  console.log('화긴', searchResults.find((result) => result.boardType === "Play"));
+
 
 
   return (
@@ -112,7 +114,7 @@ const SearchResult = () => {
           <div>
             {searchResults
               .find((result) => result.boardType === activeCategory)
-              ?.posts.slice(startIndex, endIndex) // 현재 페이지의 결과만 보여줍니다.
+              ?.posts.slice(startIndex, endIndex) // 현재 페이지의 결과만
               .map((item) => (
                 <div className={styles.search_wrap_list}>
                   <div>
@@ -130,6 +132,21 @@ const SearchResult = () => {
                   </div>
                 </div>
               ))}
+
+            {searchResults
+              .find((result) => result.boardType === activeCategory)
+              ?.posts.slice(startIndex, endIndex).length === 0 && (
+                <div className={styles.search_wrap_list}>
+                  <div>
+                    <div className={styles.search_detail}>
+                      <span>
+                        <h1>검색된 결과가 없습니다.</h1>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
             <Pagination
               activePage={page}
               itemsCountPerPage={itemsPerPage}
