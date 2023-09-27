@@ -228,7 +228,14 @@
     position: relative;
   }
   
-  .division_line_commant>div {
+  .division_line_comment{
+    position: relative;
+      display: flex;
+      margin: 32px 0;
+      
+  }
+  
+  .division_line_comment > div {
     position: relative;
     background-color: white;
     color: #999999;
@@ -237,16 +244,16 @@
     padding: 0 8px;
   }
   
-  .division_line_commant::after {
+  .division_line_comment::after {
     content: "";
     display: block;
     position: absolute;
     inset: 50% 0;
-    background-color: #eeeeee;
+    background-color: #999999;
     height: 0.5px;
   }
   
-  .division_line_commant div h4 {
+  .division_line_comment div h4 {
     color: #333333;
     text-decoration: none;
     font-size: 16px;
