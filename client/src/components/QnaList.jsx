@@ -129,7 +129,7 @@ const getList = async() => {
   };
 
   /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
-  const Develope = () => (
+  const Develope = ({}) => (
     <span className={`${style.play_title} ${style.develope}`}>개발 👩🏻‍💻</span>
   );
   const Study = () => (
@@ -201,7 +201,7 @@ const getList = async() => {
         </div>
         <div className={styles.right_container_button}>
           <div></div>
-          <h2>QnA 💡</h2>
+          <h2>Q & A 💡</h2>
           <Link to={"/QnaWrite"} onClick={checkSessionStorage}>
             <p>작성하기</p>
           </Link>

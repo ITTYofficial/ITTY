@@ -189,7 +189,7 @@ const getList = async() => {
         </div>
         <div className={styles.right_container_button}>
           <div></div>
-          <h2>Tip 🧷</h2>
+          <h2>팁 공유 📢</h2>
           <Link to={"/tipWrite"}>
             <p>작성하기</p>
           </Link>
