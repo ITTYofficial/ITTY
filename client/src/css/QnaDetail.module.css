@@ -109,23 +109,27 @@
 }
 
 .develope {
-  background-color: rgb(224, 255, 166);
-  color: rgb(0, 86, 44);
+  background-color: #ff6d00;
+  color: #551a01;
 }
 
 .study {
-  background-color: rgb(194, 194, 255);
-  color: rgb(55, 0, 123);
+  background-color: #247dff;
+  color: #ffffff;
 }
 
 .job {
-  background-color: rgb(255, 201, 201);
-  color: #ca1384;
+  background-color: #ff78f5;
+  color: #4f0051;
 }
 
 .life {
-  background-color: rgb(163, 249, 255);
-  color: rgb(2, 119, 140);
+  background-color: #00ffaa;
+  color: #103a27;
+}
+.others {
+  background-color: #F3F90B;
+  color: #443807;
 }
 
 .play_profile {
@@ -203,12 +207,20 @@
   position: relative;
 }
 
+
 /* 댓글 시작 */
 .division_line_ant {
   position: relative;
 }
 
-.division_line_commant > div {
+.division_line_comment{
+  position: relative;
+    display: flex;
+    margin: 32px 0;
+    
+}
+
+.division_line_comment > div {
   position: relative;
   background-color: white;
   color: #999999;
@@ -217,22 +229,21 @@
   padding: 0 8px;
 }
 
-.division_line_commant::after {
+.division_line_comment::after {
   content: "";
   display: block;
   position: absolute;
   inset: 50% 0;
-  background-color: #eeeeee;
+  background-color: #999999;
   height: 0.5px;
 }
 
-.division_line_commant div h4 {
+.division_line_comment div h4 {
   color: #333333;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
 }
-
 /* 댓글 끝 */
 
 

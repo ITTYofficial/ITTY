@@ -236,3 +236,28 @@
   width: 100%;
   height: 100%;
 }
+
+
+.develope {
+  background-color: #ff6d00;
+  color: #551a01;
+}
+
+.study {
+  background-color: #247dff;
+  color: #ffffff;
+}
+
+.job {
+  background-color: #ff78f5;
+  color: #4f0051;
+}
+
+.life {
+  background-color: #00ffaa;
+  color: #103a27;
+}
+.others {
+  background-color: #F3F90B;
+  color: #443807;
+}

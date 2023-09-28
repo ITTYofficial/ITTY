@@ -199,7 +199,7 @@ const TipDetail = () => {
       <LeftContainer />
       <div className={style.right_container}>
         <div className={style.tip_font}>
-          <p>Tip 🧷</p>
+          <p>팁 공유 📢</p>
         </div>
         <div className={style.division_line}></div>
 
