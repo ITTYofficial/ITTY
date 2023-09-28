@@ -10,6 +10,7 @@ router.post('/write', async (req, res) => {
     let obj;
 
     obj = {
+      id : req.body.id,
       postId: req.body.postid,
       writer: req.body.writer,
       content: req.body.content,
@@ -32,6 +33,7 @@ router.post('/reWrite', async (req, res) => {
     let obj;
 
     obj = {
+      id : req.body.id,
       writer: req.body.writer,
       content: req.body.content,
       createdAt: req.body.createdAt
@@ -62,33 +64,33 @@ router.get('/commentList', async (req, res) => {
   try {
     console.log('댓글 리스트 도착', postId);
 
-    // 댓글 및 대댓글 작성자 닉네임 모음
-    const writerNicknames = [];
+    // 댓글 및 대댓글 작성자 아이디 모음
+    const writerIds = [];
 
     const comments = await Comment.find({ postId: postId });
 
-    // 댓글 작성자 닉네임 수집
+    // 댓글 작성자 아이디 수집
     comments.forEach(comment => {
-      if (comment.writer) {
-        writerNicknames.push(comment.writer);
+      if (comment.id) {
+        writerIds.push(comment.id);
       }
       if (comment.reComment) {
         comment.reComment.forEach(reComment => {
-          if (reComment.writer) {
-            writerNicknames.push(reComment.writer);
+          if (reComment.id) {
+            writerIds.push(reComment.id);
           }
         });
       }
     });
 
     // 작성자 정보 일괄 조회
-    const writerInfos = await Member.find({ nickname: { $in: writerNicknames } });
+    const writerInfos = await Member.find({ id: { $in: writerIds } });
 
     const getWriterInformation = comments.map(comment => {
-      const writerInfo = writerInfos.find(info => info.nickname === comment.writer);
+      const writerInfo = writerInfos.find(info => info.id === comment.id);
       if (comment.reComment) {
         comment.reComment.forEach(reComment => {
-          const reWriterInfo = writerInfos.find(info => info.nickname === reComment.writer);
+          const reWriterInfo = writerInfos.find(info => info.id === reComment.id);
           reComment.writerInfo = reWriterInfo.toJSON();
         });
       }

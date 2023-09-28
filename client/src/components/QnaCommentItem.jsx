@@ -18,6 +18,7 @@ const QnaCommentItem = ({ props, postId }) => {
         console.log(_id);
         const createdAt = new Date().toISOString();
         const obj = {
+            id:sessionStorage.getItem('memberId'),
             writer: sessionStorage.getItem("memberNickname"),
             content: reComment,
             commentID: _id,
