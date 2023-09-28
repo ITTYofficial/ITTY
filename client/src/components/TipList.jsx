@@ -13,55 +13,86 @@ const TipList = () => {
   // 댓글 개수 담을 State
   const [commentCount, setCommentCount] = useState();
 
-  // 팁 리스트 조회 함수
-  const readTipList = async () => {
-    await axios
-      .get("http://localhost:8088/tip/tipList")
-      .then(async (res) => {
-        // 회원정보조회-지홍
-        // console.log("1. writer :", res.data.tip[0].writer);
-        let memberPromises = res.data.tip.map((tip) => {
-          // const nickname = tip.writer;
-          const id = tip.id;
-
-          return axios.get(
-            `http://localhost:8088/member/memberSearching?id=${id}`
-          );
-        });
-
-        let memberResponses = await Promise.all(memberPromises);
-        let member = memberResponses.map((response) => ({
-          member: response.data.member,
-        }));
-
-        let fusion = member.map((item, index) => {
-          return { ...item, ...res.data.tip[index] };
-        });
-        const sortedTip = fusion.sort((a, b) => {
-          // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-        
-        // 댓글 개수 카운팅
-        const counting = sortedTip.map((item)=>(item._id))
-        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-        const tip = sortedTip.map((obj, index) => ({
-          ...obj,
-          count: countList[index],
-        }));
-
-        setTipList(tip);
-        setMaxPage(sortedTip.length);
-      })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
+// 새로운 조회함수
+const getList = async() => {
+  console.log('조회함수 진입');
+  console.time('소요시간');
+ await axios.get(`http://localhost:8088/total/findMemberInfo?tip=tip`)
+    .then(async(res) => {
+      console.log('확인!', res.data);
+      
+      const sortedTips = res.data.lists.sort((a, b) => {
+        // 게시글 데이터 작성 일자별 내림차순 정렬
+        return new Date(b.createdAt) - new Date(a.createdAt);
       });
-  };
+
+      // 댓글 개수 카운팅
+      const counting = sortedTips.map((item) => (item._id))
+      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+      const tip = sortedTips.map((obj, index) => ({
+        ...obj,
+        count: countList[index],
+      }));
+      setTipList(tip);
+      setMaxPage(sortedTips.length);
+
+      // setPlayList(res.data.lists);
+      // setMaxPage(res.data.lists.length)
+
+      console.timeEnd('소요시간');
+    })
+}
+
+  // 팁 리스트 조회 함수
+  // const readTipList = async () => {
+  //   await axios
+  //     .get("http://localhost:8088/tip/tipList")
+  //     .then(async (res) => {
+  //       // 회원정보조회-지홍
+  //       // console.log("1. writer :", res.data.tip[0].writer);
+  //       let memberPromises = res.data.tip.map((tip) => {
+  //         // const nickname = tip.writer;
+  //         const id = tip.id;
+
+  //         return axios.get(
+  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //         );
+  //       });
+
+  //       let memberResponses = await Promise.all(memberPromises);
+  //       let member = memberResponses.map((response) => ({
+  //         member: response.data.member,
+  //       }));
+
+  //       let fusion = member.map((item, index) => {
+  //         return { ...item, ...res.data.tip[index] };
+  //       });
+  //       const sortedTip = fusion.sort((a, b) => {
+  //         // 게시글 데이터 작성 일자별 내림차순 정렬
+  //         return new Date(b.createdAt) - new Date(a.createdAt);
+  //       });
+        
+  //       // 댓글 개수 카운팅
+  //       const counting = sortedTip.map((item)=>(item._id))
+  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const tip = sortedTip.map((obj, index) => ({
+  //         ...obj,
+  //         count: countList[index],
+  //       }));
+
+  //       setTipList(tip);
+  //       setMaxPage(sortedTip.length);
+  //     })
+  //     .catch((err) => {
+  //       alert("통신에 실패했습니다.");
+  //       console.log(err);
+  //     });
+  // };
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    readTipList();
+    // readTipList();
+    getList();
   }, []);
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
@@ -124,11 +155,11 @@ const TipList = () => {
       {/* 프로필*/}
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-          <p>{props.member.class}</p>
+          <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <span className={style.profile_pic}>
-          <Image src={props.member.profileImg} roundedCircle />
+          <Image src={props.writerInfo.profileImg} roundedCircle />
         </span>
       </div>
     </div>
