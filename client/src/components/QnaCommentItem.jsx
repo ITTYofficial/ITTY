@@ -136,9 +136,7 @@ const QnaCommentItem = ({ props, postId }) => {
             {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
             <div>
 
-                <p>
-                    {props.content}
-                </p>
+                <p dangerouslySetInnerHTML={{ __html: props.content }}></p>
 
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
