@@ -41,6 +41,7 @@ const MarketDetail = () => {
         postid: id,
         content: comment,
         writer: sessionStorage.getItem("memberNickname"),
+        id : sessionStorage.getItem("memberId")
       };
       console.log(obj);
 

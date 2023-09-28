@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
-
+    id:{
+        // 글 ID
+        type: String,
+        required: true
+    },
     postId:{
         // 글 ID
         type: String,

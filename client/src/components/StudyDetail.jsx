@@ -198,7 +198,7 @@ const StudyDetail = () => {
     setComment(e.target.value);
   };
 
-  // 댓글 작성 시 호출되는 함수
+  // 댓글 작성 시 호출되는 함수 ************************* 이건 아래거랑 뭐가다른 함수죠??
   function commentSubmit(event) {
     event.preventDefault();
     const obj = {
@@ -231,8 +231,14 @@ const StudyDetail = () => {
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
+    if (!sessionStorage.getItem("memberId")) {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      event.preventDefault();
+    } else {
     event.preventDefault();
     const obj = {
+      id : sessionStorage.getItem('memberId'),
       writer: sessionStorage.getItem("memberNickname"),
       postid: id,
       content: coValue,
@@ -251,7 +257,7 @@ const StudyDetail = () => {
         console.log(err);
         alert("게시글 작성 실패");
       });
-  }
+  }}
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {

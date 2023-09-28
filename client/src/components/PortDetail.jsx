@@ -38,6 +38,7 @@ const PortDetail = () => {
       event.preventDefault();
     } else {
       const obj = {
+        id : sessionStorage.getItem('memberId'),
         postid: id,
         content: coValue,
         writer: sessionStorage.getItem("memberNickname"),
