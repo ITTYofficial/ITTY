@@ -21,12 +21,12 @@ const ReviewDetail = () => {
     );
     const Recomend = ({ keyWord }) => (
         <span className={`${styles.tag_button} ${styles.recommend}`}>
-          {keyWord === '1' ? '👍강력추천👍' : keyWord === '2' ? '추천👍' : keyWord === '3' ? '비추천👎' : null}
+          {keyWord === '1' ? '강력추천 💛' : keyWord === '2' ? '추천 👍' : keyWord === '3' ? '비추천 👎' : null}
         </span>
       );
     const Major = ({ position }) => (
         <span className={`${styles.tag_button} ${styles.major}`}>
-            {position === '1' ? '전공자🎓' : position === '2' ? '비전공자🎓' : null}
+            {position === '1' ? '전공자🎓' : position === '2' ? '비전공자 📚' : null}
         </span>
     );
 
@@ -183,7 +183,7 @@ const ReviewDetail = () => {
         <div className={styles.Main_container} onClick={toggleMeat}>
             <LeftContainer />
             <div className={styles.right_container}>
-                <h2>수료생후기 🔍</h2>
+                <h2>수료생 후기 👨‍🎓</h2>
                 <hr />
                 <div className={styles.top_content}>
                     <div className={styles.profile_container}>
