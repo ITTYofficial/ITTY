@@ -24,6 +24,36 @@ const QnaList = () => {
     }
   };
 
+// 새로운 조회함수
+const getList = async() => {
+  console.log('조회함수 진입');
+  console.time('소요시간');
+ await axios.get(`http://localhost:8088/total/findMemberInfo?qna=qna`)
+    .then(async(res) => {
+      console.log('확인!', res.data);
+      
+      const sortedQnAs = res.data.lists.sort((a, b) => {
+        // 게시글 데이터 작성 일자별 내림차순 정렬
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+
+      // 댓글 개수 카운팅
+      const counting = sortedQnAs.map((item) => (item._id))
+      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+      const qna = sortedQnAs.map((obj, index) => ({
+        ...obj,
+        count: countList[index],
+      }));
+      setQnAList(qna);
+      setMaxPage(sortedQnAs.length);
+
+      // setPlayList(res.data.lists);
+      // setMaxPage(res.data.lists.length)
+
+      console.timeEnd('소요시간');
+    })
+}
+
   // QnA 리스트 조회 함수
   const readQnAList = async () => {
     await axios
@@ -74,7 +104,8 @@ const QnaList = () => {
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    readQnAList();
+    // readQnAList();
+    getList();
   }, []);
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
@@ -137,11 +168,11 @@ const QnaList = () => {
       {/* 프로필*/}
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-          <p>{props.member.class}</p>
+          <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <span className={style.profile_pic}>
-          <Image src={props.member.profileImg} roundedCircle />
+          <Image src={props.writerInfo.profileImg} roundedCircle />
         </span>
       </div>
     </div>

@@ -22,58 +22,89 @@ const MarketList = () => {
     }
   };
 
-  // 장터 리스트 조회 함수
-  const readMarketList = async () => {
-    await axios
-      .get("http://localhost:8088/market/marketList")
-      .then(async (res) => {
-        // 회원정보조회-지홍
-        console.log("1. writer :", res.data.market[0].writer);
-        let memberPromises = res.data.market.map((market) => {
-          const nickname = market.writer;
-          const id = market.id
-
-          return axios.get(
-            `http://localhost:8088/member/memberSearching?id=${id}`
-          );
-        });
-
-        let memberResponses = await Promise.all(memberPromises);
-        let member = memberResponses.map((response) => ({
-          member: response.data.member,
-        }));
-
-        console.log("member 내용물 : ", member.member);
-        let fusion = member.map((item, index) => {
-          return { ...item, ...res.data.market[index] };
-        });
-        console.log("퓨전", fusion);
-        const sortedMarkets = fusion.sort((a, b) => {
-          // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-
-        // 댓글 개수 카운팅
-        const counting = sortedMarkets.map((item) => (item._id))
-        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-        const market = sortedMarkets.map((obj, index) => ({
-          ...obj,
-          count: countList[index],
-        }));
-
-        setMarketList(sortedMarkets);
-        setMaxPage(sortedMarkets.length);
-      })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
+ // 새로운 게시판 리스트 함수
+ const getList = async() => {
+  console.log('조회함수 진입');
+  console.time('소요시간');
+ await axios.get(`http://localhost:8088/total/findMemberInfo?market=market`)
+    .then(async(res) => {
+      console.log('확인!', res.data);
+      
+      const sortedMarkets = res.data.lists.sort((a, b) => {
+        // 게시글 데이터 작성 일자별 내림차순 정렬
+        return new Date(b.createdAt) - new Date(a.createdAt);
       });
-  };
+
+      // 댓글 개수 카운팅
+      const counting = sortedMarkets.map((item) => (item._id))
+      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+      const market = sortedMarkets.map((obj, index) => ({
+        ...obj,
+        count: countList[index],
+      }));
+      setMarketList(market);
+      setMaxPage(sortedMarkets.length);
+
+      // setPlayList(res.data.lists);
+      // setMaxPage(res.data.lists.length)
+
+      console.timeEnd('소요시간');
+    })
+}
+
+  // 장터 리스트 조회 함수
+  // const readMarketList = async () => {
+  //   await axios
+  //     .get("http://localhost:8088/market/marketList")
+  //     .then(async (res) => {
+  //       // 회원정보조회-지홍
+  //       console.log("1. writer :", res.data.market[0].writer);
+  //       let memberPromises = res.data.market.map((market) => {
+  //         const nickname = market.writer;
+  //         const id = market.id
+
+  //         return axios.get(
+  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //         );
+  //       });
+
+  //       let memberResponses = await Promise.all(memberPromises);
+  //       let member = memberResponses.map((response) => ({
+  //         member: response.data.member,
+  //       }));
+
+  //       console.log("member 내용물 : ", member.member);
+  //       let fusion = member.map((item, index) => {
+  //         return { ...item, ...res.data.market[index] };
+  //       });
+  //       console.log("퓨전", fusion);
+  //       const sortedMarkets = fusion.sort((a, b) => {
+  //         // 게시글 데이터 작성 일자별 내림차순 정렬
+  //         return new Date(b.createdAt) - new Date(a.createdAt);
+  //       });
+
+  //       // 댓글 개수 카운팅
+  //       const counting = sortedMarkets.map((item) => (item._id))
+  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const market = sortedMarkets.map((obj, index) => ({
+  //         ...obj,
+  //         count: countList[index],
+  //       }));
+
+  //       setMarketList(sortedMarkets);
+  //       setMaxPage(sortedMarkets.length);
+  //     })
+  //     .catch((err) => {
+  //       alert("통신에 실패했습니다.");
+  //       console.log(err);
+  //     });
+  // };
   console.log('마켓리스트 검사', marketList);
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    readMarketList();
+    // readMarketList();
+    getList();
   }, []);
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
