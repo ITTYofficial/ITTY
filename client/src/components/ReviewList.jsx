@@ -11,9 +11,9 @@ const ReviewList = () => {
   const RecommendTag = ({ keyWord }) => {
     let tagClassName = style.play_title;
     const tagMap = {
-      '1': '강력추천 😁',
-      '2': '추천👍',
-      '3': '비추천👎🏻',
+      '1': '강력추천 💛',
+      '2': '추천 👍',
+      '3': '비추천 👎',
     };
     const tagStyleMap = {
       '1': style.veryrecommend,
@@ -35,8 +35,8 @@ const ReviewList = () => {
   const PositionTag = ({ position }) => {
     let tagClassName = style.play_title;
     const tagMap = {
-      '1': '전공자 🚩',
-      '2': '비전공자💎',
+      '1': '전공자 🎓',
+      '2': '비전공자 📚',
     };
     const tagStyleMap = {
       '1': style.major,
