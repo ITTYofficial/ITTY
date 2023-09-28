@@ -19,16 +19,14 @@ const ReviewDetail = () => {
             ⭐{Number(score / 2)}
         </span>
     );
-    const Recomend = () => (
+    const Recomend = ({ keyWord }) => (
         <span className={`${styles.tag_button} ${styles.recommend}`}>
-            강력추천👍
-            {/* 비추천👎 */}
+          {keyWord === '1' ? '👍강력추천👍' : keyWord === '2' ? '추천👍' : keyWord === '3' ? '비추천👎' : null}
         </span>
-    );
-    const Major = () => (
+      );
+    const Major = ({ position }) => (
         <span className={`${styles.tag_button} ${styles.major}`}>
-            전공자🎓
-            {/* 비전공자🎓*/}
+            {position === '1' ? '전공자🎓' : position === '2' ? '비전공자🎓' : null}
         </span>
     );
 
@@ -42,7 +40,6 @@ const ReviewDetail = () => {
 
     // 게시글정보 저장할 State
     const [reviewDetail, setReviewDetail] = useState([]);
-    const [visible, setVisible] = useState([false, false, false]);
 
     // 게시글 조회함수
     // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
@@ -53,8 +50,6 @@ const ReviewDetail = () => {
                 // respnse에서 데이터 꺼내서 State에 저장
                 console.log(res.data);
                 setReviewDetail(res.data.detailReview[0]);
-                const positionArr = res.data.detailReview[0].keyWord.split(',');
-                positionArr.map((item) => (visible[item - 1] = true));
             })
             .catch((err) => {
                 console.log(err);
@@ -72,16 +67,8 @@ const ReviewDetail = () => {
             })
     }
 
-    // 댓글 내용 담을 State
-    const [comment, setComment] = useState();
-
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
     const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
-
-    // 댓글 내용 가져오는 함수
-    const commentChange = (e) => {
-        setComment(e.target.value);
-    }
 
     // 댓글 작성완료 시 호출되는 함수
     function commentSubmit(event) {
@@ -208,9 +195,9 @@ const ReviewDetail = () => {
                             <h4>{memberInfo.nickname}</h4>
                         </div>
                         <div className={styles.tag_buttons}>
-                            {visible[0] && <Rank score={reviewDetail.score} />}
-                            {visible[1] && <Recomend />}
-                            {visible[2] && <Major />}
+                            <Rank score={reviewDetail.score} />
+                            <Recomend keyWord={reviewDetail.keyWord} />
+                            <Major position={reviewDetail.position}/>
                         </div>
 
                     </div>

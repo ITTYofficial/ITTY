@@ -6,6 +6,55 @@ import axios from "axios";
 import Pagination from "react-js-pagination";
 
 const ReviewList = () => {
+
+  // 태그 컴포넌트들
+  const RecommendTag = ({ keyWord }) => {
+    let tagClassName = style.play_title;
+    const tagMap = {
+      '1': '강력추천 😁',
+      '2': '추천👍',
+      '3': '비추천👎🏻',
+    };
+    const tagStyleMap = {
+      '1': style.veryrecommend,
+      '2': style.recommend,
+      '3': style.notrecommend,
+    };
+    // keyWord에 따라 클래스 선택
+    if (tagStyleMap[keyWord]) {
+      tagClassName = `${tagClassName} ${tagStyleMap[keyWord]}`;
+    }
+
+    return (
+      <span className={tagClassName}>
+        {tagMap[keyWord] || ''}
+      </span>
+    );
+  };
+
+  const PositionTag = ({ position }) => {
+    let tagClassName = style.play_title;
+    const tagMap = {
+      '1': '전공자 🚩',
+      '2': '비전공자💎',
+    };
+    const tagStyleMap = {
+      '1': style.major,
+      '2': style.nomajor,
+    };
+
+    // position에 따라 클래스 선택
+    if (tagStyleMap[position]) {
+      tagClassName = `${tagClassName} ${tagStyleMap[position]}`;
+    }
+
+    return (
+      <span className={tagClassName}>
+        {tagMap[position] || ''}
+      </span>
+    );
+  };
+
   // 리뷰 리스트 담을 State
   const [reviewList, setReviewList] = useState([]);
 
@@ -87,22 +136,9 @@ const ReviewList = () => {
       <div>
         <span>
           <div className={style.cateBox}>
-            <span className={`${style.play_title} ${style.star}`}>⭐4.5</span>
-            <span className={`${style.play_title} ${style.recommend}`}>
-              추천 👍
-            </span>
-            <span className={`${style.play_title} ${style.nomajor}`}>
-              비전공자💎
-            </span>
-            <span className={`${style.play_title} ${style.major}`}>
-              전공자 🚩
-            </span>
-            <span className={`${style.play_title} ${style.veryrecommend}`}>
-              강력추천 😁
-            </span>
-            <span className={`${style.play_title} ${style.notrecommend}`}>
-              비추천 👎🏻
-            </span>
+            <span className={`${style.play_title} ${style.star}`}>⭐{props.score/2}</span>
+            <RecommendTag keyWord={props.keyWord} />
+            <PositionTag position={props.position} />
           </div>
           <Link to={`/reviewDetail/${props._id}?id=${props.id}`}>
             <h3>{props.title}</h3>

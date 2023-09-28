@@ -18,7 +18,8 @@ router.post('/write', async (req, res) => {
                 // createdAt: "알아서 들어감",
                 // views: "알아서 들어감",
                 score: req.body.score,
-                keyWord: req.body.keyWord
+                keyWord: req.body.keyWord,
+                position: req.body.position
             };
             _id = req.body._id
 
@@ -38,7 +39,8 @@ router.post('/write', async (req, res) => {
                 // createdAt: "알아서 들어감",
                 // views: "알아서 들어감",
                 score: req.body.score,
-                keyWord: req.body.keyWord
+                keyWord: req.body.keyWord,
+                position: req.body.position
             };
             const review = new Review(obj);
             _id = review._id;

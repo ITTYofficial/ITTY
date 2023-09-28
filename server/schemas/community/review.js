@@ -40,6 +40,9 @@ const reviewSchema = new Schema({
     },
     keyWord: {
         type: String
+    },
+    position: {
+        type: String
     }
 
 })

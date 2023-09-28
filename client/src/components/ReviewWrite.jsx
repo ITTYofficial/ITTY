@@ -22,15 +22,27 @@ const ReviewWrite = () => {
     /* 별점관련 */
 
     /* 키워드관련 */
-    const [position, setposition] = useState([]);
-
-    function changeColor(value) {
-        if (position.includes(value)) {
+    const [keyWord, setKeyWord] = useState([]);
+    
+    function keyChangeColor(value) {
+        if (keyWord.includes(value)) {
             // 이미 선택된 버튼인 경우 선택 해제
-            setposition(position.filter(item => item !== value));
+            setKeyWord(keyWord.filter(item => item !== value));
         } else {
             // 누른 버튼 값 추가
-            setposition([...position, value]);
+            setKeyWord([value]);
+        }
+    }
+
+    const [position, setPosition] = useState([]);
+
+    function poChangeColor(value) {
+        if (position.includes(value)) {
+            // 이미 선택된 버튼인 경우 선택 해제
+            setPosition(position.filter(item => item !== value));
+        } else {
+            // 누른 버튼 값 추가
+            setPosition([value]);
         }
     }
     /* 키워드관련 */
@@ -88,8 +100,8 @@ const ReviewWrite = () => {
                     console.log(res);
                     setReviewDetail(res.data.detailReview[0]);
                     setValue(res.data.detailReview[0].content);
-                    const positionArr = res.data.detailReview[0].keyWord.split(',');
-                    setposition(positionArr);
+                    // const positionArr = res.data.detailReview[0].keyWord.split(',');
+                    // setPosition(positionArr);
                 });
             // respnse에서 데이터 꺼내서 State에 저장
         }
@@ -127,41 +139,43 @@ const ReviewWrite = () => {
                 <div className={styles.keyworld_content}>
                     <button
                         type="button"
-                        onClick={() => changeColor('1')}
-                        style={{ backgroundColor: position.includes('1') ? '#ABE9FF' : '' }}
+                        onClick={() => keyChangeColor('1')}
+                        style={{ backgroundColor: keyWord.includes('1') ? '#ABE9FF' : '' }}
                     >
                         강력추천
                     </button>
                     <button
                         type="button"
-                        onClick={() => changeColor('2')}
-                        style={{ backgroundColor: position.includes('2') ? '#ABE9FF' : '' }}
+                        onClick={() => keyChangeColor('2')}
+                        style={{ backgroundColor: keyWord.includes('2') ? '#ABE9FF' : '' }}
                     >
                         추천
                     </button>
                     <button
                         type="button"
-                        onClick={() => changeColor('3')}
-                        style={{ backgroundColor: position.includes('3') ? '#ABE9FF' : '' }}
+                        onClick={() => keyChangeColor('3')}
+                        style={{ backgroundColor: keyWord.includes('3') ? '#ABE9FF' : '' }}
                     >
                         비추천
                     </button>
+                    <input type="hidden" name="keyWord" value={keyWord.join(',')} />
+
                     <h4>전공 여부</h4>
                     <button
                         type="button"
-                        onClick={() => changeColor('4')}
-                        style={{ backgroundColor: position.includes('4') ? '#ABE9FF' : '' }}
+                        onClick={() => poChangeColor('1')}
+                        style={{ backgroundColor: position.includes('1') ? '#ABE9FF' : '' }}
                     >
                         전공
                     </button>
                     <button
                         type="button"
-                        onClick={() => changeColor('5')}
-                        style={{ backgroundColor: position.includes('5') ? '#ABE9FF' : '' }}
+                        onClick={() => poChangeColor('2')}
+                        style={{ backgroundColor: position.includes('2') ? '#ABE9FF' : '' }}
                     >
                         비전공
                     </button>
-                    <input type="hidden" name="keyWord" value={position.join(',')} />
+                    <input type="hidden" name="position" value={position.join(',')} />
                 </div>
 
                 <h4>내용</h4>
