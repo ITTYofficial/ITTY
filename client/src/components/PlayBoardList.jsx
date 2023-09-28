@@ -28,43 +28,10 @@ const PlayBoardList = (props) => {
     console.log('조회함수 진입');
     console.time('소요시간');
    await axios.get(`http://localhost:8088/total/findMemberInfo?play=play`)
-      .then((res) => {
+      .then(async(res) => {
         console.log('확인!', res.data);
-        setPlayList(res.data.lists);
-        setMaxPage(res.data.lists.length)
-
-        console.timeEnd('소요시간');
-      })
-  }
-
-  // 게시판 리스트 조회 함수
-  const readPlayList = async () => {
-    await axios
-      .get("http://localhost:8088/play/playList")
-      .then(async (res) => {
-        // 회원정보조회-지홍
-        console.log("1. writer :", res.data.play[0].writer);
-        let memberPromises = res.data.play.map((play) => {
-          const nickname = play.writer;
-          const id = play.id
-
-          return axios.get(
-            `http://localhost:8088/member/memberSearching?id=${id}`
-          );
-        });
-
-        let memberResponses = await Promise.all(memberPromises);
-        let member = memberResponses.map((response) => ({
-          member: response.data.member,
-        }));
-
-        console.log("member 내용물 : ", member.member);
-        let fusion = member.map((item, index) => {
-          return { ...item, ...res.data.play[index] };
-        });
-        console.log("퓨전", fusion);
-
-        const sortedPlays = fusion.sort((a, b) => {
+        
+        const sortedPlays = res.data.lists.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -78,17 +45,66 @@ const PlayBoardList = (props) => {
         }));
         setPlayList(play);
         setMaxPage(sortedPlays.length);
+
+        // setPlayList(res.data.lists);
+        // setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
       })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
-      });
-  };
+  }
+
+  // 게시판 리스트 조회 함수
+  // const readPlayList = async () => {
+  //   await axios
+  //     .get("http://localhost:8088/play/playList")
+  //     .then(async (res) => {
+  //       // 회원정보조회-지홍
+  //       console.log("1. writer :", res.data.play[0].writer);
+  //       let memberPromises = res.data.play.map((play) => {
+  //         const nickname = play.writer;
+  //         const id = play.id
+
+  //         return axios.get(
+  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //         );
+  //       });
+
+  //       let memberResponses = await Promise.all(memberPromises);
+  //       let member = memberResponses.map((response) => ({
+  //         member: response.data.member,
+  //       }));
+
+  //       console.log("member 내용물 : ", member.member);
+  //       let fusion = member.map((item, index) => {
+  //         return { ...item, ...res.data.play[index] };
+  //       });
+  //       console.log("퓨전", fusion);
+
+  //       const sortedPlays = fusion.sort((a, b) => {
+  //         // 게시글 데이터 작성 일자별 내림차순 정렬
+  //         return new Date(b.createdAt) - new Date(a.createdAt);
+  //       });
+
+  //       // 댓글 개수 카운팅
+  //       const counting = sortedPlays.map((item) => (item._id))
+  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const play = sortedPlays.map((obj, index) => ({
+  //         ...obj,
+  //         count: countList[index],
+  //       }));
+  //       setPlayList(play);
+  //       setMaxPage(sortedPlays.length);
+  //     })
+  //     .catch((err) => {
+  //       alert("통신에 실패했습니다.");
+  //       console.log(err);
+  //     });
+  // };
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-     readPlayList();
-// getList(); -> 오늘 집가서 광영이가 올린거 합쳐서 활성화 시킬게요~~~
+    //  readPlayList();
+     getList(); //-> 오늘 집가서 광영이가 올린거 합쳐서 활성화 시킬게요~~~
     // const nickname = playList[0]
     // console.log(nickname);
     // memberSearching(nickname);
@@ -128,11 +144,11 @@ const PlayBoardList = (props) => {
       <div className={PlayBoard.Main_grid_profile}>
         <span className={PlayBoard.profile_text}>
           {/* <p>데이터 디자인</p> */}
-          <p>{props.member.class}</p>
+          <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <span className={PlayBoard.profile_pic}>
-          <Image src={props.member.profileImg} roundedCircle />
+          <Image src={props.writerInfo.profileImg} roundedCircle />
         </span>
       </div>
     </div>
