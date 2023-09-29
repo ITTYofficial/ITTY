@@ -64,7 +64,7 @@ router.get('/findMemberInfo', async (req, res) => {
             };
         });
         res.json({ lists: getWriterInformation });
-        /* console.log('다됨?', lists); */
+        /* console.log('다됨?', lists);  */
         console.timeEnd('걸린시간');
     } catch (err) {
         console.log('에러 : ', err);
