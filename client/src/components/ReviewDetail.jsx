@@ -79,10 +79,11 @@ const ReviewDetail = () => {
           } else {
         event.preventDefault();
         const obj = {
-            id : sessionStorage.getItem('memberId'),
+            id: sessionStorage.getItem('memberId'),
             writer: sessionStorage.getItem("memberNickname"),
             postid: id,
-            content: coValue
+            content: coValue,
+            boardType: 'review'
         };
         console.log(obj);
 
@@ -256,7 +257,7 @@ const ReviewDetail = () => {
                         </div>
                     </div>
                 </form>
-                {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} />))}
+                {commentList.map((item) => (<CommentItem key={item._id} props={item} postId={id} boardType='review'/>))}
 
             </div>
 

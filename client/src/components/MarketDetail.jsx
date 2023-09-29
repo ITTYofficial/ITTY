@@ -21,7 +21,7 @@ const MarketDetail = () => {
   const [comment, setComment] = useState();
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
@@ -39,10 +39,11 @@ const MarketDetail = () => {
       event.preventDefault();
     } else {
       const obj = {
-        postid: id,
-        content: comment,
+        id: sessionStorage.getItem('memberId'),
         writer: sessionStorage.getItem("memberNickname"),
-        id: sessionStorage.getItem("memberId"),
+        postid: id,
+        content: coValue,
+        boardType: 'market'
       };
       console.log(obj);
 
@@ -375,7 +376,7 @@ const MarketDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} />
+            <CommentItem key={item._id} props={item} postId={id} boardType='market' />
           ))}
       </div>
     </div>
