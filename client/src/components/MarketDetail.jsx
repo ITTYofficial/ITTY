@@ -14,6 +14,7 @@ import axios from "axios";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
+import QuillComment from './QuillComment'
 
 const MarketDetail = () => {
   // 댓글 내용 담을 State
@@ -41,7 +42,7 @@ const MarketDetail = () => {
         postid: id,
         content: comment,
         writer: sessionStorage.getItem("memberNickname"),
-        id : sessionStorage.getItem("memberId")
+        id: sessionStorage.getItem("memberId"),
       };
       console.log(obj);
 
@@ -311,48 +312,16 @@ const MarketDetail = () => {
           </div>
         </div>
 
-        <div className={style.right_middle_wrapper}>
-          <div className={style.right_middle_container}>
-            <div>
-              <div className={style.profile_img}>
-                <Image src={memberInfo.profileImg} roundedCircle />
-              </div>
-            </div>
-            <div className={style.additional_content}></div>
-          </div>
-        </div>
-        <hr />
         {/* 내용부분 */}
-        <div className={style.text_content_wrapper}>
-          <div className={style.meatball}>
-            <ul>
-              <svg
-                onClick={() => {
-                  setMeat(!meat);
-                }}
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-              {meat && <Dropdown />}
-            </ul>
-          </div>
-          <div className={style.sub_content_wrapper}>
-            <div className={style.sub_content}>
-              <div className="quill_content_font_style">
-                <p
-                  dangerouslySetInnerHTML={{ __html: marketDetail.content }}
-                ></p>
-              </div>
-            </div>
+        <div className={style.market_content}>
+          <h3>상품 정보</h3>
+          <div className="quill_content_font_style">
+            <p dangerouslySetInnerHTML={{ __html: marketDetail.content }}></p>
           </div>
         </div>
-        <div className={style.division_line}>
+
+        {/* 댓글부분 */}
+        {/* <div className={style.division_line}>
           <div>
             <p>댓글 3</p>
           </div>
@@ -376,12 +345,38 @@ const MarketDetail = () => {
               댓글쓰기
             </Button>{" "}
           </div>
-        </form>
+        </form> */}
         {/* 댓글부분 */}
-        {commentList.map((item) => (
+        {/* {commentList.map((item) => (
           <CommentItem key={item._id} props={item} postId={id} />
-        ))}
+        ))} */}
         {/* 댓글부분 */}
+        {/* 댓글달기 시작 */}
+        <div className={style.division_line_comment}>
+            <div>
+              <h4>댓글 3</h4>
+            </div>
+          </div>
+          <form onSubmit={commentSubmit}>
+            <div className={style.comment_write}>
+              <div>
+                <div className={style.comment_write_profile}>
+                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                </div>
+                <div className={style.quillComment_container}>
+                  <QuillComment />
+                </div>
+              </div>
+              <div className={style.submit_btn_group}>
+                <button type="submit">댓글쓰기</button>
+              </div>
+            </div>
+          </form>
+          {/* 댓글달기 끝 */}
+
+          {commentList.map((item) => (
+            <CommentItem key={item._id} props={item} postId={id} />
+          ))}
       </div>
     </div>
   );
