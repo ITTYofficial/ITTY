@@ -97,7 +97,7 @@ const CommentItem = ({ props, postId, boardType }) => {
           </div>
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-        <div>
+        <div className={styles.recomment_content_box}>
           <p dangerouslySetInnerHTML={{ __html: props.content }}></p>
         </div>
         {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
@@ -135,7 +135,7 @@ const CommentItem = ({ props, postId, boardType }) => {
         </span>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-      <div>
+      <div className="quill_comment_font_style">
         <p dangerouslySetInnerHTML={{ __html: props.content }}></p>
       </div>
       {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}

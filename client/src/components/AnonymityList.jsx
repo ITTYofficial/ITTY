@@ -43,6 +43,10 @@ const AnonymityList = (props) => {
       });
   };
 
+
+
+
+
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     readAnonyList();
@@ -76,7 +80,7 @@ const AnonymityList = (props) => {
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
-        <p>👁‍🗨{props.views} 💬4</p>
+        <p>👁‍🗨{props.views} 💬{props.comments}</p>
       </div>
 
       <div className={PlayBoard.Main_grid_profile}>
