@@ -63,8 +63,8 @@
 }
 
 .Img_slide div {
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   margin: 0 auto;
 }
 
@@ -84,6 +84,8 @@
 .market_title > h2 {
   font-size: 24px;
   font-weight: 600;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 .market_title > p {
   color: #999999;
@@ -107,7 +109,7 @@
   display: block;
   width: 100%;
   height: 2px;
-  background-color: #999999;
+  background-color: #eeeeee;
   margin: 12px 0;
 }
 
@@ -142,31 +144,154 @@
   color: #999999;
 }
 .market_profile > div:first-child > div:last-child > h5 {
-  font-size: 18px;
+  font-size: 16px;
   /* margin-bottom: 8px; */
   text-align: left;
   color: #000000;
   font-weight: 600;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }
 .market_right_buttonFlex {
   display: grid;
   align-content: space-between;
 }
-
+.market_buttons{
+  display: flex;
+  justify-content: flex-end;
+}
 .market_buttons > button {
   padding: 16px 24px;
   font-size: 24px;
   font-weight: 600;
   border-radius: 10px;
-  margin-right: 16px;
+  margin-left: 16px;
   color: #f1f1f1;
+  transition-duration: 200ms;
 }
 .market_buttons > button:first-child {
   background-color: #e8c32d;
 }
+.market_buttons > button:first-child:hover{
+  background-color: #ffcf11;
+}
 .market_buttons > button:nth-child(2) {
   background-color: #999999;
 }
+.market_buttons > button:nth-child(2):hover {
+  background-color: #585858;
+}
 .market_buttons > button:last-child {
+  background-color: #ff8c00;
+}
+.market_buttons > button:last-child:hover {
   background-color: #ff6f0f;
 }
+.market_content{
+  margin: 32px 0;
+  padding: 4px 16px;
+}
+.market_content > h3{
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.market_content > h3::after{
+  content: "";
+  clear: both;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #eeeeee;
+  margin: 12px 0;
+}
+
+
+/* 댓글 구분선 */
+
+.division_line_comment {
+  position: relative;
+  display: flex;
+  margin: 32px 0;
+}
+
+.division_line_comment>div {
+  background-color: white;
+  color: #999999;
+  display: inline-block;
+  /*   margin-left: 1.5rem; */
+  z-index: 9;
+  padding: 0 4px;
+}
+
+.division_line_comment::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 50% 0;
+  background-color: #999999;
+  height: 0.5px;
+}
+
+.division_line_comment div a {
+  color: #999999;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.division_line_comment div a:hover {
+  color: #2474ff;
+}
+
+.division_line_comment div a:nth-child(2) {
+  color: #2474ff;
+}
+
+.division_line_comment div a:nth-child(2):hover {
+  color: #7cacff;
+}
+
+
+/* 댓글 작성 quill버전 css */
+.comment_write_profile {
+  margin-right: 16px;
+}
+
+.comment_write_profile img {
+  width: 65px;
+  height: 65px;
+}
+
+.comment_write>div {
+  display: flex;
+}
+
+
+.quillComment_container{
+  width: 90%;
+}
+
+.submit_btn_group {
+  display: flex;
+  justify-content: end;
+}
+
+.submit_btn_group button {
+  text-decoration: none;
+  color: #eeeeee;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  display: inline-block;
+  background-color: #999999;
+  padding: 12px 20px;
+  margin-right: 16px;
+  margin-top: 16px;
+}
+
+.submit_btn_group button:hover {
+  background-color: #2474ff;
+}
+/* 댓글 작성 quill버전 css */
+
