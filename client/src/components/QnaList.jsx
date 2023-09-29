@@ -24,35 +24,35 @@ const QnaList = () => {
     }
   };
 
-// 새로운 조회함수
-const getList = async() => {
-  console.log('조회함수 진입');
-  console.time('소요시간');
- await axios.get(`http://localhost:8088/total/findMemberInfo?qna=qna`)
-    .then(async(res) => {
-      console.log('확인!', res.data);
-      
-      const sortedQnAs = res.data.lists.sort((a, b) => {
-        // 게시글 데이터 작성 일자별 내림차순 정렬
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
+  // 새로운 조회함수
+  const getList = async () => {
+    console.log('조회함수 진입');
+    console.time('소요시간');
+    await axios.get(`http://localhost:8088/total/findMemberInfo?qna=qna`)
+      .then(async (res) => {
+        console.log('확인!', res.data);
 
-      // 댓글 개수 카운팅
-      const counting = sortedQnAs.map((item) => (item._id))
-      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-      const qna = sortedQnAs.map((obj, index) => ({
-        ...obj,
-        count: countList[index],
-      }));
-      setQnAList(qna);
-      setMaxPage(sortedQnAs.length);
+        const sortedQnAs = res.data.lists.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
 
-      // setPlayList(res.data.lists);
-      // setMaxPage(res.data.lists.length)
+        // 댓글 개수 카운팅
+/*         const counting = sortedQnAs.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const qna = sortedQnAs.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        })); */
+        setQnAList(sortedQnAs);
+        setMaxPage(sortedQnAs.length);
 
-      console.timeEnd('소요시간');
-    })
-}
+        // setPlayList(res.data.lists);
+        // setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
+      })
+  }
 
   // QnA 리스트 조회 함수
   const readQnAList = async () => {
@@ -129,7 +129,7 @@ const getList = async() => {
   };
 
   /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
-  const Develope = ({}) => (
+  const Develope = ({ }) => (
     <span className={`${style.play_title} ${style.develope}`}>개발 👩🏻‍💻</span>
   );
   const Study = () => (
@@ -161,7 +161,7 @@ const getList = async() => {
         </Link>
         <div className={style.Qna_title_box_space_2}>
           <p>{getTime(props.createdAt)}</p>
-          <p>👁‍🗨 {props.views} 💬 {props.count} </p>
+          <p>👁‍🗨 {props.views} 💬 {props.comments} </p>
         </div>
       </div>
 

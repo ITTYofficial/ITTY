@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const projectSchema = new Schema({
 
     // 게시판마다 반복되는 부분
-    id :{
+    id: {
         type: String
     },
     writer: {
@@ -37,7 +37,11 @@ const projectSchema = new Schema({
         type: Number,
         default: 0
     },
-
+    comments: {
+        // 댓글수
+        type: Number,
+        default: 0
+    },
     // 게시판마다 달라지는 부분
     // postCatogory: {
     //     // 글카테고리
@@ -57,11 +61,11 @@ const projectSchema = new Schema({
         // 모집인원
         type: Number
     },
-    recruit:{
+    recruit: {
         // 모집상태
         type: String
     },
-    position: { 
+    position: {
         // 모집하는 포지션
         type: String
     },

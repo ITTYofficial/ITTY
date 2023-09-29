@@ -2,10 +2,29 @@ const express = require('express')
 const router = express.Router()
 const Comment = require('../../schemas/community/comment')
 const Member = require('../../schemas/member/member')
+const Study = require('../../schemas/community/study')
+const Tip = require('../../schemas/community/tip')
+const Review = require("../../schemas/community/review")
+const QnA = require("../../schemas/community/qna")
+const Project = require('../../schemas/community/project')
+const Port = require('../../schemas/community/port');
 const Play = require('../../schemas/community/play')
+const Market = require('../../schemas/community/market')
+
+const schemas = {
+  study: Study,
+  tip: Tip,
+  review: Review,
+  qna: QnA,
+  project: Project,
+  port: Port,
+  play: Play,
+  market: Market
+};
 
 // 댓글 작성
 router.post('/write', async (req, res) => {
+
   console.log('확인', req.body);
   try {
     let obj;
@@ -20,12 +39,18 @@ router.post('/write', async (req, res) => {
     const comment = new Comment(obj);
     await Comment.insertMany(comment);
 
-    await Play.updateOne(
-      { _id: req.body.postid },
-      {
-        $inc: { comments: 1 }
+    for (const key in schemas) {
+      if (req.body.boardType === key) {
+        console.log('어디임?', schemas[key]);
+        await schemas[key].updateOne(
+          { _id: req.body.postid },
+          {
+            $inc: { comments: 1 }
+          }
+        )
+        break;
       }
-    )
+    }
 
     res.json({ message: true });
   } catch (err) {
@@ -60,12 +85,25 @@ router.post('/reWrite', async (req, res) => {
       }
     )
 
-    await Play.updateOne(
-      { _id: commentinfo.postId },
-      {
-        $inc: { comments: 1 }
+    for (const key in schemas) {
+      if (req.body.boardType === key) {
+        console.log('어디임?', schemas[key]);
+        await schemas[key].updateOne(
+          { _id: commentinfo.postId },
+          {
+            $inc: { comments: 1 }
+          }
+        )
+        break;
       }
-    )
+    }
+
+    /*     await schemas[key].updateOne(
+          { _id: commentinfo.postId },
+          {
+            $inc: { comments: 1 }
+          }
+        ) */
 
 
     res.json({ message: true });
@@ -159,7 +197,7 @@ router.post("/commentCount", async (req, res) => {
 
 // 댓글 삭제
 router.post("/delete/", async (req, res) => {
-  console.log('댓삭 req 확인', req.body.postId);
+  console.log('댓삭 req 확인', req.body);
   try {
     /*  const id = req.body.postId; */
     const commentinfo = await Comment.findOneAndDelete(
@@ -168,14 +206,23 @@ router.post("/delete/", async (req, res) => {
       }
     );
 
-    await Play.updateOne(
-      { _id: req.body.postId },
-      {
-        $inc: {
-          comments: -commentinfo.comments
-        }
+
+    for (const key in schemas) {
+      if (req.body.boardType === key) {
+        console.log('어디임?', schemas[key]);
+        await schemas[key].updateOne(
+          { _id: req.body.postId },
+          {
+            $inc: {
+              comments: -commentinfo.comments
+            }
+          }
+        )
+        break;
       }
-    )
+    }
+
+
 
     res.json({ message: true });
   } catch (err) {
@@ -206,14 +253,21 @@ router.post("/deleteRecomment/", async (req, res) => {
       }
     );
 
-    await Play.updateOne(
-      { _id: req.body.postId },
-      {
-        $inc: {
-          comments: -1
-        }
+
+    for (const key in schemas) {
+      if (req.body.boardType === key) {
+        console.log('어디임?', schemas[key]);
+        await schemas[key].updateOne(
+          { _id: req.body.postId },
+          {
+            $inc: {
+              comments: -1
+            }
+          }
+        )
+        break;
       }
-    )
+    }
 
     res.json({ message: true });
   } catch (err) {

@@ -83,11 +83,12 @@ function App() {
 
   // 댓글 삭제 함수
   // 미사용중, 대댓글에는 삭제기능 적용안됨, 구조 변경 필요
-  const deleteComment = (commentId, postId) => {
+  const deleteComment = (commentId, postId, boardType) => {
     alert('댓글 삭제');
     let obj = {
-      commentId : commentId,
-      postId : postId
+      commentId: commentId,
+      postId: postId,
+      boardType: boardType
     }
     axios.post(`http://localhost:8088/comment/delete`, obj)
       .then((res) => {
@@ -100,12 +101,14 @@ function App() {
   }
 
   // 대댓글 삭제 함수
-  const deleteReComment = (commentId, postId, index) => {
+  const deleteReComment = (commentId, postId, index, boardType) => {
+    console.log('볼타 확인', boardType);
     alert('대댓글 삭제');
     let obj = {
       commentId: commentId,
-      postId : postId,
-      index: index
+      postId: postId,
+      index: index,
+      boardType: boardType
     }
     axios.post(`http://localhost:8088/comment/deleteReComment`, obj)
       .then((res) => {

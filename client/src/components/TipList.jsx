@@ -13,35 +13,35 @@ const TipList = () => {
   // 댓글 개수 담을 State
   const [commentCount, setCommentCount] = useState();
 
-// 새로운 조회함수
-const getList = async() => {
-  console.log('조회함수 진입');
-  console.time('소요시간');
- await axios.get(`http://localhost:8088/total/findMemberInfo?tip=tip`)
-    .then(async(res) => {
-      console.log('확인!', res.data);
-      
-      const sortedTips = res.data.lists.sort((a, b) => {
-        // 게시글 데이터 작성 일자별 내림차순 정렬
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
+  // 새로운 조회함수
+  const getList = async () => {
+    console.log('조회함수 진입');
+    console.time('소요시간');
+    await axios.get(`http://localhost:8088/total/findMemberInfo?tip=tip`)
+      .then(async (res) => {
+        console.log('확인!', res.data);
 
-      // 댓글 개수 카운팅
-      const counting = sortedTips.map((item) => (item._id))
-      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-      const tip = sortedTips.map((obj, index) => ({
-        ...obj,
-        count: countList[index],
-      }));
-      setTipList(tip);
-      setMaxPage(sortedTips.length);
+        const sortedTips = res.data.lists.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
 
-      // setPlayList(res.data.lists);
-      // setMaxPage(res.data.lists.length)
+        // 댓글 개수 카운팅
+/*         const counting = sortedTips.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const tip = sortedTips.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        })); */
+        setTipList(sortedTips);
+        setMaxPage(sortedTips.length);
 
-      console.timeEnd('소요시간');
-    })
-}
+        // setPlayList(res.data.lists);
+        // setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
+      })
+  }
 
   // 팁 리스트 조회 함수
   // const readTipList = async () => {
@@ -71,7 +71,7 @@ const getList = async() => {
   //         // 게시글 데이터 작성 일자별 내림차순 정렬
   //         return new Date(b.createdAt) - new Date(a.createdAt);
   //       });
-        
+
   //       // 댓글 개수 카운팅
   //       const counting = sortedTip.map((item)=>(item._id))
   //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
@@ -148,7 +148,7 @@ const getList = async() => {
         </Link>
         <div className={style.tip_title_box_space_2}>
           <p>{getTime(props.createdAt)}</p>
-          <p>👁‍🗨 {props.views} 💬 {props.count}</p>
+          <p>👁‍🗨 {props.views} 💬 {props.comments}</p>
         </div>
       </div>
 

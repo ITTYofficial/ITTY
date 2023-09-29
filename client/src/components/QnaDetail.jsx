@@ -96,10 +96,11 @@ const QnaDetail = () => {
     } else {
     event.preventDefault();
     const obj = {
-      id : sessionStorage.getItem('memberId'),
+      id: sessionStorage.getItem('memberId'),
       writer: sessionStorage.getItem("memberNickname"),
       postid: id,
       content: coValue,
+      boardType: 'qna'
     };
     console.log(obj);
 
@@ -299,7 +300,7 @@ const QnaDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <QnaCommentItem key={item._id} props={item} postId={id} />
+            <QnaCommentItem key={item._id} props={item} postId={id} boardType='qna' />
           ))}
         </div>
       </div>

@@ -22,35 +22,37 @@ const StudyList = () => {
       e.preventDefault();
     }
   };
-// 새로운 조회함수
-const getList = async() => {
-  console.log('조회함수 진입');
-  console.time('소요시간');
- await axios.get(`http://localhost:8088/total/findMemberInfo?study=study`)
-    .then(async(res) => {
-      console.log('확인!', res.data);
-      
-      const sortedStudys = res.data.lists.sort((a, b) => {
-        // 게시글 데이터 작성 일자별 내림차순 정렬
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
+  // 새로운 조회함수
+  const getList = async () => {
+    console.log('조회함수 진입');
+    console.time('소요시간');
+    await axios.get(`http://localhost:8088/total/findMemberInfo?study=study`)
+      .then(async (res) => {
+        console.log('확인!', res.data);
 
-      // 댓글 개수 카운팅
-      const counting = sortedStudys.map((item) => (item._id))
-      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-      const study = sortedStudys.map((obj, index) => ({
-        ...obj,
-        count: countList[index],
-      }));
-      setstudyList(study);
-      setMaxPage(sortedStudys.length);
+        const sortedStudys = res.data.lists.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
 
-      // setPlayList(res.data.lists);
-      // setMaxPage(res.data.lists.length)
+        // 댓글 개수 카운팅
+        /*       const counting = sortedStudys.map((item) => (item._id))
+              const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+              const study = sortedStudys.map((obj, index) => ({
+                ...obj,
+                count: countList[index],
+              })); */
+        setstudyList(res.data.lists);
+        setMaxPage(sortedStudys.length);
 
-      console.timeEnd('소요시간');
-    })
-}
+        // setPlayList(res.data.lists);
+        // setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
+      })
+  }
+
+  console.log('스터디 리스트 확인', studyList);
 
   // 장터 리스트 조회 함수
   // const readstudyList = async () => {
@@ -164,7 +166,7 @@ const getList = async() => {
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
-                <p>👁‍🗨{item.views} 💬{item.count}</p>
+                <p>👁‍🗨{item.views} 💬{item.comments}</p>
               </div>
 
               <div className={styles.Main_grid_profile}>

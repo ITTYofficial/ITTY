@@ -97,10 +97,11 @@ const TipDetail = () => {
     } else {
     event.preventDefault();
     const obj = {
-      id : sessionStorage.getItem('memberId'),
+      id: sessionStorage.getItem('memberId'),
       writer: sessionStorage.getItem("memberNickname"),
       postid: id,
       content: coValue,
+      boardType: 'tip'
     };
     console.log(obj);
 
@@ -304,7 +305,7 @@ const TipDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} />
+            <CommentItem key={item._id} props={item} postId={id} boardType='tip'/>
           ))}
         </div>
       </div>

@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const portSchema = new Schema({
 
     // 게시판마다 반복되는 부분
-    id :{
+    id: {
         type: String
     },
     writer: {
@@ -30,6 +30,11 @@ const portSchema = new Schema({
     },
     views: {
         // 조회수
+        type: Number,
+        default: 0
+    },
+    comments: {
+        // 댓글수
         type: Number,
         default: 0
     },

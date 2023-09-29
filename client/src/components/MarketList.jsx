@@ -36,13 +36,13 @@ const MarketList = () => {
       });
 
       // 댓글 개수 카운팅
-      const counting = sortedMarkets.map((item) => (item._id))
+/*       const counting = sortedMarkets.map((item) => (item._id))
       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
       const market = sortedMarkets.map((obj, index) => ({
         ...obj,
         count: countList[index],
-      }));
-      setMarketList(market);
+      })); */
+      setMarketList(sortedMarkets);
       setMaxPage(sortedMarkets.length);
 
       // setPlayList(res.data.lists);

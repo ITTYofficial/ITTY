@@ -30,7 +30,8 @@
 .right_container h4 {
   font-size: 20px;
   font-weight: bold;
-  margin: 12px 0;
+  /* margin: 12px 0; */
+  padding: 12px 16px 8px 16px;
   text-align: left;
   white-space: nowrap; /* 추가 */
   overflow: hidden; /* 추가 */
@@ -43,7 +44,8 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
-  gap: 1rem;
+  gap: 4rem 1rem;
+  margin: 32px 0;
 }
 
 @media (max-width: 1024px) {
@@ -65,10 +67,11 @@
 .port_content {
   width: 90%; /* 너비를 백분율로 지정 */
   max-width: 100%; /* 최대 너비를 제한 */
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 2px 10px rgb(0 0 0 / 16%);
   white-space: nowrap; /* 텍스트를 한 줄로만 표시 */
   overflow: hidden; /* 넘치는 내용을 숨김 처리 */
   text-overflow: ellipsis; /* 넘치는 내용을 '...'으로 중략 */
+  border-radius: 10px;
 }
 
 .port_content_img {
@@ -85,12 +88,13 @@
 }
 
 .port_content_bottom {
-  padding: 8px 12px 12px 12px;
+  height: 30%;
 }
 
 .port_content_bottom > div:nth-child(2) {
   display: flex;
   justify-content: space-between;
+  padding: 8px 16px;
 }
 
 .port_content_bottom2 {
@@ -104,8 +108,8 @@
 }
 
 .profile_img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   margin-right: 8px;
 }
 
@@ -150,13 +154,14 @@
 .little_p {
   color: #999999;
   font-size: 14px;
-  margin-bottom: 8px;
   font-weight: 500;
+  margin-bottom: 4px;
 }
 
 .large_p {
   color: #000000;
   font-size: 18px;
-  /* margin-bottom: 8px; */
   font-weight: 600;
+  font-family: sans-serif;
+  letter-spacing: -1px;
 }

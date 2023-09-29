@@ -73,13 +73,13 @@ const getList = async() => {
       });
 
       // 댓글 개수 카운팅
-      const counting = sortedReviews.map((item) => (item._id))
+/*       const counting = sortedReviews.map((item) => (item._id))
       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
       const review = sortedReviews.map((obj, index) => ({
         ...obj,
         count: countList[index],
-      }));
-      setReviewList(review);
+      })); */
+      setReviewList(sortedReviews);
       setMaxPage(sortedReviews.length);
 
       // setPlayList(res.data.lists);
@@ -189,7 +189,7 @@ const getList = async() => {
       </div>
       <span>
         <p>
-          {getTime(props.createdAt)} 👁‍🗨{props.views} 💬{props.count}
+          {getTime(props.createdAt)} 👁‍🗨{props.views} 💬{props.comments}
         </p>
       </span>
     </div>

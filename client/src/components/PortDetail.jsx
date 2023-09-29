@@ -38,10 +38,11 @@ const PortDetail = () => {
       event.preventDefault();
     } else {
       const obj = {
-        id : sessionStorage.getItem('memberId'),
+        id: sessionStorage.getItem('memberId'),
+        writer: sessionStorage.getItem("memberNickname"),
         postid: id,
         content: coValue,
-        writer: sessionStorage.getItem("memberNickname"),
+        boardType: 'port'
       };
       console.log(obj);
 
@@ -292,7 +293,7 @@ const PortDetail = () => {
             </div>
         </form>
         {commentList.map((item) => (
-          <CommentItem key={item._id} props={item} postId={id} />
+          <CommentItem key={item._id} props={item} postId={id} boardType='port' />
         ))}
       </div>
     </div>
