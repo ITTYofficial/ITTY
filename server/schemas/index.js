@@ -45,5 +45,6 @@ module.exports = () => {
     require("./community/anony");
     require("./community/anonyComment");
     require("./member/member");
+    require("./message");
 
 };
