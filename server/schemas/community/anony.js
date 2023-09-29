@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const anonySchema = new Schema({
 
     // 게시판마다 반복되는 부분
-    id :{
+    id: {
         type: String
     },
     title: {
@@ -26,8 +26,13 @@ const anonySchema = new Schema({
         // 조회수
         type: Number,
         default: 0
+    },
+    comments: {
+        // 댓글수
+        type: Number,
+        default: 0
     }
-    
+
     // 게시판마다 달라지는 부분
 })
 
