@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const studySchema = new Schema({
 
     // 게시판마다 반복되는 부분
-    id :{
+    id: {
         type: String
     },
     writer: {
@@ -37,6 +37,11 @@ const studySchema = new Schema({
         type: Number,
         default: 0
     },
+    comments: {
+        // 댓글수
+        type: Number,
+        default: 0
+    },
 
     // 게시판마다 달라지는 부분
     // postCategory: {
@@ -50,11 +55,11 @@ const studySchema = new Schema({
     persons: {
         // 모집인원
         type: Number
-    }, 
+    },
     recruit: {
         // 모집상태
         type: String
-    }, 
+    },
     periodStart: {
         // 모집기간 시작
         // 기본값으로 현재 날짜 == 글 작성 시간

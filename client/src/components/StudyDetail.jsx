@@ -193,34 +193,6 @@ const StudyDetail = () => {
   // 댓글 내용 담을 State
   const [comment, setComment] = useState();
 
-  // 댓글 내용 가져오는 함수
-  const commnetChange = (e) => {
-    setComment(e.target.value);
-  };
-
-  // 댓글 작성 시 호출되는 함수 ************************* 이건 아래거랑 뭐가다른 함수죠??
-  function commentSubmit(event) {
-    event.preventDefault();
-    const obj = {
-      postid: id,
-      content: comment,
-    };
-    console.log(obj);
-
-    axios
-      .post("http://localhost:8088/comment/write", obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.");
-        console.log(res);
-        setComment('');
-        getComment();
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패");
-      });
-  }
-
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
 
@@ -236,28 +208,30 @@ const StudyDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-    event.preventDefault();
-    const obj = {
-      id : sessionStorage.getItem('memberId'),
-      writer: sessionStorage.getItem("memberNickname"),
-      postid: id,
-      content: coValue,
-    };
-    console.log(obj);
+      event.preventDefault();
+      const obj = {
+        id: sessionStorage.getItem('memberId'),
+        writer: sessionStorage.getItem("memberNickname"),
+        postid: id,
+        content: coValue,
+        boardType: 'study'
+      };
+      console.log(obj);
 
-    axios
-      .post("http://localhost:8088/comment/write", obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.");
-        console.log(res);
-        setCoValue('');
-        getComment(id);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패");
-      });
-  }}
+      axios
+        .post("http://localhost:8088/comment/write", obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.");
+          console.log(res);
+          setCoValue('');
+          getComment(id);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패");
+        });
+    }
+  }
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
@@ -349,7 +323,7 @@ const StudyDetail = () => {
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-          <div className={style.comment_write}>
+            <div className={style.comment_write}>
               <div>
                 <div className={style.comment_write_profile}>
                   <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
@@ -371,7 +345,7 @@ const StudyDetail = () => {
 
           {/* 댓글부분 */}
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} />
+            <CommentItem key={item._id} props={item} postId={id} boardType='study'/>
           ))}
           {/* 댓글부분 */}
         </div>

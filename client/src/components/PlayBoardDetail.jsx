@@ -102,28 +102,30 @@ const PlayBoardDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-    event.preventDefault();
-    const obj = {
-      id : sessionStorage.getItem('memberId'),
-      writer: sessionStorage.getItem("memberNickname"),
-      postid: id,
-      content: coValue,
-    };
-    console.log(obj);
+      event.preventDefault();
+      const obj = {
+        id: sessionStorage.getItem('memberId'),
+        writer: sessionStorage.getItem("memberNickname"),
+        postid: id,
+        content: coValue,
+        boardType: 'play'
+      };
+      console.log(obj);
 
-    axios
-      .post("http://localhost:8088/comment/write", obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.");
-        console.log(res);
-        setCoValue('');
-        getComment(id);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패");
-      });
-  }};
+      axios
+        .post("http://localhost:8088/comment/write", obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.");
+          console.log(res);
+          setCoValue('');
+          getComment(id);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패");
+        });
+    }
+  };
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
@@ -271,7 +273,7 @@ const PlayBoardDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} />
+            <CommentItem key={item._id} props={item} postId={id} boardType='play'/>
           ))}
         </div>
       </div>

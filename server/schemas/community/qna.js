@@ -33,6 +33,11 @@ const qnaSchema = new Schema({
         type: Number,
         default: 0
     },
+    comments: {
+        // 댓글수
+        type:Number,
+        default: 0
+    },
 
     // 게시판마다 달라지는 부분
     category: {

@@ -54,10 +54,11 @@ const ProjectDetail = () => {
       event.preventDefault();
     } else {
       const obj = {
-        id : sessionStorage.getItem('memberId'),
+        id: sessionStorage.getItem('memberId'),
+        writer: sessionStorage.getItem("memberNickname"),
         postid: id,
         content: coValue,
-        writer: sessionStorage.getItem("memberNickname"),
+        boardType: 'project'
       };
       console.log(obj);
 
@@ -315,7 +316,7 @@ const ProjectDetail = () => {
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-          <div className={styles.comment_write}>
+            <div className={styles.comment_write}>
               <div>
                 <div className={styles.comment_write_profile}>
                   <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
@@ -337,7 +338,7 @@ const ProjectDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} />
+            <CommentItem key={item._id} props={item} postId={id} boardType='project' />
           ))}
         </div>
       </div>

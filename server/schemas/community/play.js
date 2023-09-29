@@ -34,6 +34,7 @@ const playSchema = new Schema({
         default: 0
     },
     comments: {
+        // 댓글수
         type:Number,
         default:0
     }

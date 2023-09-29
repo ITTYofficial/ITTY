@@ -37,13 +37,13 @@ const ProjectList = () => {
         });
   
         // 댓글 개수 카운팅
-        const counting = sortedProjects.map((item) => (item._id))
+/*         const counting = sortedProjects.map((item) => (item._id))
         const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
         const procject = sortedProjects.map((obj, index) => ({
           ...obj,
           count: countList[index],
-        }));
-        setProjectList(procject);
+        })); */
+        setProjectList(sortedProjects);
         setMaxPage(sortedProjects.length);
   
         // setPlayList(res.data.lists);
@@ -171,7 +171,7 @@ const ProjectList = () => {
                   <h4>{item.title}</h4>
                 </Link>
                 {/* <div>{item.content}</div> */}
-                <p>👁‍🗨{item.views} 💬{item.count}</p>
+                <p>👁‍🗨{item.views} 💬{item.comments}</p>
               </div>
 
               <div className={styles.Main_grid_profile}>

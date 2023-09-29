@@ -6,7 +6,8 @@ import Image from "react-bootstrap/Image";
 import { QuillContext } from "../context/QuillContext";
 import QuillReComment from './QuillReComment'
 
-const CommentItem = ({ props, postId }) => {
+const CommentItem = ({ props, postId, boardType }) => {
+  console.log('타입 확인', boardType);
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue } =
@@ -18,11 +19,12 @@ const CommentItem = ({ props, postId }) => {
     console.log(_id);
     const createdAt = new Date().toISOString();
     const obj = {
-      id:sessionStorage.getItem("memberId"),
+      id: sessionStorage.getItem("memberId"),
       writer: sessionStorage.getItem("memberNickname"),
       content: reCoValue,
       commentId: _id,
       createdAt: createdAt,
+      boardType: boardType
     };
     console.log(obj);
 
@@ -81,7 +83,7 @@ const CommentItem = ({ props, postId }) => {
           </span>
           <div className={styles.recomment_cancel}>
             <svg
-              onClick={() => deleteReComment(commentId, postId, index)}
+              onClick={() => deleteReComment(commentId, postId, index, boardType)}
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -118,7 +120,7 @@ const CommentItem = ({ props, postId }) => {
           <h4>{props.writer}</h4>
           <div className={styles.comment_cancel}>
             <svg
-              onClick={() => deleteComment(props._id, postId)}
+              onClick={() => deleteComment(props._id, postId, boardType)}
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -156,24 +158,24 @@ const CommentItem = ({ props, postId }) => {
 
       {recommentVisible && (
         <form onSubmit={(event) => reCommentSubmit(event, props._id)}>
-            <div className={styles.comment_write}>
-              <div>
-                <div className={styles.comment_write_profile}>
-                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
-                </div>
-                <div className={styles.quillComment_container}>
-                  <QuillReComment />
-                </div>
-                {/* <textarea
+          <div className={styles.comment_write}>
+            <div>
+              <div className={styles.comment_write_profile}>
+                <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+              </div>
+              <div className={styles.quillComment_container}>
+                <QuillReComment />
+              </div>
+              {/* <textarea
                   onChange={commentChange}
                   placeholder="댓글을 쓰려면 로그인이 필요합니다."
                   value={comment}
                 ></textarea> */}
-              </div>
-              <div className={styles.submit_btn_group}>
-                <button type="submit">댓글쓰기</button>
-              </div>
             </div>
+            <div className={styles.submit_btn_group}>
+              <button type="submit">댓글쓰기</button>
+            </div>
+          </div>
         </form>
       )}
       {props.reComment.map((item, index) => (

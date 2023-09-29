@@ -10,35 +10,35 @@ const PortList = () => {
   // 포트폴리오 리스트 담을 State
   const [portList, setPortList] = useState([]);
 
- // 새로운 게시판 리스트 함수 -> 페이징 적용 안되어있네요
- const getList = async() => {
-  console.log('조회함수 진입');
-  console.time('소요시간');
- await axios.get(`http://localhost:8088/total/findMemberInfo?port=port`)
-    .then(async(res) => {
-      console.log('확인!', res.data);
-      
-      const sortedPorts = res.data.lists.sort((a, b) => {
-        // 게시글 데이터 작성 일자별 내림차순 정렬
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
+  // 새로운 게시판 리스트 함수 -> 페이징 적용 안되어있네요
+  const getList = async () => {
+    console.log('조회함수 진입');
+    console.time('소요시간');
+    await axios.get(`http://localhost:8088/total/findMemberInfo?port=port`)
+      .then(async (res) => {
+        console.log('확인!', res.data);
 
-      // 댓글 개수 카운팅
-      const counting = sortedPorts.map((item) => (item._id))
-      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-      const port = sortedPorts.map((obj, index) => ({
-        ...obj,
-        count: countList[index],
-      }));
-      setPortList(port);
-      // setMaxPage(sortedPorts.length);
+        const sortedPorts = res.data.lists.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
 
-      // setPlayList(res.data.lists);
-      // setMaxPage(res.data.lists.length)
+        // 댓글 개수 카운팅
+/*         const counting = sortedPorts.map((item) => (item._id))
+        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const port = sortedPorts.map((obj, index) => ({
+          ...obj,
+          count: countList[index],
+        })); */
+        setPortList(sortedPorts);
+        // setMaxPage(sortedPorts.length);
 
-      console.timeEnd('소요시간');
-    })
-}
+        // setPlayList(res.data.lists);
+        // setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
+      })
+  }
 
 
   // 포트폴리오 리스트 조회 함수
@@ -138,7 +138,7 @@ const PortList = () => {
           </div>
           <div>
             <p className={styles.little_p}>
-              {getTimeAgoString(props.createdAt)} 👁‍🗨 {props.views} 💬 {props.count}
+              {getTimeAgoString(props.createdAt)} 👁‍🗨 {props.views} 💬 {props.comments}
             </p>
           </div>
         </div>
