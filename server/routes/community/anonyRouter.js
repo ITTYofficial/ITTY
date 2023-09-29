@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Anony = require('../../schemas/community/anony')
 const AnonyComment = require('../../schemas/community/anonyComment')
-
+const Member = require('../../schemas/member/member')
 // 글 작성
 router.post('/write', async (req, res) => {
     try {
@@ -36,6 +36,13 @@ router.post('/write', async (req, res) => {
             const anony = new Anony(obj);
             _id = anony._id
             await Anony.insertMany(anony);
+            await Member.updateOne(
+                { id: req.body.id },
+                {
+                  $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+                    point: 1 // 일단 글쓸때마다 1포인트로 지정 
+                  }
+                });
         }
         res.json({
             message: true,

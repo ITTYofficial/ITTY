@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Play = require('../../schemas/community/play')
-
+const Member = require('../../schemas/member/member')
 // 글 작성
 router.post('/write', async (req, res) => {
   try {
@@ -29,7 +29,7 @@ router.post('/write', async (req, res) => {
     } else {
       // 글 작성 시
       obj = {
-        id :req.body.id,
+        id: req.body.id,
         writer: req.body.writer,
         title: req.body.title,
         content: req.body.content,
@@ -37,6 +37,14 @@ router.post('/write', async (req, res) => {
       const play = new Play(obj);
       _id = play._id
       await Play.insertMany(play);
+
+      await Member.updateOne(
+        { id: req.body.id },
+        {
+          $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+            point: 1 // 일단 글쓸때마다 1포인트로 지정 
+          }
+        });
     }
     res.json({
       message: true,
@@ -52,9 +60,9 @@ router.post('/write', async (req, res) => {
 // 글 리스트 조회
 router.get('/playList', async (req, res) => {
   try {
-    const play = await Play.find();    
+    const play = await Play.find();
     res.json({ play })
-   
+
   } catch (err) {
     console.log(err);
     res.json({ message: false });

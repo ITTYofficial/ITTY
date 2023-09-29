@@ -52,6 +52,13 @@ router.post('/write', async (req, res) => {
       }
     }
 
+    await Member.updateOne(
+      { id: req.body.id },
+      {
+        $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+          point: 1 // 일단 글쓸때마다 1포인트로 지정 
+        }
+      });
     res.json({ message: true });
   } catch (err) {
     console.log(err);
@@ -104,7 +111,13 @@ router.post('/reWrite', async (req, res) => {
             $inc: { comments: 1 }
           }
         ) */
-
+        await Member.updateOne(
+          { id: req.body.id },
+          {
+            $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+              point: 1 // 일단 글쓸때마다 1포인트로 지정 
+            }
+          });
 
     res.json({ message: true });
 

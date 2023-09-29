@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Market = require('../../schemas/community/market')
-
+const Member = require('../../schemas/member/member')
 
 // 글 작성
 router.post('/write', async (req, res) => {
@@ -37,6 +37,13 @@ router.post('/write', async (req, res) => {
       const market = new Market(obj);
       _id = market._id
       await Market.insertMany(market);
+      await Member.updateOne(
+        { id: req.body.id },
+        {
+          $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+            point: 1 // 일단 글쓸때마다 1포인트로 지정 
+          }
+        });
     }
     res.json({
       message: true,

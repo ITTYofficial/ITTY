@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Port = require('../../schemas/community/port');
+const Member = require('../../schemas/member/member')
 
 router.post('/write', async (req, res) => {
     try {
@@ -29,6 +30,13 @@ router.post('/write', async (req, res) => {
             const port = new Port(obj);
             _id = port._id
             await Port.insertMany(port);
+            await Member.updateOne(
+                { id: req.body.id },
+                {
+                  $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+                    point: 1 // 일단 글쓸때마다 1포인트로 지정 
+                  }
+                });
         }
         res.json({
             message: true,

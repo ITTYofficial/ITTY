@@ -3,6 +3,7 @@ const router = express.Router()
 const Project = require('../../schemas/community/project')
 const multer = require("multer")
 const path = require("path");
+const Member = require('../../schemas/member/member')
 
 // multer 설정
 const upload = multer({
@@ -78,6 +79,13 @@ router.post('/write', upload.single('img'), async (req, res) => {
     const project = new Project(obj);
     _id = project._id;
     await Project.insertMany(project);
+    await Member.updateOne(
+      { id: req.body.id },
+      {
+        $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+          point: 1 // 일단 글쓸때마다 1포인트로 지정 
+        }
+      });
   }
     res.json({ 
       message: true,

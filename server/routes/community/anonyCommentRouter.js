@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const AnonyComment = require('../../schemas/community/anonyComment')
-
+const Member = require('../../schemas/member/member')
 // 익명 순번을 위한
 let anonymousIndexMap = {};
 
@@ -45,6 +45,13 @@ router.post('/write', async (req, res) => {
 
     const anonyComment = new AnonyComment(obj);
     await AnonyComment.insertMany(anonyComment);
+    await Member.updateOne(
+      { id: req.body.id },
+      {
+        $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+          point: 1 // 일단 글쓸때마다 1포인트로 지정 
+        }
+      });
 
     res.json({ message: true });
   } catch (err) {
@@ -89,7 +96,13 @@ router.post('/reWrite', async (req, res) => {
         }
       }
     )
-
+    await Member.updateOne(
+      { id: req.body.id },
+      {
+        $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+          point: 1 // 일단 글쓸때마다 1포인트로 지정 
+        }
+      });
     res.json({ message: true });
 
   } catch (err) {
