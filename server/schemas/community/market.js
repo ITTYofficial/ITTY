@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const marketSchema = new Schema({
-    
+
     // 게시판마다 반복되는 부분
-    id :{
+    id: {
         type: String
     },
     writer: {
@@ -33,7 +33,12 @@ const marketSchema = new Schema({
         type: Number,
         default: 0
     },
-    
+    comments: {
+        // 댓글수
+        type: Number,
+        default: 0
+    },
+
     // 게시판마다 달라지는 부분
     itemCatogory: {
         // 글카테고리
@@ -52,7 +57,7 @@ const marketSchema = new Schema({
         type: Number
     }
 
-    
+
 })
 
 module.exports = mongoose.model('Market', marketSchema, 'Market')
