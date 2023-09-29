@@ -18,6 +18,7 @@ const CommentItem = ({ props, postId }) => {
     console.log(_id);
     const createdAt = new Date().toISOString();
     const obj = {
+      id:sessionStorage.getItem("memberId"),
       writer: sessionStorage.getItem("memberNickname"),
       content: reCoValue,
       commentId: _id,

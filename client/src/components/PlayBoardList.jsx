@@ -24,26 +24,26 @@ const PlayBoardList = (props) => {
   };
 
   // 새로운 게시판 리스트 함수
-  const getList = async() => {
+  const getList = async () => {
     console.log('조회함수 진입');
     console.time('소요시간');
-   await axios.get(`http://localhost:8088/total/findMemberInfo?play=play`)
-      .then(async(res) => {
+    await axios.get(`http://localhost:8088/total/findMemberInfo?play=play`)
+      .then(async (res) => {
         console.log('확인!', res.data);
-        
+
         const sortedPlays = res.data.lists.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
 
         // 댓글 개수 카운팅
-        const counting = sortedPlays.map((item) => (item._id))
+/*         const counting = sortedPlays.map((item) => (item._id))
         const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
         const play = sortedPlays.map((obj, index) => ({
           ...obj,
           count: countList[index],
-        }));
-        setPlayList(play);
+        })); */
+        setPlayList(res.data.lists);
         setMaxPage(sortedPlays.length);
 
         // setPlayList(res.data.lists);
@@ -52,6 +52,7 @@ const PlayBoardList = (props) => {
         console.timeEnd('소요시간');
       })
   }
+
 
   // 게시판 리스트 조회 함수
   // const readPlayList = async () => {
@@ -104,7 +105,7 @@ const PlayBoardList = (props) => {
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
     //  readPlayList();
-     getList(); //-> 오늘 집가서 광영이가 올린거 합쳐서 활성화 시킬게요~~~
+    getList(); //-> 오늘 집가서 광영이가 올린거 합쳐서 활성화 시킬게요~~~
     // const nickname = playList[0]
     // console.log(nickname);
     // memberSearching(nickname);
@@ -138,7 +139,7 @@ const PlayBoardList = (props) => {
           <h4>{props.title}</h4>
         </Link>
         {/* <p>글 내용 영역</p> */}
-        <p>👁‍🗨{props.views} 💬{props.count}</p>
+        <p>👁‍🗨{props.views} 💬{props.comments}</p>
       </div>
 
       <div className={PlayBoard.Main_grid_profile}>

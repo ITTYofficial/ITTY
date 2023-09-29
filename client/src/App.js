@@ -85,9 +85,14 @@ function App() {
   // 미사용중, 대댓글에는 삭제기능 적용안됨, 구조 변경 필요
   const deleteComment = (commentId, postId) => {
     alert('댓글 삭제');
-    axios.get(`http://localhost:8088/comment/delete/${commentId}`)
+    let obj = {
+      commentId : commentId,
+      postId : postId
+    }
+    axios.post(`http://localhost:8088/comment/delete`, obj)
       .then((res) => {
         getComment(postId);
+        alert('삭제 완료')
       })
       .catch((err) => {
         console.log(err);
@@ -99,11 +104,13 @@ function App() {
     alert('대댓글 삭제');
     let obj = {
       commentId: commentId,
+      postId : postId,
       index: index
     }
     axios.post(`http://localhost:8088/comment/deleteReComment`, obj)
       .then((res) => {
         getComment(postId);
+        alert('삭제 완료')
       })
       .catch((err) => {
         console.log(err);

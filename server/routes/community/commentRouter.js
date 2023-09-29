@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Comment = require('../../schemas/community/comment')
 const Member = require('../../schemas/member/member')
+const Play = require('../../schemas/community/play')
 
 // 댓글 작성
 router.post('/write', async (req, res) => {
@@ -10,7 +11,7 @@ router.post('/write', async (req, res) => {
     let obj;
 
     obj = {
-      id : req.body.id,
+      id: req.body.id,
       postId: req.body.postid,
       writer: req.body.writer,
       content: req.body.content,
@@ -18,6 +19,14 @@ router.post('/write', async (req, res) => {
 
     const comment = new Comment(obj);
     await Comment.insertMany(comment);
+
+    await Play.updateOne(
+      { _id: req.body.postid },
+      {
+        $inc: { comments: 1 }
+      }
+    )
+
     res.json({ message: true });
   } catch (err) {
     console.log(err);
@@ -27,26 +36,37 @@ router.post('/write', async (req, res) => {
 
 // 대댓글 작성
 router.post('/reWrite', async (req, res) => {
-  console.log(req.body);
+  console.log('대댓글 작성 req값', req.body);
   try {
 
     let obj;
 
     obj = {
-      id : req.body.id,
+      id: req.body.id,
       writer: req.body.writer,
       content: req.body.content,
       createdAt: req.body.createdAt
     };
 
-    await Comment.findOneAndUpdate(
+    const commentinfo = await Comment.findOneAndUpdate(
       { _id: req.body.commentId },
       {
         $push: {
           reComment: obj
+        },
+        $inc: {
+          comments: 1
         }
       }
     )
+
+    await Play.updateOne(
+      { _id: commentinfo.postId },
+      {
+        $inc: { comments: 1 }
+      }
+    )
+
 
     res.json({ message: true });
 
@@ -91,7 +111,7 @@ router.get('/commentList', async (req, res) => {
       if (comment.reComment) {
         comment.reComment.forEach(reComment => {
           const reWriterInfo = writerInfos.find(info => info.id === reComment.id);
-          reComment.writerInfo = reWriterInfo.toJSON();
+          reComment.writerInfo = reWriterInfo;
         });
       }
 
@@ -113,6 +133,7 @@ router.get('/commentList', async (req, res) => {
 
 // 리스트 페이지용 댓글 개수 카운팅
 router.post("/commentCount", async (req, res) => {
+  console.time('댓글 걸린시간')
   const idList = req.body;
 
   try {
@@ -128,6 +149,7 @@ router.post("/commentCount", async (req, res) => {
     const countList = await Promise.all(promises);
     console.log(countList);
     res.json({ countList });
+    console.timeEnd('댓글 걸린시간')
   } catch (err) {
     console.log(err);
     res.json({ message: false });
@@ -136,13 +158,25 @@ router.post("/commentCount", async (req, res) => {
 })
 
 // 댓글 삭제
-router.get("/delete/:_id", async (req, res) => {
-  console.log('delete진입');
+router.post("/delete/", async (req, res) => {
+  console.log('댓삭 req 확인', req.body.postId);
   try {
-    const id = req.params._id;
-    await Comment.deleteOne({
-      _id: id
-    });
+    /*  const id = req.body.postId; */
+    const commentinfo = await Comment.findOneAndDelete(
+      {
+        _id: req.body.commentId
+      }
+    );
+
+    await Play.updateOne(
+      { _id: req.body.postId },
+      {
+        $inc: {
+          comments: -commentinfo.comments
+        }
+      }
+    )
+
     res.json({ message: true });
   } catch (err) {
     console.log(err);
@@ -152,14 +186,17 @@ router.get("/delete/:_id", async (req, res) => {
 
 // 대댓글 삭제
 router.post("/deleteRecomment/", async (req, res) => {
-  console.log('deleteReComment진입');
+  console.log('req 확인', req.body);
   try {
     const index = req.body.index;
     const commentId = req.body.commentId;
     await Comment.findOneAndUpdate(
       { _id: commentId },
       {
-        $set: { [`reComment.${index}`]: null }
+        $set: { [`reComment.${index}`]: null },
+        $inc: {
+          comments: -1
+        }
       }
     );
     await Comment.findOneAndUpdate(
@@ -168,6 +205,16 @@ router.post("/deleteRecomment/", async (req, res) => {
         $pull: { reComment: null }
       }
     );
+
+    await Play.updateOne(
+      { _id: req.body.postId },
+      {
+        $inc: {
+          comments: -1
+        }
+      }
+    )
+
     res.json({ message: true });
   } catch (err) {
     console.log(err);
