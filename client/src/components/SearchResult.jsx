@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../css/SearchResult.module.css";
 import LeftContainer from "./LeftContainer";
 import { useParams } from "react-router-dom";
-
+import Spinner from 'react-bootstrap/Spinner';
 import Pagination from "react-js-pagination";
 
 const SearchResult = () => {
@@ -110,6 +110,14 @@ const SearchResult = () => {
           </div>
         </div>
 
+        {searchResults.length === 0 && (
+          <div className={styles.spinner_container}>
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        )}
+
         {/* 스터디 */}
         {activeCategory && (
           <div>
@@ -141,16 +149,16 @@ const SearchResult = () => {
             {searchResults
               .find((result) => result.boardType === activeCategory)
               ?.posts.slice(startIndex, endIndex).length === 0 && (
-              <div className={styles.search_wrap_list}>
-                <div>
-                  <div className={styles.search_detail}>
-                    <span className={styles.search_none}>
-                      <h1>검색된 결과가 없습니다.</h1>
-                    </span>
+                <div className={styles.search_wrap_list}>
+                  <div>
+                    <div className={styles.search_detail}>
+                      <span className={styles.search_none}>
+                        <h1>검색된 결과가 없습니다.</h1>
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
             <Pagination
               activePage={page}
