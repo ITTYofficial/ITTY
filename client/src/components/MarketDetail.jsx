@@ -17,16 +17,9 @@ import CommentItem from "./CommentItem";
 import QuillComment from './QuillComment'
 
 const MarketDetail = () => {
-  // 댓글 내용 담을 State
-  const [comment, setComment] = useState();
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
-
-  // 댓글 내용 가져오는 함수
-  const commnetChange = (e) => {
-    setComment(e.target.value);
-  };
 
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
@@ -52,7 +45,7 @@ const MarketDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           console.log(res);
-          setComment("");
+          setCoValue("");
           getComment(id);
         })
         .catch((err) => {
@@ -120,16 +113,6 @@ const MarketDetail = () => {
     console.log(marketDetail.imgPath);
   }, []);
 
-  // 날짜 변환 함수
-  const getTimeAgoString = (dateString) => {
-    const createdAt = new Date(dateString);
-    const year = createdAt.getFullYear();
-    const month = createdAt.getMonth() + 1;
-    const day = createdAt.getDate();
-
-    return `${year}년 ${month}월 ${day}일`;
-  };
-
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
   const getTime = (dateString) => {
     const createdAt = new Date(dateString);
@@ -169,6 +152,19 @@ const MarketDetail = () => {
       });
   };
 
+  // 판매 완료 전환
+  const soldMarket = async () => {
+    await axios
+    .get(`http://localhost:8088/market/sold/${id}`)
+    .then((res) => {
+      alert("전환 완료");
+    })
+    .catch((err)=>{
+      alert("전환 실패");
+      console.log(err);
+    })
+  }
+
   const settings = {
     dots: true,
     infinite: true,
@@ -177,84 +173,44 @@ const MarketDetail = () => {
     slidesToScroll: 1,
   };
 
-  /* 수정삭제 버튼 */
+  // 세션 스토리지에서 저장된 닉네임 가져오기
+  const storedNickname = sessionStorage.getItem("memberNickname");
 
-  const [meat, setMeat] = useState(false);
+  // 작성자와 세션 스토리지의 닉네임 비교
+  const isOwner = storedNickname === marketDetail.writer;
 
-  const Dropdown = () => {
-    // 세션 스토리지에서 저장된 닉네임 가져오기
-    const storedNickname = sessionStorage.getItem("memberNickname");
-
-    // 작성자와 세션 스토리지의 닉네임 비교
-    const isOwner = storedNickname === marketDetail.writer;
-
-    // 수정 버튼 클릭 시 동작할 함수
-    const handleModifyClick = () => {
-      if (isOwner) {
-        // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 수정 가능
-        moveUpdate();
-      } else {
-        alert("작성자만 수정할 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
-      }
-    };
-
-    // 삭제 버튼 클릭 시 동작할 함수
-    const handleDeleteClick = () => {
-      if (isOwner) {
-        // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 삭제 가능
-        deleteMarket();
-      } else {
-        alert("작성자만 삭제할 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
-      }
-      // 신고 버튼도 추가하는 게 어떨런지..?
-    };
-    return (
-      <div className={style.meat_dropdown}>
-        <li onClick={handleModifyClick}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-pencil-square"
-            viewBox="0 0 16 16"
-          >
-            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-            <path
-              fill-rule="evenodd"
-              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
-            />
-          </svg>
-          <span>수정</span>
-        </li>
-        <li onClick={handleDeleteClick}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-trash"
-            viewBox="0 0 16 16"
-          >
-            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-          </svg>
-          <span>삭제</span>
-        </li>
-      </div>
-    );
-  };
-
-  const toggleMeat = () => {
-    if (meat) {
-      setMeat(!meat);
+  // 수정 버튼 클릭 시 동작할 함수
+  const handleModifyClick = () => {
+    if (isOwner) {
+      // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 수정 가능
+      moveUpdate();
+    } else {
+      alert("작성자만 수정할 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
     }
   };
 
-  /* 수정삭제 버튼 */
+  // 삭제 버튼 클릭 시 동작할 함수
+  const handleDeleteClick = () => {
+    if (isOwner) {
+      // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 삭제 가능
+      deleteMarket();
+    } else {
+      alert("작성자만 삭제할 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
+    }
+    // 신고 버튼도 추가하는 게 어떨런지..?
+  };
+
+  // 판매 완료 버튼 클릭 시 동작할 함수
+  const handleSoldClick = () => {
+    if (isOwner) {
+      soldMarket();
+    }else {
+      alert("작성자만 바꿀 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
+    }
+  }
 
   return (
-    <div className={style.Main_container} onClick={toggleMeat}>
+    <div className={style.Main_container}>
       <LeftContainer />
 
       <div className={style.right_container}>
@@ -306,9 +262,9 @@ const MarketDetail = () => {
               </div>
             </div>
             <div className={style.market_buttons}>
-              <button>수정</button>
-              <button>삭제</button>
-              <button>판매 완료</button>
+              <button onClick={handleModifyClick}>수정</button>
+              <button onClick={handleDeleteClick}>삭제</button>
+              <button onClick={handleSoldClick}>판매 완료</button>
             </div>
           </div>
         </div>
@@ -354,30 +310,30 @@ const MarketDetail = () => {
         {/* 댓글부분 */}
         {/* 댓글달기 시작 */}
         <div className={style.division_line_comment}>
+          <div>
+            <h4>댓글 3</h4>
+          </div>
+        </div>
+        <form onSubmit={commentSubmit}>
+          <div className={style.comment_write}>
             <div>
-              <h4>댓글 3</h4>
+              <div className={style.comment_write_profile}>
+                <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+              </div>
+              <div className={style.quillComment_container}>
+                <QuillComment />
+              </div>
+            </div>
+            <div className={style.submit_btn_group}>
+              <button type="submit">댓글쓰기</button>
             </div>
           </div>
-          <form onSubmit={commentSubmit}>
-            <div className={style.comment_write}>
-              <div>
-                <div className={style.comment_write_profile}>
-                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
-                </div>
-                <div className={style.quillComment_container}>
-                  <QuillComment />
-                </div>
-              </div>
-              <div className={style.submit_btn_group}>
-                <button type="submit">댓글쓰기</button>
-              </div>
-            </div>
-          </form>
-          {/* 댓글달기 끝 */}
+        </form>
+        {/* 댓글달기 끝 */}
 
-          {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} boardType='market' />
-          ))}
+        {commentList.map((item) => (
+          <CommentItem key={item._id} props={item} postId={id} boardType='market' />
+        ))}
       </div>
     </div>
   );

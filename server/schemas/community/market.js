@@ -40,11 +40,6 @@ const marketSchema = new Schema({
     },
 
     // 게시판마다 달라지는 부분
-    itemCatogory: {
-        // 글카테고리
-        type: String,
-        // required : true
-    },
     imgPath: {
         // 이미지 주소
         type: Array
@@ -54,10 +49,9 @@ const marketSchema = new Schema({
         required: true
     },
     condition: {
-        type: Number
+        type: Number,
+        default: 1
     }
-
-
 })
 
 module.exports = mongoose.model('Market', marketSchema, 'Market')

@@ -15,7 +15,6 @@ router.post('/write', async (req, res) => {
           $set: {
             title: req.body.market_title,
             content: req.body.content,
-            itemCategory: "문구류",
             imgPath: req.body.imgPath,
             price: req.body.market_price,
             condition: req.body.market_condition
@@ -25,14 +24,12 @@ router.post('/write', async (req, res) => {
       _id = req.body._id
     } else {
       obj = {
-        id :req.body.id,
+        id: req.body.id,
         writer: req.body.writer,
         title: req.body.market_title,
         content: req.body.content,
-        itemCategory: "문구류",
         imgPath: req.body.imgPath,
         price: req.body.market_price,
-        condition: req.body.market_condition
       };
       const market = new Market(obj);
       _id = market._id
@@ -108,4 +105,22 @@ router.post("/delete/:_id", async (req, res) => {
   }
 });
 
+// 판매완료 전환
+router.get("/sold/:_id", async (req, res) => {
+  try {
+    const id = req.params._id;
+    await Market.findByIdAndUpdate(
+      id,
+      {
+        $mul: {
+          condition: -1
+        }
+      }
+    )
+    res.json({ message: true })
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+})
 module.exports = router;
