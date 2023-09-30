@@ -119,6 +119,21 @@
 
 /* 상단 구분선 끝 */
 
+/* 모집완료 버튼 */
+.mem_completed{
+  padding: 10px 16px;
+  font-weight: bold;
+  border-radius: 1px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: rgb(255, 230, 7);
+  box-shadow: 1px 1px 2px rgb(144, 144, 144);
+  display: inline-block; /* 요소를 인라인 블록 요소로 설정 */
+  margin-top:12px;
+
+}
+
+
 /* 키워드 css */
 
 .keyworld_buttons {
@@ -135,14 +150,19 @@
   box-shadow: 1px 1px 2px rgb(144, 144, 144);
 }
 
-.type {
-  background-color: #71ffff;
-  color: #003a47;
+.findsomeone {
+  background-color: #247DFF;
+  color:  #FFFFFF;
+}
+.completed {
+  background-color: #c5c5c5 ;
+  color: #000000;
 }
 
+
 .purpose {
-  background-color: #e0e0e0;
-  color: #000000;
+  background-color: #71FFFF;
+  color: #003A47;
 }
 
 .getajob {
@@ -326,7 +346,6 @@
 .text_content_wrapper {
   position: relative;
 }
-
 
 /* 댓글 작성 quill버전 css */
 .comment_write_profile {

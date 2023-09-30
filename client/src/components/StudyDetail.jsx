@@ -11,8 +11,17 @@ import QuillComment from './QuillComment'
 
 const StudyDetail = () => {
   /* 키워드 컴포넌트 */
-  const Type = () => (
-    <span className={`${style.play_title} ${style.type}`}>스터디 📚</span>
+
+  const FindSomeone = () => (
+    <span className={`${style.play_title} ${style.findsomeone}`}>
+      모집중
+    </span>
+  );
+
+  const Completed = () => (
+    <span className={`${style.play_title} ${style.completed}`}>
+      모집완료
+    </span>
   );
   const Purpose = () => (
     <span className={`${style.play_title} ${style.purpose}`}>
@@ -253,7 +262,7 @@ const StudyDetail = () => {
         </div>
         <div>
           <div className={style.keyworld_buttons}>
-            <Type />
+            <FindSomeone/>
             {visible[0] && <Purpose />}
             {visible[1] && <Getajob />}
             {visible[2] && <Develope />}
@@ -272,18 +281,21 @@ const StudyDetail = () => {
 
             <div className={style.Top_right_container}>
               <div>
-                <div>
+                <span>
                   <p>{memberInfo.class}</p>
                   <h5>{memberInfo.nickname}</h5>
-                </div>
+                </span>
 
-                <div className={style.Profile_img}>
+                <span className={style.Profile_img}>
                   <Image src={memberInfo.profileImg} roundedCircle />
-                </div>
+                </span>
               </div>
               <div>
                 <p>👁‍🗨 {studyDetail.views} 💬 10</p>
               </div>
+              <span className={style.mem_completed}>
+                  모집완료 ✔
+                </span>
             </div>
           </div>
 

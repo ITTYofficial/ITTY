@@ -1,12 +1,53 @@
 import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import styles from "../css/Community.module.css";
+import style from "../css/StudyDetail.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
 import Pagination from "react-js-pagination";
 
 const StudyList = () => {
+
+  //키워드 컴포넌트
+  const FindSomeone = () => (
+    <span className={`${style.play_title} ${style.findsomeone}`}>
+      모집중
+    </span>
+  );
+
+  const Completed = () => (
+    <span className={`${style.play_title} ${style.completed}`}>
+      모집완료
+    </span>
+  );
+  const Purpose = () => (
+    <span className={`${style.play_title} ${style.purpose}`}>
+      코딩테스트 대비 📖
+    </span>
+  );
+  const Getajob = () => (
+    <span className={`${style.play_title} ${style.getajob}`}>취업 준비 😋</span>
+  );
+
+  const Develope = () => (
+    <span className={`${style.play_title} ${style.develope}`}>
+      개발 공부 🔎
+    </span>
+  );
+  const Certificate = () => (
+    <span className={`${style.play_title} ${style.certificate}`}>
+      자격증 공부 📝
+    </span>
+  );
+  const Groupstudy = () => (
+    <span className={`${style.play_title} ${style.groupstudy}`}>
+      그룹 / 모임 🙋🏻‍♀️
+    </span>
+  );
+
+
+
   // 장터리스트 담을 State
   const [studyList, setstudyList] = useState([]);
 
@@ -163,7 +204,7 @@ const StudyList = () => {
                   {getTimeAgoString(item.createdAt)}
                 </p>
                 <Link to={`/studyDetail/${item._id}?id=${item.id}`}>
-                  <h4>{item.title}</h4>
+                  <h4><FindSomeone/><Completed/><Getajob/>{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
                 <p>👁‍🗨{item.views} 💬{item.comments}</p>
