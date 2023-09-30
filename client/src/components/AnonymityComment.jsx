@@ -9,7 +9,7 @@ import QuillReComment from './QuillReComment'
 const AnonymityComment = ({ props, postId }) => {
 
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-    const { getAnonyComment, deleteAnonyComment, deleteAnonyReComment } = useContext(QuillContext);
+    const { getAnonyComment, deleteAnonyComment, deleteAnonyReComment, reCoValue, setReCoValue } = useContext(QuillContext);
     console.log('게시글 id 넘어옴?', postId);
 
     // 대댓글 작성완료 시 호출되는 함수
@@ -19,7 +19,7 @@ const AnonymityComment = ({ props, postId }) => {
         const obj = {
             postId: postId,
             writer: sessionStorage.getItem("memberId"),
-            content: reComment,
+            content: reCoValue,
             commentId: _id,
             createdAt: createdAt
         };
@@ -94,10 +94,8 @@ const AnonymityComment = ({ props, postId }) => {
 
                 </div>
                 {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-                <div>
-                    <p>
-                        {props.content}
-                    </p>
+                <div className='quill_comment_font_style'>
+                    <span dangerouslySetInnerHTML={{ __html: props.content }} />
                 </div>
                 {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 
@@ -133,12 +131,8 @@ const AnonymityComment = ({ props, postId }) => {
                 </span>
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
-            <div>
-
-                <p>
-                    {props.content}
-                </p>
-
+            <div className='quill_comment_font_style'>
+                <span dangerouslySetInnerHTML={{ __html: props.content }} />
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
 

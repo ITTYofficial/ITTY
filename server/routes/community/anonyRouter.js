@@ -39,9 +39,9 @@ router.post('/write', async (req, res) => {
             await Member.updateOne(
                 { id: req.body.id },
                 {
-                  $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
-                    point: 1 // 일단 글쓸때마다 1포인트로 지정 
-                  }
+                    $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+                        point: 1 // 일단 글쓸때마다 1포인트로 지정 
+                    }
                 });
         }
         res.json({
@@ -112,37 +112,45 @@ router.post("/delete/:_id", async (req, res) => {
 
 // 댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수댓글 함수
 
-// 익명 순번을 위한
-let anonymousIndexMap = {};
-
 // 댓글 작성
-router.post('/commentWrite', async (req, res) => {
+/* router.post('/commentWrite', async (req, res) => {
     console.log('확인', req.body);
     try {
         const writer = req.body.writer;
-        const postId = req.body.postId; // 게시물 ID 가져오기
+        const postId = req.body.postId;
 
-        let anonymousIndex;
+        // 해당 게시물에 댓글 단 기록 확인
 
-        if (!anonymousIndexMap.hasOwnProperty(postId)) {
-            anonymousIndexMap[postId] = {}; // 새로운 게시물(ID)인 경우 새로운 익명index 객체 생성
-        }
 
-        if (anonymousIndexMap[postId].hasOwnProperty(writer)) {
-            anonymousIndex = anonymousIndexMap[postId][writer];
+
+        const checkCommentIndex = await AnonyComment.find({
+            postId,
+            $or: [
+                { writer: writer },
+                { 'reComment.writer': writer }
+            ]
+        });
+        console.log('기록 확인', checkCommentIndex);
+        if (checkCommentIndex.length === 0) {
+            // 댓글 단적 없으면
+            console.log('조건문 진입?');
+            checkPostIndex = await Anony.findByIdAndUpdate(postId, {
+                $inc: { anonymousIndex: 1 }
+            });
+            console.log('체크', checkPostIndex.anonymousIndex);
+            anonyIndex = checkPostIndex.anonymousIndex;
         } else {
-            anonymousIndex = Object.keys(anonymousIndexMap[postId]).length; // 새로운 작성자면 새로운 익명index 부여
-            anonymousIndexMap[postId][writer] = anonymousIndex; // writer와 익명 Index를 매핑
+            anonyIndex = checkCommentIndex[0].anonymousIndex;
         }
 
-        console.log('익명 순번 map 확인', anonymousIndexMap);
-        console.log('익명 순번 확인', anonymousIndex);
+
+        console.log('익명 순번 확인', anonyIndex);
 
         let obj = {
             postId: postId,
             writer: writer,
             content: req.body.content,
-            anonymousIndex: anonymousIndex,
+            anonymousIndex: anonyIndex,
         };
 
         const anonyComment = new AnonyComment(obj);
@@ -153,7 +161,48 @@ router.post('/commentWrite', async (req, res) => {
         console.log(err);
         res.json({ message: false });
     }
+}); */
+
+router.post('/commentWrite', async (req, res) => {
+    console.log('확인', req.body);
+    try {
+        const writer = req.body.writer;
+        const postId = req.body.postId;
+
+        const post = await Anony.findById(postId);
+        // 작성자의 ID가 anonyIndex에 이미 있는지 확인
+
+        if (!post.anonyIndex.includes(writer)) {
+            // 없으면 작성자 ID를 anonyIndex에 추가
+            await Anony.findByIdAndUpdate(postId, { $push: { anonyIndex: writer } });
+        }
+
+        // 다시 조회 ->(안하면 첫 댓글 무적권 인덱스 못찾아서 -1로들어감)
+        const updatedPost = await Anony.findById(postId);
+
+        // 작성자의 anonyIndex를 가져와서 anonymousIndex에 저장
+        const anonymousIndex = updatedPost.anonyIndex.indexOf(writer);
+        console.log('어나니인덱스', anonymousIndex);
+
+        let obj = {
+            postId: postId,
+            writer: writer,
+            content: req.body.content,
+            anonymousIndex: anonymousIndex
+        };
+
+        const anonyComment = new AnonyComment(obj);
+        await anonyComment.save(); // 댓글 망고에 저장
+
+        res.json({ message: true });
+    } catch (err) {
+        console.log(err);
+        res.json({ message: false });
+    }
 });
+
+
+
 
 
 // 대댓글 작성
@@ -163,27 +212,27 @@ router.post('/reCommentWrite', async (req, res) => {
         const writer = req.body.writer;
         const postId = req.body.postId;
 
-        let anonymousIndex;
+        const post = await Anony.findById(postId);
+        // 작성자의 ID가 anonyIndex에 이미 있는지 확인
 
-        if (!anonymousIndexMap.hasOwnProperty(postId)) {
-            anonymousIndexMap[postId] = {};
+        if (!post.anonyIndex.includes(writer)) {
+            // 없으면 작성자 ID를 anonyIndex에 추가
+            await Anony.findByIdAndUpdate(postId, { $push: { anonyIndex: writer } });
         }
 
-        if (anonymousIndexMap[postId].hasOwnProperty(writer)) {
-            anonymousIndex = anonymousIndexMap[postId][writer];
-        } else {
-            anonymousIndex = Object.keys(anonymousIndexMap[postId]).length;
-            anonymousIndexMap[postId][writer] = anonymousIndex;
-        }
+         // 다시 조회 ->(안하면 첫 댓글 무적권 인덱스 못찾아서 -1로들어감)
+        const updatedPost = await Anony.findById(postId);
 
-        console.log('익명 대댓순번 map 확인', anonymousIndexMap);
-        console.log('익명 대댓순번 확인', anonymousIndex);
+        // 작성자의 anonyIndex를 가져와서 anonymousIndex에 저장
+        const anonymousIndex = updatedPost.anonyIndex.indexOf(writer);
+        console.log('어나니인덱스', anonymousIndex);
+
 
         let obj = {
             writer: writer,
             content: req.body.content,
             createdAt: req.body.createdAt,
-            anonymousIndex: anonymousIndex,
+            anonymousIndex: anonymousIndex
         };
 
         await AnonyComment.findOneAndUpdate(
@@ -238,26 +287,26 @@ router.get("/commentdelete/:_id", async (req, res) => {
 router.post("/deleteRecomment/", async (req, res) => {
     console.log('deleteReComment진입');
     try {
-      const index = req.body.index;
-      const commentId = req.body.commentId;
-      await AnonyComment.findOneAndUpdate(
-        { _id: commentId },
-        {
-          $set: { [`reComment.${index}`]: null }
-        }
-      );
-      await AnonyComment.findOneAndUpdate(
-        { _id: commentId },
-        {
-          $pull: { reComment: null }
-        }
-      );
-      res.json({ message: true });
+        const index = req.body.index;
+        const commentId = req.body.commentId;
+        await AnonyComment.findOneAndUpdate(
+            { _id: commentId },
+            {
+                $set: { [`reComment.${index}`]: null }
+            }
+        );
+        await AnonyComment.findOneAndUpdate(
+            { _id: commentId },
+            {
+                $pull: { reComment: null }
+            }
+        );
+        res.json({ message: true });
     } catch (err) {
-      console.log(err);
-      res.json({ message: false });
+        console.log(err);
+        res.json({ message: false });
     }
-  });
+});
 
 
 

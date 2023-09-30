@@ -85,8 +85,7 @@ const AnonymityDetail = () => {
   const [comment, setComment] = useState();
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { anonyCommentList, setAnonyCommentList, getAnonyComment } =
-    useContext(QuillContext);
+  const { anonyCommentList, setAnonyCommentList, getAnonyComment, coValue, setCoValue } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commentChange = (e) => {
@@ -99,7 +98,7 @@ const AnonymityDetail = () => {
     const obj = {
       writer: sessionStorage.getItem("memberId"),
       postId: id,
-      content: comment,
+      content: coValue,
     };
     console.log(obj);
 
@@ -234,9 +233,7 @@ const AnonymityDetail = () => {
               </ul>
             </div>
             <div className="quill_content_font_style">
-              <span
-                dangerouslySetInnerHTML={{ __html: anonyDetail.content }}
-              ></span>
+              <span dangerouslySetInnerHTML={{ __html: anonyDetail.content }}/>
             </div>
           </div>
           {/* 게시글 content 끝 */}
@@ -248,7 +245,7 @@ const AnonymityDetail = () => {
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-          <div className={styles.comment_write}>
+            <div className={styles.comment_write}>
               <div>
                 <div className={styles.comment_write_profile}>
                   <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />

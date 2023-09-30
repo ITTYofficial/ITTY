@@ -31,7 +31,11 @@ const anonySchema = new Schema({
         // 댓글수
         type: Number,
         default: 0
-    }
+    },
+
+    anonyIndex: [{
+        type: String,
+    }]
 
     // 게시판마다 달라지는 부분
 })
