@@ -259,7 +259,7 @@ const Main = () => {
 
           {/* 포폴리스트 */}
           <div className={style.Main_grid_4}>
-            <h3>포트폴리오</h3>
+            <h3>포트폴리오 🔎</h3>
             <div className={style.port_list}
               onMouseDown={onDragStart_port}
               onMouseMove={isDrag ? onThrottleDragMove_port : null}
