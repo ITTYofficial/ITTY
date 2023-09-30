@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import style from "../css/Main.module.css";
 import axios from "axios";
@@ -130,8 +130,7 @@ const Main = () => {
     <div className={style.port_content}>
       <div className={style.port_content_img}>
         <Link to={`/portDetail/${props._id}`}>
-          {/* <img src={props.imgPath}></img> */}
-          <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png'></img>
+          <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png' alt="Portfolio" />
         </Link>
       </div>
       <div className={style.port_content_bottom}>
@@ -154,8 +153,75 @@ const Main = () => {
         </div>
       </div>
     </div>
-
   );
+
+  // 스크롤기능
+  const scrollRef_port = useRef(null);
+  const scrollRef_market = useRef(null);
+  const [isDrag, setIsDrag] = useState(false); //드레그 중인지의 상태확인
+  const [startX, setStartX] = useState(); //처음 클릭한 x좌표 
+  const onDragStart_port = e => {
+    e.preventDefault();
+    setIsDrag(true);
+    setStartX(e.pageX + scrollRef_port.current.scrollLeft);
+  };
+  const onDragStart_market = e => {
+    e.preventDefault();
+    setIsDrag(true);
+    setStartX(e.pageX + scrollRef_market.current.scrollLeft);
+  };
+
+
+  const onDragEnd_port = () => {
+    setIsDrag(false);
+  };
+  const onDragEnd_market = () => {
+    setIsDrag(false);
+  };
+  const onDragMove_port = e => {
+    if (isDrag) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollRef_port.current;
+
+      scrollRef_port.current.scrollLeft = startX - e.pageX;
+
+      if (scrollLeft === 0) {
+        setStartX(e.pageX); //가장 왼쪽일 때, 움직이고 있는 마우스의 x좌표가 곧 startX로 설정.
+      } else if (scrollWidth <= clientWidth + scrollLeft) {
+        setStartX(e.pageX + scrollLeft); //가장 오른쪽일 때, 움직이고 있는 마우스의 x좌표에 현재 스크롤된 길이 scrollLeft의 합으로 설정
+      }
+    }
+  };
+  const onDragMove_market = e => {
+    if (isDrag) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollRef_market.current;
+
+      scrollRef_market.current.scrollLeft = startX - e.pageX;
+
+      if (scrollLeft === 0) {
+        setStartX(e.pageX); //가장 왼쪽일 때, 움직이고 있는 마우스의 x좌표가 곧 startX로 설정.
+      } else if (scrollWidth <= clientWidth + scrollLeft) {
+        setStartX(e.pageX + scrollLeft); //가장 오른쪽일 때, 움직이고 있는 마우스의 x좌표에 현재 스크롤된 길이 scrollLeft의 합으로 설정
+      }
+    }
+  };
+  // 쓰로틀 
+  const throttle = (func, ms) => {
+    let throttled = false;
+    return (...args) => {
+      if (!throttled) {
+        throttled = true;
+        setTimeout(() => {
+          func(...args);
+          throttled = false;
+        }, ms);
+      }
+    };
+  };
+
+  const delay = 50;
+  const onThrottleDragMove_port = throttle(onDragMove_port, delay);
+  const onThrottleDragMove_market = throttle(onDragMove_market, delay);
+  // 스크롤기능
 
 
   return (
@@ -194,7 +260,12 @@ const Main = () => {
           {/* 포폴리스트 */}
           <div className={style.Main_grid_4}>
             <h3>포트폴리오</h3>
-            <div className={style.port_list}>
+            <div className={style.port_list}
+              onMouseDown={onDragStart_port}
+              onMouseMove={isDrag ? onThrottleDragMove_port : null}
+              onMouseUp={onDragEnd_port}
+              onMouseLeave={onDragEnd_port}
+              ref={scrollRef_port}>
               {portList.map((item) => <PortItem key={item._id} props={item} />)}
             </div>
           </div>
@@ -203,7 +274,12 @@ const Main = () => {
           {/* 마켓리스트 */}
           <div className={style.Main_grid_3}>
             <h3>교환 장터🥕</h3>
-            <div className={style.Market_list}>
+            <div className={style.Market_list}
+              onMouseDown={onDragStart_market}
+              onMouseMove={isDrag ? onThrottleDragMove_market : null}
+              onMouseUp={onDragEnd_market}
+              onMouseLeave={onDragEnd_market}
+              ref={scrollRef_market}>
               {marketList.map((item) => (
                 <MarketItem key={item._id} props={item} />
               ))}

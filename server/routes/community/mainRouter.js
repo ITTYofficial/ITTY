@@ -10,10 +10,10 @@ router.get('/mainList', async (req, res) => {
     try {
         const mainList = await Promise.all([
             Play.find().sort({ _id: -1 }).limit(5),
-            Market.find().sort({ _id: -1 }).limit(4),
+            Market.find().sort({ _id: -1 }).limit(15),
             Project.find().sort({ _id: -1 }).limit(5),
             Study.find().sort({ _id: -1 }).limit(5),
-            Port.find().sort({ _id: -1 }).limit(4)
+            Port.find().sort({ _id: -1 }).limit(15)
         ])
 
         const proStu = mainList[2].concat(mainList[3]).slice(0, 5);
