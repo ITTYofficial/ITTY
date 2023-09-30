@@ -19,7 +19,7 @@ const MyPage = () => {
     const cropperRef = useRef(null);
     const [image, setImage] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
-    
+
     // 정보 조회 데이터 관리
     const [memberInfo, setMemberInfo] = useState({})
     // 정보수정 데이터관리  
@@ -81,7 +81,9 @@ const MyPage = () => {
                 messageElement2.current.textContent = "비밀번호에는 문자와 숫자를 모두 포함해야 합니다.";
                 messageElement2.current.style.color = "red";
                 setPwCheckResult(false);
-            }}};
+            }
+        }
+    };
 
     // 닉네임 중복 체크 -> 본래 닉네임 치면 true 반환하게 
     const nicknameCheck = async (e) => {
@@ -103,7 +105,9 @@ const MyPage = () => {
                 setNicknameCheckResult(false);
             }
         } catch (error) {
-            console.error('오류 발생:', error);}};
+            console.error('오류 발생:', error);
+        }
+    };
 
 
     // 비밀번호 확인 (-> 이러면 한번 인풋창을 건드리면 비밀번호를 맞춰야한다는 단점이있음)
@@ -117,7 +121,9 @@ const MyPage = () => {
         } else {
             messageElement3.current.textContent = "비밀번호 일치 확인";
             messageElement3.current.style.color = "blue";
-            setPwCheckResult(true);}};
+            setPwCheckResult(true);
+        }
+    };
 
     /* 크로퍼 */
     const handleCropperClick = () => {
@@ -131,13 +137,13 @@ const MyPage = () => {
         e.preventDefault();
 
         const files = e.target.files;
-        console.log('1.handleFileChange->file:',files);
+        console.log('1.handleFileChange->file:', files);
         if (!files) return;
         handleShow();
         const reader = new FileReader();
-        console.log('2.handleFileChange->reader:',reader);
+        console.log('2.handleFileChange->reader:', reader);
         reader.onload = () => {
-            console.log('2.handleFileChange->reader.result:',reader.result);
+            console.log('2.handleFileChange->reader.result:', reader.result);
             setImage(reader.result);
             setInputPicDisplay(false);
         };
@@ -189,10 +195,10 @@ const MyPage = () => {
 
 
 
-  
+
     // base64 -> formdata
     const handlingDataForm = async (dataURI) => {
-        console.log('데이터유알아이',dataURI);
+        console.log('데이터유알아이', dataURI);
         // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
         const byteString = atob(dataURI.split(",")[1]);
         // const nickname = sessionStorage.getItem("memberNickname");
@@ -206,7 +212,7 @@ const MyPage = () => {
             type: "image/jpeg",
         });
         const file = new File([blob], "image.jpg");
-        console.log('베이스64->form데이터:',file);
+        console.log('베이스64->form데이터:', file);
         // 위 과정을 통해 만든 image폼을 FormData에
         // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
         const formData = new FormData();
@@ -243,18 +249,18 @@ const MyPage = () => {
         obj["imgPath"] = url;
         console.log(obj);
         axios
-          .post("http://localhost:8088/member/update", obj)
-          .then((res) => {
-            alert("회원정보가 수정되었습니다.");
-            console.log(res);
-            // window.location.href = `/myPage`
-          })
-          .catch((err) => {
-            console.log(err);
-            alert("회원정보 수정 실패");
-            // window.location.href = `/myPage`
-          });
-      };
+            .post("http://localhost:8088/member/update", obj)
+            .then((res) => {
+                alert("회원정보가 수정되었습니다.");
+                console.log(res);
+                // window.location.href = `/myPage`
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("회원정보 수정 실패");
+                // window.location.href = `/myPage`
+            });
+    };
 
     // **************닉네임 변경 메소드
     const updateNickname = async (e) => {
@@ -273,6 +279,8 @@ const MyPage = () => {
             if (response.data.message === "회원정보수정이 완료되었습니다.") {
                 sessionStorage.removeItem('memberNickname');
                 sessionStorage.setItem('memberNickname', response.data.nickname)
+                alert('닉네임이 수정되었습니다')
+                window.location.reload();
             } else {
                 console.error("회원정보수정에 실패했습니다.");
             }
@@ -280,7 +288,7 @@ const MyPage = () => {
             console.error("오류 발생:", error);
         }
     };
- 
+
 
     const [nicknameVisable, setNicknameVisable] = useState(false);
 
@@ -288,156 +296,203 @@ const MyPage = () => {
         setNicknameVisable(true)
     }
 
+    const [profileVisible, setProfileVisible] = useState(true);
+    const [messageVisible, setMessageVisible] = useState(false);
+
+    const clickProfile = () => {
+        setProfileVisible(true);
+        setMessageVisible(false);
+    }
+
+    const clickMessage = () => {
+        setProfileVisible(false);
+        setMessageVisible(true);
+
+    }
+
+
 
     return (
         <div className={styles.Main_container}>
-                <h2>마이페이지</h2>
-            <form onSubmit={updateSubmit}>
+            <div className={styles.left_container}>
+                <div onClick={clickProfile}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-square" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
+                    </svg>
+                    <h4>프로필</h4>
+                </div>
+                <div onClick={clickMessage}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z" />
+                        <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
+                    </svg>
+                    <h4>받은 쪽지함</h4>
+                </div>
+            </div>
 
-                <div className={styles.top_container}>
-                    <div className={styles.top_container_left}>
+            <div className={styles.right_container}>
+                {profileVisible &&
+                    <div className={styles.profile_container}>
+                        <h2>회원정보</h2>
+                        <form onSubmit={updateSubmit}>
 
-                        <div>
+                            <div className={styles.top_container}>
+                                <div className={styles.top_container_left}>
 
-                            <h4>닉네임</h4>
-                            <div className={styles.nickname_wrapper} style={{ display: nicknameVisable ? 'none' : 'flex' }}>
-                                <h5>{memberInfo.nickname}</h5>
-                                <div onClick={toggleNick}>닉네임 변경</div>
-                            </div>
+                                    <div>
+                                        <h4>닉네임</h4>
+                                        <div className={styles.nickname_wrapper} style={{ display: nicknameVisable ? 'none' : 'flex' }}>
+                                            <h5>{memberInfo.nickname}</h5>
+                                            <div onClick={toggleNick}>닉네임 변경</div>
+                                        </div>
 
-                            {nicknameVisable &&
-                                <div className={styles.nickname_modify_wrapper}>
-                                    <input type="text"
-                                        className="form-control"
-                                        id="nickname"
-                                        name='nickname'
-                                        value={nickname}
-                                        onChange={(e) => setNickname(e.target.value)}
-                                        onBlur={nicknameCheck}
-                                        placeholder={sessionStorage.getItem('memberNickname')} />
-                                    <button onClick={updateNickname}>수정완료</button>
-                                </div>
-                            }
+                                        {nicknameVisable &&
+                                            <div className={styles.nickname_modify_wrapper}>
+                                                <input type="text"
+                                                    className="form-control"
+                                                    id="nickname"
+                                                    name='nickname'
+                                                    value={nickname}
+                                                    onChange={(e) => setNickname(e.target.value)}
+                                                    onBlur={nicknameCheck}
+                                                    placeholder={sessionStorage.getItem('memberNickname')} />
+                                                <button onClick={updateNickname}>수정완료</button>
+                                                <button onClick={() => { setNicknameVisable(false) }}>취소</button>
+                                            </div>
+                                        }
 
-                            <div id="nickNameCheckmessage"></div>
-                        </div>
-
-
-                        <div>
-                            <h4>비밀번호</h4>
-                            <input type="password" placeholder='변경할 비밀번호를 입력해 주세요.' className="form-control" name="pw" id="pw" Value={pw} onChange={onPwHandler} onInput={engNumPwCheck} />
-                            <div id="pWmessage"></div>
-                        </div>
-                        <div>
-                            <h4>비밀번호 확인</h4>
-                            <input type="password" placeholder='비밀번호를 한번 더 입력해 주세요' className="form-control" name="pw_check" id="pw_check" Value={checkPw} onChange={onCheckPwHandler} onBlur={pwCheck} />
-                            <div id="pWCheckmessage"></div>
-                        </div>
-                    </div>
-                    <div className={styles.top_container_right}>
-                        <h4>프로필 등록</h4>
-
-                        {/* 크로퍼 */}
-
-                        <div className='cropper_content'>
-
-                            <input
-                                type="file"
-                                ref={inputRef}
-                                style={{ display: "none" }}
-                                onChange={handleFileChange}
-                            />
-
-                        </div>
-                        {/* 크로퍼 */}
-
-                        {/* 모달 */}
-
-                        <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>이미지 사이즈 조절</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                {image && (
-                                    <div className="container">
-                                        <Cropper
-                                            ref={cropperRef}
-                                            aspectRatio={1} // 크롭 영역을 정사각형으로 제한
-                                            src={image}
-                                            viewMode={1}
-                                            width={800}
-                                            height={500}
-                                            background={false}
-                                            responsive
-                                            autoCropArea={1}
-                                            checkOrientation={false}
-                                            guides
-                                        />
+                                        <div id="nickNameCheckmessage"></div>
                                     </div>
-                                )}
-
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                    취소
-                                </Button>
-                                <Button variant="primary" onClick={getCropData}>
-                                    이미지 저장
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
 
 
-                        {/* 모달 */}
+                                    <div>
+                                        <h4>비밀번호</h4>
+                                        <input type="password" placeholder='변경할 비밀번호를 입력해 주세요.' className="form-control" name="pw" id="pw" Value={pw} onChange={onPwHandler} onInput={engNumPwCheck} />
+                                        <div id="pWmessage"></div>
+                                    </div>
+                                    <div>
+                                        <h4>비밀번호 확인</h4>
+                                        <input type="password" placeholder='비밀번호를 한번 더 입력해 주세요' className="form-control" name="pw_check" id="pw_check" Value={checkPw} onChange={onCheckPwHandler} onBlur={pwCheck} />
+                                        <div id="pWCheckmessage"></div>
+                                    </div>
+                                </div>
+                                <div className={styles.top_container_right}>
+                                    <h4>프로필 사진 등록</h4>
+
+                                    {/* 크로퍼 */}
+
+                                    <div className='cropper_content'>
+
+                                        <input
+                                            type="file"
+                                            ref={inputRef}
+                                            style={{ display: "none" }}
+                                            onChange={handleFileChange}
+                                        />
+
+                                    </div>
+                                    {/* 크로퍼 */}
+
+                                    {/* 모달 */}
+
+                                    <Modal show={show} onHide={handleClose}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>이미지 사이즈 조절</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            {image && (
+                                                <div className="container">
+                                                    <Cropper
+                                                        ref={cropperRef}
+                                                        aspectRatio={1} // 크롭 영역을 정사각형으로 제한
+                                                        src={image}
+                                                        viewMode={1}
+                                                        width={800}
+                                                        height={500}
+                                                        background={false}
+                                                        responsive
+                                                        autoCropArea={1}
+                                                        checkOrientation={false}
+                                                        guides
+                                                    />
+                                                </div>
+                                            )}
+
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={handleClose}>
+                                                취소
+                                            </Button>
+                                            <Button variant="primary" onClick={getCropData}>
+                                                이미지 저장
+                                            </Button>
+                                        </Modal.Footer>
+                                    </Modal>
 
 
-                        {/* 프사 부분 */}
-                        <div className={styles.input_pic} style={{ display: inputPicDisplay ? 'block' : 'none' }}>
-                            <div className={styles.fake_upload}>
-                                <Image src={memberInfo.profileImg} alt='프로필 미리보기' roundedCircle />
+                                    {/* 모달 */}
+
+
+                                    {/* 프사 부분 */}
+                                    <div className={styles.input_pic} style={{ display: inputPicDisplay ? 'block' : 'none' }}>
+                                        <div className={styles.fake_upload}>
+                                            <Image src={memberInfo.profileImg} alt='프로필 미리보기' roundedCircle />
+                                        </div>
+                                        <div className={styles.img_uploads_btn}
+                                            onClick={handleCropperClick}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+                                                <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                                                <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                                            </svg>
+                                        </div>
+                                        <div className={styles.preview_img}>
+                                            {croppedImage && (
+                                                <Image src={croppedImage} alt='프로필 미리보기' roundedCircle />
+                                            )}
+                                        </div>
+                                    </div>
+                                    {/* 프사 부분 */}
+                                </div>
                             </div>
-                            <div className={styles.img_uploads_btn}
-                                onClick={handleCropperClick}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
-                                    <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
-                                    <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-                                </svg>
+                            <div className={styles.bottom_content}>
+                                <h4>소속 인증 상태</h4>
+                                <button className={styles.right_container_button}>{memberInfo.class == '미인증 회원' ? '미인증' : memberInfo.class}</button>
+                                <h4>학원생 인증</h4>
+                                <p>ITTY의 특정 서비스를 이용하기 위해서는 스마트인재개발원 소속 인증이 필요합니다.</p>
+                                <div className={styles.certification_box}>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-fill-exclamation" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm-.55 8.502L7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0zM8.002 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4>소속 인증하기</h4>
+                                        <p>수강 중인 강의실 본인 컴퓨터 상단의 부착된 이름표를 찍어서 첨부파일에 업로드해 주시면 담당자가 본인 여부를 확인 후 학원생으로 전환해 드립니다.</p>
+                                    </div>
+                                </div>
+                                {/* p태그로 이메일 주소남겨두기 */}
+                                <div className={styles.bottom_btn_group}>
+                                    <button type='submit'>
+                                        <p>수정 완료</p>
+                                    </button>
+                                    {/* 
+                            <Link to="/">
+                                <p>취소</p>
+                            </Link> */}
+                                </div>
                             </div>
-                            <div className={styles.preview_img}>
-                                {croppedImage && (
-                                    <Image src={croppedImage} alt='프로필 미리보기' roundedCircle />
-                                )}
-                            </div>
-                        </div>
-                        {/* 프사 부분 */}
+                        </form >
                     </div>
-                </div>
-                <div className={styles.bottom_content}>
-                    <h4>소속 인증 상태</h4>
-                    <button className={styles.right_container_button}>{memberInfo.class == '미인증 회원' ? '미인증' : memberInfo.class}</button>
-                    <h4>학원생 인증</h4>
-                    <p>ITTY의 특정 서비스를 이용하기 위해서는 스마트인재개발원 소속 인증이 필요합니다.</p>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-fill-exclamation" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm-.55 8.502L7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0zM8.002 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                        </svg>
-                        <div>
-                            <h4>소속 인증하기</h4>
-                            <p>수강 중인 강의실 본인 컴퓨터 상단의 부착된 이름표를 찍어서 첨부파일에 업로드해 주시면 담당자가 본인 여부를 확인 후 학원생으로 전환해 드립니다.</p>
-                        </div>
-                    </div>
-                    {/* p태그로 이메일 주소남겨두기 */}
-                    <div className={styles.bottom_btn_group}>
-                        <button type='submit'>
-                            <p>수정</p>
-                        </button>
+                }
 
-                        <Link to="/">
-                            <p>취소</p>
-                        </Link>
+                {messageVisible &&
+                    <div className={styles.message_container}>
+                        <h2>받은 쪽지</h2>
                     </div>
-                </div>
-            </form >
+                }
+            </div>
+
         </div >
     )
 }

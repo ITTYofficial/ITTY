@@ -1,11 +1,13 @@
 .Main_container {
     max-width: 1320px;
     margin: 0 auto;
-    width: 70%;
-
+    width: 80%;
+    margin-top: 8%;
+    display: flex;
 }
 
-.Main_container>h2 {
+.profile_container>h2 ,
+.message_container>h2{
     font-size: 24px;
     font-weight: bold;
     display: block;
@@ -19,7 +21,7 @@
     justify-content: space-between;
 }
 
-.Main_container h4 {
+.right_container h4{
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 12px;
@@ -31,6 +33,10 @@
 
 .top_container_left {
     width: 40%;
+}
+
+.top_container_left>div input {
+    margin-bottom: 24px;
 }
 
 .top_container_right {
@@ -131,31 +137,31 @@
     margin-bottom: 32px;
 }
 
-.bottom_content form {
+.certification_box {
     margin-top: 32px;
 }
 
-.bottom_content form svg {
+.certification_box svg {
     fill: #2972FF;
     width: 50px;
     height: 50px;
     margin-right: 12px;
 }
 
-.bottom_content form>div {
+.certification_box {
     display: flex;
     margin-bottom: 24px;
 }
 
-.bottom_content form h4 {
+.certification_box h4 {
     margin-bottom: 4px;
 }
 
-.bottom_content form>div>div {
+.certification_box>div>div {
     width: 80%;
 }
 
-.bottom_content form input {
+.certification_box input {
     width: 60%;
 }
 
@@ -176,7 +182,6 @@
     display: inline-block;
     padding: 12px 30px;
     margin: 0 8px;
-    border: 2px solid;
 }
 
 .bottom_btn_group>button:nth-child(1) p {
@@ -228,14 +233,38 @@
     border-bottom: 2px solid #eeeeee;
     border-radius: 10px;
     font-weight: bold;
-    margin-bottom: 32px;
     margin-left: 12px;
     white-space: nowrap;
+    height: 38px;
 }
 
-.nickname_wrapper h5{
+.nickname_wrapper h5 {
     font-size: 18px;
     font-weight: bold;
     font-family: sans-serif;
     letter-spacing: -1px;
+}
+
+.left_container {
+    border-right: 2px solid #eee;
+    margin-right: 5%;
+    width: 20%;
+}
+
+.left_container>div{
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.left_container svg {
+    width: 25px;
+    height: 25px;
+    fill: #2972FF;
+    margin-right: 12px;
+}
+
+.left_container h4 {
+    font-size: 18px;
+    font-weight: bold;
 }
