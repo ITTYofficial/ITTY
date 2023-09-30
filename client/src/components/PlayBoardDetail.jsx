@@ -9,6 +9,8 @@ import axios from "axios";
 import CommentItem from "./CommentItem";
 import { QuillContext } from "../context/QuillContext";
 import QuillComment from './QuillComment'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const PlayBoardDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
@@ -178,14 +180,44 @@ const PlayBoardDetail = () => {
     if (meat) {
       setMeat(!meat);
     }
+    console.log('토글메세지', meat);
   };
 
   /* 수정삭제 버튼 */
 
+  /* 쪽지 */
+
+  const [message, setMessage] = useState(false);
+
+  const toggleMessage = () => {
+    if (message) {
+      setMessage(false);
+    }
+  }
+
+
+  /* 모달 */
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+
+  }
+  const handleShow = () => {
+    /* setCroppedImage(null); */
+    setShow(true);
+    /* handleCropperClick(); */
+  }
+
+  /* 모달 */
+
+
+  /* 쪽지 */
+
   return (
     <div className={PlayBoard.Main_container}>
       <LeftContainer />
-      <div className={PlayBoard.right_container} onClick={toggleMeat}>
+      <div className={PlayBoard.right_container} onClick={() => { toggleMeat(); toggleMessage(); }}>
         <div className={PlayBoard.division_line}>
           <div>
             <Link>Community🌐</Link> /{" "}
@@ -208,9 +240,36 @@ const PlayBoardDetail = () => {
                     <p>{memberInfo.class}</p>
                     <h4>{memberInfo.nickname}</h4>
                   </span>
-                  <span className={PlayBoard.profile_pic}>
-                    <img src={memberInfo.profileImg} />
+                  <span className={PlayBoard.profile_pic} onClick={() => { setMessage(!message) }}>
+                    <Image src={memberInfo.profileImg} roundedCircle />
                   </span>
+                  {message &&
+                    <div className={PlayBoard.message_dropdown}>
+                      <li onClick={handleShow}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                          <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                          <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                        <span>쪽지보내기</span>
+                      </li>
+                    </div>
+                  }
+                  <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>쪽지 보내기</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <textarea className={PlayBoard.message_modal_input} placeholder="쪽지입력" />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        취소
+                      </Button>
+                      <Button variant="primary">
+                        보내기
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </span>
                 <span>
                   <p>👁‍🗨 {playDetail.views} 💬 4</p>
@@ -273,7 +332,7 @@ const PlayBoardDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} boardType='play'/>
+            <CommentItem key={item._id} props={item} postId={id} boardType='play' />
           ))}
         </div>
       </div>
