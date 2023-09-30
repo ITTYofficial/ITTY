@@ -6,6 +6,7 @@ import axios from "axios";
 import styles from "../css/Community.module.css";
 import Image from "react-bootstrap/Image";
 import Pagination from "react-js-pagination";
+import style from "../css/ProjectDetail.module.css";
 
 const ProjectList = () => {
   // 게시글 리스트 담을 State
@@ -52,6 +53,36 @@ const ProjectList = () => {
         console.timeEnd('소요시간');
       })
   }
+
+  //태그 컴포넌트
+  const FindSomeone = () => (
+    <span className={`${styles.play_title} ${styles.findsomeone}`}>
+      모집중
+    </span>
+  );
+
+  const Completed = () => (
+    <span className={`${styles.play_title} ${styles.completed}`}>
+      모집완료
+    </span>
+  );
+  const Frontend = () => (
+    <span className={`${styles.play_title} ${styles.frontend}`}>
+      프론트엔드✨
+    </span>
+  );
+  const Backend = () => (
+    <span className={`${styles.play_title} ${styles.backend}`}>백엔드👻</span>
+  );
+  const Db = () => (
+    <span className={`${styles.play_title} ${styles.db}`}>DataBase🎓</span>
+  );
+  const Uxui = () => (
+    <span className={`${styles.play_title} ${styles.uxui}`}>UX/UI🎨</span>
+  );
+  const Fullstack = () => (
+    <span className={`${styles.play_title} ${styles.fullstack}`}>풀스택💼</span>
+  );
 
 
   // 게시글 리스트 조회함수
@@ -167,8 +198,9 @@ const ProjectList = () => {
                 <p className={styles.b_date}>
                   {getTimeAgoString(item.createdAt)}
                 </p>
+                
                 <Link to={`/projectDetail/${item._id}?id=${item.id}`}>
-                  <h4>{item.title}</h4>
+                  <h4><FindSomeone/><Completed/>{item.title}</h4>
                 </Link>
                 {/* <div>{item.content}</div> */}
                 <p>👁‍🗨{item.views} 💬{item.comments}</p>

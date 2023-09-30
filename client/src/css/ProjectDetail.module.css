@@ -100,6 +100,22 @@
   margin: 16px 0;
 } */
 
+/* 모집완료 버튼 */
+
+.mem_completed{
+  padding: 10px 16px;
+  font-weight: bold;
+  border-radius: 1px;
+  font-size: 16px;
+  margin-right: 12px;
+  cursor: pointer;
+  background-color: rgb(255, 230, 7);
+  box-shadow: 1px 1px 2px rgb(144, 144, 144);
+  display: inline-block; /* 요소를 인라인 블록 요소로 설정 */
+  vertical-align: bottom; /* 아래로 정렬 */
+  margin-top:12px;
+}
+
 .play_title {
   padding: 5px 8px;
   font-weight: bold;
@@ -111,6 +127,17 @@
 }
 
 /* 왜 자유게시판에 프로젝트 버튼 css가 있을까유..?우선 여기에서 수정..~ */
+
+.findsomeone {
+  background-color: #247DFF;
+  color:  #FFFFFF;
+}
+.frontend {
+  background-color: #c5c5c5 ;
+  color: #000000;
+}
+
+
 .frontend {
   background-color: #2eff55;
   color: #0e3311;
@@ -132,8 +159,8 @@
 }
 
 .fullstack {
-  background-color: #247dff;
-  color: #ffffff;
+  background-color: #F3F90B;
+  color: #443807;
 }
 
 /*  */

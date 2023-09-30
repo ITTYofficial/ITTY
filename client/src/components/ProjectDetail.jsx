@@ -13,6 +13,18 @@ const ProjectDetail = () => {
   /* 키워드 컴포넌트 */
 
   // 내부 컴포넌트
+
+  const FindSomeone = () => (
+    <span className={`${styles.play_title} ${styles.findsomeone}`}>
+      모집중
+    </span>
+  );
+
+  const Completed = () => (
+    <span className={`${styles.play_title} ${styles.completed}`}>
+      모집완료
+    </span>
+  );
   const Frontend = () => (
     <span className={`${styles.play_title} ${styles.frontend}`}>
       프론트엔드✨
@@ -241,6 +253,7 @@ const ProjectDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
           <div className={styles.play_wrap_top}>
             <div className={styles.play_top_title}>
+              <FindSomeone/>
               {visible[0] && <Backend />}
               {visible[1] && <Frontend />}
               {visible[2] && <Fullstack />}
@@ -274,6 +287,9 @@ const ProjectDetail = () => {
                 </span>
                 <span>
                   <p>👁‍🗨 {projectDetail.views} 💬 4</p>
+                </span>
+                <span className={styles.mem_completed}>
+                  모집완료 ✔
                 </span>
               </div>
             </div>
