@@ -117,12 +117,13 @@ const Login = () => {
               </div>
             </div>
 
-            <div className={style.Join_font_box2}>
-              <div className={style.Join_font_box4}>SNS 간편 로그인</div>
-              <img
-                className={style.Join_font_box3}
-                src="img/naverlogo.png"
-              ></img>
+            <div className={style.Login_kakao_box}>
+            <button
+                className={style.Join_kakao_box}
+                type="submit"
+              >
+                카카오 로그인
+              </button>
               {/* <KaKaoLogin 
                 token={"099aa0e936256b3cc87375787f141a4f"}
                 onSuccess={responseKaKao}

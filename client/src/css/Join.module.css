@@ -15,6 +15,18 @@
     margin-bottom:6%; 
 }
 
+.Join_kakao_box{
+    width:70%;
+    height:38px;
+    background-color: #FEE500;
+    border-radius: 12px;
+    align-items: center;
+}
+
+.Login_kakao_box>img{
+    width: 30px;
+    height: 30px;
+}
 
 
 .Join_content_box2 {
@@ -74,6 +86,10 @@
 
 }
 
+.Login_kakao_box{
+    text-align: center;
+    font-weight: bold;
+}
 
 .Join_font_box {
     text-align: center;
