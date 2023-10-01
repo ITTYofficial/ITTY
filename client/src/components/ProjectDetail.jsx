@@ -286,7 +286,7 @@ const ProjectDetail = () => {
                   </span>
                 </span>
                 <span>
-                  <p>👁‍🗨 {projectDetail.views} 💬 4</p>
+                  <p>👁‍🗨 {projectDetail.views} 💬 {projectDetail.comments}</p>
                 </span>
                 <span className={styles.mem_completed}>
                   모집완료 ✔
@@ -328,7 +328,7 @@ const ProjectDetail = () => {
           {/* 댓글달기 시작 */}
           <div className={styles.division_line_comment}>
             <div>
-              <h4>댓글 3</h4>
+              <h4>댓글 {projectDetail.comments}</h4>
             </div>
           </div>
           <form onSubmit={commentSubmit}>

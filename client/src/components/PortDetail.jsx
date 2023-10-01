@@ -250,8 +250,7 @@ const PortDetail = () => {
           </div>
           <div>
             <p>
-              {getTimeAgoString(portDetail.createdAt)} 👁‍🗨 {portDetail.views} 💬
-              4
+              {getTimeAgoString(portDetail.createdAt)} 👁‍🗨 {portDetail.views} 💬 {portDetail.comments}
             </p>
           </div>
         </div>
@@ -270,7 +269,7 @@ const PortDetail = () => {
 
         <div className={style.division_line_comment}>
           <div>
-            <h4>댓글 3</h4>
+            <h4>댓글 {portDetail.comments}</h4>
           </div>
         </div>
         <form onSubmit={commentSubmit}>

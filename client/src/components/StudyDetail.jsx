@@ -291,7 +291,7 @@ const StudyDetail = () => {
                 </span>
               </div>
               <div>
-                <p>👁‍🗨 {studyDetail.views} 💬 10</p>
+                <p>👁‍🗨 {studyDetail.views} 💬 {studyDetail.comments}</p>
               </div>
               <span className={style.mem_completed}>
                   모집완료 ✔
@@ -331,7 +331,7 @@ const StudyDetail = () => {
 
           <div className={style.division_line}>
             <div>
-              <p>댓글 3</p>
+              <p>댓글 {studyDetail.comments}</p>
             </div>
           </div>
           <form onSubmit={commentSubmit}>

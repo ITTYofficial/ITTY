@@ -240,7 +240,7 @@ const QnaDetail = () => {
                   {getTimeAgoString(qnaDetail.createdAt)}
                 </div>
                 <span className={style.qna_comment_box}>
-                  👁‍🗨 {qnaDetail.views} 💬 4
+                  👁‍🗨 {qnaDetail.views} 💬 {qnaDetail.comments}
                 </span>
               </span>
             </div>
@@ -279,7 +279,7 @@ const QnaDetail = () => {
           {/* 댓글달기 시작 */}
           <div className={style.division_line_comment}>
             <div>
-              <h4>댓글 3</h4>
+              <h4>댓글 {qnaDetail.comments}</h4>
             </div>
           </div>
           <form onSubmit={commentSubmit}>

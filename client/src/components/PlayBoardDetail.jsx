@@ -272,7 +272,7 @@ const PlayBoardDetail = () => {
                   </Modal>
                 </span>
                 <span>
-                  <p>👁‍🗨 {playDetail.views} 💬 4</p>
+                  <p>👁‍🗨 {playDetail.views} 💬 {playDetail.comments}</p>
                 </span>
               </div>
             </div>
@@ -311,7 +311,7 @@ const PlayBoardDetail = () => {
           {/* 댓글달기 시작 */}
           <div className={PlayBoard.division_line_comment}>
             <div>
-              <h4>댓글 3</h4>
+              <h4>댓글 {playDetail.comments}</h4>
             </div>
           </div>
           <form onSubmit={commentSubmit}>

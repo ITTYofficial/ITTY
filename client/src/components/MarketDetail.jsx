@@ -257,7 +257,7 @@ const MarketDetail = () => {
                   </div>
                 </div>
                 <div>
-                  <p>👁‍🗨 {marketDetail.views} 💬 4</p>
+                  <p>👁‍🗨 {marketDetail.views} 💬 {marketDetail.comments}</p>
                 </div>
               </div>
             </div>
@@ -311,7 +311,7 @@ const MarketDetail = () => {
         {/* 댓글달기 시작 */}
         <div className={style.division_line_comment}>
           <div>
-            <h4>댓글 3</h4>
+            <h4>댓글 {marketDetail.comments}</h4>
           </div>
         </div>
         <form onSubmit={commentSubmit}>

@@ -241,7 +241,7 @@ const TipDetail = () => {
                   {getTimeAgoString(tipDetail.createdAt)}
                 </div>
                 <span className={style.tip_comment_box}>
-                  👁‍🗨 {tipDetail.views} 💬 4
+                  👁‍🗨 {tipDetail.views} 💬 {tipDetail.comments}
                 </span>
               </span>
             </div>
@@ -279,7 +279,7 @@ const TipDetail = () => {
           {/* 댓글달기 시작 */}
           <div className={style.division_line_comment}>
             <div>
-              <h4>댓글 3</h4>
+              <h4>댓글 {tipDetail.comments}</h4>
             </div>
           </div>
           <form onSubmit={commentSubmit}>

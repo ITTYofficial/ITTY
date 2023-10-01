@@ -214,7 +214,7 @@ const ReviewDetail = () => {
                 <span className={styles.middle_content}>
                     <h4>{reviewDetail.title}</h4>
                     <div className={styles.top_sub_content}>
-                        <p>{getTimeAgoString(reviewDetail.createdAt)} 👁‍🗨 {reviewDetail.views} 💬 4</p>
+                        <p>{getTimeAgoString(reviewDetail.createdAt)} 👁‍🗨 {reviewDetail.views} 💬 {reviewDetail.comments}</p>
                     </div>
                 </span>
                 <div className={styles.division_line_2}></div>
@@ -239,7 +239,7 @@ const ReviewDetail = () => {
                 </div>
                 <div className={styles.division_line}>
                     <div>
-                        <p>댓글 2</p>
+                        <p>댓글 {reviewDetail.comments}</p>
                     </div>
                 </div>
                 <form onSubmit={commentSubmit}>
