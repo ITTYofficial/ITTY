@@ -310,6 +310,7 @@ const MyPage = () => {
 
     }
 
+
     /* 쪽지 컴포넌트 */
     const MessageCompo = () => {
 
@@ -350,7 +351,7 @@ const MyPage = () => {
                     </div>
                 </div>
                 <div className={styles.point_box}>
-                    <h4>보유 포인트 : 100p</h4>
+                    <h4>보유 포인트 : {memberInfo.point}</h4>
                 </div>
             </div>
 
