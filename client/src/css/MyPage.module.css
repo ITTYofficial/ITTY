@@ -6,8 +6,8 @@
     display: flex;
 }
 
-.profile_container>h2 ,
-.message_container>h2{
+.profile_container>h2,
+.message_container>h2 {
     font-size: 24px;
     font-weight: bold;
     display: block;
@@ -21,7 +21,7 @@
     justify-content: space-between;
 }
 
-.right_container h4{
+.right_container h4 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 12px;
@@ -247,11 +247,13 @@
 
 .left_container {
     border-right: 2px solid #eee;
-    margin-right: 5%;
+    margin-right: 3%;
     width: 20%;
+    display: grid;
+    align-content: space-between;
 }
 
-.left_container>div{
+.left_container>div:first-child>div {
     display: flex;
     align-items: center;
     margin-bottom: 24px;
@@ -267,4 +269,114 @@
 .left_container h4 {
     font-size: 18px;
     font-weight: bold;
+}
+
+.point_box {
+    margin-bottom: 24px;
+    margin-right: 16px;
+    white-space: nowrap;
+}
+
+.right_container {
+    height: 694px;
+    width: 80%;
+}
+
+.message_wrapper {
+    display: flex;
+    height: 600px;
+}
+
+.message_wrapper>div:nth-child(1) {
+    border-right: 2px solid #eee;
+    width: 20%;
+    margin-right: 12px;
+}
+
+.message_wrapper>div:nth-child(2) {
+    /* background-color: rgb(69, 151, 87); */
+    width: 80%;
+    position: relative;
+}
+
+
+.message_profile_box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.message_profile_box>div img {
+    width: 45px;
+    height: 45px;
+}
+
+.message_profile_box h5,
+.message_content_top_box>div h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.message_content_top_box {
+    display: grid;
+    justify-content: center;
+}
+
+
+.message_content_top_box>div img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 12px;
+}
+
+.message_content_top_box>div {
+    text-align: center;
+}
+
+.received_message {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.received_message>div:first-child img {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+}
+
+.received_message>div:nth-child(2) {
+    background-color: rgb(208 241 213);
+    /* border: 1px solid #c08989; */
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.sent_message {
+    display: flex;
+    margin-bottom: 16px;
+    justify-content: flex-end;
+}
+
+.sent_message>div:nth-child(2) img {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+}
+
+.sent_message>div:nth-child(3) {
+    background-color: rgb(208 241 213);
+    /* border: 1px solid #c08989; */
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.message_content_bottom_box{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.message_time p{
+    color: #999999;
+    font-size: 14px;
 }

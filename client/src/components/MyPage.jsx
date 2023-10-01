@@ -310,24 +310,47 @@ const MyPage = () => {
 
     }
 
+    /* 쪽지 컴포넌트 */
+    const MessageCompo = () => {
+
+        return (
+            <div className={styles.message_profile_box}>
+                <div>
+                    <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                </div>
+                <div>
+                    <h5>잇티티티</h5>
+
+                </div>
+            </div>
+
+        );
+    }
+    /* 쪽지 컴포넌트 */
+
 
 
     return (
         <div className={styles.Main_container}>
             <div className={styles.left_container}>
-                <div onClick={clickProfile}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-square" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
-                    </svg>
-                    <h4>프로필</h4>
+                <div>
+                    <div onClick={clickProfile}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-square" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
+                        </svg>
+                        <h4>프로필</h4>
+                    </div>
+                    <div onClick={clickMessage}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z" />
+                            <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
+                        </svg>
+                        <h4>받은 쪽지함</h4>
+                    </div>
                 </div>
-                <div onClick={clickMessage}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
-                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z" />
-                        <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
-                    </svg>
-                    <h4>받은 쪽지함</h4>
+                <div className={styles.point_box}>
+                    <h4>보유 포인트 : 100p</h4>
                 </div>
             </div>
 
@@ -335,6 +358,7 @@ const MyPage = () => {
                 {profileVisible &&
                     <div className={styles.profile_container}>
                         <h2>회원정보</h2>
+                        <hr />
                         <form onSubmit={updateSubmit}>
 
                             <div className={styles.top_container}>
@@ -489,6 +513,54 @@ const MyPage = () => {
                 {messageVisible &&
                     <div className={styles.message_container}>
                         <h2>받은 쪽지</h2>
+                        <hr />
+                        <div className={styles.message_wrapper}>
+                            <div>
+                                <h4>메시지</h4>
+                                <MessageCompo />
+                                <MessageCompo />
+                                <MessageCompo />
+                                <MessageCompo />
+                            </div>
+                            <div className={styles.message_content_wrapper}>
+                                <div className={styles.message_content_top_box}>
+                                    <div>
+                                        <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                                    </div>
+                                    <div>
+                                        <h5>잇티티티</h5>
+                                    </div>
+
+                                </div>
+                                <div className={styles.message_content_bottom_box}>
+                                    <div className={styles.received_message}>
+                                        <div>
+                                            <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                                        </div>
+                                        <div>
+                                            <p>메세지내용~~~~~~</p>
+                                        </div>
+                                        <div className={styles.message_time}>
+                                            <p>2023-10-01</p>
+                                        </div>
+                                    </div>
+                                    <div className={styles.sent_message}>
+                                        <div className={styles.message_time}>
+                                            <p>2023-10-01</p>
+                                        </div>
+                                        <div>
+                                            <Image src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHOo1cr8XLPI5mV-iUJomYWVoIqsIe6R6NVw&usqp=CAU' roundedCircle />
+                                        </div>
+                                        <div>
+                                            <p>메세지내용~~~~~~</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
                     </div>
                 }
             </div>
