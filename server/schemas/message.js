@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const messageSchema = new Schema({
-  sendUser: {
+  sendUserId: {
     type: String,
     required: true,
 
   },
-  getUser: {
+  getUserId: {
     type: String,
     required: true
   },

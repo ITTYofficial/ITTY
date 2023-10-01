@@ -312,7 +312,7 @@ const MyPage = () => {
 
 
     /* 쪽지 컴포넌트 */
-    const MessageCompo = () => {
+    const MessageCompo = ({props}) => {
 
         return (
             <div className={styles.message_profile_box}>
@@ -320,7 +320,7 @@ const MyPage = () => {
                     <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
                 </div>
                 <div>
-                    <h5>잇티티티</h5>
+                    <h5>잇티티티{/*props.writerInfo.nickname*/}</h5>
 
                 </div>
             </div>
@@ -328,7 +328,31 @@ const MyPage = () => {
         );
     }
     /* 쪽지 컴포넌트 */
+const [messageList,setMessageList] =useState([]);
 
+    const showMessageList= async(e)=>{
+        console.log('조회함수 진입');
+        console.time('소요시간');
+        const getUserId = sessionStorage.getItem('memberId')
+        await axios
+            .get(`http://localhost:8088/message/showMessageList?getUserId=${getUserId}`)
+            .then((res) => {
+                console.log("메세지 리스트 데이터",res.data.lists);
+                const sortedMessages = res.data.lists.sort((a, b) => {
+                    // 게시글 데이터 작성 일자별 내림차순 정렬
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                  });
+
+
+                setMessageList(sortedMessages);
+                // setMaxPage(sortedPlays.length);
+                
+                console.timeEnd('소요시간');
+            })
+            .catch((err) => {
+                console.log('err :', err);
+            })
+    }
 
 
     return (
@@ -342,7 +366,7 @@ const MyPage = () => {
                         </svg>
                         <h4>프로필</h4>
                     </div>
-                    <div onClick={clickMessage}>
+                    <div onClick={()=>{clickMessage(); showMessageList();}}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z" />
                             <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
