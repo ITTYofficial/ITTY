@@ -194,6 +194,13 @@ router.post('/commentWrite', async (req, res) => {
         const anonyComment = new AnonyComment(obj);
         await anonyComment.save(); // 댓글 망고에 저장
 
+        await Anony.updateOne(
+            { _id: postId },
+            {
+                $inc: { comments: 1 }
+            }
+        )
+
         res.json({ message: true });
     } catch (err) {
         console.log(err);
@@ -220,7 +227,7 @@ router.post('/reCommentWrite', async (req, res) => {
             await Anony.findByIdAndUpdate(postId, { $push: { anonyIndex: writer } });
         }
 
-         // 다시 조회 ->(안하면 첫 댓글 무적권 인덱스 못찾아서 -1로들어감)
+        // 다시 조회 ->(안하면 첫 댓글 무적권 인덱스 못찾아서 -1로들어감)
         const updatedPost = await Anony.findById(postId);
 
         // 작성자의 anonyIndex를 가져와서 anonymousIndex에 저장
@@ -243,6 +250,13 @@ router.post('/reCommentWrite', async (req, res) => {
                 }
             }
         );
+
+        await Anony.updateOne(
+            { _id: postId },
+            {
+                $inc: { comments: 1 }
+            }
+        )
 
         res.json({ message: true });
 
@@ -268,13 +282,22 @@ router.get('/anonyCommentList', async (req, res) => {
 })
 
 // 댓글 삭제
-router.get("/commentdelete/:_id", async (req, res) => {
+router.post("/commentdelete", async (req, res) => {
     console.log('delete진입');
     try {
-        const id = req.params._id;
-        await AnonyComment.deleteOne({
-            _id: id
-        });
+        const commentinfo = await AnonyComment.findOneAndDelete(
+            {
+                _id: req.body.commentId
+            }
+        );
+        await Anony.updateOne(
+            { _id: req.body.postId },
+            {
+                $inc: {
+                    comments: -commentinfo.comments
+                }
+            }
+        )
         res.json({ message: true });
     } catch (err) {
         console.log(err);
@@ -289,6 +312,7 @@ router.post("/deleteRecomment/", async (req, res) => {
     try {
         const index = req.body.index;
         const commentId = req.body.commentId;
+        const postId = req.body.postId;
         await AnonyComment.findOneAndUpdate(
             { _id: commentId },
             {
@@ -301,6 +325,14 @@ router.post("/deleteRecomment/", async (req, res) => {
                 $pull: { reComment: null }
             }
         );
+        await Anony.updateOne(
+            { _id: postId },
+            {
+                $inc: {
+                    comments: -1
+                }
+            }
+        )
         res.json({ message: true });
     } catch (err) {
         console.log(err);

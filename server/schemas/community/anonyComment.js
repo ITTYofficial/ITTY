@@ -28,6 +28,10 @@ const anonyCommentSchema = new Schema({
         // 대댓글
         type: Array
     },
+    comments: {
+        type:Number,
+        default:1
+    },
     anonymousIndex: {
         type: Number
     }

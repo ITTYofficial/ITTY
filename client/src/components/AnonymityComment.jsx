@@ -37,15 +37,6 @@ const AnonymityComment = ({ props, postId }) => {
             })
     }
 
-    // 대댓글 내용 담을 State
-    const [reComment, setReComment] = useState();
-
-    // 대댓글 내용 가져오는 함수
-    const reCommentChange = (e) => {
-        setReComment(e.target.value);
-        console.log(e.target.value);
-    }
-
     // 대댓글 작성 칸 출력 조절 State
     const [recommentVisible, setRecommentVisible] = useState(false);
 

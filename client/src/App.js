@@ -133,7 +133,11 @@ function App() {
   // 익명 댓글 삭제 함수
   const deleteAnonyComment = (commentId, postId) => {
     alert('댓글 삭제');
-    axios.get(`http://localhost:8088/anony/commentdelete/${commentId}`)
+    let obj = {
+      commentId: commentId,
+      postId: postId
+    }
+    axios.post(`http://localhost:8088/anony/commentdelete`, obj)
       .then((res) => {
         getAnonyComment(postId);
       })
@@ -147,6 +151,7 @@ function App() {
     alert('대댓글 삭제');
     let obj = {
       commentId: commentId,
+      postId: postId,
       index: index
     }
     axios.post(`http://localhost:8088/anony/deleteReComment`, obj)

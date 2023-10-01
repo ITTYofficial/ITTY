@@ -81,16 +81,8 @@ const AnonymityDetail = () => {
       });
   };
 
-  // 댓글 내용 담을 State
-  const [comment, setComment] = useState();
-
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { anonyCommentList, setAnonyCommentList, getAnonyComment, coValue, setCoValue } = useContext(QuillContext);
-
-  // 댓글 내용 가져오는 함수
-  const commentChange = (e) => {
-    setComment(e.target.value);
-  };
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -107,6 +99,7 @@ const AnonymityDetail = () => {
       .then((res) => {
         alert("댓글이 등록되었습니다.");
         console.log(res);
+        setCoValue("");
         getAnonyComment(id);
       })
       .catch((err) => {
@@ -204,7 +197,7 @@ const AnonymityDetail = () => {
                   </span>
                 </span>
                 <span>
-                  <p>👁‍🗨 {anonyDetail.views} 💬 4</p>
+                  <p>👁‍🗨 {anonyDetail.views} 💬 {anonyDetail.comments}</p>
                 </span>
               </div>
             </div>
@@ -241,7 +234,7 @@ const AnonymityDetail = () => {
           {/* 댓글달기 시작 */}
           <div className={styles.division_line_comment}>
             <div>
-              <h4>댓글 3</h4>
+              <h4>댓글 {anonyDetail.comments}</h4>
             </div>
           </div>
           <form onSubmit={commentSubmit}>

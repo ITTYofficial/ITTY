@@ -34,6 +34,7 @@ const AnonymityList = (props) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
+        console.log(sortedAnony);
         setAnonyList(sortedAnony);
         setMaxPage(sortedAnony.length);
       })
@@ -42,10 +43,6 @@ const AnonymityList = (props) => {
         console.log(err);
       });
   };
-
-
-
-
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
