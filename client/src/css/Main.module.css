@@ -373,7 +373,7 @@
 }
 
 .port_content_bottom {
-  padding: 8px 12px 12px 12px;
+  padding: 0 12px 12px 12px;
 }
 
 .port_content_bottom>div:first-child {
@@ -539,12 +539,3 @@
   }
 }
 
-@media (max-width: 700px) {
-  .port_list {
-    grid-template-columns: 1fr;
-  }
-
-  .port_content_bottom {
-    padding: 20px 12px 12px 12px !important;
-  }
-}

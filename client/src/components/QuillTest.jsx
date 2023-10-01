@@ -4,7 +4,7 @@ import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
-import  "../css/Quill.css";
+import "../css/Quill.css";
 import { useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 
@@ -28,13 +28,18 @@ const QuillTest = ({ update }) => {
 
     // input에 변화가 생긴다면 = 이미지를 선택
     input.addEventListener("change", async () => {
-      console.log("온체인지");
-      console.log(input);
-      console.log(input.files);
+      /*       console.log("온체인지");
+            console.log(input);
+            console.log(input.files); */
       const file = input.files[0];
+      console.log("파일 크기:", file.size);
+      if (file.size > 10 * 1024 * 1024) {
+        alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
+        return;
+      }
       // multer에 맞는 형식으로 데이터 만들어준다.
       const formData = new FormData();
-      console.log("file: ",file);
+      console.log("file: ", file);
       formData.append("img", file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 이미지를 보낸다.
       console.log("테스트", formData);
@@ -61,6 +66,11 @@ const QuillTest = ({ update }) => {
   const imageDropHandler = async (imageDataUrl, type, imageData) => {
     const formData = new FormData();
     const blob = imageData.toBlob();
+
+    if (blob.size > 10 * 1024 * 1024) {
+      alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
+      return;
+    }
 
     formData.append("img", blob);
 
@@ -122,14 +132,14 @@ const QuillTest = ({ update }) => {
 
   return (
     <div>
-      <ReactQuill style={{height:"600px"}}
+      <ReactQuill style={{ height: "600px" }}
         ref={quillRef} // useRef로 생성한 ref를 연결
         theme="snow"
         placeholder="내용을 입력해주세요."
         value={value}
         onChange={setValue}
         modules={modules}
-        /* formats={formats} */
+      /* formats={formats} */
       />
     </div>
   );

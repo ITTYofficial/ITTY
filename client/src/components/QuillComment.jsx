@@ -10,7 +10,7 @@ import { QuillContext } from "../context/QuillContext";
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
-const QuillTest = ({ update }) => {
+const QuillComment = ({ update }) => {
 
   const quillRef = useRef(null); // useRef로 ref 생성
 
@@ -27,13 +27,20 @@ const QuillTest = ({ update }) => {
 
     // input에 변화가 생긴다면 = 이미지를 선택
     input.addEventListener("change", async () => {
-      console.log("온체인지");
+      /* console.log("온체인지");
       console.log(input);
-      console.log(input.files);
+      console.log(input.files); */
       const file = input.files[0];
+
+      console.log("파일 크기:", file.size);
+      if (file.size > 10 * 1024 * 1024) {
+        alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
+        return;
+      }
+
       // multer에 맞는 형식으로 데이터 만들어준다.
       const formData = new FormData();
-      console.log("file: ",file);
+      console.log("file: ", file);
       formData.append("img", file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 이미지를 보낸다.
       console.log("테스트", formData);
@@ -60,6 +67,11 @@ const QuillTest = ({ update }) => {
   const imageDropHandler = async (imageDataUrl, type, imageData) => {
     const formData = new FormData();
     const blob = imageData.toBlob();
+
+    if (blob.size > 10 * 1024 * 1024) {
+      alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
+      return;
+    }
 
     formData.append("img", blob);
 
@@ -128,10 +140,10 @@ const QuillTest = ({ update }) => {
         value={coValue}
         onChange={setCoValue}
         modules={modules}
-        /* formats={formats} */
+      /* formats={formats} */
       />
     </div>
   );
 };
 
-export default QuillTest;
+export default QuillComment;

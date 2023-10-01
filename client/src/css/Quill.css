@@ -26,6 +26,10 @@
   height: 93%;
 }
 
+.ql-container.ql-snow img{
+  max-width: 100%;
+}
+
 .ql-editor strong {
   font-weight: bold;
 }
@@ -33,3 +37,5 @@
 .ql-editor em {
   font-style: italic;
 }
+
+
