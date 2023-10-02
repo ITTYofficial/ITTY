@@ -8,7 +8,7 @@ import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
-import QuillComment from './QuillComment'
+import QuillComment from "./QuillComment";
 import { Link } from "react-router-dom";
 
 /* css는 project etail css 내용만 가져와서 추가해서 사용 중~ */
@@ -69,7 +69,8 @@ const TipDetail = () => {
   const [comment, setComment] = useState();
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue } =
+    useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commentChange = (e) => {
@@ -96,29 +97,30 @@ const TipDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-    event.preventDefault();
-    const obj = {
-      id: sessionStorage.getItem('memberId'),
-      writer: sessionStorage.getItem("memberNickname"),
-      postid: id,
-      content: coValue,
-      boardType: 'tip'
-    };
-    console.log(obj);
+      event.preventDefault();
+      const obj = {
+        id: sessionStorage.getItem("memberId"),
+        writer: sessionStorage.getItem("memberNickname"),
+        postid: id,
+        content: coValue,
+        boardType: "tip",
+      };
+      console.log(obj);
 
-    axios
-      .post("http://localhost:8088/comment/write", obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.");
-        console.log(res);
-        setCoValue('');
-        getComment(id);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패");
-      });
-  }};
+      axios
+        .post("http://localhost:8088/comment/write", obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.");
+          console.log(res);
+          setCoValue("");
+          getComment(id);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패");
+        });
+    }
+  }
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
@@ -171,8 +173,37 @@ const TipDetail = () => {
 
   const Dropdown = () => (
     <div className={style.meat_dropdown}>
-      <li onClick={moveUpdate}>수정</li>
-      <li onClick={deleteTip}>삭제</li>
+      <li onClick={moveUpdate}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-pencil-square"
+          viewBox="0 0 16 16"
+        >
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+          <path
+            fill-rule="evenodd"
+            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+          />
+        </svg>
+        <span> 수정</span>
+      </li>
+      <li onClick={deleteTip}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-trash"
+          viewBox="0 0 16 16"
+        >
+          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+        </svg>
+        <span> 삭제</span>
+      </li>
     </div>
   );
 
@@ -207,8 +238,8 @@ const TipDetail = () => {
       <LeftContainer />
       <div className={style.right_container}>
         <div className={style.tip_font}>
-        <Link to={"/tipList"}>
-          <p>팁 공유 📢</p>
+          <Link to={"/tipList"}>
+            <p>팁 공유 📢</p>
           </Link>
         </div>
         <div className={style.division_line}></div>
@@ -286,10 +317,13 @@ const TipDetail = () => {
             </div>
           </div>
           <form onSubmit={commentSubmit}>
-          <div className={style.comment_write}>
+            <div className={style.comment_write}>
               <div>
                 <div className={style.comment_write_profile}>
-                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                  <Image
+                    src="https://i.ibb.co/XsypSbQ/profile-01.png"
+                    roundedCircle
+                  />
                 </div>
                 <div className={style.quillComment_container}>
                   <QuillComment />
@@ -308,7 +342,12 @@ const TipDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} boardType='tip'/>
+            <CommentItem
+              key={item._id}
+              props={item}
+              postId={id}
+              boardType="tip"
+            />
           ))}
         </div>
       </div>

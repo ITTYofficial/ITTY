@@ -64,6 +64,7 @@
   position: relative;
   display: flex;
   margin: 20px 0;
+
 }
 
 .division_line > div {
@@ -244,7 +245,8 @@
   position: relative;
     display: flex;
     margin: 32px 0;
-    
+    margin-top:50px;
+
 }
 
 .division_line_comment > div {
@@ -281,9 +283,6 @@
   cursor: pointer;
 }
 
-.meatball > ul {
-  position: relative;
-}
 
 .meat_dropdown {
   font-size: 14px;
@@ -294,12 +293,34 @@
   width: 100px;
   text-align: left;
   border-radius: 8px;
+  z-index: 99;
+  background-color: white;
 }
 
 .meat_dropdown li {
+  display: flex;
+  align-items: center;
   margin: 8px;
+  cursor: pointer;
 }
 
+.meat_dropdown svg {
+  margin-right: 8px;
+}
+
+.meat_dropdown>li:hover svg {
+  fill: #1f6cf1;
+}
+
+.meat_dropdown>li:hover span {
+  color: #1f6cf1;
+  font-weight: 600;
+}
+
+.meat_dropdown svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
 
 /* 댓글 작성 quill버전 css */
 .comment_write_profile {
@@ -354,10 +375,20 @@
   }
   .play_profile > span > h4 {
   white-space: nowrap;
+  overflow: hidden;  	
+  text-overflow: ellipsis; 
+  
   }
 
   .tip_time_box{
     white-space: nowrap;
   }
+
+  
+  .play_title{
+    white-space: nowrap;
+  }
+
+
 
 }
