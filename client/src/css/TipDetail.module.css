@@ -392,3 +392,10 @@
 
 
 }
+
+@media (max-width: 430px) {
+  .right_container {
+  margin-top: 10%;
+  }
+
+}
