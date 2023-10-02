@@ -51,7 +51,7 @@
   width: 100%;
   border: none;
   border-radius: 10px;
-  padding: 12px;
+  padding: 24px;
   background-color: #ffffff;
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.07);
   line-height: 1.2rem;
@@ -290,3 +290,48 @@
   max-height: 100%;
 }
 
+@media (max-width: 768px) {
+
+  .comment_choice button {
+
+    white-space: nowrap;
+  }
+
+  .comment_choice_2 button {
+    white-space: nowrap;
+  }
+
+  .comment_cancel{
+    white-space: nowrap;
+
+  }
+
+  .play_comment_profile>span>p {
+    white-space: nowrap;
+  }
+  
+  .play_comment_profile>span>h4 {
+    white-space: nowrap;
+  }
+  
+
+}
+
+@media (max-width: 530px) {
+
+  .comment_choice_2 button{
+    display: none;
+  }
+ 
+
+}
+
+@media (max-width: 390px) {
+
+  .comment_choice button {
+
+    display: none;
+  }
+ 
+
+}
