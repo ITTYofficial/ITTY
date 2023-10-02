@@ -261,3 +261,34 @@
   background-color: #F3F90B;
   color: #443807;
 }
+
+
+
+@media (max-width: 768px) {
+
+  .tip_text h5 {
+
+    white-space: nowrap;
+    overflow: hidden;  	
+    text-overflow: ellipsis; 
+  }
+
+
+.profile_text > p{
+  white-space: nowrap;
+}
+.profile_text > h4{
+  white-space: nowrap;
+}
+.right_container>h2{
+  white-space: nowrap;
+}
+
+.right_container_button>h2 {
+  white-space: nowrap;
+
+}
+.right_container_button{
+  white-space: nowrap;
+}
+}
