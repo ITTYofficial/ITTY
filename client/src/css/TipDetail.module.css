@@ -5,6 +5,11 @@
   font-weight: bold;
   margin-left: 1%;
   color: #999999;
+  
+}
+
+.tip_font a{
+  text-decoration-line: none;
 }
 
 /* 시간, 댓글 css */
@@ -341,3 +346,18 @@
 
 
 
+@media (max-width: 768px) {
+
+  .right_container {
+  width:100%;
+  margin-top: 2%;
+  }
+  .play_profile > span > h4 {
+  white-space: nowrap;
+  }
+
+  .tip_time_box{
+    white-space: nowrap;
+  }
+
+}

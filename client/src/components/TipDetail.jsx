@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
 import QuillComment from './QuillComment'
+import { Link } from "react-router-dom";
 
 /* css는 project etail css 내용만 가져와서 추가해서 사용 중~ */
 
@@ -206,7 +207,9 @@ const TipDetail = () => {
       <LeftContainer />
       <div className={style.right_container}>
         <div className={style.tip_font}>
+        <Link to={"/tipList"}>
           <p>팁 공유 📢</p>
+          </Link>
         </div>
         <div className={style.division_line}></div>
 
