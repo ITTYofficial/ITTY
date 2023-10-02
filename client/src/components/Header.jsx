@@ -12,6 +12,32 @@ const Header = () => {
   //   job: false,
   // });
 
+  // 프로필 이미지 클릭시 세부정보 On/Off
+  const [profile, setProfile] = useState(false);
+
+  const profileOn = () => {
+    // console.log("profile Clicke");
+    setProfile(!profile);
+  };
+
+  const Member_profile = () => (
+    <div className={Nav.Member_profile} onClick={profileOn}>
+      <div>
+        <img
+          src="https://i.pinimg.com/564x/97/d2/ba/97d2ba25c8f81f47f0f4ca49cd3e7995.jpg"
+          alt="profile"
+        />
+      </div>
+      <ul className={`${Nav.Member_profile_dropdown} ${profile ? Nav.profile_active : ""}`}>
+        <li>프로필</li>
+        <li>받은쪽지함</li>
+        <li className={Nav.profile_logout}>로그아웃</li>
+      </ul>
+    </div>
+  );
+  // 프로필 이미지 클릭시 세부정보 On/Off 끝!
+
+
   useEffect(() => {
     const id = sessionStorage.getItem("memberId");
     if (id) {
@@ -65,8 +91,6 @@ const Header = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-
-
   return (
     <div
       className={`${Nav.Navigation} ${mouseEnter ? Nav.NavDropdown : ""}`}
@@ -83,7 +107,10 @@ const Header = () => {
       <div className={Nav.Category}>
         <ul>
           <li className={Nav.nav_hover}>
-            <a href="#"><span>Community</span> <span className={Nav.emoji_container}>🌐</span></a>
+            <a href="#">
+              <span>Community</span>{" "}
+              <span className={Nav.emoji_container}>🌐</span>
+            </a>
             <ul className={Nav.sub_Community}>
               <li>
                 <Link to={"/studyList"}>스터디 구해요🐣</Link>
@@ -101,7 +128,10 @@ const Header = () => {
           </li>
 
           <li className={Nav.nav_hover}>
-            <a href="#"><span>지식공유</span> <span className={Nav.emoji_container}>💭</span></a>
+            <a href="#">
+              <span>지식공유</span>{" "}
+              <span className={Nav.emoji_container}>💭</span>
+            </a>
             <ul className={Nav.sub_share}>
               <li>
                 <Link to={"/tipList"}>팁 공유 📢</Link>
@@ -113,7 +143,9 @@ const Header = () => {
           </li>
 
           <li className={Nav.nav_hover}>
-            <a href="#"><span>Job</span> <span className={Nav.emoji_container}>👩‍💻</span></a>
+            <a href="#">
+              <span>Job</span> <span className={Nav.emoji_container}>👩‍💻</span>
+            </a>
             <ul className={Nav.sub_job}>
               <li>
                 <Link to={"/portList"}>포트폴리오🔍</Link>
@@ -125,7 +157,10 @@ const Header = () => {
           </li>
 
           <li className={Nav.nav_hover}>
-            <a href="#"><span>Private</span> <span className={Nav.emoji_container}>🔒</span></a>
+            <a href="#">
+              <span>Private</span>{" "}
+              <span className={Nav.emoji_container}>🔒</span>
+            </a>
             <ul className={Nav.sub_job}>
               <li>
                 <Link to={"/anonymityList"}>익명게시판🤐</Link>
@@ -166,11 +201,7 @@ const Header = () => {
             )}
           </li>
           <li>
-            {loginOk ? (
-              <Link to={"/mypage"}>마이페이지</Link>
-            ) : (
-              <Link to={"/join"}>회원가입</Link>
-            )}
+            {loginOk ? <Member_profile /> : <Link to={"/join"}>회원가입</Link>}
           </li>
         </ul>
 
