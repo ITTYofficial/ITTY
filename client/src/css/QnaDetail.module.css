@@ -360,9 +360,10 @@
 @media (max-width: 768px) {
 
   .right_container {
-  width:100%;
-  margin-top: 2%;
-  }
+    width:92%;
+    margin-top: 3%;
+    margin-left: 4%;
+    }
 
   .play_profile > span > h4{
     white-space: nowrap;
