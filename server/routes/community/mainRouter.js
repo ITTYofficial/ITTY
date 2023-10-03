@@ -41,11 +41,19 @@ router.get('/mainList', async (req, res) => {
         proStu.sort((a, b) => {
             return new Date(b.createdAt) - new Date(a.createdAt);
         })
+        // 프로젝트 +스터디 작성자 정보 조회
+        const proStuWriterInfo = proStu.map(item => {
+            const writerInfo = writerInfos.find(info => info.id === item.id);
+            return {
+                ...item.toObject(),
+                writerInfo: writerInfo ? writerInfo.toObject() : null,
+            };
+        });
 
         const main = {
             play: getWriterInformation[0],
             market: getWriterInformation[1],
-            proStu: proStu,
+            proStu: proStuWriterInfo,
             port: getWriterInformation[4]
         }
         res.json({ main })

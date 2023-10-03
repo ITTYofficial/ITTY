@@ -73,7 +73,7 @@ const Main = () => {
         </span>
         <div className={style.profile_pic}>
           <Image
-            src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj"
+            src={props.writerInfo.profileImg}
             roundedCircle
           />
         </div>
@@ -91,12 +91,12 @@ const Main = () => {
       </div>
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-        <p>아왜에러나{/*props.writerInfo.class*/}</p>
+        <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <div className={style.profile_pic}>
           <Image
-            src="https://yt3.googleusercontent.com/ytc/AOPolaRxpUD_H-QjwLO46YEWjrvap8RBzgOmsYCHex5m=s900-c-k-c0x00ffffff-no-rj"
+            src={props.writerInfo.profileImg}
             roundedCircle
           />
         </div>
@@ -140,7 +140,7 @@ const Main = () => {
         <div>
           <div className={style.port_content_bottom2}>
             <div className={style.profile_img}>
-              <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
+              <Image src={props.writerInfo.profileImg} roundedCircle />
             </div>
             <div>
               <p className={style.little_p}>{props.writerInfo.class}</p>
