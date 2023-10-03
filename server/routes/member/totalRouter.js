@@ -38,10 +38,7 @@ router.get('/findMemberInfo', async (req, res) => {
         } else if (req.query.port == 'port') {
             lists = await Port.find();
         } else if (req.query.play == 'play') {
-            console.log('조건문까지 왔나 확인');
-            console.log('확인', req.query.play);
             lists = await Play.find();
-            /* console.log('리스츠 확인',lists); */
         } else if (req.query.market == 'market') {
             lists = await Market.find();
         } else {
@@ -64,7 +61,6 @@ router.get('/findMemberInfo', async (req, res) => {
             };
         });
         res.json({ lists: getWriterInformation });
-        /* console.log('다됨?', lists);  */
         console.timeEnd('걸린시간');
     } catch (err) {
         console.log('에러 : ', err);

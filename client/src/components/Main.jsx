@@ -68,8 +68,8 @@ const Main = () => {
       </div>
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-          <p>데이터디자인반</p>
-          <h4>자바노잼</h4>
+          <p>{props.writerInfo.class}</p>
+          <h4>{props.writerInfo.nickname}</h4>
         </span>
         <div className={style.profile_pic}>
           <Image
@@ -91,8 +91,8 @@ const Main = () => {
       </div>
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-          <p>데이터디자인반</p>
-          <h4>자바노잼</h4>
+        <p>아왜에러나{/*props.writerInfo.class*/}</p>
+          <h4>{props.writer}</h4>
         </span>
         <div className={style.profile_pic}>
           <Image
@@ -107,7 +107,7 @@ const Main = () => {
 
   const MarketItem = ({ props }) => (
     <Link
-      to={`/marketDetail/${props._id}?nickname=${props.writer}`}
+      to={`/marketDetail/${props._id}??id=${props.id}`}
       className={style.Market_content_item}
     >
       {/* <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover' }}> */}
@@ -129,7 +129,7 @@ const Main = () => {
   const PortItem = ({ props }) => (
     <div className={style.port_content}>
       <div className={style.port_content_img}>
-        <Link to={`/portDetail/${props._id}`}>
+        <Link to={`/portDetail/${props._id}?id=${props.id}`}>
           <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png' alt="Portfolio" />
         </Link>
       </div>
@@ -143,8 +143,8 @@ const Main = () => {
               <Image src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png" roundedCircle />
             </div>
             <div>
-              <p className={style.little_p}>데이터디자인</p>
-              <p className={style.large_p}>종강만기다림</p>
+              <p className={style.little_p}>{props.writerInfo.class}</p>
+              <p className={style.large_p}>{props.writer}</p>
             </div>
           </div>
           <div>
