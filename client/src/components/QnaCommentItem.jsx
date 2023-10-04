@@ -14,17 +14,16 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
         useContext(QuillContext);
     
     // 좋아요 기능
-    const [like , setLike] = useState(props.like)
+    const [like , setLike] = useState(props.liker.length)
     const handleLike = async () => {
         let obj = {
             commentId: props._id,
-            like: props.like,
             userId: sessionStorage.getItem('memberId'),
         }
         await axios.post('http://localhost:8088/comment/commentLike', obj)
         .then((res) => {
             console.log(res);
-            setLike(res.data.like)
+            setLike(res.data.liker.length)
         })
         .catch((err) => {
             console.log(err);
@@ -32,7 +31,16 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
     }
 
     // 채택 기능
-    
+    const handleSelection = async () => {
+        let obj = {
+            commentId: props._id,
+            postId: postId
+        }
+        await axios.post('http://localhost:8088/comment/commentSelection', obj)
+        .then((res) => {
+            console.log(res);
+        })
+    }
 
     // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
     const getTime = (dateString) => {
@@ -156,7 +164,7 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
                     <button onClick={handleLike}>👍  {like} </button>
                 </span>
                 <span className={styles.comment_choice_2}>
-                    <button> 질문자 채택 🏆 </button>
+                    <button onClick={handleSelection}> 질문자 채택 🏆 </button>
                 </span>
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}

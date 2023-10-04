@@ -37,12 +37,12 @@ const commentSchema = new Schema({
         default: 1
     },
     // 게시판마다 달라지는 부분
-    like: {
-        type: Number,
-        default: 0
-    },
     liker: {
         type: Array
+    },
+    selection: {
+        type: Number,
+        default: 0
     }
 })
 

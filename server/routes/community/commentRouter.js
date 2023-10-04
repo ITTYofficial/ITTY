@@ -137,22 +137,51 @@ router.post('/commentLike', async (req, res) => {
     if (comment.liker.includes(userId)) {
       comment = await Comment.findByIdAndUpdate(commentId, {
         $pull: { liker: userId },
-        $inc: { like: -1 },
 
       }, { new: true });
     } else {
       comment = await Comment.findByIdAndUpdate(commentId, {
-        $inc: { like: 1 },
         $push: { liker: userId }
       }, { new: true});
     }
-    res.json({ like: comment.like })
+    res.json({ liker: comment.liker })
   } catch (err) {
     console.log(err);
     res.json({ message: false })
   }
 })
 
+// QnA 채택 기능
+router.post('/commentSelection', async (req, res) => {
+  const commentId = req.body.commentId;
+  const postId = req.body.postId;
+  try {
+    const existingSelections = await Comment.find({
+      postId: postId,
+      selection: 1
+    });
+
+    if (existingSelections.length === 0) {
+      const comment = await Comment.findByIdAndUpdate(commentId, {
+        $set: { selection: 1 }
+      }, { new: true });
+      res.json({ selection: comment.selection });
+    } else {
+      const commentToUpdate = existingSelections.find(selection => selection._id.toString() === commentId);
+      
+      if (commentToUpdate) {
+        commentToUpdate.selection = 0;
+        await commentToUpdate.save();
+        res.json({ selection: commentToUpdate.selection });
+      } else {
+        res.json({ message: '이미 채택된 답변이 존재합니다.' });
+      }
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
 
 
 // 새로운 조회함수
