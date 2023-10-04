@@ -195,6 +195,27 @@ const PlayBoardDetail = () => {
     }
   }
 
+const messageSubmit = async(e)=>{
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  formData.append('sendUserId', sessionStorage.getItem('memberId'));
+  console.log("데이터 확인",e.target);
+
+  const obj = {};
+  formData.forEach((value, key) => {
+    console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+    obj[key] = value;
+});
+await axios.post('http://localhost:8088/message/write', obj)
+.then((res) => {
+    alert("글 작성 완료")
+
+}).catch((err) => {
+    alert("작성에 실패했습니다.")
+
+})
+}
+
 
   /* 모달 */
   const [show, setShow] = useState(false);
@@ -255,20 +276,23 @@ const PlayBoardDetail = () => {
                     </div>
                   }
                   <Modal show={show} onHide={handleClose}>
+                      <form onSubmit={messageSubmit}>
                     <Modal.Header closeButton>
                       <Modal.Title>쪽지 보내기</Modal.Title>
+                      <input type="hidden" name='getUserId' value={memberInfo.id}></input>
                     </Modal.Header>
                     <Modal.Body>
-                      <textarea className={PlayBoard.message_modal_input} placeholder="쪽지입력" />
+                      <textarea className={PlayBoard.message_modal_input} name="content" placeholder="쪽지입력" />
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="secondary" onClick={handleClose}>
                         취소
                       </Button>
-                      <Button variant="primary">
+                      <Button variant="primary" type="submit">
                         보내기
                       </Button>
                     </Modal.Footer>
+                      </form>
                   </Modal>
                 </span>
                 <span>

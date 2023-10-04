@@ -42,4 +42,28 @@ router.get('/showMessageList', async (req, res) => {
         res.json({ message: false })
     }
 });
+
+router.post('/write', async (req, res) => {
+    try {   
+        let obj;
+
+          // 글 작성 시
+          obj = {
+            sendUserId: req.body.sendUserId,
+            getUserId: req.body.getUserId,
+            content: req.body.content,
+          };
+          const message = new Message(obj);
+          await Message.insertMany(message);
+        
+        res.json({
+          message: true,
+        });
+        // res.json({ message: "게시글이 업로드 되었습니다." });
+      } catch (err) {
+        console.log(err);
+        res.json({ message: false });
+      }
+    });
+
 module.exports = router
