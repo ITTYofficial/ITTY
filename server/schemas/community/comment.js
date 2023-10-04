@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
-    id:{
+    id: {
         // 글 ID
         type: String,
         required: true
     },
-    postId:{
+    postId: {
         // 글 ID
         type: String,
         required: true
@@ -33,10 +33,17 @@ const commentSchema = new Schema({
         type: Array
     },
     comments: {
-        type:Number,
-        default:1
-    }
+        type: Number,
+        default: 1
+    },
     // 게시판마다 달라지는 부분
+    like: {
+        type: Number,
+        default: 0
+    },
+    liker: {
+        type: Array
+    }
 })
 
 module.exports = mongoose.model('Comment', commentSchema, 'Comment')

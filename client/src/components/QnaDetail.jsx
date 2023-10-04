@@ -76,16 +76,8 @@ const QnaDetail = () => {
       });
   };
 
-  // 댓글 내용 담을 State
-  const [comment, setComment] = useState();
-
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
-
-  // 댓글 내용 가져오는 함수
-  const commentChange = (e) => {
-    setComment(e.target.value);
-  };
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {

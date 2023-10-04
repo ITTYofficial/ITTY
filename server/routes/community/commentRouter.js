@@ -111,13 +111,13 @@ router.post('/reWrite', async (req, res) => {
             $inc: { comments: 1 }
           }
         ) */
-        await Member.updateOne(
-          { id: req.body.id },
-          {
-            $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
-              point: 1 // 일단 글쓸때마다 1포인트로 지정 
-            }
-          });
+    await Member.updateOne(
+      { id: req.body.id },
+      {
+        $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+          point: 1 // 일단 글쓸때마다 1포인트로 지정 
+        }
+      });
 
     res.json({ message: true });
 
@@ -127,8 +127,35 @@ router.post('/reWrite', async (req, res) => {
   }
 })
 
-// 새로운 조회함수
+// 좋아요 기능
+router.post('/commentLike', async (req, res) => {
+  const commentId = req.body.commentId
+  const userId = req.body.userId
+  try {
+    let comment = await Comment.findById(commentId);
 
+    if (comment.liker.includes(userId)) {
+      comment = await Comment.findByIdAndUpdate(commentId, {
+        $pull: { liker: userId },
+        $inc: { like: -1 },
+
+      }, { new: true });
+    } else {
+      comment = await Comment.findByIdAndUpdate(commentId, {
+        $inc: { like: 1 },
+        $push: { liker: userId }
+      }, { new: true});
+    }
+    res.json({ like: comment.like })
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false })
+  }
+})
+
+
+
+// 새로운 조회함수
 router.get('/commentList', async (req, res) => {
   console.time('소요시간');
   const postId = req.query.postId;
