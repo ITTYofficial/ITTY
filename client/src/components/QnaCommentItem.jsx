@@ -12,6 +12,46 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
     const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue } =
         useContext(QuillContext);
+    
+    // 좋아요 기능
+    const [like , setLike] = useState(props.like)
+    const handleLike = async () => {
+        let obj = {
+            commentId: props._id,
+            like: props.like,
+            userId: sessionStorage.getItem('memberId'),
+        }
+        await axios.post('http://localhost:8088/comment/commentLike', obj)
+        .then((res) => {
+            console.log(res);
+            setLike(res.data.like)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
+    // 채택 기능
+    
+
+    // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
+    const getTime = (dateString) => {
+        const createdAt = new Date(dateString);
+        const now = new Date();
+        const timeDifference = now - createdAt;
+        const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+        const daysDifference = Math.floor(hoursDifference / 24);
+
+        if (daysDifference === 0) {
+            if (hoursDifference === 0) {
+                return "방금 전";
+            } else {
+                return `${hoursDifference}시간 전`;
+            }
+        } else {
+            return `${daysDifference}일 전`;
+        }
+    };
 
     // 대댓글 작성완료 시 호출되는 함수
     function reCommentSubmit(event, _id) {
@@ -57,24 +97,7 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
         setRecommentVisible(!recommentVisible);
     }
 
-    // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
-    const getTime = (dateString) => {
-        const createdAt = new Date(dateString);
-        const now = new Date();
-        const timeDifference = now - createdAt;
-        const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-        const daysDifference = Math.floor(hoursDifference / 24);
 
-        if (daysDifference === 0) {
-            if (hoursDifference === 0) {
-                return "방금 전";
-            } else {
-                return `${hoursDifference}시간 전`;
-            }
-        } else {
-            return `${daysDifference}일 전`;
-        }
-    };
 
     // 대댓글 컴포넌트
     const ReComment = ({ commentId, props, index }) => {
@@ -130,7 +153,7 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
                     </div>
                 </span>
                 <span className={styles.comment_choice}>
-                    <button>👍  0 </button>
+                    <button onClick={handleLike}>👍  {like} </button>
                 </span>
                 <span className={styles.comment_choice_2}>
                     <button> 질문자 채택 🏆 </button>
