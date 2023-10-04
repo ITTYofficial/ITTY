@@ -58,7 +58,9 @@ const studySchema = new Schema({
     },
     recruit: {
         // 모집상태
-        type: String
+        // 1 = 모집중, -1 = 모집완료
+        type: Number,
+        default: 1
     },
     periodStart: {
         // 모집기간 시작

@@ -9,44 +9,57 @@ import Pagination from "react-js-pagination";
 
 const StudyList = () => {
 
-  //키워드 컴포넌트
-  const FindSomeone = () => (
-    <span className={`${style.play_title} ${style.findsomeone}`}>
-      모집중
-    </span>
-  );
+  //모집 컴포넌트
+  const RecruitTag = ({ now }) => {
+    let tagClassName = style.play_title;
+    const tagMap = {
+      '1': '모집중',
+      '-1': '모집완료',
+    };
+    const tagStyleMap = {
+      '1': style.findsomeone,
+      '-1': style.completed,
+    };
 
-  const Completed = () => (
-    <span className={`${style.play_title} ${style.completed}`}>
-      모집완료
-    </span>
-  );
-  const Purpose = () => (
-    <span className={`${style.play_title} ${style.purpose}`}>
-      코딩테스트 대비 📖
-    </span>
-  );
-  const Getajob = () => (
-    <span className={`${style.play_title} ${style.getajob}`}>취업 준비 😋</span>
-  );
+    if (tagStyleMap[now]) {
+      tagClassName = `${tagClassName} ${tagStyleMap[now]}`;
+    }
 
-  const Develope = () => (
-    <span className={`${style.play_title} ${style.develope}`}>
-      개발 공부 🔎
-    </span>
-  );
-  const Certificate = () => (
-    <span className={`${style.play_title} ${style.certificate}`}>
-      자격증 공부 📝
-    </span>
-  );
-  const Groupstudy = () => (
-    <span className={`${style.play_title} ${style.groupstudy}`}>
-      그룹 / 모임 🙋🏻‍♀️
-    </span>
-  );
+    return (
+      <span className={tagClassName}>
+        {tagMap[now] || ''}
+      </span>
+    );
+  };
 
+  // 태그 컴포넌트들
+  const RecommendTag = ({ selected }) => {
+    let tagClassName = style.play_title;
+    const tagMap = {
+      '1': '코딩테스트 대비 📖',
+      '2': '취업 준비 😋',
+      '3': '개발 공부 🔎',
+      '4': '자격증 공부 📝',
+      '5': '그룹 / 모임 🙋🏻‍♀️'
+    };
+    const tagStyleMap = {
+      '1': style.purpose,
+      '2': style.getajob,
+      '3': style.develope,
+      '4': style.certificate,
+      '5': style.groupstudy
+    };
 
+    if (tagStyleMap[selected]) {
+      tagClassName = `${tagClassName} ${tagStyleMap[selected]}`;
+    }
+
+    return (
+      <span className={tagClassName}>
+        {tagMap[selected] || ''}
+      </span>
+    );
+  };
 
   // 장터리스트 담을 State
   const [studyList, setstudyList] = useState([]);
@@ -204,7 +217,7 @@ const StudyList = () => {
                   {getTimeAgoString(item.createdAt)}
                 </p>
                 <Link to={`/studyDetail/${item._id}?id=${item.id}`}>
-                  <h4><FindSomeone/><Completed/><Getajob/>{item.title}</h4>
+                  <h4><RecruitTag now={item.recruit}/><RecommendTag selected={item.selectedValues} />{item.title}</h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
                 <p>👁‍🗨{item.views} 💬{item.comments}</p>

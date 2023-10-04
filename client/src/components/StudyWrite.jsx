@@ -30,7 +30,7 @@ const StudyWrite = () => {
             setSelectedValues(selectedValues.filter(item => item !== value));
         } else {
             // 누른 버튼 값 추가
-            setSelectedValues([...selectedValues, value]);
+            setSelectedValues([value]);
         }
     }
 

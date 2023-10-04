@@ -10,44 +10,78 @@ import CommentItem from "./CommentItem";
 import QuillComment from './QuillComment'
 
 const StudyDetail = () => {
-  /* 키워드 컴포넌트 */
 
-  const FindSomeone = () => (
-    <span className={`${style.play_title} ${style.findsomeone}`}>
-      모집중
-    </span>
-  );
+  // 특정 게시글 조회하기 위한 id값 가져오기
+  const { id } = useParams();
 
-  const Completed = () => (
-    <span className={`${style.play_title} ${style.completed}`}>
-      모집완료
-    </span>
-  );
-  const Purpose = () => (
-    <span className={`${style.play_title} ${style.purpose}`}>
-      코딩테스트 대비 📖
-    </span>
-  );
-  const Getajob = () => (
-    <span className={`${style.play_title} ${style.getajob}`}>취업 준비 😋</span>
-  );
+  //모집 컴포넌트
+  const RecruitTag = ({ now }) => {
+    let tagClassName = style.play_title;
+    const tagMap = {
+      '1': '모집중',
+      '-1': '모집완료',
+    };
+    const tagStyleMap = {
+      '1': style.findsomeone,
+      '-1': style.completed,
+    };
 
-  const Develope = () => (
-    <span className={`${style.play_title} ${style.develope}`}>
-      개발 공부 🔎
-    </span>
-  );
-  const Certificate = () => (
-    <span className={`${style.play_title} ${style.certificate}`}>
-      자격증 공부 📝
-    </span>
-  );
-  const Groupstudy = () => (
-    <span className={`${style.play_title} ${style.groupstudy}`}>
-      그룹 / 모임 🙋🏻‍♀️
-    </span>
-  );
-  /* 키워드 컴포넌트 */
+    if (tagStyleMap[now]) {
+      tagClassName = `${tagClassName} ${tagStyleMap[now]}`;
+    }
+
+    return (
+      <span className={tagClassName}>
+        {tagMap[now] || ''}
+      </span>
+    );
+  };
+
+  // 태그 컴포넌트들
+  const RecommendTag = ({ selected }) => {
+    let tagClassName = style.play_title;
+    const tagMap = {
+      '1': '코딩테스트 대비 📖',
+      '2': '취업 준비 😋',
+      '3': '개발 공부 🔎',
+      '4': '자격증 공부 📝',
+      '5': '그룹 / 모임 🙋🏻‍♀️'
+    };
+    const tagStyleMap = {
+      '1': style.purpose,
+      '2': style.getajob,
+      '3': style.develope,
+      '4': style.certificate,
+      '5': style.groupstudy
+    };
+
+    if (tagStyleMap[selected]) {
+      tagClassName = `${tagClassName} ${tagStyleMap[selected]}`;
+    }
+
+    return (
+      <span className={tagClassName}>
+        {tagMap[selected] || ''}
+      </span>
+    );
+  };
+
+  // 모집 상태 변경
+  const handleRecruit = async () => {
+    let obj = {
+      postId: id
+    }
+    await axios.post(`http://localhost:8088/study/recruit`, obj)
+      .then((res) => {
+        // 글 정보 자체가 변하는거니까 새로고침으로 했슴다
+        window.location.reload();
+        alert('전환 성공')
+      })
+      .catch((err) => {
+        alert('전환 실패')
+      })
+
+  }
 
   /* 수정삭제 버튼 */
 
@@ -98,8 +132,7 @@ const StudyDetail = () => {
   /* 수정삭제 버튼 */
 
   // 함수들
-  // 특정 게시글 조회하기 위한 id값 가져오기
-  const { id } = useParams();
+
 
   // 게시글정보 저장할 State
   const [studyDetail, setStudyDetail] = useState([]);
@@ -109,6 +142,9 @@ const StudyDetail = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const nickname = params.get("id");
+
+  // 현재 로그인 회원 정보 조회
+  const nowUser = sessionStorage.getItem("memberId")
 
   // 회원정보 저장할 state -지홍
   const [memberInfo, setMemberInfo] = useState({});
@@ -161,25 +197,6 @@ const StudyDetail = () => {
     return `${year}년 ${month}월 ${day}일`;
   };
 
-  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
-  const getTime = (dateString) => {
-    const createdAt = new Date(dateString);
-    const now = new Date();
-    const timeDifference = now - createdAt;
-    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-    const daysDifference = Math.floor(hoursDifference / 24);
-
-    if (daysDifference === 0) {
-      if (hoursDifference === 0) {
-        return "방금 전";
-      } else {
-        return `${hoursDifference}시간 전`;
-      }
-    } else {
-      return `${daysDifference}일 전`;
-    }
-  };
-
   // 수정 페이지 이동
   const moveUpdate = () => {
     window.location.href = `/studyWrite?id=${id}`;
@@ -199,16 +216,8 @@ const StudyDetail = () => {
       });
   };
 
-  // 댓글 내용 담을 State
-  const [comment, setComment] = useState();
-
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
-
-  // 댓글 내용 가져오는 함수
-  const commentChange = (e) => {
-    setComment(e.target.value);
-  };
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -262,12 +271,8 @@ const StudyDetail = () => {
         </div>
         <div>
           <div className={style.keyworld_buttons}>
-            <FindSomeone/>
-            {visible[0] && <Purpose />}
-            {visible[1] && <Getajob />}
-            {visible[2] && <Develope />}
-            {visible[3] && <Certificate />}
-            {visible[4] && <Groupstudy />}
+            <RecruitTag now={studyDetail.recruit} />
+            <RecommendTag selected={studyDetail.selectedValues} />
           </div>
           <div className={style.Top_container}>
             <div>
@@ -293,9 +298,12 @@ const StudyDetail = () => {
               <div>
                 <p>👁‍🗨 {studyDetail.views} 💬 {studyDetail.comments}</p>
               </div>
-              <span className={style.mem_completed}>
-                  모집완료 ✔
-                </span>
+              {(nowUser === studyDetail.id ?
+              <span onClick={handleRecruit} className={style.mem_completed}>
+                모집완료 ✔
+              </span>
+              :
+              null)}
             </div>
           </div>
 
@@ -357,7 +365,7 @@ const StudyDetail = () => {
 
           {/* 댓글부분 */}
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} boardType='study'/>
+            <CommentItem key={item._id} props={item} postId={id} boardType='study' />
           ))}
           {/* 댓글부분 */}
         </div>

@@ -5,64 +5,64 @@ const Member = require('../../schemas/member/member')
 
 // 글 작성
 router.post('/write', async (req, res) => {
-    try {
-        let obj;
-        let _id;
+  try {
+    let obj;
+    let _id;
 
-        if(req.body._id){
-          // 글 수정 시
-          obj = {
-            title: req.body.title,
-            content: req.body.content,
-            persons: req.body.persons,
-            recruit: req.body.recruit,
-            periodStart: req.body.startDate,
-            periodEnd: req.body.endDate,
-            selectedValues: req.body.selectedValues
-            // views: 0,      
-          };
-          _id = req.body._id
-      
-          await Study.updateOne(
-            { _id: req.body._id },
-            {
-              $set: obj
-            }
-          );
-        }else{
-        // 글 작성 시
-        obj = {
-          id :req.body.id,
-            writer: req.body.writer,
-            title: req.body.title,
-            content: req.body.content,
-            persons: req.body.persons,
-            recruit: req.body.recruit,
-            periodStart: req.body.startDate,
-            periodEnd: req.body.endDate,
-            selectedValues: req.body.selectedValues
-            // views: 0,
-        };
-        const study = new Study(obj);
-        _id = study._id;
-        await Study.insertMany(study);
-        await Member.updateOne(
-          { id: req.body.id },
-          {
-            $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
-              point: 1 // 일단 글쓸때마다 1포인트로 지정 
-            }
-          });
-      }
-        res.json({ 
-          message: true,
-          _id : _id
+    if (req.body._id) {
+      // 글 수정 시
+      obj = {
+        title: req.body.title,
+        content: req.body.content,
+        persons: req.body.persons,
+        recruit: req.body.recruit,
+        periodStart: req.body.startDate,
+        periodEnd: req.body.endDate,
+        selectedValues: req.body.selectedValues
+        // views: 0,      
+      };
+      _id = req.body._id
+
+      await Study.updateOne(
+        { _id: req.body._id },
+        {
+          $set: obj
+        }
+      );
+    } else {
+      // 글 작성 시
+      obj = {
+        id: req.body.id,
+        writer: req.body.writer,
+        title: req.body.title,
+        content: req.body.content,
+        persons: req.body.persons,
+        recruit: req.body.recruit,
+        periodStart: req.body.startDate,
+        periodEnd: req.body.endDate,
+        selectedValues: req.body.selectedValues
+        // views: 0,
+      };
+      const study = new Study(obj);
+      _id = study._id;
+      await Study.insertMany(study);
+      await Member.updateOne(
+        { id: req.body.id },
+        {
+          $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+            point: 1 // 일단 글쓸때마다 1포인트로 지정 
+          }
         });
-      } catch (err) {
-        console.log(err);
-        res.json({ message: false });
-      }
-      
+    }
+    res.json({
+      message: true,
+      _id: _id
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+
 });
 
 
@@ -111,13 +111,30 @@ router.get("/detail/:_id", async (req, res) => {
       }
     );
 
-    res.json({detailStudy});
+    res.json({ detailStudy });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
   }
 });
 
-// 밑으로 수정, 삭제 등등 작성할 것
+// 모집 상태 변경
+router.post('/recruit', async (req, res) => {
+  const postId = req.body.postId;
+  try {
+    const study = await Study.findOneAndUpdate(
+      {_id: postId},
+      {
+        $mul: {
+          recruit: -1
+        }
+      }
+    )
+    res.json({ study })
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false })
+  }
+})
 
 module.exports = router
