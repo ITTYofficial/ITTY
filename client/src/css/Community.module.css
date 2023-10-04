@@ -33,8 +33,11 @@
 .Main_container_banner {
   width: 100%;
   /* border: 1px solid black; */
-  height: 250px;
+  /* height: 250px; */
   margin-bottom: 16px;
+}
+.Main_container_banner > img {
+  width: 100%;
 }
 .right_container h2 {
   font-size: 1.5rem;
@@ -71,7 +74,6 @@
 /*===== Main_container_list =====*/
 .Main_container_list {
   padding: 8px 16px;
-  
 }
 .Main_container_list_detail {
   display: flex;
@@ -110,14 +112,11 @@
   color: #999999;
   font-size: 14px;
   margin-top: 16px;
-  
 }
 
 .Main_container_list_detail > div:last-child > div:first-child > h4 {
   font-size: 1.1rem;
   font-weight: 600;
-  
-  
 }
 
 .Main_grid_profile {
@@ -169,14 +168,13 @@
 }
 
 .findsomeone {
-  background-color: #247DFF;
-  color:  #FFFFFF;
+  background-color: #247dff;
+  color: #ffffff;
 }
 .completed {
-  background-color: #c5c5c5 ;
+  background-color: #c5c5c5;
   color: #000000;
 }
-
 
 .frontend {
   background-color: #2eff55;
@@ -199,20 +197,15 @@
 }
 
 .fullstack {
-  background-color: #F3F90B;
+  background-color: #f3f90b;
   color: #443807;
 }
 
-
 @media (max-width: 768px) {
-
-  .right_container_button>h2 {
-    white-space: nowrap;
-  
-  }
-  .right_container_button{
+  .right_container_button > h2 {
     white-space: nowrap;
   }
-
-
+  .right_container_button {
+    white-space: nowrap;
+  }
 }

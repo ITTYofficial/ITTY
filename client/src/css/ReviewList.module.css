@@ -11,6 +11,7 @@
   /* background-color: whitesmoke; */
   padding: 16px;
   margin-top: 4%;
+  margin: 0 auto;
 }
 
 .right_container h2 {
@@ -59,7 +60,7 @@
   border-bottom: 2px solid #eeeeee;
 }
 
-.Main_container_list_detail>div {
+.Main_container_list_detail > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -119,24 +120,19 @@
   overflow: hidden;
 }
 
-.Review_list_profile>div:last-child>img {
+.Review_list_profile > div:last-child > img {
   width: 100%;
 }
 
 .cateBox {
-
   margin-bottom: 12px;
   display: flex;
   flex-wrap: wrap;
-
-
-
 }
-.cateBox span{
+.cateBox span {
   white-space: nowrap;
-  padding: 7px 8px ;
+  padding: 7px 8px;
   margin-bottom: 2px;
-
 }
 
 .play_title {

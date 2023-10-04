@@ -33,8 +33,11 @@
 .Main_container_banner {
   width: 100%;
   /* border: 1px solid black; */
-  height: 250px;
+  /* height: 250px; */
   margin-bottom: 16px;
+}
+.Main_container_banner > img {
+  width: 100%;
 }
 .right_container h2 {
   font-size: 1.5rem;

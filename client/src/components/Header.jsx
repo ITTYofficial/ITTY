@@ -28,15 +28,20 @@ const Header = () => {
           alt="profile"
         />
       </div>
-      <ul className={`${Nav.Member_profile_dropdown} ${profile ? Nav.profile_active : ""}`}>
+      <ul
+        className={`${Nav.Member_profile_dropdown} ${
+          profile ? Nav.profile_active : ""
+        }`}
+      >
         <li>프로필</li>
         <li>받은쪽지함</li>
-        <li className={Nav.profile_logout}>로그아웃</li>
+        <li className={Nav.profile_logout} onClick={goLogout}>
+          로그아웃
+        </li>
       </ul>
     </div>
   );
   // 프로필 이미지 클릭시 세부정보 On/Off 끝!
-
 
   useEffect(() => {
     const id = sessionStorage.getItem("memberId");
@@ -193,7 +198,18 @@ const Header = () => {
 
           <li>
             {loginOk ? (
-              <button onClick={goLogout}>로그아웃</button>
+              // <button>로그아웃</button>
+              <div className={Nav.messenger}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  class="bi bi-messenger"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.639.639 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.639.639 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76zm5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z" />
+                </svg>
+              </div>
             ) : (
               <Link to={"/login"} style={{ backgroundColor: "gray" }}>
                 로그인
