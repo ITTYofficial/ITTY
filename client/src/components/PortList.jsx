@@ -10,6 +10,19 @@ const PortList = () => {
   // 포트폴리오 리스트 담을 State
   const [portList, setPortList] = useState([]);
 
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
+
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      e.preventDefault();
+    }
+  };
+
   // 새로운 게시판 리스트 함수 -> 페이징 적용 안되어있네요
   const getList = async () => {
     console.log('조회함수 진입');
@@ -152,7 +165,7 @@ const PortList = () => {
       <div className={styles.right_container}>
         <dvi className={styles.little_title}>
           <h2>포트폴리오🔍</h2>
-          <Link to={"/portWrite"}>
+          <Link to={"/portWrite"} onClick={checkSessionStorage}>
             <p>작성하기</p>
           </Link>
         </dvi>

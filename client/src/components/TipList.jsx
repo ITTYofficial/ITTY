@@ -13,6 +13,19 @@ const TipList = () => {
   // 댓글 개수 담을 State
   const [commentCount, setCommentCount] = useState();
 
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
+
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      e.preventDefault();
+    }
+  };
+
   // 새로운 조회함수
   const getList = async () => {
     console.log('조회함수 진입');
@@ -190,7 +203,7 @@ const TipList = () => {
         <div className={styles.right_container_button}>
           <div></div>
           <h2>팁 공유 📢</h2>
-          <Link to={"/tipWrite"}>
+          <Link to={"/tipWrite"} onClick={checkSessionStorage}>
             <p>작성하기</p>
           </Link>
         </div>

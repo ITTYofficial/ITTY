@@ -6,6 +6,18 @@ import axios from "axios";
 import Pagination from "react-js-pagination";
 
 const ReviewList = () => {
+  // 회원만 작성 할 수 있도록 제한하는 함수-지홍
+  const checkSessionStorage = (e) => {
+    // sessionStorage에서 값을 가져옴
+    var value = sessionStorage.getItem("memberId");
+
+    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
+    if (!value || value === "") {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      e.preventDefault();
+    }
+  };
 
   // 태그 컴포넌트들
   const RecommendTag = ({ keyWord }) => {
@@ -215,7 +227,7 @@ const getList = async() => {
       <div className={style.right_container}>
         <div className={style.right_container_button}>
           <h2>수료생 후기👨‍🎓</h2>
-          <Link to={"/reviewWrite"}>
+          <Link to={"/reviewWrite"} onClick={checkSessionStorage}>
             <p>작성하기</p>
           </Link>
         </div>
