@@ -211,6 +211,7 @@ const PlayBoardDetail = () => {
     await axios.post('http://localhost:8088/message/write', obj)
       .then((res) => {
         alert("글 작성 완료")
+        handleClose();
 
       }).catch((err) => {
         alert("작성에 실패했습니다.")
