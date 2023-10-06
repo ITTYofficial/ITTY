@@ -43,6 +43,26 @@ router.get('/showMessageList', async (req, res) => {
     }
 });
 
+router.get('/showMessageListDetail', async (req, res) => {
+try{
+  const sendUserId = req.query.sendUserId;
+  const getUserId = req.query.getUserId;
+  const detailMessage = await Message.find({
+    $or: [
+      {sendUserId: sendUserId, getUserId: getUserId},
+      {sendUserId: getUserId, getUserId: sendUserId}
+    ]
+  })
+  res.json({detailMessage});
+}catch(err){
+  console.log(err);
+  res.json({message:false})
+}
+
+  
+
+});
+
 router.post('/write', async (req, res) => {
     try {   
         let obj;

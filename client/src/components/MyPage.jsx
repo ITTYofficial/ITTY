@@ -234,13 +234,15 @@ const MyPage = () => {
     };
     //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
     const updateSubmit = async (e) => {
-        e.preventDefault();
-        console.log(e.target);
-        const formData = new FormData(e.target);
-        formData.append('id', sessionStorage.getItem('memberId'));
+        if(nicknameCheckResult){
 
-        const obj = {};
-        formData.forEach((value, key) => {
+            e.preventDefault();
+            console.log(e.target);
+            const formData = new FormData(e.target);
+            formData.append('id', sessionStorage.getItem('memberId'));
+            
+            const obj = {};
+            formData.forEach((value, key) => {
             console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
@@ -249,8 +251,8 @@ const MyPage = () => {
         obj["imgPath"] = url;
         console.log(obj);
         axios
-            .post("http://localhost:8088/member/update", obj)
-            .then((res) => {
+        .post("http://localhost:8088/member/update", obj)
+        .then((res) => {
                 alert("회원정보가 수정되었습니다.");
                 console.log(res);
                 // window.location.href = `/myPage`
@@ -260,6 +262,7 @@ const MyPage = () => {
                 alert("회원정보 수정 실패");
                 // window.location.href = `/myPage`
             });
+        }
     };
 
     // **************닉네임 변경 메소드
@@ -329,6 +332,7 @@ const MyPage = () => {
     }
     /* 쪽지 컴포넌트 */
 const [messageList,setMessageList] =useState([]);
+const [messageListDetail,setMessageListDetail] =useState([]);
 
     const showMessageList= async(e)=>{
         console.log('조회함수 진입');
@@ -354,6 +358,21 @@ const [messageList,setMessageList] =useState([]);
             })
     }
 
+    const showMessageListDetail=async(e)=>{
+        
+        const getUserId = sessionStorage.getItem('memberId');
+        const sendUserId = null;
+        await axios
+            .get(`http://localhost:8088/message/showMessageListDetail?getUserId=${getUserId}&sendUserId=${sendUserId}`)
+            .then((res)=>{
+                const sortedMessage = res.data.lists.sort((a, b) => {
+                    // 게시글 데이터 작성 일자별 내림차순 정렬
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                  });
+                  setMessageListDetail(sortedMessage);
+                  console.timeEnd('소요시간');
+            })
+    }
 
     return (
         <div className={styles.Main_container}>
