@@ -33,9 +33,12 @@
   /* margin: 12px 0; */
   padding: 12px 16px 8px 16px;
   text-align: left;
-  white-space: nowrap; /* 추가 */
-  overflow: hidden; /* 추가 */
-  text-overflow: ellipsis; /* 추가 */
+  white-space: nowrap;
+  /* 추가 */
+  overflow: hidden;
+  /* 추가 */
+  text-overflow: ellipsis;
+  /* 추가 */
   font-family: sans-serif;
   letter-spacing: -1px;
 }
@@ -64,13 +67,33 @@
   }
 }
 
+/* 게시물 간 간격 조절 */
+@media (max-width: 1024px) {
+  .port_list {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .port_list {
+    gap: 3rem;
+  }
+}
+
+
 .port_content {
-  width: 90%; /* 너비를 백분율로 지정 */
-  max-width: 100%; /* 최대 너비를 제한 */
+  width: 90%;
+  /* 너비를 백분율로 지정 */
+  max-width: 100%;
+  /* 최대 너비를 제한 */
   box-shadow: 2px 2px 10px rgb(0 0 0 / 16%);
-  white-space: nowrap; /* 텍스트를 한 줄로만 표시 */
-  overflow: hidden; /* 넘치는 내용을 숨김 처리 */
-  text-overflow: ellipsis; /* 넘치는 내용을 '...'으로 중략 */
+  white-space: nowrap;
+  /* 텍스트를 한 줄로만 표시 */
+  overflow: hidden;
+  /* 넘치는 내용을 숨김 처리 */
+  text-overflow: ellipsis;
+  /* 넘치는 내용을 '...'으로 중략 */
   border-radius: 10px;
 }
 
@@ -91,10 +114,10 @@
   height: 30%;
 }
 
-.port_content_bottom > div:nth-child(2) {
+.port_content_bottom>div:nth-child(2) {
   display: flex;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 8px 10px 16px;
 }
 
 .port_content_bottom2 {
@@ -102,7 +125,7 @@
   align-items: center;
 }
 
-.port_content_bottom2 + div {
+.port_content_bottom2+div {
   display: flex;
   align-items: flex-end;
 }
@@ -127,7 +150,7 @@
   padding: 8px 0 8px 0;
 }
 
-.little_title > a {
+.little_title>a {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
@@ -140,7 +163,7 @@
   float: right;
 }
 
-.little_title > a:hover {
+.little_title>a:hover {
   background-color: #2a72ff;
   color: #eeeeee;
   transition-duration: 200ms;
