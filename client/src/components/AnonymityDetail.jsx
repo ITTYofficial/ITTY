@@ -207,7 +207,7 @@ const AnonymityDetail = () => {
           {/* 게시글 content 시작 */}
 
           <div className={styles.play_content}>
-            <div className={styles.meatball}>
+            <div className={styles.meatball} style={{ display: anonyDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
               <ul>
                 <svg
                   onClick={() => {

@@ -243,7 +243,7 @@ const PortDetail = () => {
           </div>
         </div>
         <hr />
-        <div className={style.meatball}>
+        <div className={style.meatball} style={{ display: portDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
           <ul>
             <svg
               onClick={() => {

@@ -274,7 +274,7 @@ const QnaDetail = () => {
 
           {/* 게시글 content 시작 */}
           <div className={style.play_content}>
-            <div className={style.meatball}>
+            <div className={style.meatball} style={{ display: qnaDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
               <ul>
                 <svg
                   onClick={() => {

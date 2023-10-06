@@ -309,7 +309,7 @@ const StudyDetail = () => {
 
           <hr />
           <div className={style.text_content_wrapper}>
-            <div className={style.meatball}>
+            <div className={style.meatball} style={{ display: studyDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
               <ul>
                 <svg
                   onClick={() => {
