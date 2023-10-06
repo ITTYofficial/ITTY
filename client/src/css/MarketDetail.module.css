@@ -415,3 +415,11 @@
 .sub_content_wrapper {
   width: 98%;
 }
+
+
+@media (max-width: 1026px) {
+  .MarketRemake_right_container {
+    margin-left:7%;
+  }
+
+}
