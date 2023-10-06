@@ -80,7 +80,7 @@ const CommentItem = ({ props, postId, boardType }) => {
             <p>{props.writerInfo.class}</p>
             <h4>{props.writer}</h4>
           </span>
-          <div className={styles.recomment_cancel}>
+          <div className={styles.recomment_cancel} style={{ display: props.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
             <svg
               onClick={() => deleteReComment(commentId, postId, index, boardType)}
               xmlns="http://www.w3.org/2000/svg"
