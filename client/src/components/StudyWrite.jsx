@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import style from "../css/StudyWrite.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from "react-datepicker";
@@ -20,7 +20,7 @@ const StudyWrite = () => {
     const id = searchParams.get('id');
 
     const { value, setValue } = useContext(QuillContext);
-    
+
     const [selectedValues, setSelectedValues] = useState([]);
 
     // 포지션 함수
@@ -37,6 +37,20 @@ const StudyWrite = () => {
     // 날짜관련 스테이트
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+
+    // 경고메세지 출력을 위한 Ref
+    const titleRef = useRef(null)
+    const selectRef = useRef(null)
+    const personRef = useRef(null)
+    const dateRef = useRef(null)
+    const contentRef = useRef(null)
+    const refList = {
+        title: titleRef,
+        selectedValues: selectRef,
+        persons: personRef,
+        content: contentRef
+    }
+    let refVisible = false
 
     // 폼 전송 시 호출되는 함수
     function handleSubmit(event) {
@@ -60,18 +74,49 @@ const StudyWrite = () => {
         if (id) {
             obj['_id'] = id
         }
+        
+        const inputRule = {
+            title: /^.{5,255}$/,
+            selectedValues: /^.{1,255}$/,
+            persons: /^[0-9]{1,100}$/,
+            content: /^.{17,65535}$/
+          };
+
+        for (const key in refList) {
+            const check = obj[key];
+            if (!check || !inputRule[key].test(check)) {
+                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.style.color = "red";
+                refVisible = true;
+            } else {
+                refList[key].current.textContent = null;
+            }
+        }
+
+        if (obj.endDate < obj.startDate) {
+            dateRef.current.textContent = "*잘못된 입력입니다"
+            dateRef.current.style.color = "red";
+            refVisible = true;
+        } else {
+            dateRef.current.textContent = null;
+        }
+
+        if (refVisible) {
+            alert('입력값을 확인하세요.')
+            return;
+        }
         console.log(obj);
 
         axios.post('http://localhost:8088/study/write', obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
                 console.log(res);
-                window.location.href = `/studyDetail/${res.data._id}`
+                // window.location.href = `/studyDetail/${res.data._id}`
             })
             .catch((err) => {
                 console.log(err);
                 alert("게시글 작성 실패")
-                window.location.href = `/studyList`
+                // window.location.href = `/studyList`
             })
     }
 
@@ -107,6 +152,7 @@ const StudyWrite = () => {
             <h2>스터디 📚</h2>
             <form onSubmit={handleSubmit}>
                 <h4> 제목 </h4>
+                <div ref={titleRef}></div>
                 <input
                     className="form-control"
                     name='title'
@@ -114,6 +160,7 @@ const StudyWrite = () => {
                     {...(id ? { defaultValue: studyDetail.title } : { placeholder: '제목을 입력해주세요' })}
                 />
                 <h4>포지션</h4>
+                <div ref={selectRef}></div>
                 <div className={style.position_content}>
                     <button
                         type="button"
@@ -167,6 +214,7 @@ const StudyWrite = () => {
 
                     <div>
                         <h4>스터디 종료일</h4>
+                        <div ref={dateRef}></div>
                         <DatePicker
                             className='form-control'
                             selected={endDate}
@@ -177,6 +225,7 @@ const StudyWrite = () => {
 
                     <div>
                         <h4>인원</h4>
+                        <div ref={personRef}></div>
                         <input
                             className="form-control"
                             name='persons'
@@ -186,7 +235,7 @@ const StudyWrite = () => {
 
                     </div>
 
-{/*                     <div>
+                    {/*                     <div>
                         <h4>상태</h4>
                         <select className='form-control' name='recruit'>
                             <option>모집상태 선택</option>
@@ -198,6 +247,7 @@ const StudyWrite = () => {
                 </div>
 
                 <h4 className={style.margin_top_p_tag}>내용</h4>
+                <div ref={contentRef}></div>
                 <div className={style.quill_content}>
                     <QuillTest />
                 </div>

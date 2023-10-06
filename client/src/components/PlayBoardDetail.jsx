@@ -55,6 +55,8 @@ const PlayBoardDetail = () => {
       });
   };
 
+  console.log('화긴', playDetail);
+
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
     getPlay();
@@ -195,26 +197,26 @@ const PlayBoardDetail = () => {
     }
   }
 
-const messageSubmit = async(e)=>{
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  formData.append('sendUserId', sessionStorage.getItem('memberId'));
-  console.log("데이터 확인",e.target);
+  const messageSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    formData.append('sendUserId', sessionStorage.getItem('memberId'));
+    console.log("데이터 확인", e.target);
 
-  const obj = {};
-  formData.forEach((value, key) => {
-    console.log(`폼 요소 이름: ${key}, 값: ${value}`);
-    obj[key] = value;
-});
-await axios.post('http://localhost:8088/message/write', obj)
-.then((res) => {
-    alert("글 작성 완료")
+    const obj = {};
+    formData.forEach((value, key) => {
+      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+      obj[key] = value;
+    });
+    await axios.post('http://localhost:8088/message/write', obj)
+      .then((res) => {
+        alert("글 작성 완료")
 
-}).catch((err) => {
-    alert("작성에 실패했습니다.")
+      }).catch((err) => {
+        alert("작성에 실패했습니다.")
 
-})
-}
+      })
+  }
 
 
   /* 모달 */
@@ -276,23 +278,23 @@ await axios.post('http://localhost:8088/message/write', obj)
                     </div>
                   }
                   <Modal show={show} onHide={handleClose}>
-                      <form onSubmit={messageSubmit}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>쪽지 보내기</Modal.Title>
-                      <input type="hidden" name='getUserId' value={memberInfo.id}></input>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <textarea className={PlayBoard.message_modal_input} name="content" placeholder="쪽지입력" />
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={handleClose}>
-                        취소
-                      </Button>
-                      <Button variant="primary" type="submit">
-                        보내기
-                      </Button>
-                    </Modal.Footer>
-                      </form>
+                    <form onSubmit={messageSubmit}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>쪽지 보내기</Modal.Title>
+                        <input type="hidden" name='getUserId' value={memberInfo.id}></input>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <textarea className={PlayBoard.message_modal_input} name="content" placeholder="쪽지입력" />
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          취소
+                        </Button>
+                        <Button variant="primary" type="submit">
+                          보내기
+                        </Button>
+                      </Modal.Footer>
+                    </form>
                   </Modal>
                 </span>
                 <span>
@@ -306,7 +308,7 @@ await axios.post('http://localhost:8088/message/write', obj)
           {/* 게시글 content 시작 */}
 
           <div className={PlayBoard.play_content}>
-            <div className={PlayBoard.meatball}>
+            <div className={PlayBoard.meatball} style={{ display: playDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
               <ul>
                 <svg
                   onClick={() => {
