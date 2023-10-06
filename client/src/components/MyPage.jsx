@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from '../css/MyPage.module.css'
 import axios from 'axios'
 import Image from 'react-bootstrap/Image';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import CropperTest from './CropperTest';
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -316,7 +316,7 @@ const MyPage = () => {
 
     /* 쪽지 컴포넌트 */
     const MessageCompo = ({props}) => {
-
+// 여기서 Link 걸때 쿼리스트링으로 sendUserId 보내면 되겠슴돠
         return (
             <div className={styles.message_profile_box}>
                 <div>
@@ -357,11 +357,15 @@ const [messageListDetail,setMessageListDetail] =useState([]);
                 console.log('err :', err);
             })
     }
-
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+  
+    
+    
     const showMessageListDetail=async(e)=>{
         
         const getUserId = sessionStorage.getItem('memberId');
-        const sendUserId = null;
+        const sendUserId= query.get('sendUserId'); // MessageCompo에 Link에 넣은 쿼리 스트링
         await axios
             .get(`http://localhost:8088/message/showMessageListDetail?getUserId=${getUserId}&sendUserId=${sendUserId}`)
             .then((res)=>{
