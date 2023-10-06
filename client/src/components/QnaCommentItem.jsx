@@ -174,10 +174,11 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
 
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
-
+            <span className={styles.comment_choice_button}> 채택하기 ✔</span>
             <div>
                 <p className={styles.comment_time_box}>{getTime(props.createdAt)}</p>
             </div>
+           
             {/*             <div className={styles.recomment_button_box} onClick={showRecommentWrite}>
                 <p className={styles.recomment_button_box_2}>댓글쓰기</p>
             </div> */}

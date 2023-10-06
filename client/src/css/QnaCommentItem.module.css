@@ -16,8 +16,28 @@
 
 /* 댓글 끝 */
 
+/* 채택 버튼 */
+.comment_choice_button{
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  display: inline-block;
+  background-color: #ff9d3b;
+  padding: 6px 11px;
+  box-shadow: 1px 1px 2px rgb(144, 144, 144);
+  float: right;
 
-/* 채택하기 버튼 */
+}
+
+.comment_choice_button:hover{
+  background-color: #ffdf4e; ;
+}
+
+
+/* 질문자 채택 키워드 버튼 */
 .comment_choice button {
   text-decoration: none;
   color: #000000;
@@ -74,6 +94,7 @@
   margin-bottom: 8px;
   position: relative;
 }
+
 
 .play_comment_profile span:first-child {
   width: 50px;
@@ -132,7 +153,8 @@
 }
 
 .comment_time_box {
-  left: 45px;
+margin-top:1%;
+font-size:12px;
 }
 
 /* 대댓글 */
