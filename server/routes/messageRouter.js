@@ -20,8 +20,8 @@ router.get('/showMessageList', async (req, res) => {
 
         // 메세지 리스트 메세지 보낸사람 아이디 수집
         lists.forEach(list => {
-            if (list.id) {
-                writerId.push(list.id);
+            if (list.sendUserId) {
+                writerId.push(list.sendUserId);
             }
         });
         // 작성자 정보 일괄 조회    
