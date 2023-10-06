@@ -39,7 +39,8 @@ const MyPage = () => {
     useEffect(() => {
         // 컴포넌트가 마운트된 후에 messageElement를 설정
         // message 요소를 찾아서 설정
-        memberSearching()
+        memberSearching();
+        showMessageList();
         messageElement2.current = document.getElementById('pWmessage');
         messageElement3.current = document.getElementById('pWCheckmessage');
         messageElement4.current = document.getElementById('nickNameCheckmessage');
@@ -320,10 +321,10 @@ const MyPage = () => {
         return (
             <div className={styles.message_profile_box}>
                 <div>
-                    <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                    <Image src={props.writerInfo.profileImg} roundedCircle />
                 </div>
                 <div>
-                    <h5>잇티티티{/*props.writerInfo.nickname*/}</h5>
+                    <h5>{props.writerInfo.nickname}</h5>
 
                 </div>
             </div>
