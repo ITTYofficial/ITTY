@@ -5,13 +5,29 @@
   margin-top: 8%;
 }
 
+.division_line {
+  position: relative;
+  display: flex;
+  margin: 20px 0;
+
+}
+
 .right_container {
-  width: 50%;
+  width: 55%;
   padding: 16px;
   /* text-align: center; */
   margin: 0 auto;
 }
 
+.right_container>div>a{
+
+  font-size: 21px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+
+}
 .right_container > div:first-child > h4 {
   font-size: 20px;
   font-weight: bold;
@@ -107,6 +123,11 @@
 }
 
 /* 댓글 끝 */
+.right_container>div>h2{
+  font-size: 21px;
+  font-weight: bold;
+  text-align: center;
+}
 
 
 /* 수정삭제 버튼 */
@@ -116,6 +137,7 @@
   right: 0;
   top: 0;
   cursor: pointer;
+  text-align: right;
 }
 
 .meatball > ul {
@@ -206,5 +228,16 @@
 }
 /* 댓글 작성 quill버전 css */
 
+@media (max-width: 1023px) {
+  .right_container {
+    width: 65%;
+  }
+}
+@media (max-width: 768px) {
 
+  .right_container {
+    width:75%;
+    margin-top:2%;
+  }
+}
 
