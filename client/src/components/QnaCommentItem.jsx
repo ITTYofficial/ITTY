@@ -12,22 +12,22 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
     const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue } =
         useContext(QuillContext);
-    
+
     // 좋아요 기능
-    const [like , setLike] = useState(props.liker.length)
+    const [like, setLike] = useState(props.liker.length)
     const handleLike = async () => {
         let obj = {
             commentId: props._id,
             userId: sessionStorage.getItem('memberId'),
         }
         await axios.post('http://localhost:8088/comment/commentLike', obj)
-        .then((res) => {
-            console.log(res);
-            setLike(res.data.liker.length)
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+            .then((res) => {
+                console.log(res);
+                setLike(res.data.liker.length)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     // 채택 기능
@@ -37,9 +37,9 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
             postId: postId
         }
         await axios.post('http://localhost:8088/comment/commentSelection', obj)
-        .then((res) => {
-            console.log(res);
-        })
+            .then((res) => {
+                console.log(res);
+            })
     }
 
     // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
@@ -120,7 +120,7 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
                         <p>{props.writerInfo.class}</p>
                         <h4>{props.writer}</h4>
                     </span>
-                    <div className={styles.recomment_cancel}>
+                    <div className={styles.recomment_cancel} style={{ display: props.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
                         <svg onClick={() => deleteReComment(commentId, postId, index, boardType)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -153,7 +153,7 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
                 <span>
                     <p>{props.writerInfo.class}</p>
                     <h4>{props.writer}</h4>
-                    <div className={styles.comment_cancel}>
+                    <div className={styles.comment_cancel}  style={{ display: props.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
                         <svg onClick={() => deleteComment(props._id, postId, boardType)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />

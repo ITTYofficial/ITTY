@@ -222,7 +222,7 @@ const ReviewDetail = () => {
 
                 {/* 글 내용 부분 */}
                 <div className={styles.review_content}>
-                    <div className={styles.meatball}>
+                    <div className={styles.meatball} style={{ display: reviewDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
                         <ul>
                             <svg onClick={() => { setMeat(!meat) }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                                 <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />

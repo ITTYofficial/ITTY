@@ -286,7 +286,7 @@ const TipDetail = () => {
           {/* 게시글 content 시작 */}
           <div className={style.play_content}>
             {/* 글 수정/삭제 미트볼 */}
-            <div className={style.meatball}>
+            <div className={style.meatball} style={{ display: tipDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
               <ul>
                 <svg
                   onClick={() => {

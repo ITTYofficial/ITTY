@@ -7,7 +7,6 @@ import { QuillContext } from "../context/QuillContext";
 import QuillReComment from './QuillReComment'
 
 const CommentItem = ({ props, postId, boardType }) => {
-  console.log('타입 확인', boardType);
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue } =
@@ -81,7 +80,7 @@ const CommentItem = ({ props, postId, boardType }) => {
             <p>{props.writerInfo.class}</p>
             <h4>{props.writer}</h4>
           </span>
-          <div className={styles.recomment_cancel}>
+          <div className={styles.recomment_cancel} style={{ display: props.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
             <svg
               onClick={() => deleteReComment(commentId, postId, index, boardType)}
               xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +117,7 @@ const CommentItem = ({ props, postId, boardType }) => {
         <span>
           <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
-          <div className={styles.comment_cancel}>
+          <div className={styles.comment_cancel} style={{ display: props.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
             <svg
               onClick={() => deleteComment(props._id, postId, boardType)}
               xmlns="http://www.w3.org/2000/svg"

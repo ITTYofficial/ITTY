@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from '../css/MyPage.module.css'
 import axios from 'axios'
 import Image from 'react-bootstrap/Image';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import CropperTest from './CropperTest';
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { QuillContext } from '../context/QuillContext';
 
 const MyPage = () => {
 
+    const { messageInfo, setMessageInfo } = useContext(QuillContext)
     /* 이미지 크롭 스크립트 */
     const [inputPicDisplay, setInputPicDisplay] = useState(true);
 
@@ -39,7 +41,8 @@ const MyPage = () => {
     useEffect(() => {
         // 컴포넌트가 마운트된 후에 messageElement를 설정
         // message 요소를 찾아서 설정
-        memberSearching()
+        memberSearching();
+        showMessageList();
         messageElement2.current = document.getElementById('pWmessage');
         messageElement3.current = document.getElementById('pWCheckmessage');
         messageElement4.current = document.getElementById('nickNameCheckmessage');
@@ -234,32 +237,35 @@ const MyPage = () => {
     };
     //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
     const updateSubmit = async (e) => {
-        e.preventDefault();
-        console.log(e.target);
-        const formData = new FormData(e.target);
-        formData.append('id', sessionStorage.getItem('memberId'));
+        if (nicknameCheckResult) {
 
-        const obj = {};
-        formData.forEach((value, key) => {
-            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
-            obj[key] = value;
-        });
-        const url = await handlingDataForm(croppedImage)
-        console.log(url);
-        obj["imgPath"] = url;
-        console.log(obj);
-        axios
-            .post("http://localhost:8088/member/update", obj)
-            .then((res) => {
-                alert("회원정보가 수정되었습니다.");
-                console.log(res);
-                // window.location.href = `/myPage`
-            })
-            .catch((err) => {
-                console.log(err);
-                alert("회원정보 수정 실패");
-                // window.location.href = `/myPage`
+            e.preventDefault();
+            console.log(e.target);
+            const formData = new FormData(e.target);
+            formData.append('id', sessionStorage.getItem('memberId'));
+
+            const obj = {};
+            formData.forEach((value, key) => {
+                console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+                obj[key] = value;
             });
+            const url = await handlingDataForm(croppedImage)
+            console.log(url);
+            obj["imgPath"] = url;
+            console.log(obj);
+            axios
+                .post("http://localhost:8088/member/update", obj)
+                .then((res) => {
+                    alert("회원정보가 수정되었습니다.");
+                    console.log(res);
+                    // window.location.href = `/myPage`
+                })
+                .catch((err) => {
+                    console.log(err);
+                    alert("회원정보 수정 실패");
+                    // window.location.href = `/myPage`
+                });
+        }
     };
 
     // **************닉네임 변경 메소드
@@ -310,50 +316,123 @@ const MyPage = () => {
 
     }
 
-
     /* 쪽지 컴포넌트 */
-    const MessageCompo = ({props}) => {
+    const MessageCompo = ({ props }) => {
+        // 여기서 Link 걸때 쿼리스트링으로 sendUserId 보내면 되겠슴돠
+        const messageDetailInfo = () => {
+            setMessageInfo(props.writerInfo)
+            showMessageListDetail(props.writerInfo)
+        }
 
         return (
-            <div className={styles.message_profile_box}>
+            <div className={styles.message_profile_box} onClick={messageDetailInfo}>
                 <div>
-                    <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                    <Image src={props.writerInfo.profileImg} roundedCircle />
                 </div>
                 <div>
-                    <h5>잇티티티{/*props.writerInfo.nickname*/}</h5>
+                    <h5>{props.writerInfo.nickname}</h5>
 
                 </div>
             </div>
 
         );
     }
-    /* 쪽지 컴포넌트 */
-const [messageList,setMessageList] =useState([]);
 
-    const showMessageList= async(e)=>{
+    const MessageDetailCompo = () => {
+
+        return (
+
+            <div className={styles.message_content_wrapper}>
+                <div className={styles.message_content_top_box}>
+                    <div>
+                        <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                    </div>
+                    <div>
+                        <h5>{messageInfo.nickname}</h5>
+                    </div>
+
+                </div>
+                <div className={styles.message_content_bottom_box}>
+                    <div className={styles.received_message}>
+                        <div>
+                            <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                        </div>
+                        <div>
+                            <p>메세지내용~~~~~~</p>
+                        </div>
+                        <div className={styles.message_time}>
+                            <p>2023-10-01</p>
+                        </div>
+                    </div>
+                    <div className={styles.sent_message}>
+                        <div className={styles.message_time}>
+                            <p>2023-10-01</p>
+                        </div>
+                        <div>
+                            <Image src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHOo1cr8XLPI5mV-iUJomYWVoIqsIe6R6NVw&usqp=CAU' roundedCircle />
+                        </div>
+                        <div>
+                            <p>메세지내용~~~~~~</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        );
+    }
+
+    /* 쪽지 컴포넌트 */
+    const [messageList, setMessageList] = useState([]);
+    const [messageListDetail, setMessageListDetail] = useState([]);
+
+    const showMessageList = async (e) => {
         console.log('조회함수 진입');
         console.time('소요시간');
         const getUserId = sessionStorage.getItem('memberId')
         await axios
             .get(`http://localhost:8088/message/showMessageList?getUserId=${getUserId}`)
             .then((res) => {
-                console.log("메세지 리스트 데이터",res.data.lists);
+                console.log("메세지 리스트 데이터", res.data.lists);
                 const sortedMessages = res.data.lists.sort((a, b) => {
                     // 게시글 데이터 작성 일자별 내림차순 정렬
                     return new Date(b.createdAt) - new Date(a.createdAt);
-                  });
+                });
 
 
                 setMessageList(sortedMessages);
                 // setMaxPage(sortedPlays.length);
-                
+
                 console.timeEnd('소요시간');
             })
             .catch((err) => {
                 console.log('err :', err);
             })
     }
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
 
+
+
+    const showMessageListDetail = async (e) => {
+        console.log('디테일 함수 시작');
+        const getUserId = sessionStorage.getItem('memberId');
+        const sendUserId = e.id; // MessageCompo에 Link에 넣은 쿼리 스트링
+        console.log(getUserId);
+        console.log(sendUserId);
+        await axios
+            .get(`http://localhost:8088/message/showMessageListDetail?getUserId=${getUserId}&sendUserId=${sendUserId}`)
+            .then((res) => {
+                const sortedMessage = res.data.lists.sort((a, b) => {
+                    // 게시글 데이터 작성 일자별 내림차순 정렬
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                });
+                console.log('디테일 내용', sortedMessage);
+                setMessageListDetail(sortedMessage);
+                console.timeEnd('소요시간');
+            })
+    }
 
     return (
         <div className={styles.Main_container}>
@@ -366,7 +445,7 @@ const [messageList,setMessageList] =useState([]);
                         </svg>
                         <h4>프로필</h4>
                     </div>
-                    <div onClick={()=>{clickMessage(); showMessageList();}}>
+                    <div onClick={() => { clickMessage(); showMessageList(); }}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z" />
                             <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
@@ -542,46 +621,13 @@ const [messageList,setMessageList] =useState([]);
                         <div className={styles.message_wrapper}>
                             <div>
                                 <h4>메시지</h4>
-                                <MessageCompo />
-                                <MessageCompo />
-                                <MessageCompo />
-                                <MessageCompo />
-                            </div>
-                            <div className={styles.message_content_wrapper}>
-                                <div className={styles.message_content_top_box}>
-                                    <div>
-                                        <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
-                                    </div>
-                                    <div>
-                                        <h5>잇티티티</h5>
-                                    </div>
+                                {/* 글 반복 시작 */}
+                                {messageList.map((item) => (
+                                    <MessageCompo key={item.sendUserId} props={item} onClick={showMessageListDetail} />
+                                ))}
 
-                                </div>
-                                <div className={styles.message_content_bottom_box}>
-                                    <div className={styles.received_message}>
-                                        <div>
-                                            <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
-                                        </div>
-                                        <div>
-                                            <p>메세지내용~~~~~~</p>
-                                        </div>
-                                        <div className={styles.message_time}>
-                                            <p>2023-10-01</p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.sent_message}>
-                                        <div className={styles.message_time}>
-                                            <p>2023-10-01</p>
-                                        </div>
-                                        <div>
-                                            <Image src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHOo1cr8XLPI5mV-iUJomYWVoIqsIe6R6NVw&usqp=CAU' roundedCircle />
-                                        </div>
-                                        <div>
-                                            <p>메세지내용~~~~~~</p>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
+                            <MessageDetailCompo />
 
 
 

@@ -68,6 +68,9 @@ function App() {
   const [commentList, setCommentList] = useState([]);
   const [anonyCommentList, setAnonyCommentList] = useState([]);
 
+  // 쪽지 데이터 컨텍스트 용 스테이트
+  const [messageInfo, setMessageInfo] = useState({})
+
   // 댓글 조회 함수
   const getComment = (id) => {
     console.log('조회함수 진입');
@@ -227,6 +230,10 @@ function App() {
     setAnonyCommentList: setAnonyCommentList,
     deleteAnonyComment: deleteAnonyComment,
     deleteAnonyReComment: deleteAnonyReComment,
+
+    // 쪽지 정보
+    messageInfo:messageInfo,
+    setMessageInfo:setMessageInfo
   }
 
   return (
