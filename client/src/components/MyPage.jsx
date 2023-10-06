@@ -353,33 +353,32 @@ const MyPage = () => {
 
                 </div>
                 <div className={styles.message_content_bottom_box}>
-                    <div className={styles.received_message}>
-                        <div>
-                            <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                    {messageListDetail.map((message, index) => (
+                        <div className={message.sendUserId === 'admin' ? styles.sent_message : styles.received_message} key={index}>
+                            {message.sendUserId === 'admin' && (
+                                <div className={styles.message_time}>
+                                    <p>{message.createdAt}</p>
+                                </div>
+                            )}
+                            <div>
+                                <Image src={message.sendUserId === 'admin' ? 'https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHOo1cr8XLPI5mV-iUJomYWVoIqsIe6R6NVw&usqp=CAU'} roundedCircle />
+                            </div>
+                            <div>
+                                <p>{message.content}</p>
+                            </div>
+                            {message.sendUserId !== 'admin' && (
+                                <div className={styles.message_time}>
+                                    <p>{message.createdAt}</p>
+                                </div>
+                            )}
                         </div>
-                        <div>
-                            <p>메세지내용~~~~~~</p>
-                        </div>
-                        <div className={styles.message_time}>
-                            <p>2023-10-01</p>
-                        </div>
-                    </div>
-                    <div className={styles.sent_message}>
-                        <div className={styles.message_time}>
-                            <p>2023-10-01</p>
-                        </div>
-                        <div>
-                            <Image src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHOo1cr8XLPI5mV-iUJomYWVoIqsIe6R6NVw&usqp=CAU' roundedCircle />
-                        </div>
-                        <div>
-                            <p>메세지내용~~~~~~</p>
-                        </div>
+                    ))}
+                    <div>
+                        <input></input>
+                            <button>전송</button>
                     </div>
                 </div>
             </div>
-
-
-
         );
     }
 
@@ -426,7 +425,7 @@ const MyPage = () => {
             .then((res) => {
                 const sortedMessage = res.data.lists.sort((a, b) => {
                     // 게시글 데이터 작성 일자별 내림차순 정렬
-                    return new Date(b.createdAt) - new Date(a.createdAt);
+                    return new Date(a.createdAt) - new Date(b.createdAt);
                 });
                 console.log('디테일 내용', sortedMessage);
                 setMessageListDetail(sortedMessage);
@@ -625,12 +624,8 @@ const MyPage = () => {
                                 {messageList.map((item) => (
                                     <MessageCompo key={item.sendUserId} props={item} onClick={showMessageListDetail} />
                                 ))}
-
                             </div>
                             <MessageDetailCompo />
-
-
-
                         </div>
                     </div>
                 }

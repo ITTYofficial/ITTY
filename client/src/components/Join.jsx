@@ -27,7 +27,7 @@ const Join = () => {
     console.log(value);
   };
 
-  
+
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [name, setName] = useState("");
@@ -39,13 +39,13 @@ const Join = () => {
   const [idCheckResult, setIdCheckResult] = useState(false);
   const [pwCheckResult, setPwCheckResult] = useState(false);
   const [nicknameCheckResult, setNicknameCheckResult] = useState(false);
- 
-  
+
+
   const messageElement1 = useRef(null);
   const messageElement2 = useRef(null);
   const messageElement3 = useRef(null);
   const messageElement4 = useRef(null);
-  
+
   useEffect(() => {
     // 컴포넌트가 마운트된 후에 messageElement를 설정
     messageElement1.current = document.getElementById('iDmessage'); // message 요소를 찾아서 설정
@@ -66,150 +66,152 @@ const Join = () => {
   const onCheckPwHandler = (e) => {
     setCheckPw(e.target.value);
   };
-  const onRoleHandler =(e) =>{
+  const onRoleHandler = (e) => {
     setRole(e.target.value);
   }
-  const onNicknameHandler =(e) =>{
+  const onNicknameHandler = (e) => {
     setNickname(e.target.value);
   }
-  
-  const onGenderHandler =(e) =>{
+
+  const onGenderHandler = (e) => {
     setGender(e.target.value);
   }
-  const onSkillHandler =(e) =>{
+  const onSkillHandler = (e) => {
     setSkill(e.target.value);
   }
-// ****************************
-// 아이디 중복체크 + 영문숫자 조합확인
-const engNum =  /^[A-Za-z0-9]{5,16}$/; // 영문-숫자 + 5글자이상 15미만으로 제한
+  // ****************************
+  // 아이디 중복체크 + 영문숫자 조합확인
+  const engNum = /^[A-Za-z0-9]{5,16}$/; // 영문-숫자 + 5글자이상 15미만으로 제한
 
-const engNumCheck= (e) =>{
-  if (messageElement1.current) {
-  const inputValue =e.target.value
-  // console.log(inputValue);
-  if(engNum.test(inputValue)){
-    messageElement1.current.textContent = "";
-//    messageElement.current.style.color = "green";
-    setIdCheckResult(true);
-  }else {
-    messageElement1.current.textContent = "아이디는 영문, 숫자 조합입니다";
-    messageElement1.current.style.color = "red";
-    setIdCheckResult(false);
-  }}
-}
+  const engNumCheck = (e) => {
+    if (messageElement1.current) {
+      const inputValue = e.target.value
+      // console.log(inputValue);
+      if (engNum.test(inputValue)) {
+        messageElement1.current.textContent = "";
+        //    messageElement.current.style.color = "green";
+        setIdCheckResult(true);
+      } else {
+        messageElement1.current.textContent = "아이디는 영문, 숫자 조합입니다";
+        messageElement1.current.style.color = "red";
+        setIdCheckResult(false);
+      }
+    }
+  }
 
   // 비밀번호는 영문과 숫자 필수
   const engNumPw = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  const engNumPwCheck= (e) =>{
+  const engNumPwCheck = (e) => {
     if (messageElement2.current) {
-    const inputValue =e.target.value
-    // console.log(inputValue);
-    if(engNumPw.test(inputValue)){
-      messageElement2.current.textContent = "";
-//      messageElement.current.style.color = "blue";
-      setPwCheckResult(true);
-    }else {
-      messageElement2.current.textContent = "비밀번호에는 문자와 숫자를 모두 포함해야 합니다.";
-      messageElement2.current.style.color = "red";
-      setPwCheckResult(false);
-    }}
-
-};
-
-//아이디 중복체크
-const idCheck = async(e) => {
-  e.preventDefault();
- if(idCheckResult){
-
-   const idChecking ={id:id};
-   try {
-     //  라우트로 POST 요청 보내기
-     const response = await axios.post('http://localhost:8088/member/idCheck', idChecking);
-     if (response.data.idCheckingSuccess) {
-       // 중복체크 중복 O      
-       console.log('아이디 중복체크 성공:', response.data.idCheckingId);
-       messageElement1.current.textContent= response.data.message; // 사용가능한 아이디입니다.
-       messageElement1.current.style.color = "blue"; 
-       setIdCheckResult(true);
+      const inputValue = e.target.value
+      // console.log(inputValue);
+      if (engNumPw.test(inputValue)) {
+        messageElement2.current.textContent = "";
+        //      messageElement.current.style.color = "blue";
+        setPwCheckResult(true);
       } else {
-        // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
-        messageElement1.current.textContent= response.data.message; // 중복된 아이디입니다.
-        messageElement1.current.style.color = "red";
-        setIdCheckResult(false)
+        messageElement2.current.textContent = "비밀번호에는 문자와 숫자를 모두 포함해야 합니다.";
+        messageElement2.current.style.color = "red";
+        setPwCheckResult(false);
       }
-    } catch (error) {
-      console.error('오류 발생:', error);
     }
-  }else{
-    setIdCheckResult(false);
-  }
-}
 
-//닉네임 중복체크
-const nicknameCheck = async(e) => {
-  e.preventDefault();
- 
-   const nicknameChecking  ={nickname:nickname};
-   try {
-     //  라우트로 POST 요청 보내기
-     const response = await axios.post('http://localhost:8088/member/nicknameCheck', nicknameChecking);
-     if (response.data.nicknameCheckingSuccess) {
-       // 중복체크 중복 O      
-       console.log('아이디 중복체크 성공:', response.data.nicknameCheckingNickname);
-       messageElement4.current.textContent= response.data.message; // 사용가능한 아이디입니다.
-       messageElement4.current.style.color = "blue"; 
-       setNicknameCheckResult(true);
+  };
+
+  //아이디 중복체크
+  const idCheck = async (e) => {
+    e.preventDefault();
+    if (idCheckResult) {
+
+      const idChecking = { id: id };
+      try {
+        //  라우트로 POST 요청 보내기
+        const response = await axios.post('http://localhost:8088/member/idCheck', idChecking);
+        if (response.data.idCheckingSuccess) {
+          // 중복체크 중복 O      
+          console.log('아이디 중복체크 성공:', response.data.idCheckingId);
+          messageElement1.current.textContent = response.data.message; // 사용가능한 아이디입니다.
+          messageElement1.current.style.color = "blue";
+          setIdCheckResult(true);
+        } else {
+          // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
+          messageElement1.current.textContent = response.data.message; // 중복된 아이디입니다.
+          messageElement1.current.style.color = "red";
+          setIdCheckResult(false)
+        }
+      } catch (error) {
+        console.error('오류 발생:', error);
+      }
+    } else {
+      setIdCheckResult(false);
+    }
+  }
+
+  //닉네임 중복체크
+  const nicknameCheck = async (e) => {
+    e.preventDefault();
+
+    const nicknameChecking = { nickname: nickname };
+    try {
+      //  라우트로 POST 요청 보내기
+      const response = await axios.post('http://localhost:8088/member/nicknameCheck', nicknameChecking);
+      if (response.data.nicknameCheckingSuccess) {
+        // 중복체크 중복 O      
+        console.log('아이디 중복체크 성공:', response.data.nicknameCheckingNickname);
+        messageElement4.current.textContent = response.data.message; // 사용가능한 아이디입니다.
+        messageElement4.current.style.color = "blue";
+        setNicknameCheckResult(true);
       } else {
         // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
-        messageElement4.current.textContent= response.data.message; // 중복된 아이디입니다.
+        messageElement4.current.textContent = response.data.message; // 중복된 아이디입니다.
         messageElement4.current.style.color = "red";
         setNicknameCheckResult(false)
       }
     } catch (error) {
       console.error('오류 발생:', error);
     }
- 
-}
 
-// 비밀번호 확인 메소드
-const pwCheck = (e) =>{
-  if (pwCheckResult) {
-    if(pw !== checkPw){
-      messageElement3.current.textContent = "비밀번호가 일치하지 않습니다.";
-      messageElement3.current.style.color = "red";
-      setPwCheckResult(false);
-    }else{
-      messageElement3.current.textContent = "비밀번호 일치 확인";
-      messageElement3.current.style.color = "blue";
-      setPwCheckResult(true);
+  }
+
+  // 비밀번호 확인 메소드
+  const pwCheck = (e) => {
+    if (pwCheckResult) {
+      if (pw !== checkPw) {
+        messageElement3.current.textContent = "비밀번호가 일치하지 않습니다.";
+        messageElement3.current.style.color = "red";
+        setPwCheckResult(false);
+      } else {
+        messageElement3.current.textContent = "비밀번호 일치 확인";
+        messageElement3.current.style.color = "blue";
+        setPwCheckResult(true);
+      }
     }
   }
-}
 
   // ******************************************************** 
   // 회원가입 함수
 
   const joinMember = async (e) => {
     e.preventDefault();
-if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& gender) {
+    if (idCheckResult && pwCheckResult && nicknameCheckResult && name && nickname && gender) {
 
-  let member = {
-    id: id,
-    name: name,
-    pw: pw,
-    gender: gender,
-    nickname: nickname,
-    role: role,
-    skill: skill,
-  };
+      let member = {
+        id: id,
+        name: name,
+        pw: pw,
+        gender: gender,
+        nickname: nickname,
+        role: role,
+        skill: skill,
+      };
       try {
         console.log('제발 들어와주라', member);
         const response = await axios.post("http://localhost:8088/member/join", member); // 경로 테스트 중...
         if (response.data.message === "회원가입이 완료되었습니다.") {
           // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
           window.location.href = '/login'
-          
-          
+
+
         } else {
           // 오류 처리
           console.error("회원가입에 실패했습니다.");
@@ -217,9 +219,9 @@ if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& g
       } catch (error) {
         console.error("오류 발생:", error);
       }
-}else{
-  return alert("다시");
-}
+    } else {
+      return alert("다시");
+    }
 
   };
 
@@ -249,14 +251,14 @@ if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& g
               <label className="form-label" htmlFor="id">아이디</label>
               <input className="form-control" type="text" name="id" value={id} id="id" onChange={onIdHandler} onInput={engNumCheck} onBlur={idCheck} placeholder='5~15자 이내로 입력해주세요.' />
               <div className={style.Join_content_test} id="iDmessage"></div>
-   
+
             </div>
             <div className="mb-3">
               <label className="form-label" htmlFor="pw">비밀번호</label>
-              <input className="form-control" type="password" name="pw" id="pw" value={pw} onChange={onPwHandler} onInput={engNumPwCheck}  placeholder='비밀번호를 입력해주세요(8자리 이상)' />
+              <input className="form-control" type="password" name="pw" id="pw" value={pw} onChange={onPwHandler} onInput={engNumPwCheck} placeholder='비밀번호를 입력해주세요(8자리 이상)' />
               <div className={style.Join_content_test} id="pWmessage"></div>
             </div>
-            <div  className="mb-3">
+            <div className="mb-3">
               <label className="form-label" htmlFor="pw_check">비밀번호 확인</label>
               <input className="form-control" type="password" name="pw_check" id="pw_check" value={checkPw} onChange={onCheckPwHandler} onBlur={pwCheck} placeholder='비밀번호를 한번 더 입력해주세요.' />
               <div className={style.Join_content_test} id="pWCheckmessage"></div>
@@ -276,8 +278,8 @@ if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& g
               <div className="mb-3">
                 <h2 className={style.Join_font_box5}>포지션</h2>
               </div>
-              <select className="form-control" style={{backgroundColor:"#f0f9ff"}} name="role"  onChange={onRoleHandler} >
-               <option value="none">포지션을 선택해주세요</option>
+              <select className="form-control" style={{ backgroundColor: "#f0f9ff" }} name="role" onChange={onRoleHandler} >
+                <option value="none">포지션을 선택해주세요</option>
                 <option value="back">Back-End 백앤드</option>
                 <option value="front">Front-End 프론트엔드</option>
                 <option value="full">Full-Stack 풀스택</option>
@@ -292,8 +294,8 @@ if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& g
                 <h2 className={style.Join_font_box5}>스킬</h2>
                 <h5 className={style.Join_font_box6}>*선택사항입니다</h5>
               </div>
-              <select className="form-control" style={{backgroundColor:"#f0f9ff"}} name="skill" onChange={onSkillHandler}>
-              <option value="none">스킬을 선택해주세요</option>
+              <select className="form-control" style={{ backgroundColor: "#f0f9ff" }} name="skill" onChange={onSkillHandler}>
+                <option value="none">스킬을 선택해주세요</option>
                 <option value="java">Java</option>
                 <option value="javascript">JavaScript</option>
                 <option value="htmlcss">HTML/CSS</option>
@@ -338,7 +340,7 @@ if (idCheckResult && pwCheckResult &&nicknameCheckResult && name && nickname&& g
                   id="female"
                   value="female"
                   checked={gender === "female"}
-                  onChange={onGenderHandler} 
+                  onChange={onGenderHandler}
                 />
               </div>
             </div>
