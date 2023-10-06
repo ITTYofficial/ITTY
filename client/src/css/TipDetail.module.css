@@ -400,3 +400,11 @@
   }
 
 }
+
+
+@media (max-width: 1026px) {
+  .right_container {
+    margin-left:7%;
+  }
+
+}
