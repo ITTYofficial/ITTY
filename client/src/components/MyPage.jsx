@@ -561,10 +561,11 @@ const [messageListDetail,setMessageListDetail] =useState([]);
                         <div className={styles.message_wrapper}>
                             <div>
                                 <h4>메시지</h4>
-                                <MessageCompo />
-                                <MessageCompo />
-                                <MessageCompo />
-                                <MessageCompo />
+                                {/* 글 반복 시작 */}
+                                {messageList.map((item)=>(
+                                    <MessageCompo key={item.sendUserId} props={item}/>
+                                ))}
+
                             </div>
                             <div className={styles.message_content_wrapper}>
                                 <div className={styles.message_content_top_box}>
