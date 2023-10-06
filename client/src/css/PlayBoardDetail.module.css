@@ -33,7 +33,7 @@
 
 .play_profile>span>h2 {
   font-family: sans-serif;
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 16px;
 }
@@ -42,7 +42,7 @@
 .division_line {
   position: relative;
   display: flex;
-  margin: 32px 0;
+  margin: 32px 0 0 0;
 }
 
 .division_line>div {
@@ -467,7 +467,7 @@
 .division_line_comment {
   position: relative;
   display: flex;
-  margin: 32px 0;
+  margin: 50px 0 32px 0;
 }
 
 .division_line_comment>div {
