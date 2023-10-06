@@ -4,10 +4,10 @@ const Message = require('../schemas/message')
 const Member = require('../schemas/member/member')
 
 router.get('/showMessageList', async (req, res) => {
-    console.time('걸린시간');
+    console.log('메세지리스트조회 시작');
     try {
         console.time("메세지 리스트조회 도착")
-        console.log('플레이 쿼리스트링', req.query);
+        console.log('보낸사람 쿼리스트링', req.query);
         getUserId = req.query.getUserId;
         let lists = [];
 
@@ -17,18 +17,20 @@ router.get('/showMessageList', async (req, res) => {
         // 클라이언트에서 쿼리스트링으로 문자(Study등)를 보내 일치하는 걸로 실행
 
             lists = await Message.find({"getUserId":getUserId});
-
+        console.log('lists 확인0:',lists);
         // 메세지 리스트 메세지 보낸사람 아이디 수집
         lists.forEach(list => {
             if (list.sendUserId) {
                 writerId.push(list.sendUserId);
             }
         });
+        console.log('writerId 확인1', writerId);
         // 작성자 정보 일괄 조회    
         const writerInfos = await Member.find({ id: { $in: writerId } });
+        console.log('writerInfos 확인2',writerInfos);
         const getWriterInformation = lists.map(list => {
-            const writerInfo = writerInfos.find(info => info.id === list.id);
-
+            const writerInfo = writerInfos.find(info => info.id ===  list.sendUserId);
+            console.log('writerInfos 확인3',writerInfo);
             return {
                 ...list.toJSON(),
                 writerInfo: writerInfo.toJSON(),
