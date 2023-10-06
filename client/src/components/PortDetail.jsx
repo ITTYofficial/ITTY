@@ -8,6 +8,7 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
 import QuillComment from './QuillComment'
+import { Link } from "react-router-dom";
 
 const PortDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
@@ -20,7 +21,7 @@ const PortDetail = () => {
   const [memberInfo, setMemberInfo] = useState([]);
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue  } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
@@ -215,25 +216,12 @@ const PortDetail = () => {
       <LeftContainer />
       <div className={style.right_container} onClick={toggleMeat}>
         <div>
+          <Link to={"/portList"}>
+          <h2>포트폴리오 🔎</h2>
+          </Link>
+          <hr />
+
           <h4>{portDetail.title}</h4>
-          <div className={style.meatball}>
-            <ul>
-              <svg
-                onClick={() => {
-                  setMeat(!meat);
-                }}
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-              {meat && <Dropdown />}
-            </ul>
-          </div>
         </div>
         <div className={style.top_container}>
           <div className={style.top_container_sub}>
@@ -255,6 +243,24 @@ const PortDetail = () => {
           </div>
         </div>
         <hr />
+        <div className={style.meatball}>
+          <ul>
+            <svg
+              onClick={() => {
+                setMeat(!meat);
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-three-dots"
+              viewBox="0 0 16 16"
+            >
+              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+            </svg>
+            {meat && <Dropdown />}
+          </ul>
+        </div>
         <div className={style.middle_container}>
           <img src={portDetail.imgPath}></img>
         </div>
@@ -273,23 +279,23 @@ const PortDetail = () => {
           </div>
         </div>
         <form onSubmit={commentSubmit}>
-        <div className={style.comment_write}>
-          
-              <div>
-                <div className={style.comment_write_profile}>
-                  
-                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
-                </div>
-                <div className={style.quillComment_container}>
-                  
-                  <QuillComment />
-                </div>
+          <div className={style.comment_write}>
+
+            <div>
+              <div className={style.comment_write_profile}>
+
+                <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
               </div>
-              <div className={style.submit_btn_group}>
-                
-                <button type="submit">댓글쓰기</button>
+              <div className={style.quillComment_container}>
+
+                <QuillComment />
               </div>
             </div>
+            <div className={style.submit_btn_group}>
+
+              <button type="submit">댓글쓰기</button>
+            </div>
+          </div>
         </form>
         {commentList.map((item) => (
           <CommentItem key={item._id} props={item} postId={id} boardType='port' />
