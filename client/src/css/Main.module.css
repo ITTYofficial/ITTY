@@ -91,30 +91,29 @@
   background-color: #2474ff;
   padding: 16px 24px;
   border-radius: 20px 20px 0 0;
-  box-shadow: 1px 1px #a0a0a0;
-  margin-bottom: 24px;
-  font-size: 20px;
+  /* box-shadow: 1px 1px #a0a0a0; */
+  /* margin-bottom: 24px; */
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 2px;
   color: #ffffff;
   text-align: center;
-  text-shadow: -0.03em 0.03em #182642;
+  /* text-shadow: -0.03em 0.03em #182642; */
 }
 
 .Main_grid_detail {
-  padding: 1px 3px 4px 6px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid rgb(228, 228, 228);
-  margin: 0 4% 1% 4%;
+  border-bottom: 1px solid rgb(228, 228, 228);
+  padding: 16px;
 }
 
-.Main_grid_detail>h4:hover {
+.Main_grid_detail > h4:hover {
   color: #2474ff;
   cursor: pointer;
 }
 
-.Main_grid_detail>h4 {
+.Main_grid_detail > h4 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 12px;
@@ -140,13 +139,13 @@
   margin-right: 4px;
 }
 
-.profile_text>p {
+.profile_text > p {
   font-size: 12px;
   margin-bottom: 4px;
   text-align: right;
 }
 
-.profile_text>h4 {
+.profile_text > h4 {
   font-size: 16px;
   font-weight: bold;
   text-align: right;
@@ -172,10 +171,10 @@
   background-color: #ff8508;
   padding: 16px 24px;
   border-radius: 20px 20px 0 0;
-  box-shadow: 1px 1px #a0a0a0;
-  margin-bottom: 24px;
-  text-shadow: -0.03em 0.03em #182642;
-  font-size: 20px;
+  /* box-shadow: 1px 1px #a0a0a0; */
+  /* margin-bottom: 24px; */
+  /* text-shadow: -0.03em 0.03em #182642; */
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-align: center;
@@ -192,19 +191,22 @@
 
 .Main_grid_right_container {
   max-width: 75%;
-  margin-bottom: 12px;
 }
 
 .Main_grid_right_container h4 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "suit";
+  /* letter-spacing: -1px; */
+  cursor: pointer;
+  transition-duration: 200ms;
 }
-
+.Main_grid_right_container h4:hover {
+  color: #2474ff;
+}
 .profile_pic img {
   width: 100%;
   height: 100%;
@@ -227,22 +229,22 @@
   background-color: #09b500;
   padding: 16px 24px;
   border-radius: 20px 20px 0 0;
-  box-shadow: 1px 1px #a0a0a0;
+  /* box-shadow: 1px 1px #a0a0a0; */
   margin-bottom: 24px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 2px;
   color: #ffffff;
   text-align: center;
-  text-shadow: -0.03em 0.03em #182642;
+  /* text-shadow: -0.03em 0.03em #182642; */
 }
 
-.right_container>div:nth-child(3) {
+.right_container > div:nth-child(3) {
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.right_container>div:nth-child(4) {
+.right_container > div:nth-child(4) {
   grid-column-start: 1;
   grid-column-end: 3;
 }
@@ -265,7 +267,6 @@
   display: none;
 }
 
-
 .Market_content_item {
   flex: 0 0 auto;
   width: 250px;
@@ -273,7 +274,6 @@
   border-radius: 10px;
   text-decoration: none;
   box-shadow: 2px 2px 8px #c4c4c4;
-
 }
 
 /* .Market_content_item {
@@ -294,18 +294,17 @@
 }
 
 .Market_content_text h4 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   /* margin: 8px 0; */
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "suit";
 }
 
-.Market_content_text>p {
+.Market_content_text > p {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 12px;
@@ -333,14 +332,14 @@
   background-color: #8925ff;
   padding: 16px 24px;
   border-radius: 20px 20px 0 0;
-  box-shadow: 1px 1px #a0a0a0;
+  /* box-shadow: 1px 1px #a0a0a0; */
   margin-bottom: 24px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 2px;
   color: #ffffff;
   text-align: center;
-  text-shadow: -0.03em 0.03em #182642;
+  /* text-shadow: -0.03em 0.03em #182642; */
 }
 
 /* 포폴 css */
@@ -362,35 +361,39 @@
 .port_content_img {
   width: 100%;
   overflow: hidden;
-  height: 70%;
 }
 
+.port_content_img > a {
+  display: block;
+  transition-duration: 200ms;
+}
+.port_content_img > a:hover > img {
+  box-shadow: 1px 1px 14px #99999915;
+}
 .port_content_img img {
   width: 100%;
-  max-height: 250px;
-  height: 100%;
   object-fit: cover;
 }
 
 .port_content_bottom {
-  padding: 0 12px 12px 12px;
+  padding: 8px;
 }
 
-.port_content_bottom>div:first-child {
+.port_content_bottom > div:first-child {
   font-family: sans-serif;
   letter-spacing: -1px;
   margin-bottom: 4px;
 }
 
-.port_content_bottom>div:nth-child(2) {
+.port_content_bottom > div:nth-child(2) {
   display: flex;
   justify-content: space-between;
 }
 
-.port_content_bottom>div>h4 {
-  font-size: 18px;
+.port_content_bottom > div > h4 {
+  font-size: 16px;
   font-weight: bold;
-  margin: 4px 0;
+  margin-bottom: 8px;
   text-align: left;
   white-space: nowrap;
   /* 추가 */
@@ -398,7 +401,7 @@
   /* 추가 */
   text-overflow: ellipsis;
   /* 추가 */
-  font-family: sans-serif;
+  font-family: "suit";
   letter-spacing: -1px;
 }
 
@@ -407,7 +410,7 @@
   align-items: center;
 }
 
-.port_content_bottom2+div {
+.port_content_bottom2 + div {
   display: flex;
   align-items: flex-end;
 }
@@ -417,7 +420,6 @@
   height: 35px;
   margin-right: 4px;
 }
-
 .profile_img img {
   width: 100%;
   height: 100%;
@@ -425,43 +427,32 @@
 
 .little_p {
   color: #999999;
-  font-size: 14px;
-  /* margin-bottom: 8px; */
+  font-size: 12px;
+  margin-bottom: 4px;
   font-weight: 500;
 }
 
 .large_p {
   color: #000000;
-  font-size: 16px;
+  font-size: 14px;
   /* margin-bottom: 8px; */
   font-weight: 500;
 }
 
-/* .port_list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-  gap: 1rem;
-  margin-bottom: 20px;
-} */
-
 .port_list {
   display: flex;
   overflow-x: auto;
-  gap: 1rem;
+  /* gap: 1rem; */
 }
 
 .port_list::-webkit-scrollbar {
   display: none;
 }
 
-
 .port_content {
   flex: 0 0 auto;
   width: 300px;
-  /* 포트폴리오 아이템의 고정된 너비 */
-  margin-right: 1rem;
-  margin-bottom: 1rem;
+  margin: 0 1rem 1rem 1rem;
 }
 
 /* 포폴 css */
@@ -485,7 +476,7 @@
     font-size: 16px;
   }
 
-  .profile_text>h4 {
+  .profile_text > h4 {
     font-size: 14px;
   }
 
@@ -509,7 +500,7 @@
     height: 28px;
   }
 
-  .port_content_bottom>div>h4 {
+  .port_content_bottom > div > h4 {
     font-size: 16px;
   }
 
@@ -538,4 +529,3 @@
     font-size: 16px;
   }
 }
-

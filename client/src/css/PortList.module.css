@@ -28,10 +28,8 @@
 } */
 
 .right_container h4 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  /* margin: 12px 0; */
-  padding: 12px 16px 8px 16px;
   text-align: left;
   white-space: nowrap;
   /* 추가 */
@@ -41,6 +39,7 @@
   /* 추가 */
   font-family: sans-serif;
   letter-spacing: -1px;
+  margin-bottom: 8px;
 }
 
 .port_list {
@@ -75,12 +74,10 @@
 }
 
 @media (max-width: 768px) {
-
   .port_list {
     gap: 3rem;
   }
 }
-
 
 .port_content {
   width: 90%;
@@ -103,6 +100,9 @@
   height: 70%;
 }
 
+.port_content_img > a {
+  display: block;
+}
 .port_content_img img {
   width: 100%;
   max-height: 250px;
@@ -112,12 +112,13 @@
 
 .port_content_bottom {
   height: 30%;
+  padding: 12px;
 }
 
-.port_content_bottom>div:nth-child(2) {
+.port_content_bottom > div:nth-child(2) {
   display: flex;
   justify-content: space-between;
-  padding: 8px 10px 16px;
+  flex-direction: row-reverse;
 }
 
 .port_content_bottom2 {
@@ -125,7 +126,7 @@
   align-items: center;
 }
 
-.port_content_bottom2+div {
+.port_content_bottom2 + div {
   display: flex;
   align-items: flex-end;
 }
@@ -150,7 +151,7 @@
   padding: 8px 0 8px 0;
 }
 
-.little_title>a {
+.little_title > a {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
@@ -163,7 +164,7 @@
   float: right;
 }
 
-.little_title>a:hover {
+.little_title > a:hover {
   background-color: #2a72ff;
   color: #eeeeee;
   transition-duration: 200ms;
@@ -176,15 +177,15 @@
 
 .little_p {
   color: #999999;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   margin-bottom: 4px;
 }
 
 .large_p {
   color: #000000;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "suit";
+  /* letter-spacing: -1px; */
 }

@@ -119,6 +119,7 @@ button {
   display: inline-block;
   background-color: #2a72ff;
   padding: 12px 20px;
+  transition-duration: 200ms;
 }
 /* 로그인 후 메신져 */
 .messenger {

@@ -83,11 +83,11 @@
 }
 
 .Main_container_list_detail p {
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 8px;
   /* text-align: right; */
   color: #999999;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .Review_list_profile {
