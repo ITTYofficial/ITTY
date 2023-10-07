@@ -28,7 +28,7 @@ router.get('/showMessageList', async (req, res) => {
     // 작성자 정보 일괄 조회    
     const writerInfos = await Member.find({ id: { $in: writerId } });
     console.log('writerInfos 확인2', writerInfos);
-    const getWriterInformation = lists.map(list => {
+    let getWriterInformation = lists.map(list => {
       const writerInfo = writerInfos.find(info => info.id === list.sendUserId);
       console.log('writerInfos 확인3', writerInfo);
       return {
@@ -36,6 +36,12 @@ router.get('/showMessageList', async (req, res) => {
         writerInfo: writerInfo.toJSON(),
       };
     });
+    getWriterInformation = getWriterInformation.filter((list, index, self) =>
+      index === self.findIndex((t) => (
+        t.writerInfo.id === list.writerInfo.id
+      ))
+    );
+
     res.json({ lists: getWriterInformation });
     /* console.log('다됨?', lists);  */
     console.timeEnd('걸린시간');
