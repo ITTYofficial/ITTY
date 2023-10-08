@@ -5,7 +5,7 @@
   font-weight: bold;
   margin-left: 1%;
   color: #999999;
-  
+  text-align: center;
 }
 
 .tip_font a{
@@ -81,8 +81,8 @@
   display: block;
   position: absolute;
   inset: 50% 0;
-  background-color: #999999;
-  height: 0.5px;
+  background-color: #929292;
+  height: 1px;
 }
 
 .division_line div a {
@@ -120,20 +120,18 @@
 }
 
 .develope {
-  background-color: #ff6d00;
-  color: #551a01;
+  background-color: #ff9e55;
+  color: #3c1200;
 }
-
 .study {
   background-color: #247dff;
   color: #ffffff;
 }
 
 .job {
-  background-color: #B3A1FF;
-  color: #500084;
+  background-color: #d4aeff;
+  color: #160124;
 }
-
 .life {
   background-color: #00ffaa;
   color: #103a27;
@@ -370,7 +368,7 @@
 @media (max-width: 768px) {
 
   .right_container {
-  width:92%;
+  width:88%;
   margin-top: 3%;
   margin-left: 4%;
   }
@@ -402,9 +400,9 @@
 }
 
 
-@media (max-width: 1026px) {
+@media (max-width: 1024px) {
   .right_container {
-    margin-left:7%;
+    margin: 0 auto;
+    padding: 5% 0;
   }
-
 }
