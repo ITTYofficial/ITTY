@@ -68,7 +68,14 @@ router.get('/showMessageListDetail', async (req, res) => {
         { sendUserId: getUserId, getUserId: sendUserId }
       ]
     })
-    
+
+    // 메세지를 읽었으므로 read를 1로 업데이트
+    await Message.updateMany({
+      sendUserId: sendUserId,
+      getUserId: getUserId,
+      read: 0 // read가 0인 메시지만 업데이트
+    }, { $set: { read: 1 } });
+
     /* console.log('lists 확인0:', lists); */
     // 메세지 리스트 메세지 보낸사람 아이디 수집
     lists.forEach(list => {
@@ -89,14 +96,11 @@ router.get('/showMessageListDetail', async (req, res) => {
       };
     });
     res.json({ lists: getWriterInformation });
-    
+
   } catch (err) {
     console.log(err);
     res.json({ message: false })
   }
-
-
-
 });
 
 router.post('/write', async (req, res) => {
@@ -121,5 +125,23 @@ router.post('/write', async (req, res) => {
     res.json({ message: false });
   }
 });
+
+// 안읽은 쪽지 개수
+router.get('/countMessage', async (req, res) => {
+  try {
+    const getUserId = req.query.getUserId;
+
+    const messageCount = await Message.countDocuments({
+      getUserId: getUserId,
+      read: 0
+    });
+
+    res.json({ messageCount });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
+
 
 module.exports = router

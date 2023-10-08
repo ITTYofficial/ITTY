@@ -15,9 +15,11 @@
   transition-duration: 300ms;
   overflow: hidden;
 }
+
 .NavDropdown {
   height: 250px;
 }
+
 /* 로그인 이후 로그아웃 버튼에 검정선 생기는 현상 해결 */
 button {
   border: none;
@@ -47,6 +49,7 @@ button {
   margin: 8px 0;
   text-align: center;
 }
+
 /* 
 .NavDropdownHover{
   display: flex;
@@ -54,38 +57,40 @@ button {
   text-align: center;
 } */
 
-.Category > ul > li {
+.Category>ul>li {
   display: inline-block;
   padding: 8px 16px;
   margin: 8px 16px;
 }
 
-.Category > ul > li > a {
+.Category>ul>li>a {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
   font-size: 16px;
 }
 
-.nav_hover:hover > a {
+.nav_hover:hover>a {
   color: #2a72ff;
   transition-duration: 200ms;
 }
+
 .form-control {
   border-radius: 20px;
   border: 2px solid #999999;
 }
-.Member > ul {
+
+.Member>ul {
   display: flex;
   margin: 4px 0;
   align-items: center;
 }
 
-.Member > ul > li {
+.Member>ul>li {
   margin: 8px 16px 8px 0;
 }
 
-.Member > ul a {
+.Member>ul a {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
@@ -98,7 +103,7 @@ button {
 }
 
 /* 로그아웃 버튼 태그 ㄱ */
-.Member > ul button {
+.Member>ul button {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
@@ -109,7 +114,7 @@ button {
   padding: 12px 20px;
 }
 
-.Member > ul a {
+.Member>ul a {
   text-decoration: none;
   color: #eeeeee;
   font-weight: 600;
@@ -121,6 +126,7 @@ button {
   padding: 12px 20px;
   transition-duration: 200ms;
 }
+
 /* 로그인 후 메신져 */
 .messenger {
   width: 24px;
@@ -129,11 +135,13 @@ button {
   transition-duration: 300ms;
   fill: currentColor;
 }
+
 .messenger:hover {
   fill: #2a72ff;
 }
+
 /* 로그인 후 프로필 이미지 */
-.Member_profile > div {
+.Member_profile>div {
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -141,10 +149,12 @@ button {
   cursor: pointer;
   position: relative;
 }
-.Member_profile > div > img {
+
+.Member_profile>div>img {
   width: 100%;
   height: 100%;
 }
+
 .Member_profile_dropdown {
   position: absolute;
   z-index: 999;
@@ -157,10 +167,12 @@ button {
   background-color: white;
   display: none;
 }
+
 .profile_active {
   display: block;
 }
-.Member_profile_dropdown > li {
+
+.Member_profile_dropdown>li {
   display: block;
   padding: 4px 0;
   font-size: 14px;
@@ -169,9 +181,11 @@ button {
   cursor: pointer;
   transition-duration: 200ms;
 }
-.Member_profile_dropdown > li:hover {
+
+.Member_profile_dropdown>li:hover {
   color: #2a72ff;
 }
+
 .profile_logout::before {
   display: block;
   content: "";
@@ -203,14 +217,14 @@ button {
   width: 100%;
 }
 
-.Category > ul > li > a {
+.Category>ul>li>a {
   text-decoration: none;
   color: #333333;
   font-weight: 600;
   font-size: 14px;
 }
 
-.nav_hover:hover > a {
+.nav_hover:hover>a {
   color: #2a72ff;
   transition-duration: 200ms;
 }
@@ -220,6 +234,7 @@ button {
   margin-top: 35px;
   flex-direction: column;
 }
+
 .Category ul li ul li a {
   font-size: 14px;
   font-weight: 400;
@@ -229,6 +244,7 @@ button {
   padding: 12px 0;
   transition-duration: 300ms;
 }
+
 .Category ul li ul li a:hover {
   color: #73a1fc;
 }
@@ -257,9 +273,11 @@ button {
 .Member_mobile {
   display: none;
 }
+
 .hamburger_content {
   display: none;
 }
+
 .Member_mobile {
   width: 40px;
   height: 40px;
@@ -268,6 +286,7 @@ button {
   background-color: white;
   float: left;
 }
+
 .Member_mobile svg {
   width: 100%;
   height: 100%;
@@ -278,6 +297,7 @@ button {
 .Member_mobile svg:hover {
   fill: #2a72ff;
 }
+
 .hamburger_content {
   width: 40px;
   height: 40px;
@@ -286,28 +306,31 @@ button {
   background-color: white;
   float: right;
 }
+
 .hamburger_content svg {
   width: 100%;
   height: 100%;
   fill: #999999;
   transition-duration: 200ms;
 }
+
 .hamburger_content svg:hover {
   fill: #2a72ff;
 }
 
 @media (max-width: 768px) {
-  .Category > ul {
+  .Category>ul {
     display: none;
   }
 
-  .Member > ul {
+  .Member>ul {
     display: none;
   }
 
   .Member_mobile {
     display: block;
   }
+
   .hamburger_content {
     display: block;
   }
@@ -315,6 +338,7 @@ button {
   .aside {
     display: block;
   }
+
   /* 우선 버튼 출력 막아놓음 */
   .aside_button {
     display: block;
@@ -353,16 +377,17 @@ button {
 }
 
 @media (max-width: 1024px) {
-  .Member > ul > li:first-child > button {
+  .Member>ul>li:first-child>button {
     display: none;
   }
-  .Member > ul > li:last-child > a {
+
+  .Member>ul>li:last-child>a {
     display: none;
   }
 }
 
 @media (max-width: 840px) {
-  .Member > ul > li {
+  .Member>ul>li {
     display: none;
   }
 }
@@ -378,30 +403,36 @@ button {
   border-left: 2px solid #73a1fc;
   transition-duration: 300ms;
 }
+
 .aside a {
   text-decoration: none;
   color: #333333;
   font-size: 16px;
   font-weight: 600;
 }
-.aside > ul {
+
+.aside>ul {
   margin-top: 50px;
 }
-.aside > ul > li {
+
+.aside>ul>li {
   text-align: left;
   padding: 24px 16px;
   display: block;
   transition-duration: 300ms;
   position: relative;
 }
+
 .aside ul li:hover {
   background-color: #2a72ff;
   color: #eeeeee;
 }
-.aside > ul > li > ul {
+
+.aside>ul>li>ul {
   display: none;
 }
-.aside > ul > li:hover > ul {
+
+.aside>ul>li:hover>ul {
   position: absolute;
   top: 0;
   right: 100.5%;
@@ -410,12 +441,14 @@ button {
   border-left: 2px solid #2a72ff;
   display: block;
 }
+
 .aside ul li ul li a {
   text-align: left;
   padding: 24px 16px;
   display: block;
   transition-duration: 300ms;
 }
+
 .aside_button {
   width: 30px;
   height: 30px;
@@ -423,6 +456,24 @@ button {
   right: 10%;
   top: 10px;
 }
+
 .button_transform {
   transform: translateX(-100%);
+}
+
+.massenger_wrapper {
+  position: relative;
+}
+
+.count_message_box {
+  position: absolute;
+  top: -3px;
+  right: -4px;
+  background-color: red;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  font-size: 11px;
 }

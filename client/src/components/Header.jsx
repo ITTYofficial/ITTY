@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../css/Header.module.css";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const Header = () => {
   /* 세션스토리지에서 id값을 불러옴 */
@@ -29,9 +30,8 @@ const Header = () => {
         />
       </div>
       <ul
-        className={`${Nav.Member_profile_dropdown} ${
-          profile ? Nav.profile_active : ""
-        }`}
+        className={`${Nav.Member_profile_dropdown} ${profile ? Nav.profile_active : ""
+          }`}
       >
         <li>프로필</li>
         <li>받은쪽지함</li>
@@ -48,6 +48,7 @@ const Header = () => {
     if (id) {
       setLoginOk(true);
     }
+    showMessageListDetail();
   }, []);
 
   const goLogout = () => {
@@ -95,6 +96,20 @@ const Header = () => {
   };
 
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [countMessage, setCountMessage] = useState(0);
+
+  // 안읽은 쪽지 카운팅
+  const showMessageListDetail = async (e) => {
+    const getUserId = sessionStorage.getItem('memberId');
+    const sendUserId = e;
+    await axios
+      .get(`http://localhost:8088/message/countMessage?getUserId=${sessionStorage.getItem("memberId")}`)
+      .then((res) => {
+        console.log('res확인', res.data);
+        setCountMessage(res.data.messageCount)
+      })
+  }
 
   return (
     <div
@@ -199,16 +214,17 @@ const Header = () => {
           <li>
             {loginOk ? (
               // <button>로그아웃</button>
-              <div className={Nav.messenger}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  class="bi bi-messenger"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.639.639 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.639.639 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76zm5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z" />
-                </svg>
+              <div className={Nav.massenger_wrapper}>
+                <div className={Nav.messenger}>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-messenger" viewBox="0 0 16 16" >
+                    <path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.639.639 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.639.639 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76zm5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z" />
+                  </svg>
+                </div>
+                {countMessage > 0 &&
+                  <div className={Nav.count_message_box}>
+                    {countMessage}
+                  </div>
+                }
               </div>
             ) : (
               <Link to={"/login"} style={{ backgroundColor: "gray" }}>
@@ -222,46 +238,18 @@ const Header = () => {
         </ul>
 
         <button className={Nav.Member_mobile}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-person-circle"
-            viewBox="0 0 16 16"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" >
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-            <path
-              fill-rule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-            />
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
           </svg>
         </button>
         <button className={Nav.hamburger_content} onClick={showSidebar}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            class="bi bi-list"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-list" viewBox="0 0 16 16" >
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
           </svg>
-          <div
-            className={`${Nav.aside} ${sidebar ? Nav.button_transform : ""}`}
-          >
+          <div className={`${Nav.aside} ${sidebar ? Nav.button_transform : ""}`} >
             <div className={Nav.aside_button}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-x-circle-fill"
-                viewBox="0 0 16 16"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
               </svg>
             </div>
