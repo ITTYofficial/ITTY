@@ -9,6 +9,7 @@
   font-weight: bold;
   margin-left: 1%;
   color: #999999;
+  text-align: center;
 }
 
 .qna_font a{
@@ -85,8 +86,8 @@
   display: block;
   position: absolute;
   inset: 50% 0;
-  background-color: #999999;
-  height: 0.5px;
+  background-color: #929292;
+  height: 1px;
 }
 
 .division_line div a {
@@ -361,7 +362,7 @@
 @media (max-width: 768px) {
 
   .right_container {
-    width:92%;
+    width:88%;
     margin-top: 3%;
     margin-left: 4%;
     }
