@@ -6,44 +6,55 @@ const Member = require('../schemas/member/member')
 router.get('/showMessageList', async (req, res) => {
   console.log('메세지리스트조회 시작');
   try {
-
+    console.time("메세지 리스트조회 도착")
     console.log('보낸사람 쿼리스트링', req.query);
     getUserId = req.query.getUserId;
-    let lists = [];
 
-
-    // 메세지 리스트 보낸 아이디 모음
+    // 메시지 리스트 보낸 아이디 모음
     const writerId = [];
-    // 클라이언트에서 쿼리스트링으로 문자(Study등)를 보내 일치하는 걸로 실행
 
-    lists = await Message.find({ "getUserId": getUserId });
-    /* console.log('lists 확인0:', lists); */
+    // 클라이언트에서 쿼리스트링으로 문자(Study등)를 보내 일치하는 걸로 실행
+    const aggregation = [
+      { $match: { $or: [{ "getUserId": getUserId }, { "sendUserId": getUserId }] } },
+      { $sort: { createdAt: -1 } },
+      {
+        $group: {
+          _id: {
+            $cond: [{ $gt: ["$getUserId", "$sendUserId"] }, { $concat: ["$getUserId", "-", "$sendUserId"] }, { $concat: ["$sendUserId", "-", "$getUserId"] }]
+          },
+          doc: { $first: "$$ROOT" }
+        }
+      }
+    ];
+
+    let lists = await Message.aggregate(aggregation);
+
     // 메세지 리스트 메세지 보낸사람 아이디 수집
     lists.forEach(list => {
-      if (list.sendUserId) {
-        writerId.push(list.sendUserId);
+      if (list.doc.sendUserId) {
+        writerId.push(list.doc.sendUserId);
+      }
+      if (list.doc.getUserId) {
+        writerId.push(list.doc.getUserId);
       }
     });
+    console.log('writerId 확인1', writerId);
+
     // 작성자 정보 일괄 조회    
     const writerInfos = await Member.find({ id: { $in: writerId } });
-    /* console.log('writerInfos 확인2', writerInfos); */
+    console.log('writerInfos 확인2', writerInfos);
+
     let getWriterInformation = lists.map(list => {
-      const writerInfo = writerInfos.find(info => info.id === list.sendUserId);
-      /* console.log('writerInfos 확인3', writerInfo); */
+      const writerInfo = writerInfos.find(info => info.id === list.doc.sendUserId || info.id === list.doc.getUserId);
+      console.log('writerInfos 확인3', writerInfo);
       return {
-        ...list.toJSON(),
-        writerInfo: writerInfo.toJSON(),
+        ...list.doc,
+        writerInfo: writerInfo,
       };
     });
-    getWriterInformation = getWriterInformation.filter((list, index, self) =>
-      index === self.findIndex((t) => (
-        t.writerInfo.id === list.writerInfo.id
-      ))
-    );
 
     res.json({ lists: getWriterInformation });
-    /* console.log('다됨?', lists);  */
-
+    console.timeEnd('걸린시간');
   } catch (err) {
     console.log('에러 : ', err);
     res.json({ message: false })
