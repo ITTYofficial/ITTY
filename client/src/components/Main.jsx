@@ -218,7 +218,7 @@ const Main = () => {
     };
   };
 
-  const delay = 50;
+  const delay = 5;
   const onThrottleDragMove_port = throttle(onDragMove_port, delay);
   const onThrottleDragMove_market = throttle(onDragMove_market, delay);
   // 스크롤기능
