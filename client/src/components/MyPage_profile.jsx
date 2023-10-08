@@ -30,7 +30,7 @@ const MyPage_profile = () => {
     const [checkPw, setCheckPw] = useState("");
     // 중복 등 파악    
     const [pwCheckResult, setPwCheckResult] = useState(true);
-    const [nicknameCheckResult, setNicknameCheckResult] = useState(true);
+    const [nicknameCheckResult, setNicknameCheckResult] = useState(false);
 
 
     // 경고문이 뜰 자리
@@ -100,11 +100,13 @@ const MyPage_profile = () => {
                 messageElement4.current.textContent = response.data.message; // 사용가능한 아이디입니다.
                 messageElement4.current.style.color = "blue";
                 setNicknameCheckResult(true);
+                console.log('닉네임 사용 가능할때:',nicknameCheckResult);
             } else {
                 // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
                 messageElement4.current.textContent = response.data.message; // 중복된 아이디입니다.
                 messageElement4.current.style.color = "red";
                 setNicknameCheckResult(false);
+                console.log('닉네임 사용 불가시:',nicknameCheckResult);
             }
         } catch (error) {
             console.error('오류 발생:', error);
@@ -236,7 +238,8 @@ const MyPage_profile = () => {
     };
     //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
     const updateSubmit = async (e) => {
-        if (nicknameCheckResult) {
+
+
 
             e.preventDefault();
             console.log(e.target);
@@ -264,12 +267,14 @@ const MyPage_profile = () => {
                     alert("회원정보 수정 실패");
                     // window.location.href = `/myPage`
                 });
-        }
+        
     };
 
     // **************닉네임 변경 메소드
     const updateNickname = async (e) => {
         e.preventDefault(); // 기본 폼 제출 방지
+        if (nicknameCheckResult) {
+
         // 폼 요소를 이름으로 가져오기
         const nickname = document.querySelector('input[name="nickname"]').value;
         const obj = {};
@@ -292,6 +297,7 @@ const MyPage_profile = () => {
         } catch (error) {
             console.error("오류 발생:", error);
         }
+    }
     };
 
 
