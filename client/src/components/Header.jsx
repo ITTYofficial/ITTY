@@ -33,7 +33,9 @@ const Header = () => {
         className={`${Nav.Member_profile_dropdown} ${profile ? Nav.profile_active : ""
           }`}
       >
-        <li>프로필</li>
+        <li>
+          <Link to={"/myPage/profile"}>마이페이지</Link>
+        </li>
         <li>받은쪽지함</li>
         <li className={Nav.profile_logout} onClick={goLogout}>
           로그아웃
