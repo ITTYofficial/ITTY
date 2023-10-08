@@ -174,3 +174,11 @@
   background-color: #e0e0e0;
   color: #000000;
 }
+
+
+@media (max-width: 1024px) {
+  .right_container {
+    margin: 0 auto;
+
+  }
+}

@@ -320,4 +320,21 @@
   /* 댓글 작성 quill버전 css */
   
   
+  @media (max-width: 768px) {
+
+    .right_container {
+        margin-top:5%;
+
+    }
+  }
+
+  @media (max-width: 1024px) {
+
+    .right_container {
+        margin-top:5%;
+
+    }
+  }
+  
+  
   

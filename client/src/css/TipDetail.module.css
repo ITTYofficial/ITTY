@@ -402,9 +402,9 @@
 }
 
 
-@media (max-width: 1026px) {
+@media (max-width: 1024px) {
   .right_container {
-    margin-left:7%;
+    margin: 0 auto;
+    padding: 5% 0;
   }
-
 }
