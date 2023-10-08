@@ -4,6 +4,21 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 
 const Header = () => {
+     // 정보 조회 데이터 관리
+     const [memberInfo, setMemberInfo] = useState({})
+      // 회원정보 조회
+      const memberSearching = async () => {
+        const id = sessionStorage.getItem('memberId')
+        await axios
+            .get(`http://localhost:8088/member/memberSearching?id=${id}`)
+            .then((res) => {
+                setMemberInfo(res.data.member);
+            })
+            .catch((err) => {
+                console.log('err :', err);
+            })
+    };
+  
   /* 세션스토리지에서 id값을 불러옴 */
 
   const [loginOk, setLoginOk] = useState(false);
@@ -25,7 +40,7 @@ const Header = () => {
     <div className={Nav.Member_profile} onClick={profileOn}>
       <div>
         <img
-          src="https://i.pinimg.com/564x/97/d2/ba/97d2ba25c8f81f47f0f4ca49cd3e7995.jpg"
+          src={memberInfo.profileImg}
           alt="profile"
         />
       </div>
@@ -47,6 +62,7 @@ const Header = () => {
 
   useEffect(() => {
     const id = sessionStorage.getItem("memberId");
+    memberSearching();
     if (id) {
       setLoginOk(true);
     }
