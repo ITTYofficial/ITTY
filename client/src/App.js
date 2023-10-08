@@ -35,7 +35,8 @@ import QnaDetail from "./components/QnaDetail";
 import QnaList from "./components/QnaList";
 import QnaWrite from "./components/QnaWrite";
 import PortWrite from "./components/PortWrite";
-import MyPage from "./components/MyPage";
+import MyPage_profile from "./components/MyPage_profile";
+import MyPage_message from "./components/MyPage_message";
 import CropperTest from "./components/CropperTest";
 
 import AnonymityList from "./components/AnonymityList"
@@ -280,7 +281,8 @@ function App() {
           <Route path="/join" element={<Join />}></Route>
           <Route path="/login" element={<Login />}></Route>
 
-          <Route path="/myPage" element={<MyPage />}></Route>
+          <Route path="/myPage/profile" element={<MyPage_profile />}></Route>
+          <Route path="/myPage/message" element={<MyPage_message />}></Route>
           <Route path="/cropperTest" element={<CropperTest />}></Route>
 
           <Route path="/searchResult/:searchTerm" element={<SearchResult />}></Route>

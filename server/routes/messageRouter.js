@@ -6,7 +6,7 @@ const Member = require('../schemas/member/member')
 router.get('/showMessageList', async (req, res) => {
   console.log('메세지리스트조회 시작');
   try {
-    console.time("메세지 리스트조회 도착")
+
     console.log('보낸사람 쿼리스트링', req.query);
     getUserId = req.query.getUserId;
     let lists = [];
@@ -17,20 +17,19 @@ router.get('/showMessageList', async (req, res) => {
     // 클라이언트에서 쿼리스트링으로 문자(Study등)를 보내 일치하는 걸로 실행
 
     lists = await Message.find({ "getUserId": getUserId });
-    console.log('lists 확인0:', lists);
+    /* console.log('lists 확인0:', lists); */
     // 메세지 리스트 메세지 보낸사람 아이디 수집
     lists.forEach(list => {
       if (list.sendUserId) {
         writerId.push(list.sendUserId);
       }
     });
-    console.log('writerId 확인1', writerId);
     // 작성자 정보 일괄 조회    
     const writerInfos = await Member.find({ id: { $in: writerId } });
-    console.log('writerInfos 확인2', writerInfos);
+    /* console.log('writerInfos 확인2', writerInfos); */
     let getWriterInformation = lists.map(list => {
       const writerInfo = writerInfos.find(info => info.id === list.sendUserId);
-      console.log('writerInfos 확인3', writerInfo);
+      /* console.log('writerInfos 확인3', writerInfo); */
       return {
         ...list.toJSON(),
         writerInfo: writerInfo.toJSON(),
@@ -44,7 +43,7 @@ router.get('/showMessageList', async (req, res) => {
 
     res.json({ lists: getWriterInformation });
     /* console.log('다됨?', lists);  */
-    console.timeEnd('걸린시간');
+
   } catch (err) {
     console.log('에러 : ', err);
     res.json({ message: false })
@@ -52,6 +51,7 @@ router.get('/showMessageList', async (req, res) => {
 });
 
 router.get('/showMessageListDetail', async (req, res) => {
+  console.time('시간체크')
   try {
     const sendUserId = req.query.sendUserId;
     const getUserId = req.query.getUserId;
@@ -62,37 +62,34 @@ router.get('/showMessageListDetail', async (req, res) => {
 
     // 메세지 리스트 보낸 아이디 모음
     const writerId = [];
-   lists = await Message.find({
+    lists = await Message.find({
       $or: [
         { sendUserId: sendUserId, getUserId: getUserId },
         { sendUserId: getUserId, getUserId: sendUserId }
       ]
     })
-
-    console.log('lists 확인0:', lists);
+    
+    /* console.log('lists 확인0:', lists); */
     // 메세지 리스트 메세지 보낸사람 아이디 수집
     lists.forEach(list => {
       if (list.sendUserId) {
         writerId.push(list.sendUserId);
       }
     });
-    console.log('writerId 확인1', writerId);
     // 작성자 정보 일괄 조회    
     const writerInfos = await Member.find({ id: { $in: writerId } });
-    console.log('writerInfos 확인2', writerInfos);
+    console.timeEnd('시간체크')
+    /* console.log('writerInfos 확인2', writerInfos); */
     const getWriterInformation = lists.map(list => {
       const writerInfo = writerInfos.find(info => info.id === list.sendUserId);
-      console.log('writerInfos 확인3', writerInfo);
+      /* console.log('writerInfos 확인3', writerInfo); */
       return {
         ...list.toJSON(),
         writerInfo: writerInfo.toJSON(),
       };
     });
     res.json({ lists: getWriterInformation });
-    /* console.log('다됨?', lists);  */
-    console.timeEnd('걸린시간');
-
-    // res.json({ detailMessage });
+    
   } catch (err) {
     console.log(err);
     res.json({ message: false })

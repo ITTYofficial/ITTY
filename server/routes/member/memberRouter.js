@@ -136,11 +136,11 @@ router.post('/nicknameCheck', async (req, res) => {
 router.get('/memberSearching', async (req, res) => {
   console.time('회원조회 도착');
   try {
-    console.log('쿼리스트링',req.query);
+    /* console.log('쿼리스트링',req.query); */
     const id = req.query.id;
-    console.log('회원조회도착 id', id);
+    /* console.log('회원조회도착 id', id); */
     const member = await Member.findOne({ id: id });
-    console.log('회원조회도착 class :', member);
+    /* console.log('회원조회도착 class :', member); */
     if (member) {
       res.json({
         member : member

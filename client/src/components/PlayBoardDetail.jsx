@@ -55,7 +55,6 @@ const PlayBoardDetail = () => {
       });
   };
 
-  console.log('화긴', playDetail);
 
   // 페이지 렌더링시 조회함수 실행
   useEffect(() => {
@@ -96,8 +95,6 @@ const PlayBoardDetail = () => {
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
-
-
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -182,7 +179,6 @@ const PlayBoardDetail = () => {
     if (meat) {
       setMeat(!meat);
     }
-    console.log('토글메세지', meat);
   };
 
   /* 수정삭제 버튼 */
