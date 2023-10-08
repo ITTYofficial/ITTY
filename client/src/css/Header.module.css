@@ -330,11 +330,10 @@ button {
   .Category>ul {
     display: none;
   }
-
   .Member>ul {
     display: none;
   }
-
+ 
   .Member_mobile {
     display: block;
   }
@@ -407,7 +406,7 @@ button {
   right: -40%;
   width: 40%;
   height: 100vh;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-left: 2px solid #73a1fc;
   transition-duration: 300ms;
 }
@@ -415,40 +414,64 @@ button {
 .aside a {
   text-decoration: none;
   color: #333333;
-  font-size: 16px;
-  font-weight: 600;
+
 }
 
 .aside>ul {
-  margin-top: 50px;
+  margin-top: 10%;
+  font-size:22px;
+  font-weight:600;
+
+
 }
+
+
 
 .aside>ul>li {
   text-align: left;
-  padding: 24px 16px;
+  padding: 24px 20px;
   display: block;
   transition-duration: 300ms;
   position: relative;
+  
+  
+
 }
 
-.aside ul li:hover {
-  background-color: #2a72ff;
+.aside>ul>li>li{
+  font-size:16px;
+  text-align: left;
+  display: block;
+  transition-duration: 300ms;
+  position: relative;
+  margin-top: 2%;
+  cursor: pointer;
+  font-weight:500;
+  
+
+}
+
+/* 전체 영역 클릭 되게 */
+.aside>ul>li>li>a{
+  display: block;
+  padding: 14px 16px;
+  
+}
+
+
+
+.aside ul li li:hover {
+  background-color: hsl(204, 100%, 80%);
+  font-weight: 600;
+  border-radius: 5%;
   color: #eeeeee;
+  
 }
 
 .aside>ul>li>ul {
   display: none;
 }
 
-.aside>ul>li:hover>ul {
-  position: absolute;
-  top: 0;
-  right: 100.5%;
-  width: 100%;
-  background-color: white;
-  border-left: 2px solid #2a72ff;
-  display: block;
-}
 
 .aside ul li ul li a {
   text-align: left;
