@@ -13,7 +13,7 @@
   margin: 32px 0;
 }
 
-.division_line > div {
+.division_line>div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -81,29 +81,33 @@
   align-items: flex-end;
   margin: 12px 0;
 }
-.market_title > h2 {
+
+.market_title>h2 {
   font-size: 24px;
   font-weight: 600;
   font-family: sans-serif;
   letter-spacing: -1px;
 }
-.market_title > p {
+
+.market_title>p {
   color: #999999;
   font-size: 14px;
   font-weight: 500;
 }
 
 /* 가격 */
-.right_main_content > div:nth-child(2) > div > h2 {
+.right_main_content>div:nth-child(2)>div>h2 {
   font-size: 40px;
   font-weight: 500;
   margin: 12px 0;
 }
-.right_main_content > div:nth-child(2) > div > h2 > span {
+
+.right_main_content>div:nth-child(2)>div>h2>span {
   font-size: 28px;
   font-weight: 600;
 }
-.right_main_content > div:nth-child(2) > div > h2::after {
+
+.right_main_content>div:nth-child(2)>div>h2::after {
   content: "";
   clear: both;
   display: block;
@@ -118,32 +122,37 @@
   display: flex;
   justify-content: space-between;
 }
-.market_profile > div:first-child {
+
+.market_profile>div:first-child {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
+
 .profile_img {
   width: 50px;
   height: 50px;
   margin-right: 8px;
 }
-.profile_img > img {
+
+.profile_img>img {
   width: 100%;
 }
 
-.market_profile > div:last-child > p {
+.market_profile>div:last-child>p {
   color: #999999;
   font-size: 14px;
   font-weight: 500;
 }
-.market_profile > div:first-child > div:last-child > p {
+
+.market_profile>div:first-child>div:last-child>p {
   font-size: 14px;
   margin-bottom: 8px;
   text-align: left;
   color: #999999;
 }
-.market_profile > div:first-child > div:last-child > h5 {
+
+.market_profile>div:first-child>div:last-child>h5 {
   font-size: 16px;
   /* margin-bottom: 8px; */
   text-align: left;
@@ -152,15 +161,18 @@
   font-family: sans-serif;
   letter-spacing: -1px;
 }
+
 .market_right_buttonFlex {
   display: grid;
   align-content: space-between;
 }
-.market_buttons{
+
+.market_buttons {
   display: flex;
   justify-content: flex-end;
 }
-.market_buttons > button {
+
+.market_buttons>button {
   padding: 16px 24px;
   font-size: 1rem;
   font-weight: 600;
@@ -169,34 +181,43 @@
   color: #f1f1f1;
   transition-duration: 200ms;
 }
-.market_buttons > button:first-child {
+
+.market_buttons>button:first-child {
   background-color: #e8c32d;
 }
-.market_buttons > button:first-child:hover{
+
+.market_buttons>button:first-child:hover {
   background-color: #ffcf11;
 }
-.market_buttons > button:nth-child(2) {
+
+.market_buttons>button:nth-child(2) {
   background-color: #999999;
 }
-.market_buttons > button:nth-child(2):hover {
+
+.market_buttons>button:nth-child(2):hover {
   background-color: #585858;
 }
-.market_buttons > button:last-child {
+
+.market_buttons>button:last-child {
   background-color: #ff8c00;
 }
-.market_buttons > button:last-child:hover {
+
+.market_buttons>button:last-child:hover {
   background-color: #ff6f0f;
 }
-.market_content{
+
+.market_content {
   margin: 32px 0;
   padding: 4px 16px;
 }
-.market_content > h3{
+
+.market_content>h3 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 16px;
 }
-.market_content > h3::after{
+
+.market_content>h3::after {
   content: "";
   clear: both;
   display: block;
@@ -267,7 +288,7 @@
 }
 
 
-.quillComment_container{
+.quillComment_container {
   width: 90%;
 }
 
@@ -294,17 +315,47 @@
   background-color: #2474ff;
 }
 
-.market_buttons button{
+.market_buttons button {
   white-space: nowrap;
-} 
+}
 
 
 /* 댓글 작성 quill버전 css */
-@media (max-width: 1026px) {
+@media (max-width: 1024px) {
   .right_container {
-    margin-left:7%;
-  
-    
+    width: 80%;
+    margin: 0 auto;
   }
 
+  .Img_slide div {
+    width: 350px;
+    height: 350px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .Img_slide div {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+  }
+
+  .right_main_content {
+    display: flex;
+    padding: 4px 16px;
+    flex-direction: column;
+  }
+
+  .market_right_buttonFlex {
+    display: grid;
+    align-content: space-between;
+    gap: 32px;
+  }
+  
+.market_buttons>button {
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+}
 }

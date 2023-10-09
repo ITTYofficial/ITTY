@@ -205,6 +205,7 @@
   display: inline-block;
   background-color: #efefef;
   padding: 12px 20px;
+  transition-duration: 200ms;
 }
 
 .submit_btn:hover {
@@ -222,10 +223,12 @@
   background-color: #efefef;
   padding: 12px 20px;
   margin-right: 12px;
+  transition-duration: 200ms;
 }
 
 .cancel_btn:hover {
-  background-color: #c1a6a6;
+  background-color: #999999;
+  color: #eeeeee;
 }
 
 /* 작성버튼 css */
