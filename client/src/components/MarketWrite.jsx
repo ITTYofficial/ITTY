@@ -69,6 +69,19 @@ const MarketWrite = () => {
 
   const { value, setValue } = useContext(QuillContext);
 
+  // 경고메세지 출력을 위한 Ref
+  const titleRef = useRef(null)
+  const imgPathRef = useRef(null)
+  const priceRef = useRef(null)
+  const contentRef = useRef(null)
+  const refList = {
+    title: titleRef,
+    imgPath: imgPathRef,
+    price: priceRef,
+    content: contentRef
+  }
+  let refVisible = false
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(e.target);
@@ -98,6 +111,31 @@ const MarketWrite = () => {
     console.log("임패쓰", imgPaths);
 
     obj["imgPath"] = imgPaths;
+
+    // 입력값 확인
+    const inputRule = {
+      title: /^.{5,255}$/,
+      imgPath: /^.{1,65535}$/,
+      price: /^.{1,255}$/,
+      content: /^.{17,65535}$/
+    };
+
+    for (const key in refList) {
+      const check = obj[key];
+      if (!check || !inputRule[key].test(check)) {
+        refList[key].current.textContent = "*잘못된 입력입니다"
+        refList[key].current.style.color = "red";
+        refVisible = true;
+      } else {
+        refList[key].current.textContent = null;
+      }
+    }
+
+    if (refVisible) {
+      alert('입력값을 확인하세요.')
+      return;
+    }
+
     console.log(obj);
     axios
       .post("http://localhost:8088/market/write", obj)
@@ -210,6 +248,7 @@ const MarketWrite = () => {
         {/* 상품명 */}
         <div>
           <h4>상품명</h4>
+          <div ref={titleRef}></div>
           <input
             className="form-control"
             type="text"
@@ -223,6 +262,7 @@ const MarketWrite = () => {
         {/* 상품 이미지 */}
         <div className={styles.market_pic}>
           <h4>상품 이미지</h4>
+          <div ref={imgPathRef}></div>
           <div className={styles.input_pic}>
             {croppedImage.length < 3 && (
               <div className={styles.fake_upload} onClick={handleCropperClick}>
@@ -247,7 +287,7 @@ const MarketWrite = () => {
               multiple
               ref={inputRef}
               style={{ display: "none" }}
-              {...(croppedImage? null : {required: true})}
+              {...(croppedImage ? null : { required: true })}
               onChange={handleFileChange}
             />
             {/* 크로퍼 */}
@@ -313,6 +353,7 @@ const MarketWrite = () => {
 
         <div>
           <h4>상품 가격</h4>
+          <div ref={priceRef}></div>
           <input
             type="number"
             name="market_price"
@@ -333,6 +374,7 @@ const MarketWrite = () => {
 
         <div className={styles.market_content}>
           <h4>상품 설명</h4>
+          <div ref={contentRef}></div>
           <QuillTest />
         </div>
         <input

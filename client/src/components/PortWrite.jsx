@@ -20,6 +20,17 @@ const PortWrite = () => {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
 
+  // 경고메세지 출력을 위한 Ref
+  const titleRef = useRef(null)
+  const contentRef = useRef(null)
+  const imgPathRef = useRef(null)
+  const refList = {
+    title: titleRef,
+    imgPath: imgPathRef,
+    content: contentRef
+  }
+  let refVisible = false
+
   // 게시글 작성 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,11 +47,36 @@ const PortWrite = () => {
     if (id) {
       obj["_id"] = id;
     }
+    
     // setImgFiles([imgFiles.join(';')]);
     const url = await handlingDataForm(croppedImage)
     console.log(url);
     obj["imgPath"] = url;
+
+    // 입력값 확인
+    const inputRule = {
+      title: /^.{5,255}$/,
+      imgPath: /^.{1,65535}$/,
+      content: /^.{17,65535}$/
+    };
+
+    for (const key in refList) {
+      const check = obj[key];
+      if (!check || !inputRule[key].test(check)) {
+        refList[key].current.textContent = "*잘못된 입력입니다"
+        refList[key].current.style.color = "red";
+        refVisible = true;
+      } else {
+        refList[key].current.textContent = null;
+      }
+    }
+    
+    if (refVisible) {
+      alert('입력값을 확인하세요.')
+      return;
+    }
     console.log(obj);
+
     axios
       .post("http://localhost:8088/port/write", obj)
       .then((res) => {
@@ -137,7 +173,7 @@ const PortWrite = () => {
 
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
-    if (dataURI.length > 200) {
+    if (dataURI !== null && dataURI.length > 200) {
       // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
       const byteString = atob(dataURI.split(",")[1]);
       // const nickname = sessionStorage.getItem("memberNickname");
@@ -197,6 +233,7 @@ const PortWrite = () => {
       <h2>포트폴리오 🎨</h2>
       <form onSubmit={handleSubmit}>
         <h4>제목</h4>
+        <div ref={titleRef}></div>
         <input
           className="form-control"
           type="text"
@@ -204,6 +241,7 @@ const PortWrite = () => {
           {...(id ? { defaultValue: portDetail.title } : { placeholder: '제목을 입력해주세요' })} />
         <div className={styles.upload_img_block}>
           <h4>포트폴리오 대표 이미지</h4>
+          <div ref={imgPathRef}></div>
           {croppedImage &&
             <div onClick={handleCropperClick}>이미지 재등록</div>
           }
@@ -280,6 +318,7 @@ const PortWrite = () => {
         </div>
 
         <h4>내용</h4>
+        <div ref={contentRef}></div>
         <div className={styles.quill_div}>
           <QuillTest />
         </div>
