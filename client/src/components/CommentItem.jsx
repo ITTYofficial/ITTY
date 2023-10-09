@@ -14,6 +14,11 @@ const CommentItem = ({ props, postId, boardType }) => {
 
   // 대댓글 작성완료 시 호출되는 함수
   function reCommentSubmit(event, _id) {
+    if (!sessionStorage.getItem("memberId")) {
+      alert("로그인해야합니다");
+      window.location.href = "/login";
+      event.preventDefault();
+    } else {
     event.preventDefault();
     console.log(_id);
     const createdAt = new Date().toISOString();
@@ -39,7 +44,7 @@ const CommentItem = ({ props, postId, boardType }) => {
         console.log(err);
         alert("게시글 작성 실패");
       });
-  }
+  }}
 
   // 대댓글 작성 칸 출력 조절 State
   const [recommentVisible, setRecommentVisible] = useState(false);
