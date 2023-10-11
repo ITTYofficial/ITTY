@@ -8,8 +8,8 @@ router.get('/showMessageList', async (req, res) => {
   try {
     console.time("메세지 리스트조회 도착")
     console.log('보낸사람 쿼리스트링', req.query);
-    getUserId = req.query.getUserId;
-
+    const getUserId = req.query.getUserId;
+    const myId =req.query.getUserId;
     // 메시지 리스트 보낸 아이디 모음
     const writerId = [];
 
@@ -28,13 +28,20 @@ router.get('/showMessageList', async (req, res) => {
     ];
 
     let lists = await Message.aggregate(aggregation);
-
+    console.log(lists);
     // 메세지 리스트 메세지 보낸사람 아이디 수집
+    // lists.forEach(list => {
+    //   if (list.doc.sendUserId) {
+    //     writerId.push(list.doc.sendUserId);
+    //   }
+    //   if (list.doc.getUserId) {
+    //     writerId.push(list.doc.getUserId);
+    //   }
+    // });
     lists.forEach(list => {
-      if (list.doc.sendUserId) {
+      if (list.doc.sendUserId !== myId) {
         writerId.push(list.doc.sendUserId);
-      }
-      if (list.doc.getUserId) {
+      }else{
         writerId.push(list.doc.getUserId);
       }
     });

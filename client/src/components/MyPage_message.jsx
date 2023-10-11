@@ -47,7 +47,7 @@ const MyPage_message = () => {
     const [messageListDetail, setMessageListDetail] = useState([]);
 
     const showMessageList = async (e) => {
-        const getUserId = sessionStorage.getItem('memberId')
+        const getUserId = sessionStorage.getItem('memberId');
         await axios
             .get(`http://localhost:8088/message/showMessageList?getUserId=${getUserId}`)
             .then((res) => {
