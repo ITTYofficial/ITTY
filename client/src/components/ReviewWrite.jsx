@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import LeftContainer from './LeftContainer'
 import styles from '../css/ReviewWrite.module.css'
 import QuillTest from './QuillTest';
@@ -23,7 +23,7 @@ const ReviewWrite = () => {
 
     /* 키워드관련 */
     const [keyWord, setKeyWord] = useState([]);
-    
+
     function keyChangeColor(value) {
         if (keyWord.includes(value)) {
             // 이미 선택된 버튼인 경우 선택 해제
@@ -57,6 +57,22 @@ const ReviewWrite = () => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get("id");
     const nickname = sessionStorage.getItem("memberNickname");
+
+    // 경고메세지 출력을 위한 Ref
+    const titleRef = useRef(null)
+    const scoreRef = useRef(null)
+    const keyWordRef = useRef(null)
+    const positionRef = useRef(null)
+    const contentRef = useRef(null)
+    const refList = {
+        title: titleRef,
+        score: scoreRef,
+        keyWord: keyWordRef,
+        position: positionRef,
+        content: contentRef
+    }
+    let refVisible = false
+
     // 게시글 작성 함수
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -72,6 +88,32 @@ const ReviewWrite = () => {
         if (id) {
             obj["_id"] = id;
         }
+
+        // 입력값 확인
+        const inputRule = {
+            title: /^.{5,255}$/,
+            score: /^.{1,255}$/,
+            keyWord: /^.{1,255}$/,
+            position: /^.{1,255}$/,
+            content: /^.{17,65535}$/
+        };
+
+        for (const key in refList) {
+            const check = obj[key];
+            if (!check || !inputRule[key].test(check)) {
+                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.style.color = "red";
+                refVisible = true;
+            } else {
+                refList[key].current.textContent = null;
+            }
+        }
+
+        if (refVisible) {
+            alert('입력값을 확인하세요.')
+            return;
+        }
+
         console.log(obj);
         axios
             .post("http://localhost:8088/review/write", obj)
@@ -117,12 +159,14 @@ const ReviewWrite = () => {
             <h2>수료생 후기🧑‍🎓</h2>
             <form onSubmit={handleSubmit}>
                 <h4>제목</h4>
+                <div ref={titleRef}></div>
                 <input
                     className="form-control"
                     name='title'
                     type="text"
                     {...(id ? { defaultValue: reviewDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                 <h4>만족도</h4>
+                <div ref={scoreRef}></div>
                 <div className={styles.review_star}>
                     <span className={styles.star}>
                         ★★★★★
@@ -136,6 +180,7 @@ const ReviewWrite = () => {
                     </span>
                 </div>
                 <h4>추천 키워드</h4>
+                <div ref={keyWordRef}></div>
                 <div className={styles.keyworld_content}>
                     <button
                         type="button"
@@ -161,6 +206,7 @@ const ReviewWrite = () => {
                     <input type="hidden" name="keyWord" value={keyWord.join(',')} />
 
                     <h4>전공 여부</h4>
+                    <div ref={positionRef}></div>
                     <button
                         type="button"
                         onClick={() => poChangeColor('1')}
@@ -179,6 +225,7 @@ const ReviewWrite = () => {
                 </div>
 
                 <h4>내용</h4>
+                <div ref={contentRef}></div>
                 <div className={styles.quill_div}>
                     <QuillTest />
                 </div>

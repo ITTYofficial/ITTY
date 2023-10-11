@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import style from "../css/TipWrite.module.css"
 import QuillTest from './QuillTest';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,6 +32,18 @@ const TipWrite = () => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get("id");
     const nickname = sessionStorage.getItem("memberNickname");
+
+    // 경고메세지 출력을 위한 Ref
+    const titleRef = useRef(null)
+    const contentRef = useRef(null)
+    const categoryFRef = useRef(null)
+    const refList = {
+        title: titleRef,
+        category: categoryFRef,
+        content: contentRef
+    }
+    let refVisible = false
+
     // 게시글 작성 함수
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,6 +59,30 @@ const TipWrite = () => {
         if (id) {
             obj["_id"] = id;
         }
+        
+        // 입력값 확인
+        const inputRule = {
+            title: /^.{5,255}$/,
+            category: /^.{1,255}$/,
+            content: /^.{17,65535}$/
+        };
+
+        for (const key in refList) {
+            const check = obj[key];
+            if (!check || !inputRule[key].test(check)) {
+                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.style.color = "red";
+                refVisible = true;
+            } else {
+                refList[key].current.textContent = null;
+            }
+        }
+
+        if (refVisible) {
+            alert('입력값을 확인하세요.')
+            return;
+        }
+
         console.log(obj);
         axios
             .post("http://localhost:8088/tip/write", obj)
@@ -97,6 +133,7 @@ const TipWrite = () => {
                                 <h2>Tip 🥇</h2>
                             </div>
                             <h4>제목</h4>
+                            <div ref={titleRef}></div>
                             <input
                                 className="form-control"
                                 type="text"
@@ -105,6 +142,7 @@ const TipWrite = () => {
                         </div>
                         <div className="mb-3">
                             <h4>카테고리</h4>
+                            <div ref={categoryFRef}></div>
                         </div>
                         <button
                             className={style.Tip_button_container}
@@ -141,6 +179,7 @@ const TipWrite = () => {
                         <input type="hidden" name="category" value={position.join(',')} />
                         <div className="mb-3">
                             <h4>내용</h4>
+                            <div ref={contentRef}></div>
                         </div>
 
                         <div className={style.quill_div}>

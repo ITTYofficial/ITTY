@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import QuillTest from './QuillTest'
 import style from "../css/PlayBoardWrite.module.css";
 import LeftContainer from './LeftContainer';
@@ -15,7 +15,17 @@ const AnonymityList = () => {
     const id = searchParams.get('id');
     const { value, setValue } = useContext(QuillContext);
     console.log("id :", id);
-    
+
+    // 경고메세지 출력을 위한 Ref
+    const titleRef = useRef(null)
+    const contentRef = useRef(null)
+    const refList = {
+        title: titleRef,
+        content: contentRef
+    }
+    let refVisible = false
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -31,6 +41,28 @@ const AnonymityList = () => {
         obj['content'] = value;
         if (id) {
             obj['_id'] = id
+        }
+
+        // 입력값 확인
+        const inputRule = {
+            title: /^.{5,255}$/,
+            content: /^.{17,65535}$/
+        };
+
+        for (const key in refList) {
+            const check = obj[key];
+            if (!check || !inputRule[key].test(check)) {
+                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.style.color = "red";
+                refVisible = true;
+            } else {
+                refList[key].current.textContent = null;
+            }
+        }
+
+        if (refVisible) {
+            alert('입력값을 확인하세요.')
+            return;
         }
 
         await axios.post('http://localhost:8088/anony/write', obj)
@@ -67,32 +99,34 @@ const AnonymityList = () => {
 
 
     return (
-            <div className={style.Main_container}>
-                <h2>익명게시판 🤐</h2>
-                <div className={style.right_container}>
-                    <form onSubmit={handleSubmit}>
-                        <h4>제목</h4>
-                        <input
-                            className="form-control"
-                            type="text"
-                            name='title'
-                            {...(id ? { defaultValue: anonyDetail.title } : { placeholder: '제목을 입력해주세요' })} />
-                        <h4>본문</h4>
-                        <div className={style.quill_div}>
-                            <QuillTest />
-                        </div>
-                        {/* 전송 버튼 */}
-                        <div className={style.button_group}>
-                            <button className={style.cancel_btn} type='submit'>
-                                취소
-                            </button>
-                            <button className={style.submit_btn} type='submit'>
-                                작성
-                            </button>
-                        </div>
-                    </form>
-                </div>
+        <div className={style.Main_container}>
+            <h2>익명게시판 🤐</h2>
+            <div className={style.right_container}>
+                <form onSubmit={handleSubmit}>
+                    <h4>제목</h4>
+                    <div ref={titleRef}></div>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name='title'
+                        {...(id ? { defaultValue: anonyDetail.title } : { placeholder: '제목을 입력해주세요' })} />
+                    <h4>내용</h4>
+                    <div ref={contentRef}></div>
+                    <div className={style.quill_div}>
+                        <QuillTest />
+                    </div>
+                    {/* 전송 버튼 */}
+                    <div className={style.button_group}>
+                        <button className={style.cancel_btn} type='submit'>
+                            취소
+                        </button>
+                        <button className={style.submit_btn} type='submit'>
+                            작성
+                        </button>
+                    </div>
+                </form>
             </div>
+        </div>
     )
 }
 

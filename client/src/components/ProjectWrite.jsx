@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import style from "../css/ProjectWrite.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from "react-datepicker";
@@ -39,6 +39,26 @@ const ProjectWrite = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
+    // 경고메세지 출력을 위한 Ref
+    const titleRef = useRef(null)
+    const positionRef = useRef(null)
+    const personRef = useRef(null)
+    const dateRef = useRef(null)
+    const framework_frontRef = useRef(null)
+    const framework_backRef = useRef(null)
+    const framework_dbRef = useRef(null)
+    const contentRef = useRef(null)
+    const refList = {
+        title: titleRef,
+        position: positionRef,
+        persons: personRef,
+        framework_front: framework_frontRef,
+        framework_back: framework_backRef,
+        framework_db: framework_dbRef,
+        content: contentRef
+    }
+    let refVisible = false
+
     // 폼 전송 시 호출되는 함수
     function handleSubmit(event) {
         event.preventDefault();
@@ -62,6 +82,41 @@ const ProjectWrite = () => {
         // console.log(obj);
         if (id) {
             obj['_id'] = id
+        }
+
+        // 입력값 확인
+        const inputRule = {
+            title: /^.{5,255}$/,
+            position: /^.{1,255}$/,
+            framework_front: /^.{1,255}$/,
+            framework_back: /^.{1,255}$/,
+            framework_db: /^.{1,255}$/,
+            persons: /^[0-9]{1,100}$/,
+            content: /^.{17,65535}$/
+        };
+
+        for (const key in refList) {
+            const check = obj[key];
+            if (!check || !inputRule[key].test(check)) {
+                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.style.color = "red";
+                refVisible = true;
+            } else {
+                refList[key].current.textContent = null;
+            }
+        }
+
+        if (obj.endDate < obj.startDate) {
+            dateRef.current.textContent = "*잘못된 입력입니다"
+            dateRef.current.style.color = "red";
+            refVisible = true;
+        } else {
+            dateRef.current.textContent = null;
+        }
+
+        if (refVisible) {
+            alert('입력값을 확인하세요.')
+            return;
         }
 
         axios.post('http://localhost:8088/project/write', obj)
@@ -109,12 +164,14 @@ const ProjectWrite = () => {
             <h2>프로젝트 🏆</h2>
             <form onSubmit={handleSubmit}>
                 <h4> 제목 </h4>
+                <div ref={titleRef}></div>
                 <input
                     className="form-control"
                     name='title'
                     type="text"
                     {...(id ? { defaultValue: projectDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                 <h4>포지션</h4>
+                <div ref={positionRef}></div>
                 <div className={style.position_content}>
                     <button
                         type="button"
@@ -167,6 +224,7 @@ const ProjectWrite = () => {
 
                     <div className={style.date_content}>
                         <h4>프로젝트 종료일</h4>
+                        <div ref={dateRef}></div>
                         <DatePicker
                             className='form-control'
                             {...(id && { defaultValue: projectDetail.endDate })}
@@ -179,6 +237,7 @@ const ProjectWrite = () => {
                         <div>
 
                             <h4>프론트</h4>
+                            <div ref={framework_frontRef}></div>
                             <select className='form-control' name='framework_front'>
                                 {id && projectDetail.frameword_front === "React" ? <option selected>React</option> : <option>React</option>}
                                 {id && projectDetail.frameword_front === "Next.js" ? <option selected>Next.js</option> : <option>Next.js</option>}
@@ -189,6 +248,7 @@ const ProjectWrite = () => {
                         </div>
                         <div>
                             <h4>백엔드</h4>
+                            <div ref={framework_backRef}></div>
                             <select className='form-control' name='framework_back'>
                                 {id && projectDetail.framework_back === "Spring / Spring Boot" ? <option selected>Spring / Spring Boot</option> : <option>Spring / Spring Boot</option>}
                                 {id && projectDetail.framework_back === "Node.js" ? <option selected>Node.js</option> : <option>Node.js</option>}
@@ -199,6 +259,7 @@ const ProjectWrite = () => {
                         </div>
                         <div>
                             <h4>DB</h4>
+                            <div ref={framework_dbRef}></div>
                             <select className='form-control' name='framework_db'>
                                 {id && projectDetail.framework_db === "MySQL" ? <option selected>MySQL</option> : <option>MySQL</option>}
                                 {id && projectDetail.framework_db === "Oracle" ? <option selected>Oracle</option> : <option>Oracle</option>}
@@ -212,14 +273,15 @@ const ProjectWrite = () => {
 
                     <div className={style.space_box_2}>
                         <h4>인원</h4>
+                        <div ref={personRef}></div>
                         <input
-                         className="form-control"
-                          type="number"
-                           name='persons'
-                           {...(id ? {defaultValue: projectDetail.persons} : {placeholder: '인원을 입력해주세요'})} />
+                            className="form-control"
+                            type="number"
+                            name='persons'
+                            {...(id ? { defaultValue: projectDetail.persons } : { placeholder: '인원을 입력해주세요' })} />
                     </div>
 
-{/*                     <div className={style.space_box_2}>
+                    {/*                     <div className={style.space_box_2}>
                         <h4>상태</h4>
                         <select className='form-control' name='recruit'>
                             <option>모집상태 선택</option>
@@ -230,6 +292,7 @@ const ProjectWrite = () => {
                 </div>
 
                 <h4 className={style.space_box_2}>내용</h4>
+                <div ref={contentRef}></div>
                 <div className={style.quill_content}>
                     <QuillTest />
                 </div>

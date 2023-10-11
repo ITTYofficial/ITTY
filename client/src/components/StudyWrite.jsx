@@ -75,6 +75,7 @@ const StudyWrite = () => {
             obj['_id'] = id
         }
         
+        // 입력값 확인
         const inputRule = {
             title: /^.{5,255}$/,
             selectedValues: /^.{1,255}$/,
