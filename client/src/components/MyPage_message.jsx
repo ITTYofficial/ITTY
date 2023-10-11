@@ -154,6 +154,7 @@ const MyPage_message = () => {
             .then((res) => {
                 alert("쪽지 작성 완료")
                 showMessageListDetail(obj.getUserId);
+                e.target.reset();
             }).catch((err) => {
                 alert("작성에 실패했습니다.")
 
