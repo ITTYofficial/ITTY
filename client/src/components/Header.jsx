@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Nav from "../css/Header.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import { QuillContext } from "../context/QuillContext";
 const Header = () => {
   // 정보 조회 데이터 관리
   const [memberInfo, setMemberInfo] = useState({});
@@ -20,6 +20,7 @@ const Header = () => {
   };
 
   /* 세션스토리지에서 id값을 불러옴 */
+  const { myInfo, setMyInfo } = useContext(QuillContext)
 
   const [loginOk, setLoginOk] = useState(false);
   // const [hoverStates, setHoverStates] = useState({
@@ -71,6 +72,7 @@ const Header = () => {
     sessionStorage.removeItem("memberId");
     console.log(sessionStorage.getItem("memberId"));
     setLoginOk(false);
+    setMyInfo({profileImg:null});
   };
 
   let cateHoverTimer;

@@ -412,7 +412,7 @@ const MarketDetail = () => {
           <div className={style.comment_write}>
             <div>
               <div className={style.comment_write_profile}>
-                <Image src={myInfo.profileImg} roundedCircle />
+                <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
               </div>
               <div className={style.quillComment_container}>
                 <QuillComment />
