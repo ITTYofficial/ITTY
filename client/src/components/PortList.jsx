@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Pagination from "react-js-pagination";
 
 const PortList = () => {
   // 포트폴리오 리스트 담을 State
@@ -37,14 +38,14 @@ const PortList = () => {
         });
 
         // 댓글 개수 카운팅
-/*         const counting = sortedPorts.map((item) => (item._id))
-        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-        const port = sortedPorts.map((obj, index) => ({
-          ...obj,
-          count: countList[index],
-        })); */
+        /*         const counting = sortedPorts.map((item) => (item._id))
+                const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+                const port = sortedPorts.map((obj, index) => ({
+                  ...obj,
+                  count: countList[index],
+                })); */
         setPortList(sortedPorts);
-        // setMaxPage(sortedPorts.length);
+        setMaxPage(sortedPorts.length);
 
         // setPlayList(res.data.lists);
         // setMaxPage(res.data.lists.length)
@@ -159,6 +160,22 @@ const PortList = () => {
     </div>
   );
 
+
+
+  // 페이징 부분
+  const [maxPage, setMaxPage] = useState();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log('페이지 확인', page);
+  };
+
+  const itemsPerPage = 8;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  // 페이징 부분
+
+
   return (
     <div className={styles.Main_container}>
       <LeftContainer />
@@ -171,10 +188,19 @@ const PortList = () => {
         </dvi>
 
         <div className={styles.port_list}>
-          {portList.map((item) => (
+          {portList.slice(startIndex, endIndex).map((item) => (
             <PortItem key={item._id} props={item} />
           ))}
         </div>
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={itemsPerPage}
+          totalItemsCount={maxPage}
+          pageRangeDisplayed={10}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );
