@@ -16,19 +16,15 @@ const PortDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
 
-  // 댓글 내용 담을 State
-  const [comment, setComment] = useState();
-
   // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
-  // 댓글 내용 가져오는 함수
-  const commnetChange = (e) => {
-    setComment(e.target.value);
-  };
+  // QuillComment 컴포넌트 초기화용 state
+  const [commentKey, setCommentKey] = useState(0);
+
 
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
@@ -61,6 +57,7 @@ const PortDetail = () => {
           alert("댓글이 등록되었습니다.");
           setCoValue("");
           getComment(id);
+          setCommentKey(commentKey + 1);
         })
         .catch((err) => {
           console.log(err);
@@ -374,8 +371,7 @@ const PortDetail = () => {
                 <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
               </div>
               <div className={style.quillComment_container}>
-
-                <QuillComment />
+                <QuillComment key={commentKey} />
               </div>
             </div>
             <div className={style.submit_btn_group}>

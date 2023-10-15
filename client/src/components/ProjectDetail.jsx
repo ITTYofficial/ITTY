@@ -45,16 +45,11 @@ const ProjectDetail = () => {
   );
   /* 키워드 컴포넌트 */
 
-  // 댓글 내용 담을 State
-  const [comment, setComment] = useState();
-
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
-  // 댓글 내용 가져오는 함수
-  const commnetChange = (e) => {
-    setComment(e.target.value);
-  };
+  // QuillComment 컴포넌트 초기화용 state
+  const [commentKey, setCommentKey] = useState(0);
 
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
@@ -87,6 +82,7 @@ const ProjectDetail = () => {
           alert("댓글이 등록되었습니다.");
           setCoValue("");
           getComment(id);
+          setCommentKey(commentKey + 1);
         })
         .catch((err) => {
           console.log(err);
@@ -153,25 +149,6 @@ const ProjectDetail = () => {
     const day = createdAt.getDate();
 
     return `${year}년 ${month}월 ${day}일`;
-  };
-
-  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
-  const getTime = (dateString) => {
-    const createdAt = new Date(dateString);
-    const now = new Date();
-    const timeDifference = now - createdAt;
-    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-    const daysDifference = Math.floor(hoursDifference / 24);
-
-    if (daysDifference === 0) {
-      if (hoursDifference === 0) {
-        return "방금 전";
-      } else {
-        return `${hoursDifference}시간 전`;
-      }
-    } else {
-      return `${daysDifference}일 전`;
-    }
   };
 
   // 페이지 렌더링시 조회함수 실행
@@ -456,7 +433,7 @@ const ProjectDetail = () => {
                   <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
                 </div>
                 <div className={styles.quillComment_container}>
-                  <QuillComment />
+                  <QuillComment key={commentKey} />
                 </div>
                 {/* <textarea
                   onChange={commentChange}

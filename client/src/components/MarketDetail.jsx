@@ -22,6 +22,9 @@ const MarketDetail = () => {
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
+  // QuillComment 컴포넌트 초기화용 state
+  const [commentKey, setCommentKey] = useState(0);
+
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
     event.preventDefault();
@@ -53,6 +56,7 @@ const MarketDetail = () => {
           alert("댓글이 등록되었습니다.");
           setCoValue("");
           getComment(id);
+          setCommentKey(commentKey + 1);
         })
         .catch((err) => {
           console.log(err);
@@ -420,7 +424,7 @@ const MarketDetail = () => {
                 <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
               </div>
               <div className={style.quillComment_container}>
-                <QuillComment />
+                <QuillComment key={commentKey} />
               </div>
             </div>
             <div className={style.submit_btn_group}>
