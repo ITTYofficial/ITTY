@@ -203,7 +203,7 @@ const AnonymityDetail = () => {
                   </span>
                   <span className={styles.profile_pic}>
                     <Image
-                      src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png"
+                      src="https://i.ibb.co/G3ZBWXt/01.png"
                       roundedCircle
                     />
                   </span>
@@ -253,7 +253,7 @@ const AnonymityDetail = () => {
             <div className={styles.comment_write}>
               <div>
                 <div className={styles.comment_write_profile}>
-                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                  <Image src="https://i.ibb.co/G3ZBWXt/01.png" roundedCircle />
                 </div>
                 <div className={styles.quillComment_container}>
                   <QuillComment />

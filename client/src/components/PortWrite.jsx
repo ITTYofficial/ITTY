@@ -63,9 +63,20 @@ const PortWrite = () => {
     for (const key in refList) {
       const check = obj[key];
       if (!check || !inputRule[key].test(check)) {
-        refList[key].current.textContent = "*잘못된 입력입니다"
+        refList[key].current.textContent = "글자수를 더 입력해주세요.";
         refList[key].current.style.color = "red";
         refVisible = true;
+        if (!check) {
+          if (key === "title") {
+            refList[key].current.textContent = "제목을 입력해주세요.";
+          } else if (key === "content") {
+            refList[key].current.textContent = "내용을 입력해주세요.";
+          }
+          else if (key === "imgPath") {
+            refList[key].current.textContent = "이미지 첨부를 확인해주세요.";
+          }
+      }
+
       } else {
         refList[key].current.textContent = null;
       }
@@ -73,7 +84,7 @@ const PortWrite = () => {
     
     console.log(obj);
     if (refVisible) {
-      alert('입력값을 확인하세요.')
+      alert("필수 입력 항목을 확인해주세요.");
       return;
     }
 
@@ -86,7 +97,7 @@ const PortWrite = () => {
       })
       .catch((err) => {
         console.log(err);
-        alert("게시글 작성 실패");
+        alert("게시글 작성을 실패했습니다.");
         window.location.href = `/portList`
       });
   };
@@ -235,6 +246,7 @@ const PortWrite = () => {
         <h4>제목</h4>
         <div ref={titleRef}></div>
         <input
+         style={{ marginTop: '2%' }}
           className="form-control"
           type="text"
           name='title'
@@ -318,7 +330,7 @@ const PortWrite = () => {
         </div>
 
         <h4>내용</h4>
-        <div ref={contentRef}></div>
+        <div ref={contentRef}  style={{ marginBottom: '2%' }}></div>
         <div className={styles.quill_div}>
           <QuillTest />
         </div>
