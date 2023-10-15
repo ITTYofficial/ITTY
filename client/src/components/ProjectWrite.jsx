@@ -98,16 +98,28 @@ const ProjectWrite = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.textContent =  "글자수를 더 입력해주세요."
                 refList[key].current.style.color = "red";
                 refVisible = true;
+                if (!check) {
+                    if (key === "title") {
+                        refList[key].current.textContent = "제목을 입력해주세요.";
+                    } else if (key === "position") {
+                        refList[key].current.textContent = "포지션을 선택해주세요.";
+                    } else if (key === "content") {
+                        refList[key].current.textContent = "내용을 입력해주세요.";
+                    }else if (key === "persons") {
+                        refList[key].current.textContent = "인원을 입력해주세요.";
+                    }
+                }
+                
             } else {
                 refList[key].current.textContent = null;
             }
         }
 
         if (obj.endDate < obj.startDate) {
-            dateRef.current.textContent = "*잘못된 입력입니다"
+            dateRef.current.textContent = "날짜를 다시 선택해주세요."
             dateRef.current.style.color = "red";
             refVisible = true;
         } else {
@@ -115,7 +127,7 @@ const ProjectWrite = () => {
         }
 
         if (refVisible) {
-            alert('입력값을 확인하세요.')
+            alert('필수 입력 항목을 확인해주세요.')
             return;
         }
 
@@ -127,7 +139,7 @@ const ProjectWrite = () => {
             })
             .catch((err) => {
                 console.log(err);
-                alert("게시글 작성 실패")
+                alert("게시글 작성을 실패했습니다.")
                 window.location.href = `/projectList`
             })
     }
@@ -169,10 +181,11 @@ const ProjectWrite = () => {
                     className="form-control"
                     name='title'
                     type="text"
+                    style={{ marginTop: '2%' }}
                     {...(id ? { defaultValue: projectDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                 <h4>포지션</h4>
                 <div ref={positionRef}></div>
-                <div className={style.position_content}>
+                <div className={style.position_content} style={{ marginTop: '2%' }}>
                     <button
                         type="button"
                         onClick={() => changeColor('1')}
@@ -278,6 +291,7 @@ const ProjectWrite = () => {
                             className="form-control"
                             type="number"
                             name='persons'
+                            style={{ marginTop: '2%' }}
                             {...(id ? { defaultValue: projectDetail.persons } : { placeholder: '인원을 입력해주세요' })} />
                     </div>
 
