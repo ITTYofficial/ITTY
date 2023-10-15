@@ -94,7 +94,7 @@ const PlayBoardDetail = () => {
   };
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo   } = useContext(QuillContext);
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -341,7 +341,7 @@ const PlayBoardDetail = () => {
             <div className={PlayBoard.comment_write}>
               <div>
                 <div className={PlayBoard.comment_write_profile}>
-                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                  <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
                 </div>
                 <div className={PlayBoard.quillComment_container}>
                   <QuillComment />
