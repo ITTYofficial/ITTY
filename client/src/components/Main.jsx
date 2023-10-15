@@ -21,13 +21,15 @@ const Main = () => {
   const [portList, setPortList] = useState([]);
   // 메인 페이지 게시물 리스트 조회함수
   const mainList = async () => {
+    console.time('시간체크')
     await axios.get("http://localhost:8088/main/mainList")
-      .then((res) => {
-        console.log(res.data.main);
-        setPlayList(res.data.main.play);
-        setProStuList(res.data.main.proStu);
-        setMarketList(res.data.main.market);
-        setPortList(res.data.main.port);
+    .then((res) => {
+      console.log('데이터 확인', res.data.main);
+      setPlayList(res.data.main.play);
+      setProStuList(res.data.main.proStu);
+      setMarketList(res.data.main.market);
+      setPortList(res.data.main.port);
+      console.timeEnd('시간체크')
       })
       .catch((err) => {
         console.log(err);
@@ -62,9 +64,11 @@ const Main = () => {
     <div className={style.Main_grid_detail}>
       <div className={style.Main_grid_right_container}>
         <div className={style.Main_grid_subcontent}>
-          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬4</p>
+          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬{props.comments}</p>
         </div>
-        <h4>{props.title}</h4>
+        <Link to={`/playboardDetail/${props._id}?id=${props.id}`}>
+          <h4>{props.title}</h4>
+        </Link>
       </div>
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
@@ -85,7 +89,7 @@ const Main = () => {
     <div className={style.Main_grid_detail}>
       <div className={style.Main_grid_right_container}>
         <div className={style.Main_grid_subcontent}>
-          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬4</p>
+          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬{props.comments}</p>
         </div>
         <h4>{props.title}</h4>
       </div>
@@ -129,8 +133,9 @@ const Main = () => {
   const PortItem = ({ props }) => (
     <div className={style.port_content}>
       <div className={style.port_content_img}>
-        <Link to={`/portDetail/${props._id}?id=${props.id}`}>
-          <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png' alt="Portfolio" />
+        <Link to={`/portDetail/${props._id}?id=${props.writerInfo.id}`}>
+          {/* <img src={props.imgPath}></img> */}
+          <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png'></img>
         </Link>
       </div>
       <div className={style.port_content_bottom}>
@@ -148,7 +153,7 @@ const Main = () => {
             </div>
           </div>
           <div>
-            <p className={style.little_p}>{getTimeAgoString(props.createdAt)} 👁‍🗨 {props.views} 💬 4</p>
+            <p className={style.little_p}>{getTimeAgoString(props.createdAt)} 👁‍🗨 {props.views} 💬{props.comments}</p>
           </div>
         </div>
       </div>
