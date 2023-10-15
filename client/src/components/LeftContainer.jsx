@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "../css/LeftContainer.module.css";
+import axios from 'axios'
 
 const LeftContainer = () => {
+  const [top5Members, setTop5Members] = useState([]);
+  // top5 조회함수
+  const top5List = async () => {
+    await axios.get("http://localhost:8088/member/top5Members")
+      .then((res) => {
+        setTop5Members(res.data.topMembers);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  useEffect(() => {
+    top5List();
+  }, []);
+
+  console.log('탑5확인', top5Members);
+
   return (
     <div className={style.left_container}>
       <div className={style.left_container_box1}>
@@ -17,6 +36,11 @@ const LeftContainer = () => {
       </div>
       <div className={style.left_container_box3}>
         <h3>Best Ranking 👑</h3>
+        {top5Members.map((item, index) =>
+          <div key={item._id}>
+            {index + 1}위 - {item.nickname} : {item.point}P
+          </div>
+        )}
       </div>
     </div>
   );

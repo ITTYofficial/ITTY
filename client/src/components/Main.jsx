@@ -53,18 +53,21 @@ const Main = () => {
   const mainList = async () => {
     console.time('시간체크')
     await axios.get("http://localhost:8088/main/mainList")
-      .then((res) => {
-        console.log('데이터 확인', res.data.main);
-        setPlayList(res.data.main.play);
-        setProStuList(res.data.main.proStu);
-        setMarketList(res.data.main.market);
-        setPortList(res.data.main.port);
-        console.timeEnd('시간체크')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    .then((res) => {
+      console.log('데이터 확인', res.data.main);
+      setPlayList(res.data.main.play);
+      setProStuList(res.data.main.proStu);
+      setMarketList(res.data.main.market);
+      setPortList(res.data.main.port);
+      console.timeEnd('시간체크')
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
+  
+
+
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
   const getTimeAgoString = (dateString) => {

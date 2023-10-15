@@ -31,25 +31,28 @@ router.post('/join', async (req, res) => {
 // 정보수정
 router.post('/update', async (req, res) => {
   try {
-    let pw= req.body.pw;
-    console.log('정보수정 도착',req.body.pw);
-    console.log('정보수정 도착',req.body.imgPath);
-    if(pw){
+    let pw = req.body.pw;
+    console.log('정보수정 도착', req.body.pw);
+    console.log('정보수정 도착', req.body.imgPath);
+    if (pw) {
       await Member.updateOne(
         { id: req.body.id },
         {
-            $set: {
-                pw: req.body.pw,
-                profileImg: req.body.imgPath,
-            }})
-    }else{
+          $set: {
+            pw: req.body.pw,
+            profileImg: req.body.imgPath,
+          }
+        })
+    } else {
       await Member.updateOne(
         { id: req.body.id },
         {
-            $set: {
-                
-                profileImg: req.body.imgPath,
-            }})}
+          $set: {
+
+            profileImg: req.body.imgPath,
+          }
+        })
+    }
     res.json({ message: "회원정보수정이 완료되었습니다." });
   } catch (err) {
     console.log(err);
@@ -59,7 +62,7 @@ router.post('/update', async (req, res) => {
 
 router.post('/updateNick', async (req, res) => {
   try {
-   
+
     // console.log('닉네임 도착',req.query.nickname);
     // const nickname = {
     //   nickname: nickname,
@@ -67,15 +70,17 @@ router.post('/updateNick', async (req, res) => {
     // };
     let obj;
     console.log('서버도착 닉네임:', req.body.nickname);
-    await Member.updateOne(        
+    await Member.updateOne(
       { id: req.body.id },
       {
         $set: {
           nickname: req.body.nickname
         }
       });
-    res.json({ message: "회원정보수정이 완료되었습니다.",
-              nickname: req.body.nickname});
+    res.json({
+      message: "회원정보수정이 완료되었습니다.",
+      nickname: req.body.nickname
+    });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
@@ -142,7 +147,7 @@ router.get('/memberSearching', async (req, res) => {
     /* console.log('회원조회도착 class :', member); */
     if (member) {
       res.json({
-        member : member
+        member: member
         // nickname:member.nickname,
         // profileImg : member.profileImg,
         // class:member.class           
@@ -161,7 +166,7 @@ router.post('/getWriterInfo', async (req, res) => {
   try {
     const writers = req.body.writers;
     const writerInfoArray = [];
-    
+
     // writers 배열에서 하나씩 뽑아서 find돌려서 배열에 저장
     for (const writer of writers) {
       const member = await Member.findOne({ nickname: writer });
@@ -221,6 +226,21 @@ router.post('/login', async (req, res) => {
     res.json({ message: false });
   }
 });
+
+// 포인트 상위 5명 가져오기
+router.get('/top5Members', async (req, res) => {
+  try {
+    const topMembers = await Member.find().sort({ point: -1 }).limit(5);
+
+    res.json({ topMembers });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false });
+  }
+});
+
+
+
 
 
 
