@@ -6,7 +6,6 @@ const Member = require('../schemas/member/member')
 router.get('/showMessageList', async (req, res) => {
   console.log('메세지리스트조회 시작');
   try {
-    console.time("메세지 리스트조회 도착")
     console.log('보낸사람 쿼리스트링', req.query);
     const getUserId = req.query.getUserId;
     const myId =req.query.getUserId;
@@ -61,7 +60,6 @@ router.get('/showMessageList', async (req, res) => {
     });
 
     res.json({ lists: getWriterInformation });
-    console.timeEnd('걸린시간');
   } catch (err) {
     console.log('에러 : ', err);
     res.json({ message: false })
@@ -69,7 +67,6 @@ router.get('/showMessageList', async (req, res) => {
 });
 
 router.get('/showMessageListDetail', async (req, res) => {
-  console.time('시간체크')
   try {
     const sendUserId = req.query.sendUserId;
     const getUserId = req.query.getUserId;
@@ -103,7 +100,6 @@ router.get('/showMessageListDetail', async (req, res) => {
     });
     // 작성자 정보 일괄 조회    
     const writerInfos = await Member.find({ id: { $in: writerId } });
-    console.timeEnd('시간체크')
     /* console.log('writerInfos 확인2', writerInfos); */
     const getWriterInformation = lists.map(list => {
       const writerInfo = writerInfos.find(info => info.id === list.sendUserId);

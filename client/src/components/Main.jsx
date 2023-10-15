@@ -7,6 +7,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from "react-router-dom";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 // import "../css/Community.css";
 
@@ -23,13 +24,13 @@ const Main = () => {
   const mainList = async () => {
     console.time('시간체크')
     await axios.get("http://localhost:8088/main/mainList")
-    .then((res) => {
-      console.log('데이터 확인', res.data.main);
-      setPlayList(res.data.main.play);
-      setProStuList(res.data.main.proStu);
-      setMarketList(res.data.main.market);
-      setPortList(res.data.main.port);
-      console.timeEnd('시간체크')
+      .then((res) => {
+        console.log('데이터 확인', res.data.main);
+        setPlayList(res.data.main.play);
+        setProStuList(res.data.main.proStu);
+        setMarketList(res.data.main.market);
+        setPortList(res.data.main.port);
+        console.timeEnd('시간체크')
       })
       .catch((err) => {
         console.log(err);
@@ -95,7 +96,7 @@ const Main = () => {
       </div>
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
-        <p>{props.writerInfo.class}</p>
+          <p>{props.writerInfo.class}</p>
           <h4>{props.writer}</h4>
         </span>
         <div className={style.profile_pic}>
@@ -248,6 +249,14 @@ const Main = () => {
             <h3>자유게시판⚽</h3>
 
             {/* 자유게시판 목록 리스트 반복시작 */}
+            {/* 로딩바 */}
+            {playList.length === 0 && (
+              <div className={style.spinner_container}>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            )}
             {playList.map((item) => <Main_detail_play key={item._id} props={item} />)}
             {/* 자유게시판 목록 리스트 반복 끝 */}
           </div>
@@ -256,6 +265,15 @@ const Main = () => {
 
           <div className={style.Main_grid_2}>
             <h3>프로젝트/스터디 구해요🙋‍♂️</h3>
+
+            {/* 로딩바 */}
+            {proStuList.length === 0 && (
+              <div className={style.spinner_container}>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            )}
 
             {/* 프로젝트 / 스터디 목록 리스트 반복시작 */}
             {proStuList.map((item) => <Main_detail_project key={item._id} props={item} />)}
@@ -271,6 +289,16 @@ const Main = () => {
               onMouseUp={onDragEnd_port}
               onMouseLeave={onDragEnd_port}
               ref={scrollRef_port}>
+
+              {/* 로딩바 */}
+              {portList.length === 0 && (
+                <div className={style.spinner_container}>
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div>
+              )}
+
               {portList.map((item) => <PortItem key={item._id} props={item} />)}
             </div>
           </div>
