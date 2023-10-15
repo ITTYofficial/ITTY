@@ -87,7 +87,7 @@ const AnonymityList = (props) => {
         </span>
         <span className={PlayBoard.profile_pic}>
           <Image
-            src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png"
+            src="https://i.ibb.co/G3ZBWXt/01.png"
             roundedCircle
           />
         </span>

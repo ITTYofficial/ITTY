@@ -53,25 +53,33 @@ const PlayBoardWrite = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.textContent ="글자수를 더 입력해주세요.";
                 refList[key].current.style.color = "red";
                 refVisible = true;
+
+                if (!check) {
+                    if (key === "title") {
+                      refList[key].current.textContent = "제목을 입력해주세요.";
+                    } else if (key === "content") {
+                      refList[key].current.textContent = "내용을 입력해주세요.";
+                    }
+                }
             } else {
                 refList[key].current.textContent = null;
             }
         }
 
         if (refVisible) {
-            alert('입력값을 확인하세요.')
+            alert("필수 입력 항목을 확인해주세요.");
             return;
         }
 
         await axios.post('http://localhost:8088/play/write', obj)
             .then((res) => {
-                alert("글 작성 완료")
+                alert("게시글이 등록되었습니다.");
                 window.location.href = `/playboardDetail/${res.data._id}`
             }).catch((err) => {
-                alert("작성에 실패했습니다.")
+                alert("게시글 작성에 실패했습니다.");
                 window.location.href = "/playboardList"
             })
     }
@@ -107,13 +115,14 @@ const PlayBoardWrite = () => {
                     <h4>제목</h4>
                     <div ref={titleRef}></div>
                     <input
+                    style={{ marginTop: "2%" }}
                         className="form-control"
                         type="text"
                         name='title'
                         {...(id ? { defaultValue: playDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                     <h4>내용</h4>
-                    <div ref={contentRef}></div>
-                    <div className={style.quill_div}>
+                    <div ref={contentRef} style={{ marginBottom: "2%" }}></div>
+                    <div className={style.quill_div} >
                         <QuillTest />
                     </div>
                     {/* 전송 버튼 */}
