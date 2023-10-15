@@ -72,7 +72,7 @@ function App() {
   // 쪽지 데이터 컨텍스트 용 스테이트
   const [messageInfo, setMessageInfo] = useState({})
 
-  const [memberInfo, setMemberInfo] = useState({})
+  const [myInfo, setMyInfo] = useState({})
 
   const memberSearching = async () => {
     const id = sessionStorage.getItem('memberId')
@@ -81,7 +81,8 @@ function App() {
       await axios
       .get(`http://localhost:8088/member/memberSearching?id=${id}`)
       .then((res) => {
-        setMemberInfo(res.data.member);
+        console.log("내 정보 확인",res.data.member);
+        setMyInfo(res.data.member);
       })
       .catch((err) => {
         console.log('err :', err);
@@ -226,6 +227,10 @@ function App() {
   //   };
   // }, []);
 
+  useEffect(()=>{
+    memberSearching();
+  },[])
+
   // QuillContext에 담길 데이터들
   const inQuillContext = {
     // 게시판 Quill 
@@ -254,8 +259,9 @@ function App() {
     setMessageInfo:setMessageInfo,
 
     // 회원 정보
-    memberInfo:memberInfo,
-    setMemberInfo:setMemberInfo
+    myInfo:myInfo,
+    setMyInfo:setMyInfo,
+    memberSearching : memberSearching
   }
 
   return (
