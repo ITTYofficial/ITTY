@@ -70,7 +70,7 @@ const TipWrite = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent = "카테고리를 선택해주세요"
+                refList[key].current.textContent = "카테고리를 선택해주세요."
                 refList[key].current.style.color = "red";
                 refVisible = true;
 
