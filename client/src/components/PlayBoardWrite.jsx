@@ -46,8 +46,8 @@ const PlayBoardWrite = () => {
 
         // 입력값 확인
         const inputRule = {
-            title: /^.{5,255}$/,
-            content: /^.{17,65535}$/
+            title: /^.{2,255}$/,
+            content: /^.{12,65535}$/
         };
 
         for (const key in refList) {

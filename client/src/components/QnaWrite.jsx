@@ -62,9 +62,9 @@ const QnaWrite = () => {
 
         // 입력값 확인
         const inputRule = {
-            title: /^.{5,255}$/,
+            title: /^.{2,255}$/,
             category: /^.{1,255}$/,
-            content: /^.{17,65535}$/
+            content: /^.{12,65535}$/
         };
 
         for (const key in refList) {

@@ -146,7 +146,7 @@ const MarketList = () => {
         </div>
       </div> */}
 
-        {props.sold == 1 ?
+        {props.sold !== 1 ?
           <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover', position: 'relative', filter: 'grayscale(1)' }}>
             <div>
               <h4>판매완료</h4>

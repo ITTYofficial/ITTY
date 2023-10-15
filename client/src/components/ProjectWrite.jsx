@@ -86,13 +86,13 @@ const ProjectWrite = () => {
 
         // 입력값 확인
         const inputRule = {
-            title: /^.{5,255}$/,
+            title: /^.{2,255}$/,
             position: /^.{1,255}$/,
             framework_front: /^.{1,255}$/,
             framework_back: /^.{1,255}$/,
             framework_db: /^.{1,255}$/,
             persons: /^[0-9]{1,100}$/,
-            content: /^.{17,65535}$/
+            content: /^.{12,65535}$/
         };
 
         for (const key in refList) {

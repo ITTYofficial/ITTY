@@ -77,10 +77,10 @@ const StudyWrite = () => {
         
         // 입력값 확인
         const inputRule = {
-            title: /^.{5,255}$/,
+            title: /^.{2,255}$/,
             selectedValues: /^.{1,255}$/,
             persons: /^[0-9]{1,100}$/,
-            content: /^.{17,65535}$/
+            content: /^.{12,65535}$/
           };
 
         for (const key in refList) {
@@ -112,12 +112,12 @@ const StudyWrite = () => {
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
                 console.log(res);
-                // window.location.href = `/studyDetail/${res.data._id}`
+                window.location.href = `/studyDetail/${res.data._id}`
             })
             .catch((err) => {
                 console.log(err);
                 alert("게시글 작성 실패")
-                // window.location.href = `/studyList`
+                window.location.href = `/studyList`
             })
     }
 

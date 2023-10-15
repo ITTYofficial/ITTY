@@ -113,7 +113,7 @@ router.get("/sold/:_id", async (req, res) => {
       id,
       {
         $mul: {
-          condition: -1
+          sold: -1
         }
       }
     )
