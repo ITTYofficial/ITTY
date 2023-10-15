@@ -13,7 +13,7 @@ router.get('/mainList', async (req, res) => {
             Market.find().sort({ _id: -1 }).limit(15),
             Project.find().sort({ _id: -1 }).limit(5),
             Study.find().sort({ _id: -1 }).limit(5),
-            Port.find().sort({ _id: -1 }).limit(15)
+            Port.find().sort({ _id: -1 }).limit(8)
         ])
         // 리스트 작성자 아이디 수집
         let writerId = [];
