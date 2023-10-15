@@ -9,6 +9,8 @@ import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
 import QuillComment from './QuillComment'
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const PortDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
@@ -211,13 +213,65 @@ const PortDetail = () => {
 
   /* 수정삭제 버튼 */
 
+
+  /* 쪽지 */
+
+  const [message, setMessage] = useState(false);
+
+  const toggleMessage = () => {
+    if (message) {
+      setMessage(false);
+    }
+  }
+
+  const messageSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    formData.append('sendUserId', sessionStorage.getItem('memberId'));
+    console.log("데이터 확인", e.target);
+
+    const obj = {};
+    formData.forEach((value, key) => {
+      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+      obj[key] = value;
+    });
+    await axios.post('http://localhost:8088/message/write', obj)
+      .then((res) => {
+        alert("글 작성 완료")
+        handleClose();
+
+      }).catch((err) => {
+        alert("작성에 실패했습니다.")
+
+      })
+  }
+
+
+  /* 모달 */
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+
+  }
+  const handleShow = () => {
+    /* setCroppedImage(null); */
+    setShow(true);
+    /* handleCropperClick(); */
+  }
+
+  /* 모달 */
+
+
+  /* 쪽지 */
+
   return (
     <div className={style.Main_container}>
       <LeftContainer />
       <div className={style.right_container} onClick={toggleMeat}>
         <div>
           <Link to={"/portList"}>
-          <h2>포트폴리오 🔎</h2>
+            <h2>포트폴리오 🔎</h2>
           </Link>
           <hr />
 
@@ -225,12 +279,40 @@ const PortDetail = () => {
         </div>
         <div className={style.top_container}>
           <div className={style.top_container_sub}>
-            <div className={style.profile_img}>
-              <Image
-                src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png"
-                roundedCircle
-              />
+            <div className={style.profile_img} onClick={() => { setMessage(!message) }}>
+              <Image src={memberInfo.profileImg} roundedCircle />
             </div>
+            {message &&
+              <div className={style.message_dropdown}>
+                <li onClick={handleShow}>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                  </svg>
+                  <span>쪽지보내기</span>
+                </li>
+              </div>
+            }
+            <Modal show={show} onHide={handleClose}>
+              <form onSubmit={messageSubmit}>
+                <Modal.Header closeButton>
+                  <Modal.Title>쪽지 보내기</Modal.Title>
+                  <input type="hidden" name='getUserId' value={memberInfo.id}></input>
+                </Modal.Header>
+                <Modal.Body>
+                  <textarea className={style.message_modal_input} name="content" placeholder="쪽지입력" />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    취소
+                  </Button>
+                  <Button variant="primary" type="submit">
+                    보내기
+                  </Button>
+                </Modal.Footer>
+              </form>
+            </Modal>
+
             <div>
               <p>{memberInfo.class}</p>
               <p>{portDetail.writer}</p>
