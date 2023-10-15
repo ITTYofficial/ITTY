@@ -142,7 +142,8 @@
 
 .play_title {
   padding: 5px 8px;
-  font-weight: bold;
+  font-weight: 600;
+  font-family: "suit";
   border-radius: 8px;
   font-size: 12px;
   margin-right: 12px;
@@ -310,7 +311,7 @@
   letter-spacing: -1px;
 }
 
-.Top_container > div p {
+.Top_container > div >p {
   font-size: 14px;
   font-weight: bold;
   margin: 12px 0;
@@ -318,25 +319,26 @@
 }
 
 .Top_right_container p {
-  font-size: 14px;
-  margin-bottom: 8px;
+  font-size: 12px;
+  margin-bottom: 6px;
   text-align: right;
   color: #999999;
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
 }
 
 .Top_right_container h5 {
   font-size: 18px;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   text-align: right;
   color: #000000;
   font-weight: 600;
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
 }
 
 .Top_right_container > div:first-child {
   display: flex;
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .Top_right_container > div:last-child p {
@@ -346,7 +348,12 @@
 .text_content_wrapper {
   position: relative;
 }
-
+.profile_view > p{
+  font-size: 12px;
+  text-align: right;
+  color: #999999;
+  font-family: "Pretendard Variable";
+}
 /* 댓글 작성 quill버전 css */
 .comment_write_profile {
   margin-right: 16px;

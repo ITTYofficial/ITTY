@@ -318,7 +318,7 @@ const PortDetail = () => {
               <p>{portDetail.writer}</p>
             </div>
           </div>
-          <div>
+          <div className={style.profile_view}>
             <p>
               {getTimeAgoString(portDetail.createdAt)} 👁‍🗨 {portDetail.views} 💬 {portDetail.comments}
             </p>

@@ -251,7 +251,7 @@ const MyPage_message = () => {
                                 <div className={styles.message_send_box}>
                                     <form onSubmit={messageSubmit}>
                                         <input type="hidden" name='getUserId' value={messageInfo.id}></input>
-                                        <input type='text' name="content" className="form-control" placeholder='쪽지 입력...'></input>
+                                        <input type='text' name="content" className="form-control" placeholder='메시지 입력...'></input>
                                         <button>전송</button>
                                     </form>
                                 </div>

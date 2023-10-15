@@ -121,7 +121,8 @@
 
 .Main_grid_detail div p {
   color: #999999;
-  font-size: 14px;
+  font-size: 12px;
+  font-family: "Pretendard Variable";
 }
 
 .Main_grid_profile {
@@ -149,8 +150,8 @@
   font-size: 16px;
   font-weight: bold;
   text-align: right;
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "Pretendard Variable";
+  /* letter-spacing: -1px; */
 }
 
 .profile_pic {
@@ -199,7 +200,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: "suit";
+  font-family: "Pretendard Variable";
   /* letter-spacing: -1px; */
   cursor: pointer;
   transition-duration: 200ms;
@@ -301,7 +302,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: "suit";
+  font-family: "Pretendard Variable";
 }
 
 .Market_content_text > p {
@@ -401,8 +402,7 @@
   /* 추가 */
   text-overflow: ellipsis;
   /* 추가 */
-  font-family: "suit";
-  letter-spacing: -1px;
+  font-family: "Pretendard Variable";
 }
 
 .port_content_bottom2 {
@@ -437,6 +437,7 @@
   font-size: 14px;
   /* margin-bottom: 8px; */
   font-weight: 500;
+  font-family: "Pretendard Variable";
 }
 
 .port_list {

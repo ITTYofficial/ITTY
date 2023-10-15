@@ -382,9 +382,9 @@ const StudyDetail = () => {
                     </form>
                   </Modal>
               </div>
-              <div>
+              <span className={style.profile_view}>
                 <p>👁‍🗨 {studyDetail.views} 💬 {studyDetail.comments}</p>
-              </div>
+              </span>
               {(nowUser === studyDetail.id ?
               <span onClick={handleRecruit} className={style.mem_completed}>
                 모집완료 ✔

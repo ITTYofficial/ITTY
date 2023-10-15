@@ -201,7 +201,7 @@ const AnonymityDetail = () => {
                     />
                   </span>
                 </span>
-                <span>
+                <span className={styles.profile_view}>
                   <p>👁‍🗨 {anonyDetail.views} 💬 {anonyDetail.comments}</p>
                 </span>
               </div>

@@ -37,8 +37,8 @@
   /* 추가 */
   text-overflow: ellipsis;
   /* 추가 */
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "Pretendard Variable";
+  /* letter-spacing: -1px; */
   margin-bottom: 8px;
 }
 
@@ -96,8 +96,8 @@
 
 .port_content_img {
   width: 100%;
-  overflow: hidden;
-  height: 70%;
+  /* overflow: hidden; */
+  /* height: 70%; */
 }
 
 .port_content_img > a {

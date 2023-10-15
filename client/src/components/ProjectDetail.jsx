@@ -394,7 +394,7 @@ const ProjectDetail = () => {
                   </Modal>
 
                 </span>
-                <span>
+                <span className={styles.profile_view}>
                   <p>👁‍🗨 {projectDetail.views} 💬 {projectDetail.comments}</p>
                 </span>
                 {(nowUser === projectDetail.id ?

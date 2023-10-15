@@ -32,7 +32,7 @@
 }
 
 .play_profile>span>h2 {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 16px;
@@ -168,7 +168,7 @@
 
 .profile_text>p {
   font-size: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-align: right;
   color: #999999;
 }
@@ -177,11 +177,16 @@
   font-size: 18px;
   font-weight: bold;
   text-align: right;
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "Pretendard Variable";
+  /* letter-spacing: -1px; */
 }
 
-.profile_pic {}
+.profile_view > p{
+  font-size: 12px;
+  text-align: right;
+  color: #999999;
+  font-family: "Pretendard Variable";
+}
 
 .profile_pic img {
   width: 50px;

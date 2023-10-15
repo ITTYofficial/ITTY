@@ -14,17 +14,18 @@
 
 /* 시간, 댓글 css */
 .tip_time_box {
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 8px;
   color: #999999;
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .tip_comment_box {
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 8px;
+  color: #999999;
 }
 
 .tip_space_box {
@@ -170,7 +171,7 @@
   margin: 16px 0;
   display: inline-block;
   vertical-align: middle;
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
 }
 
 .play_profile > span > p {
@@ -192,14 +193,14 @@
 
 .profile_text > p {
   font-size: 14px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-align: left;
   color: #999999;
 }
 
 .profile_text > h5 {
   font-size: 16px;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   text-align: right;
   color: #000000;
   font-weight: 600;

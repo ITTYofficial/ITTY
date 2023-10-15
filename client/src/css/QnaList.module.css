@@ -134,7 +134,8 @@
   margin-top: 1%;
 }
 .Qna_title_box_space_2 p {
-  font-size: 14px;
+  font-size: 12px;
+  color: #999999;
   margin-bottom: 8px;
   font-weight: 500;
   display: inline-block;
@@ -171,7 +172,7 @@
   vertical-align: middle;
   font-size: 18px;
   margin-top: 4px;
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
 }
 
 .b_date {
@@ -225,8 +226,8 @@
   font-size: 16px;
   font-weight: bold;
   text-align: right;
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "Pretendard Variable";
+  /* letter-spacing: -1px; */
 }
 .profile_pic {
   width: 50px;

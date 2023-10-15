@@ -294,7 +294,7 @@ const PlayBoardDetail = () => {
                     </form>
                   </Modal>
                 </span>
-                <span>
+                <span className={PlayBoard.profile_view}>
                   <p>👁‍🗨 {playDetail.views} 💬 {playDetail.comments}</p>
                 </span>
               </div>
