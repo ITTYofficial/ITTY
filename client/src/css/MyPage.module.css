@@ -5,7 +5,6 @@
     margin-top: 8%;
     display: flex;
 }
-
 .profile_container>h2,
 .message_container>h2,
 .message_default_box>h2 {
@@ -16,45 +15,36 @@
     padding: 16px;
     margin: 16px 0;
 }
-
 .top_container {
     display: flex;
     justify-content: space-between;
 }
-
 .right_container h4 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 12px;
 }
-
 .top_container form input {
     margin-bottom: 24px;
 }
-
 .top_container_left {
-    width: 50%;
+    width: 40%;
 }
-
 .top_container_left>div input {
     margin-bottom: 24px;
 }
-
 .top_container_right {
     width: 40%;
     display: grid;
     justify-content: center;
 }
-
 .top_container_right h4 {
     text-align: center;
 }
-
 /* 프사 css */
 .market_pic {
     margin-bottom: 16px;
 }
-
 .input_pic {
     display: flex;
     border: 1px solid #cecfce;
@@ -65,7 +55,6 @@
     border-radius: 50%;
     position: relative;
 }
-
 .input_pic input {
     width: 100%;
     resize: none;
@@ -76,22 +65,18 @@
     line-height: 1.7rem;
     font-size: 18px;
 }
-
 .input_pic img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
-
 .fake_upload {
     width: 100%;
-    /* display: grid; */
-    /* justify-content: center; */
-    /* justify-items: center; */
+    display: grid;
+    justify-content: center;
+    justify-items: center;
     position: absolute;
 }
-
 .img_uploads_btn {
     position: absolute;
     width: 60px;
@@ -103,33 +88,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
-
 .img_uploads_btn svg {
     width: 28px;
     height: 28px;
     fill: white;
 }
-
 .real_upload {
     display: none;
 }
-
 .preview_img {
-
     width: 250px;
     height: 250px;
     display: contents;
 }
-
 .preview_img img {
     width: 100%;
     height: 100%;
 }
-
 /* 프사 css */
-
 .right_container_button {
     background-color: #93DFFF;
     padding: 12px 20px;
@@ -138,116 +115,96 @@
     font-weight: bold;
     margin-bottom: 32px;
 }
-
 .certification_box {
     margin-top: 32px;
 }
-
 .certification_box svg {
     fill: #2972FF;
     width: 50px;
     height: 50px;
     margin-right: 12px;
 }
-
 .certification_box {
     display: flex;
     margin-bottom: 24px;
 }
-
 .certification_box h4 {
     margin-bottom: 4px;
 }
-
 .certification_box>div>div {
     width: 80%;
 }
-
 .certification_box input {
     width: 60%;
 }
-
 .bottom_btn_group {
     display: flex;
     justify-content: flex-end;
     padding: 12px;
     border-bottom: 2px solid #eeeeee;
 }
-
 .bottom_btn_group>button:nth-child(1) {
     text-decoration: none;
     font-weight: 600;
     font-size: 16px;
     background-color: #2972FF;
-
     border-radius: 10px;
     display: inline-block;
     padding: 12px 30px;
     margin: 0 8px;
 }
-
 .bottom_btn_group>button:nth-child(1) p {
     color: white;
 }
-
 .bottom_btn_group>button:nth-child(1)+a {
     text-decoration: none;
     color: #333333;
     font-weight: 600;
     font-size: 16px;
-
     border-radius: 10px;
     display: inline-block;
     border: 2px solid gray;
     padding: 12px 30px;
     margin: 0 8px;
 }
-
 .bottom_btn_group button:hover {
     /* background-color: #2a72ff;
     color: #eeeeee;
     transition-duration: 200ms;
     border: 2px solid white; */
 }
-
 .nickname_wrapper {
     display: flex;
     margin-bottom: 24px;
     align-items: center;
 }
-
 .nickname_wrapper div {
     background-color: #93DFFF;
     padding: 8px 6px;
+    border-bottom: 2px solid #eeeeee;
     border-radius: 10px;
-    font-size: 8px;
     font-weight: bold;
     margin-left: 12px;
-    cursor: pointer;
 }
-
 .nickname_modify_wrapper {
     display: flex;
 }
-
 .nickname_modify_wrapper button {
     background-color: #93DFFF;
-    padding: 8px 12px;
-    /* border-bottom: 2px solid #eeeeee; */
+    padding: 8px 6px;
+    border-bottom: 2px solid #eeeeee;
     border-radius: 10px;
     font-weight: bold;
     margin-left: 12px;
     white-space: nowrap;
     height: 38px;
 }
-
 .nickname_wrapper h5 {
     font-size: 18px;
     font-weight: bold;
-    font-family: "Pretendard Variable";
+    font-family: sans-serif;
     letter-spacing: -1px;
 }
-
 .left_container {
     border-right: 2px solid #eee;
     margin-right: 3%;
@@ -255,29 +212,20 @@
     display: grid;
     align-content: space-between;
 }
-
 .left_container>div:first-child>div {
     display: flex;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
-.left_container>div >div >a{
-    transition-duration: 200ms;
-}
-.left_container>div >div >a:hover{
-    color: #2972FF;
-}
-
 .left_container svg {
     width: 25px;
     height: 25px;
     fill: #2972FF;
     margin-right: 12px;
 }
-
 .left_container h4 {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: bold;
 }
 
 .left_container a{
@@ -290,184 +238,108 @@
     margin-right: 16px;
     white-space: nowrap;
 }
-
 .right_container {
-
     width: 80%;
 }
-
 .message_wrapper {
     display: flex;
-    height: 60vh;
+    height: 600px;
 }
-
 .message_wrapper>div:nth-child(1) {
     border-right: 2px solid #eee;
     width: 20%;
     margin-right: 12px;
 }
-
 .message_wrapper>div:nth-child(2) {
     /* background-color: rgb(69, 151, 87); */
     width: 80%;
     position: relative;
 }
-
-
 .message_profile_box {
     display: flex;
     align-items: center;
     margin-bottom: 16px;
-    cursor: pointer;
 }
-
 .message_profile_box>div img {
     width: 45px;
     height: 45px;
-    margin-right: 8px;
 }
-
 .message_profile_box h5,
 .message_content_top_box>div h5 {
     font-size: 16px;
     font-weight: bold;
-    transition-duration: 200ms;
-    font-family: "Pretendard Variable";
 }
-.message_profile_box h5:hover{
-    color: #2972FF;
-}
-
 .message_content_top_box {
     display: grid;
     justify-content: center;
 }
-
-
 .message_content_top_box>div img {
     width: 80px;
     height: 80px;
     margin-bottom: 12px;
 }
-
 .message_content_top_box>div {
     text-align: center;
 }
-
 .received_message {
     display: flex;
     margin-bottom: 16px;
-    align-items: flex-end;
 }
-
 .received_message>div:first-child img {
     width: 40px;
     height: 40px;
     margin-right: 8px;
 }
-
 .received_message>div:nth-child(2) {
     background-color: rgb(208 241 213);
     /* border: 1px solid #c08989; */
     border-radius: 10px;
     padding: 12px;
 }
-
 .sent_message {
     display: flex;
     margin-bottom: 16px;
     justify-content: flex-end;
-    align-items: flex-end;
 }
-.sent_message>div:nth-child(2){
+.sent_message>div:nth-child(2) img {
     width: 40px;
     height: 40px;
-    overflow: hidden;
-    border-radius: 50%;
     margin-right: 8px;
 }
-.sent_message>div:nth-child(2) > img {
-    width: 100%;
-    height: 100%;
-}
-
 .sent_message>div:nth-child(3) {
     background-color: rgb(208 241 213);
     /* border: 1px solid #c08989; */
     border-radius: 10px;
     padding: 12px;
-    font-size: 14px;
-    font-weight: 500;
-}
-.message_content_wrapper{
-    overflow: scoll-y;
 }
 .message_content_bottom_box{
-    /* position: absolute; */
+    position: absolute;
     bottom: 38px;
-    height: 39vh;
-    /* max-height: 852px; */
-    /* overflow-y: auto; */
+    max-height: 445px;
+    overflow-y: auto;
     width: 100%;
 }
-
 .message_time p{
     color: #999999;
-    font-size: 12px;
-    margin: 0 6px;
-    font-weight: 500;
+    font-size: 14px;
 }
-
 .message_default_box svg{
     width: 150px;
     height: 150px;
     fill: #2972FF;
 }
-
 .message_default_box>div {
     display: flex;
     justify-content: center;
 }
-
 .message_send_box {
     width: 100%;
     position: absolute;
     bottom: 0;
 }
-
 .message_send_box>form{
     display: flex;
 }
-.form-control{
-    font-family: "Pretendard Variable";
-    letter-spacing: -1px;
-}
-
-.message_send_box >form >button{
+.message_send_box button{
     white-space: nowrap;
-    padding: 8px 12px;
-    font-weight: 600;
-    border-radius: 5px;
-    transition-duration: 200ms;
-    background-color: #f9f9f9;
-    margin-left: 8px;
-}
-.message_send_box >form >button:hover{
-    background-color: #eeeeee;
-}
-.top_container_left> div:nth-child(2){
-    position: relative;
-}
-.top_container_left > div:nth-child(2) > div{
-    font-size: 12px;
-    position: absolute;
-    bottom: -1rem;
-}
-.top_container_left> div:nth-child(3){
-    position: relative;
-}
-.top_container_left > div:nth-child(3) > div{
-    font-size: 12px;
-    position: absolute;
-    bottom: -1rem;
 }
