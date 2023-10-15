@@ -48,7 +48,7 @@ const marketSchema = new Schema({
         type: Number,
         required: true
     },
-    condition: {
+    sold: {
         type: Number,
         default: 1
     }

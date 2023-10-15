@@ -75,9 +75,9 @@ const MarketWrite = () => {
   const priceRef = useRef(null)
   const contentRef = useRef(null)
   const refList = {
-    title: titleRef,
+    market_title: titleRef,
     imgPath: imgPathRef,
-    price: priceRef,
+    market_price: priceRef,
     content: contentRef
   }
   let refVisible = false
@@ -114,10 +114,10 @@ const MarketWrite = () => {
 
     // 입력값 확인
     const inputRule = {
-      title: /^.{5,255}$/,
+      market_title: /^.{2,255}$/,
       imgPath: /^.{1,65535}$/,
-      price: /^.{1,255}$/,
-      content: /^.{17,65535}$/
+      market_price: /^.{1,255}$/,
+      content: /^.{12,65535}$/
     };
 
     for (const key in refList) {
@@ -130,13 +130,13 @@ const MarketWrite = () => {
         refList[key].current.textContent = null;
       }
     }
+    console.log(obj);
 
     if (refVisible) {
       alert('입력값을 확인하세요.')
       return;
     }
 
-    console.log(obj);
     axios
       .post("http://localhost:8088/market/write", obj)
       .then((res) => {

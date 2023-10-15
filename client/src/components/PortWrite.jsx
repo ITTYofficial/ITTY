@@ -55,9 +55,9 @@ const PortWrite = () => {
 
     // 입력값 확인
     const inputRule = {
-      title: /^.{5,255}$/,
+      title: /^.{2,255}$/,
       imgPath: /^.{1,65535}$/,
-      content: /^.{17,65535}$/
+      content: /^.{12,65535}$/
     };
 
     for (const key in refList) {
@@ -71,11 +71,11 @@ const PortWrite = () => {
       }
     }
     
+    console.log(obj);
     if (refVisible) {
       alert('입력값을 확인하세요.')
       return;
     }
-    console.log(obj);
 
     axios
       .post("http://localhost:8088/port/write", obj)

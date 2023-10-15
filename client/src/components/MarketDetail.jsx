@@ -70,6 +70,9 @@ const MarketDetail = () => {
   const params = new URLSearchParams(location.search);
   const nickname = params.get("id");
 
+  // 현재 로그인 회원 정보 조회
+  const nowUser = sessionStorage.getItem("memberId")
+
   // 게시글정보 저장할 State
   const [marketDetail, setmarketDetail] = useState([]);
 
@@ -155,14 +158,14 @@ const MarketDetail = () => {
   // 판매 완료 전환
   const soldMarket = async () => {
     await axios
-    .get(`http://localhost:8088/market/sold/${id}`)
-    .then((res) => {
-      alert("전환 완료");
-    })
-    .catch((err)=>{
-      alert("전환 실패");
-      console.log(err);
-    })
+      .get(`http://localhost:8088/market/sold/${id}`)
+      .then((res) => {
+        alert("전환 완료");
+      })
+      .catch((err) => {
+        alert("전환 실패");
+        console.log(err);
+      })
   }
 
   const settings = {
@@ -204,7 +207,7 @@ const MarketDetail = () => {
   const handleSoldClick = () => {
     if (isOwner) {
       soldMarket();
-    }else {
+    } else {
       alert("작성자만 바꿀 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
     }
   }
@@ -262,9 +265,14 @@ const MarketDetail = () => {
               </div>
             </div>
             <div className={style.market_buttons}>
-              <button onClick={handleModifyClick}>수정</button>
-              <button onClick={handleDeleteClick}>삭제</button>
-              <button onClick={handleSoldClick}>판매 완료</button>
+              {(nowUser === marketDetail.id ?
+                <>
+                  <button onClick={handleModifyClick}>수정</button>
+                  <button onClick={handleDeleteClick}>삭제</button>
+                  <button onClick={handleSoldClick}>판매 완료</button>
+                </>
+                :
+                null)}
             </div>
           </div>
         </div>
