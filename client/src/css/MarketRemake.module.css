@@ -85,7 +85,7 @@
 .market_title>h2 {
   font-size: 24px;
   font-weight: 600;
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   letter-spacing: -1px;
 }
 
@@ -147,19 +147,19 @@
 
 .market_profile>div:first-child>div:last-child>p {
   font-size: 14px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-align: left;
   color: #999999;
 }
 
 .market_profile>div:first-child>div:last-child>h5 {
-  font-size: 16px;
+  font-size: 18px;
   /* margin-bottom: 8px; */
   text-align: left;
   color: #000000;
   font-weight: 600;
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "Pretendard Variable";
+  /* letter-spacing: -1px; */
 }
 
 .market_right_buttonFlex {

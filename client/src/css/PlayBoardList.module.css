@@ -85,7 +85,7 @@
 .b_date {
   color: #999999;
   font-size: 12px;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   font-weight: 500;
 }
 .Main_container_list_detail > div:first-child > a {
@@ -104,7 +104,7 @@
 }
 .Main_container_list_detail > div:first-child > a > h4 {
   margin-bottom: 8px;
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
 }
 .Main_container_list_detail > div:first-child > p:last-child {
   color: #999999;
@@ -133,8 +133,8 @@
   font-size: 18px;
   font-weight: bold;
   text-align: right;
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "Pretendard Variable";
+  /* letter-spacing: -1px; */
 }
 .profile_pic {
   width: 50px;

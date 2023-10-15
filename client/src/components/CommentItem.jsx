@@ -9,7 +9,7 @@ import QuillReComment from './QuillReComment'
 const CommentItem = ({ props, postId, boardType }) => {
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue,myInfo, setMyInfo  } =
+  const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue, myInfo, setMyInfo } =
     useContext(QuillContext);
 
   // 대댓글 작성완료 시 호출되는 함수
@@ -19,32 +19,36 @@ const CommentItem = ({ props, postId, boardType }) => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-    event.preventDefault();
-    console.log(_id);
-    const createdAt = new Date().toISOString();
-    const obj = {
-      id: sessionStorage.getItem("memberId"),
-      writer: sessionStorage.getItem("memberNickname"),
-      content: reCoValue,
-      commentId: _id,
-      createdAt: createdAt,
-      boardType: boardType
-    };
-    console.log(obj);
+      event.preventDefault();
 
-    axios
-      .post("http://localhost:8088/comment/reWrite", obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.");
-        console.log(res);
-        setReCoValue('');
-        getComment(postId);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패");
-      });
-  }}
+      // 댓글 빈값 막기
+      if (reCoValue == "" || reCoValue == "<p><br></p>") {
+        alert("내용을 입력해주세요");
+        return; // 댓글이 비어있으면 함수를 여기서 끝내기
+      }
+      const createdAt = new Date().toISOString();
+      const obj = {
+        id: sessionStorage.getItem("memberId"),
+        writer: sessionStorage.getItem("memberNickname"),
+        content: reCoValue,
+        commentId: _id,
+        createdAt: createdAt,
+        boardType: boardType
+      };
+
+      axios
+        .post("http://localhost:8088/comment/reWrite", obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.");
+          setReCoValue('');
+          getComment(postId);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패");
+        });
+    }
+  }
 
   // 대댓글 작성 칸 출력 조절 State
   const [recommentVisible, setRecommentVisible] = useState(false);

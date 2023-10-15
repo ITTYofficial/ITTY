@@ -498,11 +498,13 @@ button {
 
 .count_message_box {
   position: absolute;
-  top: -3px;
-  right: -4px;
+  top: -20%;
+  right: -30%;
+  cursor: pointer;
   background-color: red;
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
   border-radius: 50%;
   text-align: center;
   color: white;

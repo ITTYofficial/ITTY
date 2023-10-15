@@ -91,27 +91,34 @@ const AnonymityDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-    event.preventDefault();
-    const obj = {
-      writer: sessionStorage.getItem("memberId"),
-      postId: id,
-      content: coValue,
-    };
-    console.log(obj);
+      event.preventDefault();
 
-    axios
-      .post("http://localhost:8088/anony/commentWrite", obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.");
-        console.log(res);
-        setCoValue("");
-        getAnonyComment(id);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패");
-      });
-  }}
+      // 댓글 빈값 막기
+      if (coValue == "" || coValue == "<p><br></p>") {
+        alert("내용을 입력해주세요");
+        return; // 댓글이 비어있으면 함수를 여기서 끝내기
+      }
+      const obj = {
+        writer: sessionStorage.getItem("memberId"),
+        postId: id,
+        content: coValue,
+      };
+      console.log(obj);
+
+      axios
+        .post("http://localhost:8088/anony/commentWrite", obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.");
+          console.log(res);
+          setCoValue("");
+          getAnonyComment(id);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패");
+        });
+    }
+  }
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
@@ -196,12 +203,12 @@ const AnonymityDetail = () => {
                   </span>
                   <span className={styles.profile_pic}>
                     <Image
-                      src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png"
+                      src="https://i.ibb.co/G3ZBWXt/01.png"
                       roundedCircle
                     />
                   </span>
                 </span>
-                <span>
+                <span className={styles.profile_view}>
                   <p>👁‍🗨 {anonyDetail.views} 💬 {anonyDetail.comments}</p>
                 </span>
               </div>
@@ -231,7 +238,7 @@ const AnonymityDetail = () => {
               </ul>
             </div>
             <div className="quill_content_font_style">
-              <span dangerouslySetInnerHTML={{ __html: anonyDetail.content }}/>
+              <span dangerouslySetInnerHTML={{ __html: anonyDetail.content }} />
             </div>
           </div>
           {/* 게시글 content 끝 */}
@@ -246,7 +253,7 @@ const AnonymityDetail = () => {
             <div className={styles.comment_write}>
               <div>
                 <div className={styles.comment_write_profile}>
-                  <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                  <Image src="https://i.ibb.co/G3ZBWXt/01.png" roundedCircle />
                 </div>
                 <div className={styles.quillComment_container}>
                   <QuillComment />

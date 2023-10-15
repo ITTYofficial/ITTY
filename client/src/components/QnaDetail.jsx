@@ -81,7 +81,7 @@ const QnaDetail = () => {
   };
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo   } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -91,6 +91,13 @@ const QnaDetail = () => {
       event.preventDefault();
     } else {
       event.preventDefault();
+
+      // 댓글 빈값 막기
+      if (coValue == "" || coValue == "<p><br></p>") {
+        alert("내용을 입력해주세요");
+        return; // 댓글이 비어있으면 함수를 여기서 끝내기
+      }
+
       const obj = {
         id: sessionStorage.getItem('memberId'),
         writer: sessionStorage.getItem("memberNickname"),
@@ -98,13 +105,11 @@ const QnaDetail = () => {
         content: coValue,
         boardType: 'qna'
       };
-      console.log(obj);
 
       axios
         .post("http://localhost:8088/comment/write", obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
-          console.log(res);
           setCoValue("");
           getComment(id);
         })
@@ -328,7 +333,8 @@ const QnaDetail = () => {
             {/* 글 작성 프로필 */}
             <span className={style.profile_text}>
               <p>{memberInfo.class}</p>
-              <h4>{memberInfo.nickname}</h4>
+              <h5>{memberInfo.nickname}</h5>
+
             </span>
           </span>
 

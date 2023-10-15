@@ -1,38 +1,38 @@
 .quill_content_font_style h1 {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 2em;
   line-height: 1.25em;
   letter-spacing: -1px;
 }
 
 .quill_content_font_style h2 {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 1.5em;
   line-height: 1.25em;
   letter-spacing: -1px;
 }
 
 .quill_content_font_style h3 {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 1.17em;
   line-height: 1.25em;
   letter-spacing: -1px;
 }
 
 .quill_content_font_style p {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 1em;
   line-height: 1.25em;
   letter-spacing: -1px;
 }
 
 .quill_content_font_style strong {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-weight: bold;
 }
 
 .quill_content_font_style em {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-style: italic;
 }
 
@@ -44,40 +44,40 @@
 /* 댓글 */
 
 .quill_comment_font_style h1 {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 1.8em;
   line-height: 1.25em;
   letter-spacing: -1px;
 }
 
 .quill_comment_font_style h2 {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 1.4em;
   line-height: 1.25em;
   letter-spacing: -1px;
 }
 
 .quill_comment_font_style h3 {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 1.12em;
   line-height: 1.25em;
   letter-spacing: -1px;
 }
 
 .quill_comment_font_style p {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-size: 1em;
   line-height: 1.25em;
   letter-spacing: -1px;
 }
 
 .quill_comment_font_style strong {
-  font-family: sans-serif;
+  font-family:"Pretendard Variable";
   font-weight: bold;
 }
 
 .quill_comment_font_style em {
-  font-family: sans-serif;
+  font-family: "Pretendard Variable";
   font-style: italic;
 }
 

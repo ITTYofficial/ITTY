@@ -123,9 +123,22 @@ const MarketWrite = () => {
     for (const key in refList) {
       const check = obj[key];
       if (!check || !inputRule[key].test(check)) {
-        refList[key].current.textContent = "*잘못된 입력입니다"
+        refList[key].current.textContent = "글자수 및 이미지 첨부를 확인해주세요."
         refList[key].current.style.color = "red";
         refVisible = true;
+        if (!check) {
+          if (key === "market_title") {
+              refList[key].current.textContent = "제목을 입력해주세요.";
+          } else if (key === "imgPath") {
+              refList[key].current.textContent = "이미지를 첨부해주세요.";
+          }else if (key === "market_price") {
+            refList[key].current.textContent = "상품 가격을 입력해주세요.";
+        }else if (key === "content") {
+          refList[key].current.textContent = "상품 설명을 입력해주세요.";
+      }
+        }
+
+        
       } else {
         refList[key].current.textContent = null;
       }
@@ -133,7 +146,7 @@ const MarketWrite = () => {
     console.log(obj);
 
     if (refVisible) {
-      alert('입력값을 확인하세요.')
+      alert('필수 입력 항목을 확인해주세요.')
       return;
     }
 
@@ -146,7 +159,7 @@ const MarketWrite = () => {
       })
       .catch((err) => {
         console.log(err);
-        alert("게시글 작성 실패");
+        alert("게시글 작성을 실패했습니다.");
         window.location.href = "/marketList";
       });
   };
@@ -253,6 +266,7 @@ const MarketWrite = () => {
             className="form-control"
             type="text"
             name="market_title"
+            style={{ marginTop: '2%' }}
             {...(id
               ? { defaultValue: marketDetail.title }
               : { placeholder: "상품명을 입력해주세요." })}
@@ -357,6 +371,7 @@ const MarketWrite = () => {
           <input
             type="number"
             name="market_price"
+            style={{ marginTop: '2%' }}
             {...(id
               ? { defaultValue: marketDetail.price }
               : { placeholder: "상품 가격을 입력해주세요." })}
@@ -373,8 +388,8 @@ const MarketWrite = () => {
  */}
 
         <div className={styles.market_content}>
-          <h4>상품 설명</h4>
-          <div ref={contentRef}></div>
+          <h4 >상품 설명</h4>
+          <div ref={contentRef} style={{ marginBottom: '2%' }} ></div>
           <QuillTest />
         </div>
         <input

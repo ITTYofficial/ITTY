@@ -186,7 +186,6 @@ router.post('/commentSelection', async (req, res) => {
 
 // 새로운 조회함수
 router.get('/commentList', async (req, res) => {
-  console.time('소요시간');
   const postId = req.query.postId;
   try {
     console.log('댓글 리스트 도착', postId);
@@ -235,12 +234,10 @@ router.get('/commentList', async (req, res) => {
     console.log(err);
     res.json({ message: false });
   }
-  console.timeEnd('소요시간');
 })
 
 // 리스트 페이지용 댓글 개수 카운팅
 router.post("/commentCount", async (req, res) => {
-  console.time('댓글 걸린시간')
   const idList = req.body;
 
   try {
@@ -256,7 +253,6 @@ router.post("/commentCount", async (req, res) => {
     const countList = await Promise.all(promises);
     console.log(countList);
     res.json({ countList });
-    console.timeEnd('댓글 걸린시간')
   } catch (err) {
     console.log(err);
     res.json({ message: false });
