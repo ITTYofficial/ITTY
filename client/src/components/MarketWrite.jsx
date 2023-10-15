@@ -155,7 +155,7 @@ const MarketWrite = () => {
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
-        window.location.href = `/marketDetail/${res.data._id}`;
+        window.location.href = `/marketDetail/${res.data._id}?id=${res.data.id}`;
       })
       .catch((err) => {
         console.log(err);

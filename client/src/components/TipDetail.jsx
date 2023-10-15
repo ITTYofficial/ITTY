@@ -325,6 +325,7 @@ const TipDetail = () => {
             <span className={style.profile_text}>
               <p>{memberInfo.class}</p>
               <h4>{memberInfo.nickname}</h4>
+
             </span>
           </span>
 

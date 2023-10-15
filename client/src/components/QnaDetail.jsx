@@ -338,6 +338,7 @@ const QnaDetail = () => {
             <span className={style.profile_text}>
               <p>{memberInfo.class}</p>
               <h5>{memberInfo.nickname}</h5>
+
             </span>
           </span>
 

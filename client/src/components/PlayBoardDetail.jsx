@@ -28,9 +28,11 @@ const PlayBoardDetail = () => {
 
   //회원정보 조회 함수 -지홍
   const memberSearching = async () => {
+    console.log("멤버서칭 함수 쿼리스트링용 닉네임", nickname);
     await axios
       .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
+
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -223,7 +225,7 @@ const PlayBoardDetail = () => {
         alert("작성에 실패했습니다.")
 
       })
-  }
+  };
 
 
   /* 모달 */
