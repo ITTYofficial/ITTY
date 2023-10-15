@@ -70,16 +70,24 @@ const TipWrite = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.textContent = "카테고리를 선택해주세요"
                 refList[key].current.style.color = "red";
                 refVisible = true;
+
+                if (!check) {
+                    if (key === "title") {
+                        refList[key].current.textContent = "제목을 입력해주세요.";
+                    } else if (key === "content") {
+                        refList[key].current.textContent = "내용을 입력해주세요.";
+                    }
+                }
             } else {
                 refList[key].current.textContent = null;
             }
         }
 
         if (refVisible) {
-            alert('입력값을 확인하세요.')
+            alert('필수 입력 항목을 확인해주세요.')
             return;
         }
 
@@ -93,7 +101,7 @@ const TipWrite = () => {
             })
             .catch((err) => {
                 console.log(err);
-                alert("게시글 작성 실패");
+                alert("게시글 작성에 실패했습니다.");
                 window.location.href = `/tipList`
             });
     };
@@ -138,6 +146,7 @@ const TipWrite = () => {
                                 className="form-control"
                                 type="text"
                                 name="title"
+                                style={{ marginTop: '2%' }}
                                 {...(id ? { defaultValue: tipDetail.title } : { placeholder: '글제목을 입력하세요.' })} />
                         </div>
                         <div className="mb-3">
