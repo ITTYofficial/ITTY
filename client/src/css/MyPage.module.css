@@ -399,13 +399,15 @@
     font-size: 14px;
     font-weight: 500;
 }
-
+.message_content_wrapper{
+    overflow: scroll;
+}
 .message_content_bottom_box{
-    position: absolute;
+    /* position: absolute; */
     bottom: 38px;
-    height: 65%;
-    max-height: 852px;
-    overflow-y: auto;
+    height: 39vh;
+    /* max-height: 852px; */
+    /* overflow-y: auto; */
     width: 100%;
 }
 
