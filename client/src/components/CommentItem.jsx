@@ -9,7 +9,7 @@ import QuillReComment from './QuillReComment'
 const CommentItem = ({ props, postId, boardType }) => {
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue } =
+  const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue,myInfo, setMyInfo  } =
     useContext(QuillContext);
 
   // 대댓글 작성완료 시 호출되는 함수
@@ -165,7 +165,7 @@ const CommentItem = ({ props, postId, boardType }) => {
           <div className={styles.comment_write}>
             <div>
               <div className={styles.comment_write_profile}>
-                <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
               </div>
               <div className={styles.quillComment_container}>
                 <QuillReComment />
