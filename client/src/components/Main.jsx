@@ -24,7 +24,7 @@ const Main = () => {
     console.time('시간체크')
     await axios.get("http://localhost:8088/main/mainList")
     .then((res) => {
-      console.log(res.data.main);
+      console.log('데이터 확인', res.data.main);
       setPlayList(res.data.main.play);
       setProStuList(res.data.main.proStu);
       setMarketList(res.data.main.market);
@@ -64,7 +64,7 @@ const Main = () => {
     <div className={style.Main_grid_detail}>
       <div className={style.Main_grid_right_container}>
         <div className={style.Main_grid_subcontent}>
-          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬4</p>
+          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬{props.comments}</p>
         </div>
         <Link to={`/playboardDetail/${props._id}?id=${props.id}`}>
           <h4>{props.title}</h4>
@@ -89,7 +89,7 @@ const Main = () => {
     <div className={style.Main_grid_detail}>
       <div className={style.Main_grid_right_container}>
         <div className={style.Main_grid_subcontent}>
-          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬4</p>
+          <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬{props.comments}</p>
         </div>
         <h4>{props.title}</h4>
       </div>
@@ -153,7 +153,7 @@ const Main = () => {
             </div>
           </div>
           <div>
-            <p className={style.little_p}>{getTimeAgoString(props.createdAt)} 👁‍🗨 {props.views} 💬 4</p>
+            <p className={style.little_p}>{getTimeAgoString(props.createdAt)} 👁‍🗨 {props.views} 💬{props.comments}</p>
           </div>
         </div>
       </div>
