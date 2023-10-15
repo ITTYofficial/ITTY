@@ -357,6 +357,7 @@
 .received_message {
     display: flex;
     margin-bottom: 16px;
+    align-items: flex-end;
 }
 
 .received_message>div:first-child img {
@@ -410,7 +411,7 @@
 .message_time p{
     color: #999999;
     font-size: 12px;
-    margin-right: 6px;
+    margin: 0 6px;
     font-weight: 500;
 }
 
