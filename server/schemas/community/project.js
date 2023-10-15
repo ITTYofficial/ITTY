@@ -63,7 +63,9 @@ const projectSchema = new Schema({
     },
     recruit: {
         // 모집상태
-        type: String
+        // 1 = 모집중, -1 = 모집완료
+        type: Number,
+        default: 1
     },
     position: {
         // 모집하는 포지션

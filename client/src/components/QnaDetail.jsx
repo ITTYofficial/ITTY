@@ -60,6 +60,9 @@ const QnaDetail = () => {
   const params = new URLSearchParams(location.search);
   const nickname = params.get("id");
 
+  // 현재 로그인 회원 정보 조회
+  const nowUser = sessionStorage.getItem("memberId")
+
   // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
 
@@ -86,29 +89,30 @@ const QnaDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-    event.preventDefault();
-    const obj = {
-      id: sessionStorage.getItem('memberId'),
-      writer: sessionStorage.getItem("memberNickname"),
-      postid: id,
-      content: coValue,
-      boardType: 'qna'
-    };
-    console.log(obj);
+      event.preventDefault();
+      const obj = {
+        id: sessionStorage.getItem('memberId'),
+        writer: sessionStorage.getItem("memberNickname"),
+        postid: id,
+        content: coValue,
+        boardType: 'qna'
+      };
+      console.log(obj);
 
-    axios
-      .post("http://localhost:8088/comment/write", obj)
-      .then((res) => {
-        alert("댓글이 등록되었습니다.");
-        console.log(res);
-        setCoValue("");
-        getComment(id);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("게시글 작성 실패");
-      });
-  }};
+      axios
+        .post("http://localhost:8088/comment/write", obj)
+        .then((res) => {
+          alert("댓글이 등록되었습니다.");
+          console.log(res);
+          setCoValue("");
+          getComment(id);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("게시글 작성 실패");
+        });
+    }
+  };
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {
@@ -227,8 +231,8 @@ const QnaDetail = () => {
       <LeftContainer />
       <div className={style.right_container}>
         <div className={style.qna_font}>
-        <Link to={"/qnaList"}>
-          <p>QnA 💡</p>
+          <Link to={"/qnaList"}>
+            <p>QnA 💡</p>
           </Link>
         </div>
         <div className={style.division_line}></div>
@@ -324,7 +328,7 @@ const QnaDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <QnaCommentItem key={item._id} props={item} postId={id} boardType='qna' />
+            <QnaCommentItem key={item._id} props={item} postId={id} postWriter={qnaDetail.id} nowUser={nowUser} boardType='qna' />
           ))}
         </div>
       </div>

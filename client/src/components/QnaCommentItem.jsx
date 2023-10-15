@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
 import { QuillContext } from '../context/QuillContext';
 
-const QnaCommentItem = ({ props, postId, boardType }) => {
+const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
 
     /* QnaCommentItem입니다. 채택 버튼으로 따로 관리합니다! */
 
@@ -31,6 +31,7 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
     }
 
     // 채택 기능
+    const [selection, setSelection] = useState(props.selection)
     const handleSelection = async () => {
         let obj = {
             commentId: props._id,
@@ -38,7 +39,8 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
         }
         await axios.post('http://localhost:8088/comment/commentSelection', obj)
             .then((res) => {
-                console.log(res);
+                alert("채택되었습니다.")
+                setSelection(res.data.selection)
             })
     }
 
@@ -153,7 +155,7 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
                 <span>
                     <p>{props.writerInfo.class}</p>
                     <h4>{props.writer}</h4>
-                    <div className={styles.comment_cancel}  style={{ display: props.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
+                    <div className={styles.comment_cancel} style={{ display: props.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
                         <svg onClick={() => deleteComment(props._id, postId, boardType)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -163,9 +165,12 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
                 <span className={styles.comment_choice}>
                     <button onClick={handleLike}>👍  {like} </button>
                 </span>
-                <span className={styles.comment_choice_2}>
-                    <button onClick={handleSelection}> 질문자 채택 🏆 </button>
-                </span>
+                {selection == 1 ?
+                    <span className={styles.comment_choice_2}>
+                        <button> 질문자 채택 🏆 </button>
+                    </span>
+                    :
+                    null}
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 시작 ===== */}
             <div className="quill_comment_font_style">
@@ -174,11 +179,14 @@ const QnaCommentItem = ({ props, postId, boardType }) => {
 
             </div>
             {/* ===== 댓글 내용이 들어갈 부분 끝 ===== */}
-            <span className={styles.comment_choice_button}> 채택하기 ✔</span>
+            {(nowUser === postWriter ?
+                <span className={styles.comment_choice_button} onClick={handleSelection}> 채택하기 ✔</span>
+                :
+                null)}
             <div>
                 <p className={styles.comment_time_box}>{getTime(props.createdAt)}</p>
             </div>
-           
+
             {/*             <div className={styles.recomment_button_box} onClick={showRecommentWrite}>
                 <p className={styles.recomment_button_box_2}>댓글쓰기</p>
             </div> */}

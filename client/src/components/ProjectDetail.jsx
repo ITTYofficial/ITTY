@@ -107,6 +107,9 @@ const ProjectDetail = () => {
   const [projectDetail, setProjectDetail] = useState([]);
   const [visible, setVisible] = useState([false, false, false, false, false]);
 
+  // 현재 로그인 회원 정보 조회
+  const nowUser = sessionStorage.getItem("memberId")
+
   // 회원정보 저장할 state -지홍
   const [memberInfo, setMemberInfo] = useState({});
 
@@ -191,6 +194,26 @@ const ProjectDetail = () => {
       });
   };
 
+  // 모집 상태 변경
+  const handleRecruit = async () => {
+    let obj = {
+      postId: id
+    }
+    await axios.post(`http://localhost:8088/project/recruit`, obj)
+      .then((res) => {
+        // 글 정보 자체가 변하는거니까 새로고침으로 했슴다
+        console.log(res.data);
+        setProjectDetail(res.data.detailProject);
+        const positionArr = res.data.detailProject.position.split(",");
+        positionArr.map((item) => (visible[item - 1] = true));
+        alert('전환 성공')
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('전환 실패')
+      })
+  }
+
   /* 수정삭제 버튼 */
   const [meat, setMeat] = useState(false);
 
@@ -253,7 +276,7 @@ const ProjectDetail = () => {
           {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
           <div className={styles.play_wrap_top}>
             <div className={styles.play_top_title}>
-              <FindSomeone/>
+              {projectDetail.recruit == 1 ? <FindSomeone /> : <Completed />}
               {visible[0] && <Backend />}
               {visible[1] && <Frontend />}
               {visible[2] && <Fullstack />}
@@ -288,9 +311,13 @@ const ProjectDetail = () => {
                 <span>
                   <p>👁‍🗨 {projectDetail.views} 💬 {projectDetail.comments}</p>
                 </span>
-                <span className={styles.mem_completed}>
-                  모집완료 ✔
-                </span>
+                {(nowUser === projectDetail.id ?
+                  <span className={styles.mem_completed} onClick={handleRecruit}>
+                    모집완료 ✔
+                  </span>
+                  :
+                  null)}
+
               </div>
             </div>
           </div>

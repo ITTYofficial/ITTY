@@ -122,7 +122,7 @@ router.get("/detail/:_id", async (req, res) => {
 router.post('/recruit', async (req, res) => {
   const postId = req.body.postId;
   try {
-    const study = await Study.findOneAndUpdate(
+    const detailStudy = await Study.findOneAndUpdate(
       {_id: postId},
       {
         $mul: {
@@ -130,7 +130,7 @@ router.post('/recruit', async (req, res) => {
         }
       }
     )
-    res.json({ study })
+    res.json({ detailStudy })
   } catch (err) {
     console.log(err);
     res.json({ message: false })
