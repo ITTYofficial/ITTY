@@ -84,7 +84,7 @@ const AnonymityComment = ({ props, postId }) => {
             <div className={styles.recomment_list_box}>
                 <div className={styles.play_recomment_profile}>
                     <span className={styles.anonymous_profile_img} style={{ backgroundColor: getColorByIndex(props.anonymousIndex) }}>
-                        <Image src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" roundedCircle />
+                        <Image src="https://i.ibb.co/G3ZBWXt/01.png" roundedCircle />
                     </span>
                     <span>
                         <h4>익명{props.anonymousIndex}</h4>
@@ -122,7 +122,7 @@ const AnonymityComment = ({ props, postId }) => {
         <div className={styles.comment_list}>
             <div className={styles.play_comment_profile}>
                 <span className={styles.anonymous_profile_img} style={{ backgroundColor: getColorByIndex(props.anonymousIndex) }}>
-                    <Image src="https://cdn-icons-png.flaticon.com/512/4123/4123763.png" roundedCircle />
+                    <Image src="https://i.ibb.co/G3ZBWXt/01.png" roundedCircle />
                 </span>
                 <span>
                     <h4>익명{props.anonymousIndex}</h4>
@@ -152,7 +152,7 @@ const AnonymityComment = ({ props, postId }) => {
                     <div className={styles.comment_write}>
                         <div>
                             <div className={styles.comment_write_profile}>
-                                <Image src="https://i.ibb.co/XsypSbQ/profile-01.png" roundedCircle />
+                                <Image src="https://i.ibb.co/G3ZBWXt/01.png" roundedCircle />
                             </div>
                             <div className={styles.quillComment_container}>
                                 <QuillReComment />
