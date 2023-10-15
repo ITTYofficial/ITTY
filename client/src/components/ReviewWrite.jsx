@@ -101,16 +101,27 @@ const ReviewWrite = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent = "*잘못된 입력입니다"
+                refList[key].current.textContent = "글자수를 더 입력해주세요.";
                 refList[key].current.style.color = "red";
                 refVisible = true;
+                if (!check) {
+                    if (key === "title") {
+                      refList[key].current.textContent = "제목을 입력해주세요.";
+                    } else if (key === "keyWord") {
+                      refList[key].current.textContent = "추천 키워드를 선택해주세요.";
+                    } else if (key === "position") {
+                      refList[key].current.textContent = "전공 여부를 선택해주세요.";
+                    } else if (key === "content") {
+                        refList[key].current.textContent = "내용을 입력해주세요.";
+                      }
+                  }
             } else {
                 refList[key].current.textContent = null;
             }
         }
 
         if (refVisible) {
-            alert('입력값을 확인하세요.')
+            alert("필수 입력 항목을 확인해주세요.");
             return;
         }
 
@@ -164,9 +175,10 @@ const ReviewWrite = () => {
                     className="form-control"
                     name='title'
                     type="text"
+                    style={{ marginTop: "2%" }}
                     {...(id ? { defaultValue: reviewDetail.title } : { placeholder: '제목을 입력해주세요' })} />
                 <h4>만족도</h4>
-                <div ref={scoreRef}></div>
+                <div ref={scoreRef} style={{ marginBottom: "2%" }}></div>
                 <div className={styles.review_star}>
                     <span className={styles.star}>
                         ★★★★★
@@ -180,7 +192,7 @@ const ReviewWrite = () => {
                     </span>
                 </div>
                 <h4>추천 키워드</h4>
-                <div ref={keyWordRef}></div>
+                <div ref={keyWordRef} style={{ marginBottom: "2%" }}></div>
                 <div className={styles.keyworld_content}>
                     <button
                         type="button"
@@ -206,7 +218,7 @@ const ReviewWrite = () => {
                     <input type="hidden" name="keyWord" value={keyWord.join(',')} />
 
                     <h4>전공 여부</h4>
-                    <div ref={positionRef}></div>
+                    <div ref={positionRef} style={{ marginBottom: "2%" }}></div>
                     <button
                         type="button"
                         onClick={() => poChangeColor('1')}
@@ -225,7 +237,7 @@ const ReviewWrite = () => {
                 </div>
 
                 <h4>내용</h4>
-                <div ref={contentRef}></div>
+                <div ref={contentRef} style={{ marginBottom: "2%" }}></div>
                 <div className={styles.quill_div}>
                     <QuillTest />
                 </div>

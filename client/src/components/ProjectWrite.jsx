@@ -236,13 +236,14 @@ const ProjectWrite = () => {
                     </div>
 
                     <div className={style.date_content}>
-                        <h4>프로젝트 종료일</h4>
-                        <div ref={dateRef}></div>
+                        <h4>프로젝트 종료일  <span ref={dateRef}></span> </h4>
+                        
                         <DatePicker
                             className='form-control'
                             {...(id && { defaultValue: projectDetail.endDate })}
                             selected={endDate}
                             onChange={date => setEndDate(date)} />
+                            
                     </div>
 
                     <div className={style.frame_work_container}>

@@ -86,9 +86,9 @@
 
 .fake_upload {
     width: 100%;
-    display: grid;
-    justify-content: center;
-    justify-items: center;
+    /* display: grid; */
+    /* justify-content: center; */
+    /* justify-items: center; */
     position: absolute;
 }
 
@@ -403,6 +403,7 @@
 .message_content_bottom_box{
     position: absolute;
     bottom: 38px;
+    height: 65%;
     max-height: 852px;
     overflow-y: auto;
     width: 100%;

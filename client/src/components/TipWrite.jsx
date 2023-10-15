@@ -101,7 +101,7 @@ const TipWrite = () => {
       })
       .catch((err) => {
         console.log(err);
-        alert("게시글 작성에 실패했습니다.");
+        alert("게시글 작성을 실패했습니다.");
         window.location.href = `/tipList`;
       });
   };
