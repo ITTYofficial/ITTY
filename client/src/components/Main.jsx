@@ -53,18 +53,21 @@ const Main = () => {
   const mainList = async () => {
     console.time('시간체크')
     await axios.get("http://localhost:8088/main/mainList")
-      .then((res) => {
-        console.log('데이터 확인', res.data.main);
-        setPlayList(res.data.main.play);
-        setProStuList(res.data.main.proStu);
-        setMarketList(res.data.main.market);
-        setPortList(res.data.main.port);
-        console.timeEnd('시간체크')
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    .then((res) => {
+      console.log('데이터 확인', res.data.main);
+      setPlayList(res.data.main.play);
+      setProStuList(res.data.main.proStu);
+      setMarketList(res.data.main.market);
+      setPortList(res.data.main.port);
+      console.timeEnd('시간체크')
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
+  
+
+
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
   const getTimeAgoString = (dateString) => {
@@ -153,10 +156,19 @@ const Main = () => {
         to={`/marketDetail/${props._id}??id=${props.id}`}
         className={style.Market_content_item}
       >
-        {/* <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover' }}> */}
+        {/* <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover' }}>
         <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url('https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg') no-repeat center`, backgroundSize: 'cover' }}>
-          {/* <img src={props.imgPath[0]}></img> */}
-        </div>
+          <img src={props.imgPath[0]}></img>
+        </div> */}
+        {props.sold !== 1 ?
+          <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover', position: 'relative', filter: 'grayscale(1)' }}>
+            <div>
+              <h4>판매완료</h4>
+            </div>
+          </div>
+          :
+          <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover' }}></div>
+        }
         <div className={style.Market_content_text}>
           <h4>{props.title}</h4>
           <div className={style.Market_content_text2}>
@@ -173,8 +185,8 @@ const Main = () => {
     <div className={style.port_content}>
       <Link to={`/portDetail/${props._id}?id=${props.writerInfo.id}`}>
         <div className={style.port_content_img}>
-          {/* <img src={props.imgPath}></img> */}
-          <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png'></img>
+          <img src={props.imgPath}></img>
+          {/* <img src='https://media.vlpt.us/images/junh0328/post/2dc006ff-938d-46c6-bed3-cf45f6c3267e/KakaoTalk_Photo_2021-11-15-22-34-01%20001.png'></img> */}
         </div>
         <div className={style.port_content_bottom}>
           <div>

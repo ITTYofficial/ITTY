@@ -91,6 +91,9 @@ const TipDetail = () => {
       });
   };
 
+  // QuillComment 컴포넌트 초기화용 state
+  const [commentKey, setCommentKey] = useState(0);
+
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
     if (!sessionStorage.getItem("memberId")) {
@@ -120,6 +123,7 @@ const TipDetail = () => {
           alert("댓글이 등록되었습니다.");
           setCoValue("");
           getComment(id);
+          setCommentKey(commentKey + 1);
         })
         .catch((err) => {
           console.log(err);
@@ -150,28 +154,6 @@ const TipDetail = () => {
     const day = createdAt.getDate();
 
     return `${year}년 ${month}월 ${day}일`;
-  };
-
-  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
-  const getTime = (dateString) => {
-    const createdAt = new Date(dateString);
-    const now = new Date();
-    const timeDifference = now - createdAt;
-    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
-    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-    const daysDifference = Math.floor(hoursDifference / 24);
-
-    if (daysDifference === 0) {
-      if (hoursDifference === 0) {
-        return "방금 전";
-      } else {
-        return `${minutesDifference}분 전`;
-      }
-    } else if (hoursDifference < 24) {
-      return `${hoursDifference}시간 전`;
-    } else {
-      return `${daysDifference}일 전`;
-    }
   };
 
   /* 미트볼 수정삭제 수환이가 만든거 가져옴 */
@@ -306,7 +288,7 @@ const TipDetail = () => {
         <div className={style.play_wrap_content}>
           <span className={style.play_detail_profile}>
             <span className={style.profile_pic} onClick={() => { setMessage(!message) }}>
-              <img src="#" />
+              <img src={memberInfo.profileImg} />
             </span>
             {message &&
               <div className={style.message_dropdown}>
@@ -341,8 +323,9 @@ const TipDetail = () => {
 
             {/* 글 작성 프로필 */}
             <span className={style.profile_text}>
-              <p>데이터 디자인</p>
-              <h5>수업중몰래롤</h5>
+              <p>{memberInfo.class}</p>
+              <h4>{memberInfo.nickname}</h4>
+
             </span>
           </span>
 
@@ -416,7 +399,7 @@ const TipDetail = () => {
                   />
                 </div>
                 <div className={style.quillComment_container}>
-                  <QuillComment />
+                  <QuillComment key={commentKey} />
                 </div>
                 {/* <textarea
                   onChange={commentChange}

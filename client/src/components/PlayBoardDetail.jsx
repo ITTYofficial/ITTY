@@ -28,9 +28,11 @@ const PlayBoardDetail = () => {
 
   //회원정보 조회 함수 -지홍
   const memberSearching = async () => {
+    console.log("멤버서칭 함수 쿼리스트링용 닉네임", nickname);
     await axios
       .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
+
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -94,6 +96,9 @@ const PlayBoardDetail = () => {
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
+  // QuillComment 컴포넌트 초기화용 state
+  const [commentKey, setCommentKey] = useState(0);
+  
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
     if (!sessionStorage.getItem("memberId")) {
@@ -124,6 +129,7 @@ const PlayBoardDetail = () => {
           console.log(res);
           setCoValue('');
           getComment(id);
+          setCommentKey(commentKey + 1);
         })
         .catch((err) => {
           console.log(err);
@@ -219,7 +225,7 @@ const PlayBoardDetail = () => {
         alert("작성에 실패했습니다.")
 
       })
-  }
+  };
 
 
   /* 모달 */
@@ -350,7 +356,7 @@ const PlayBoardDetail = () => {
                   <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
                 </div>
                 <div className={PlayBoard.quillComment_container}>
-                  <QuillComment />
+                  <QuillComment key={commentKey}/>
                 </div>
               </div>
               <div className={PlayBoard.submit_btn_group}>

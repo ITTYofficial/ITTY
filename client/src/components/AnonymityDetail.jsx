@@ -84,6 +84,9 @@ const AnonymityDetail = () => {
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { anonyCommentList, setAnonyCommentList, getAnonyComment, coValue, setCoValue } = useContext(QuillContext);
 
+  // QuillComment 컴포넌트 초기화용 state
+  const [commentKey, setCommentKey] = useState(0);
+  
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
     if (!sessionStorage.getItem("memberId")) {
@@ -112,6 +115,7 @@ const AnonymityDetail = () => {
           console.log(res);
           setCoValue("");
           getAnonyComment(id);
+          setCommentKey(commentKey + 1);
         })
         .catch((err) => {
           console.log(err);
@@ -256,7 +260,7 @@ const AnonymityDetail = () => {
                   <Image src="https://i.ibb.co/G3ZBWXt/01.png" roundedCircle />
                 </div>
                 <div className={styles.quillComment_container}>
-                  <QuillComment />
+                  <QuillComment key={commentKey} />
                 </div>
               </div>
               <div className={styles.submit_btn_group}>

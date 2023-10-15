@@ -76,8 +76,11 @@ const PlayBoardWrite = () => {
 
         await axios.post('http://localhost:8088/play/write', obj)
             .then((res) => {
-                alert("게시글이 등록되었습니다.");
-                window.location.href = `/playboardDetail/${res.data._id}`
+
+                alert("글 작성 완료")
+                window.location.href = `/playboardDetail/${res.data._id}?id=${res.data.id}`
+
+
             }).catch((err) => {
                 alert("게시글 작성에 실패했습니다.");
                 window.location.href = "/playboardList"
