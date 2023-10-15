@@ -273,31 +273,34 @@ const MyPage_profile = () => {
     // **************닉네임 변경 메소드
     const updateNickname = async (e) => {
         e.preventDefault(); // 기본 폼 제출 방지
-        if (nicknameCheckResult) {
-
-        // 폼 요소를 이름으로 가져오기
-        const nickname = document.querySelector('input[name="nickname"]').value;
-        const obj = {};
-        obj['nickname'] = nickname;
-        obj['id'] = sessionStorage.getItem('memberId')
-        // const nickname = formData.get('nickname');
-
-        try {
-            console.log('닉네임:', nickname);
-            const response = await axios.post(`http://localhost:8088/member/updateNick`, obj);
-            // const res = await axios.post(`http://localhost:8088/`) 
-            if (response.data.message === "회원정보수정이 완료되었습니다.") {
-                sessionStorage.removeItem('memberNickname');
-                sessionStorage.setItem('memberNickname', response.data.nickname)
-                alert('닉네임이 수정되었습니다')
-                window.location.reload();
-            } else {
-                console.error("회원정보수정에 실패했습니다.");
-            }
-        } catch (error) {
-            console.error("오류 발생:", error);
+    
+        // 사용자에게 확인 메시지 표시
+        if (!window.confirm("닉네임을 수정하시겠습니까?")) {
+            return; // 사용자가 취소를 클릭하면 함수를 종료합니다.
         }
-    }
+    
+        if (nicknameCheckResult) {
+            // 폼 요소를 이름으로 가져오기
+            const nickname = document.querySelector('input[name="nickname"]').value;
+            const obj = {};
+            obj['nickname'] = nickname;
+            obj['id'] = sessionStorage.getItem('memberId')
+    
+            try {
+                console.log('닉네임:', nickname);
+                const response = await axios.post(`http://localhost:8088/member/updateNick`, obj);
+                if (response.data.message === "회원정보수정이 완료되었습니다.") {
+                    sessionStorage.removeItem('memberNickname');
+                    sessionStorage.setItem('memberNickname', response.data.nickname)
+                    alert('닉네임이 수정되었습니다')
+                    window.location.reload();
+                } else {
+                    console.error("회원정보수정에 실패했습니다.");
+                }
+            } catch (error) {
+                console.error("오류 발생:", error);
+            }
+        }
     };
 
 
