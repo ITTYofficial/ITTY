@@ -42,6 +42,7 @@ const Main = () => {
       setPortpreview(3.5);
     }
   }, [windowWidth]);
+  // 슬라이더 관련
 
   // 게시물 담을 State
   const [playList, setPlayList] = useState([]);
@@ -70,19 +71,21 @@ const Main = () => {
     const createdAt = new Date(dateString);
     const now = new Date();
     const timeDifference = now - createdAt;
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
     const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-    const daysDifference = Math.floor(hoursDifference / 24);
-
-    if (daysDifference === 0) {
-      if (hoursDifference === 0) {
-        return "방금 전";
-      } else {
-        return `${hoursDifference}시간 전`;
-      }
+  
+    if (minutesDifference < 1) {
+      return "방금 전";
+    } else if (minutesDifference < 60) {
+      return `${minutesDifference}분 전`;
+    } else if (hoursDifference < 24) {
+      return `${hoursDifference}시간 전`;
     } else {
+      const daysDifference = Math.floor(hoursDifference / 24);
       return `${daysDifference}일 전`;
     }
   };
+  
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
@@ -115,12 +118,18 @@ const Main = () => {
   );
 
   const Main_detail_project = ({ props }) => (
-    <div className={style.Main_grid_detail}>
+    <div className={style.Main_grid_detail2}>
       <div className={style.Main_grid_right_container}>
         <div className={style.Main_grid_subcontent}>
           <p>{getTimeAgoString(props.createdAt)} 👁‍🗨{props.views} 💬{props.comments}</p>
         </div>
-        <h4>{props.title}</h4>
+        <Link to={props.type === 'project' ? `/projectDetail/${props._id}?id=${props.id}` : `/studyDetail/${props._id}?id=${props.id}`}>
+          <div style={{ display: 'flex' }}>
+            <RecommendTag selected={props.type} />
+            <h4>{props.title}</h4>
+          </div>
+        </Link>
+
       </div>
       <div className={style.Main_grid_profile}>
         <span className={style.profile_text}>
@@ -191,6 +200,31 @@ const Main = () => {
   );
 
 
+
+  // 태그 컴포넌트들
+  const RecommendTag = ({ selected }) => {
+    let tagClassName = style.play_title;
+    const tagMap = {
+      'project': '프로젝트 📖',
+      'study': '스터디 😋'
+    };
+    const tagStyleMap = {
+      'project': style.purpose,
+      'study': style.getajob
+    };
+
+    if (tagStyleMap[selected]) {
+      tagClassName = `${tagClassName} ${tagStyleMap[selected]}`;
+    }
+
+    return (
+      <span className={tagClassName}>
+        {tagMap[selected] || ''}
+      </span>
+    );
+  };
+
+
   return (
     <div className={style.Wrap_container}>
       {/* 메인 이미지슬라이드 시작 */}
@@ -244,6 +278,15 @@ const Main = () => {
           {/* 포폴리스트 */}
           <div className={style.Main_grid_4}>
             <h3>포트폴리오 🔎</h3>
+
+            {portList.length === 0 && (
+              <div className={style.spinner_container_port}>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            )}
+
             <Swiper
               slidesPerView={portpreview}
               spaceBetween={15}
