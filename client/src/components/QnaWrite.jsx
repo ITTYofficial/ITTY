@@ -70,7 +70,7 @@ const QnaWrite = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent = "카테고리를 선택해주세요."
+                refList[key].current.textContent = "글자수를 더 입력해주세요."
                 refList[key].current.style.color = "red";
                 refVisible = true;
                 if (!check) {
@@ -78,6 +78,8 @@ const QnaWrite = () => {
                         refList[key].current.textContent = "제목을 입력해주세요.";
                     } else if (key === "content") {
                         refList[key].current.textContent = "내용을 입력해주세요.";
+                    }else if (key === "category") {
+                        refList[key].current.textContent = "카테고리를 선택해주세요.";
                     }
                 }
 
