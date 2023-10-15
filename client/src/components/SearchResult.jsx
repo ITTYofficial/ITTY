@@ -80,10 +80,6 @@ const SearchResult = () => {
   const endIndex = startIndex + itemsPerPage;
   // 페이징 부분
 
-  console.log(
-    "화긴",
-    searchResults.find((result) => result.boardType === "Play")
-  );
 
   return (
     <div className={styles.Main_container}>
@@ -109,7 +105,7 @@ const SearchResult = () => {
             </span>
           </div>
         </div>
-
+        {/* 로딩바 */}
         {searchResults.length === 0 && (
           <div className={styles.spinner_container}>
             <Spinner animation="border" role="status">

@@ -216,7 +216,7 @@ const StudyDetail = () => {
   };
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo   } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -226,6 +226,13 @@ const StudyDetail = () => {
       event.preventDefault();
     } else {
       event.preventDefault();
+
+      // 댓글 빈값 막기
+      if (coValue == "" || coValue == "<p><br></p>") {
+        alert("내용을 입력해주세요");
+        return; // 댓글이 비어있으면 함수를 여기서 끝내기
+      }
+
       const obj = {
         id: sessionStorage.getItem('memberId'),
         writer: sessionStorage.getItem("memberNickname"),
@@ -348,49 +355,49 @@ const StudyDetail = () => {
                   <h5>{memberInfo.nickname}</h5>
                 </span>
 
-                <span className={style.Profile_img}  onClick={() => { setMessage(!message) }}>
+                <span className={style.Profile_img} onClick={() => { setMessage(!message) }}>
                   <Image src={memberInfo.profileImg} roundedCircle />
                 </span>
                 {message &&
-                    <div className={style.message_dropdown}>
-                      <li onClick={handleShow}>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                          <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                          <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                        </svg>
-                        <span>쪽지보내기</span>
-                      </li>
-                    </div>
-                  }
-                  <Modal show={show} onHide={handleClose}>
-                    <form onSubmit={messageSubmit}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>쪽지 보내기</Modal.Title>
-                        <input type="hidden" name='getUserId' value={memberInfo.id}></input>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <textarea className={style.message_modal_input} name="content" placeholder="쪽지입력" />
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                          취소
-                        </Button>
-                        <Button variant="primary" type="submit">
-                          보내기
-                        </Button>
-                      </Modal.Footer>
-                    </form>
-                  </Modal>
+                  <div className={style.message_dropdown}>
+                    <li onClick={handleShow}>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                      </svg>
+                      <span>쪽지보내기</span>
+                    </li>
+                  </div>
+                }
+                <Modal show={show} onHide={handleClose}>
+                  <form onSubmit={messageSubmit}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>쪽지 보내기</Modal.Title>
+                      <input type="hidden" name='getUserId' value={memberInfo.id}></input>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <textarea className={style.message_modal_input} name="content" placeholder="쪽지입력" />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        취소
+                      </Button>
+                      <Button variant="primary" type="submit">
+                        보내기
+                      </Button>
+                    </Modal.Footer>
+                  </form>
+                </Modal>
               </div>
               <span className={style.profile_view}>
                 <p>👁‍🗨 {studyDetail.views} 💬 {studyDetail.comments}</p>
               </span>
               {(nowUser === studyDetail.id ?
-              <span onClick={handleRecruit} className={style.mem_completed}>
-                모집완료 ✔
-              </span>
-              :
-              null)}
+                <span onClick={handleRecruit} className={style.mem_completed}>
+                  모집완료 ✔
+                </span>
+                :
+                null)}
             </div>
           </div>
 

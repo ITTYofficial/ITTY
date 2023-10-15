@@ -20,7 +20,7 @@ import Modal from 'react-bootstrap/Modal';
 const MarketDetail = () => {
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo  } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
@@ -32,6 +32,13 @@ const MarketDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
+
+      // 댓글 빈값 막기
+      if (coValue == "" || coValue == "<p><br></p>") {
+        alert("내용을 입력해주세요");
+        return; // 댓글이 비어있으면 함수를 여기서 끝내기
+      }
+
       const obj = {
         id: sessionStorage.getItem('memberId'),
         writer: sessionStorage.getItem("memberNickname"),
@@ -39,13 +46,11 @@ const MarketDetail = () => {
         content: coValue,
         boardType: 'market'
       };
-      console.log(obj);
 
       axios
         .post("http://localhost:8088/comment/write", obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
-          console.log(res);
           setCoValue("");
           getComment(id);
         })
@@ -214,7 +219,7 @@ const MarketDetail = () => {
   }
 
 
-  
+
   /* 쪽지 */
 
   const [message, setMessage] = useState(false);
@@ -306,7 +311,7 @@ const MarketDetail = () => {
 
               <div className={style.market_profile}>
                 <div>
-                  <div className={style.profile_img}  onClick={() => { setMessage(!message) }}>
+                  <div className={style.profile_img} onClick={() => { setMessage(!message) }}>
                     <Image src={memberInfo.profileImg} roundedCircle />
                   </div>
                   {message &&

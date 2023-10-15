@@ -25,14 +25,12 @@ const PlayBoardDetail = () => {
   // 회원정보 저장할 state
   const [memberInfo, setMemberInfo] = useState({});
 
-  // console.log('디테일상단 니크네임', nickname);
 
   //회원정보 조회 함수 -지홍
   const memberSearching = async () => {
     await axios
       .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
       .then((res) => {
-        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -94,7 +92,7 @@ const PlayBoardDetail = () => {
   };
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo   } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
@@ -104,6 +102,12 @@ const PlayBoardDetail = () => {
       event.preventDefault();
     } else {
       event.preventDefault();
+
+      // 댓글 빈값 막기
+      if (coValue == "" || coValue == "<p><br></p>") {
+        alert("내용을 입력해주세요");
+        return; // 댓글이 비어있으면 함수를 여기서 끝내기
+      }
       const obj = {
         id: sessionStorage.getItem('memberId'),
         writer: sessionStorage.getItem("memberNickname"),
@@ -126,7 +130,9 @@ const PlayBoardDetail = () => {
           alert("게시글 작성 실패");
         });
     }
-  };
+  }
+
+
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {

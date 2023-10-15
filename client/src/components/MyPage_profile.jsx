@@ -90,20 +90,28 @@ const MyPage_profile = () => {
     // 닉네임 중복 체크 -> 본래 닉네임 치면 true 반환하게 
     const nicknameCheck = async (e) => {
         e.preventDefault();
-        const nicknameChecking = { nickname: nickname };
+        const newNickname = e.target.value;
+        setNickname(newNickname);
+            // 텍스트가 1글자인 경우
+    if (newNickname.length === 1) {
+        messageElement4.current.textContent = "닉네임은 최소 2글자 이상이어야 합니다.";
+        messageElement4.current.style.color = "red";
+        setNicknameCheckResult(false);
+        console.log('닉네임 사용 불가시:', nicknameCheckResult);
+        return; // 함수 종료
+    }
+        const nicknameChecking = { nickname: newNickname };
+    
         try {
-            //  라우트로 POST 요청 보내기
             const response = await axios.post('http://localhost:8088/member/nicknameCheck', nicknameChecking);
             if (response.data.nicknameCheckingSuccess) {
-                // 중복체크 중복 O      
                 console.log('닉네임 중복체크 성공:', response.data);
-                messageElement4.current.textContent = response.data.message; // 사용가능한 아이디입니다.
+                messageElement4.current.textContent = response.data.message;
                 messageElement4.current.style.color = "blue";
                 setNicknameCheckResult(true);
                 console.log('닉네임 사용 가능할때:', nicknameCheckResult);
             } else {
-                // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
-                messageElement4.current.textContent = response.data.message; // 중복된 아이디입니다.
+                messageElement4.current.textContent = response.data.message;
                 messageElement4.current.style.color = "red";
                 setNicknameCheckResult(false);
                 console.log('닉네임 사용 불가시:', nicknameCheckResult);
@@ -112,6 +120,7 @@ const MyPage_profile = () => {
             console.error('오류 발생:', error);
         }
     };
+    
 
 
     // 비밀번호 확인 (-> 이러면 한번 인풋창을 건드리면 비밀번호를 맞춰야한다는 단점이있음)
@@ -364,8 +373,8 @@ const MyPage_profile = () => {
                                                 id="nickname"
                                                 name='nickname'
                                                 value={nickname}
-                                                onChange={(e) => setNickname(e.target.value)}
-                                                onBlur={nicknameCheck}
+                                                onChange={nicknameCheck}
+                                                
                                                 placeholder={sessionStorage.getItem('memberNickname')} />
                                             <button onClick={updateNickname}>수정완료</button>
                                             <button onClick={() => { setNicknameVisable(false) }}>취소</button>
