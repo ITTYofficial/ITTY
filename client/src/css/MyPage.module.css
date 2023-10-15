@@ -272,6 +272,11 @@
     font-weight: bold;
 }
 
+.left_container a{
+    text-decoration: none;
+    color: black;
+}
+
 .point_box {
     margin-bottom: 24px;
     margin-right: 16px;

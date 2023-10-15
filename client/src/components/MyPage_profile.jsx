@@ -100,13 +100,13 @@ const MyPage_profile = () => {
                 messageElement4.current.textContent = response.data.message; // 사용가능한 아이디입니다.
                 messageElement4.current.style.color = "blue";
                 setNicknameCheckResult(true);
-                console.log('닉네임 사용 가능할때:',nicknameCheckResult);
+                console.log('닉네임 사용 가능할때:', nicknameCheckResult);
             } else {
                 // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
                 messageElement4.current.textContent = response.data.message; // 중복된 아이디입니다.
                 messageElement4.current.style.color = "red";
                 setNicknameCheckResult(false);
-                console.log('닉네임 사용 불가시:',nicknameCheckResult);
+                console.log('닉네임 사용 불가시:', nicknameCheckResult);
             }
         } catch (error) {
             console.error('오류 발생:', error);
@@ -241,51 +241,51 @@ const MyPage_profile = () => {
 
 
 
-            e.preventDefault();
-            console.log(e.target);
-            const formData = new FormData(e.target);
-            formData.append('id', sessionStorage.getItem('memberId'));
+        e.preventDefault();
+        console.log(e.target);
+        const formData = new FormData(e.target);
+        formData.append('id', sessionStorage.getItem('memberId'));
 
-            const obj = {};
-            formData.forEach((value, key) => {
-                console.log(`폼 요소 이름: ${key}, 값: ${value}`);
-                obj[key] = value;
+        const obj = {};
+        formData.forEach((value, key) => {
+            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
+            obj[key] = value;
+        });
+        const url = await handlingDataForm(croppedImage)
+        console.log(url);
+        obj["imgPath"] = url;
+        console.log(obj);
+        axios
+            .post("http://localhost:8088/member/update", obj)
+            .then((res) => {
+                alert("회원정보가 수정되었습니다.");
+                console.log(res);
+                // window.location.href = `/myPage`
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("회원정보 수정 실패");
+                // window.location.href = `/myPage`
             });
-            const url = await handlingDataForm(croppedImage)
-            console.log(url);
-            obj["imgPath"] = url;
-            console.log(obj);
-            axios
-                .post("http://localhost:8088/member/update", obj)
-                .then((res) => {
-                    alert("회원정보가 수정되었습니다.");
-                    console.log(res);
-                    // window.location.href = `/myPage`
-                })
-                .catch((err) => {
-                    console.log(err);
-                    alert("회원정보 수정 실패");
-                    // window.location.href = `/myPage`
-                });
-        
+
     };
 
     // **************닉네임 변경 메소드
     const updateNickname = async (e) => {
         e.preventDefault(); // 기본 폼 제출 방지
-    
+
         // 사용자에게 확인 메시지 표시
         if (!window.confirm("닉네임을 수정하시겠습니까?")) {
             return; // 사용자가 취소를 클릭하면 함수를 종료합니다.
         }
-    
+
         if (nicknameCheckResult) {
             // 폼 요소를 이름으로 가져오기
             const nickname = document.querySelector('input[name="nickname"]').value;
             const obj = {};
             obj['nickname'] = nickname;
             obj['id'] = sessionStorage.getItem('memberId')
-    
+
             try {
                 console.log('닉네임:', nickname);
                 const response = await axios.post(`http://localhost:8088/member/updateNick`, obj);
@@ -321,14 +321,18 @@ const MyPage_profile = () => {
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
                         </svg>
-                        <h4>프로필</h4>
+                        <Link to={'/myPage/profile'}>
+                            <h4>프로필</h4>
+                        </Link>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z" />
                             <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
                         </svg>
+                        <Link to={'/myPage/message'}>
                         <h4>받은 쪽지함</h4>
+                        </Link>
                     </div>
                 </div>
                 <div className={styles.point_box}>
