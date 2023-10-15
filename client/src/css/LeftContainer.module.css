@@ -52,10 +52,11 @@
 }
 
 .left_container_box3 {
-  padding: 16px;
+  padding: 20px;
   background-color: #fffcf7;
   box-shadow: 2px 2px 4px #d7d7d7;
   border-radius: 10px;
+
 }
 
 .left_container_box3 h2{
@@ -65,14 +66,17 @@
   margin-top:3%;
   margin-left: 3%;
   font-weight:bold;
+
 }
 
 .left_container_box3 div h4 {
   display: inline-block;
   font-size: 14px;
   vertical-align: top;
-  margin-left: 3%;
+
+  margin-left: 6%;
   margin-top: 3%;
+  font-weight: 500;
 }
 
 

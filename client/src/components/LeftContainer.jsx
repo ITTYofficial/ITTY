@@ -37,11 +37,11 @@ const LeftContainer = () => {
         <h4>스인재 주변 최고맛집은?</h4>
       </div>
       <div className={style.left_container_box3}>
-        <h3>Best Ranking 👑</h3>
+        <h3> 👑 Best Ranking </h3>
         {top5Members.map((item, index) =>
           <div key={item._id}>
  <img src={rankImages[index]} alt={`Rank ${index + 1}`} />     <h2>{item.nickname}</h2>
-    <h4>{item.point}P</h4>
+    <h4>{item.point} P</h4>
           </div>
         )}
       </div>
