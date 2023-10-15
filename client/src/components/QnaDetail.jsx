@@ -302,7 +302,7 @@ const QnaDetail = () => {
         <div className={style.play_wrap_content}>
           <span className={style.play_detail_profile}>
             <span className={style.profile_pic} onClick={() => { setMessage(!message) }}>
-              <img src="#" />
+              <img src={memberInfo.profileImg} />
             </span>
             {message &&
               <div className={style.message_dropdown}>
