@@ -15,6 +15,8 @@ const LeftContainer = () => {
       })
   }
 
+  const rankImages = ['https://i.ibb.co/X5FvYfz/rank1-01.png', 'https://i.ibb.co/tPtrC8F/rank-2-01.png', 'https://i.ibb.co/wpJ66M7/rank3-01.png', 'https://i.ibb.co/wSJKtTg/rank4-01.png', 'https://i.ibb.co/6WNR0PY/rank5-01.png'];
+
   useEffect(() => {
     top5List();
   }, []);
@@ -38,7 +40,8 @@ const LeftContainer = () => {
         <h3>Best Ranking 👑</h3>
         {top5Members.map((item, index) =>
           <div key={item._id}>
-            {index + 1}위 - {item.nickname} : {item.point}P
+ <img src={rankImages[index]} alt={`Rank ${index + 1}`} />     <h2>{item.nickname}</h2>
+    <h4>{item.point}P</h4>
           </div>
         )}
       </div>
