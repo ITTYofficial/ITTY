@@ -23,7 +23,7 @@ const PortDetail = () => {
   const [memberInfo, setMemberInfo] = useState([]);
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo   } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
   // 댓글 내용 가져오는 함수
   const commnetChange = (e) => {
@@ -40,6 +40,13 @@ const PortDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
+
+      // 댓글 빈값 막기
+      if (coValue == "" || coValue == "<p><br></p>") {
+        alert("내용을 입력해주세요");
+        return; // 댓글이 비어있으면 함수를 여기서 끝내기
+      }
+
       const obj = {
         id: sessionStorage.getItem('memberId'),
         writer: sessionStorage.getItem("memberNickname"),
@@ -47,13 +54,11 @@ const PortDetail = () => {
         content: coValue,
         boardType: 'port'
       };
-      console.log(obj);
 
       axios
         .post("http://localhost:8088/comment/write", obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
-          console.log(res);
           setCoValue("");
           getComment(id);
         })

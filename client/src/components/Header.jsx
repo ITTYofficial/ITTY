@@ -33,7 +33,6 @@ const Header = () => {
   const [profile, setProfile] = useState(false);
 
   const profileOn = () => {
-    // console.log("profile Clicke");
     setProfile(!profile);
   };
 
@@ -75,7 +74,6 @@ const Header = () => {
 
   const goLogout = () => {
     sessionStorage.removeItem("memberId");
-    console.log(sessionStorage.getItem("memberId"));
     setLoginOk(false);
     setMyInfo({ profileImg: null });
   };
@@ -133,7 +131,6 @@ const Header = () => {
         )}`
       )
       .then((res) => {
-        console.log("res확인", res.data);
         setCountMessage(res.data.messageCount);
       });
   };
@@ -227,7 +224,6 @@ const Header = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  console.log("엔터누름");
                   // 엔터 키를 눌렀을 때 searchingList 페이지로 이동
                   {
                     /* <Link to={`/searchResult/${searchTerm}`} />; */

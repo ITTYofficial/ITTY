@@ -81,7 +81,6 @@ function App() {
       await axios
       .get(`http://localhost:8088/member/memberSearching?id=${id}`)
       .then((res) => {
-        console.log("내 정보 확인",res.data.member);
         setMyInfo(res.data.member);
       })
       .catch((err) => {
@@ -92,13 +91,9 @@ function App() {
 
   // 댓글 조회 함수
   const getComment = (id) => {
-    console.log('조회함수 진입');
-    console.time('소요시간');
     axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
       .then((res) => {
-        console.log('확인!', res.data);
         setCommentList(res.data.comments)
-        console.timeEnd('소요시간');
       })
   }
 
