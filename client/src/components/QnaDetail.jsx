@@ -61,6 +61,9 @@ const QnaDetail = () => {
   const params = new URLSearchParams(location.search);
   const nickname = params.get("id");
 
+  // 현재 로그인 회원 정보 조회
+  const nowUser = sessionStorage.getItem("memberId")
+
   // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
 
@@ -408,7 +411,7 @@ const QnaDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <QnaCommentItem key={item._id} props={item} postId={id} boardType='qna' />
+            <QnaCommentItem key={item._id} props={item} postId={id} postWriter={qnaDetail.id} nowUser={nowUser} boardType='qna' />
           ))}
         </div>
       </div>

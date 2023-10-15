@@ -74,14 +74,12 @@ const StudyDetail = () => {
     }
     await axios.post(`http://localhost:8088/study/recruit`, obj)
       .then((res) => {
-        // 글 정보 자체가 변하는거니까 새로고침으로 했슴다
         window.location.reload();
         alert('전환 성공')
       })
       .catch((err) => {
         alert('전환 실패')
       })
-
   }
 
   /* 수정삭제 버튼 */

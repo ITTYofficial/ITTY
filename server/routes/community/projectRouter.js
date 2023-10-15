@@ -31,10 +31,10 @@ router.post('/write', upload.single('img'), async (req, res) => {
     let obj;
     let _id;
 
-    if(req.body._id){
+    if (req.body._id) {
       // 글 수정 시
       obj = {
-        id :req.body.id,
+        id: req.body.id,
         title: req.body.title,
         content: req.body.content,
         // createdAt: "알아서 들어감",
@@ -47,50 +47,50 @@ router.post('/write', upload.single('img'), async (req, res) => {
         framework_front: req.body.framework_front,
         framework_back: req.body.framework_back,
         framework_db: req.body.framework_db,
-  
+
       };
       _id = req.body._id
-  
+
       await Project.updateOne(
         { _id: req.body._id },
         {
           $set: obj
         }
       );
-    }else{
-    // 글 작성 시
-    obj = {
-      id: req.body.id,
-      title: req.body.title,
-      writer: req.body.writer,
-      content: req.body.content,
-      // createdAt: "알아서 들어감",
-      // views: "알아서 들어감",
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-      persons: req.body.persons,
-      recruit: req.body.recruit,
-      position: req.body.position,
-      framework_front: req.body.framework_front,
-      framework_back: req.body.framework_back,
-      framework_db: req.body.framework_db,
+    } else {
+      // 글 작성 시
+      obj = {
+        id: req.body.id,
+        title: req.body.title,
+        writer: req.body.writer,
+        content: req.body.content,
+        // createdAt: "알아서 들어감",
+        // views: "알아서 들어감",
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        persons: req.body.persons,
+        recruit: req.body.recruit,
+        position: req.body.position,
+        framework_front: req.body.framework_front,
+        framework_back: req.body.framework_back,
+        framework_db: req.body.framework_db,
 
-    };
-    const project = new Project(obj);
-    _id = project._id;
-    await Project.insertMany(project);
-    await Member.updateOne(
-      { id: req.body.id },
-      {
-        $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
-          point: 1 // 일단 글쓸때마다 1포인트로 지정 
-        }
-      });
-  }
-    res.json({ 
+      };
+      const project = new Project(obj);
+      _id = project._id;
+      await Project.insertMany(project);
+      await Member.updateOne(
+        { id: req.body.id },
+        {
+          $inc: { // $inc: 기존 필드값을 +/- 연산을 할 수 있음
+            point: 1 // 일단 글쓸때마다 1포인트로 지정 
+          }
+        });
+    }
+    res.json({
       message: true,
-      _id : _id
-     });
+      _id: _id
+    });
   } catch (err) {
     console.log(err);
     res.json({ message: false });
@@ -149,5 +149,23 @@ router.get("/projectDetail/:_id", async (req, res) => {
   }
 });
 
+// 모집 상태 변경
+router.post('/recruit', async (req, res) => {
+  const postId = req.body.postId;
+  try {
+    const detailProject = await Project.findOneAndUpdate(
+      { _id: postId },
+      {
+        $mul: {
+          recruit: -1
+        }
+      }
+    )
+    res.json({ detailProject })
+  } catch (err) {
+    console.log(err);
+    res.json({ message: false })
+  }
+})
 
 module.exports = router
