@@ -336,8 +336,8 @@ const TipDetail = () => {
 
             {/* 글 작성 프로필 */}
             <span className={style.profile_text}>
-              <p>데이터 디자인</p>
-              <h5>수업중몰래롤</h5>
+              <p>{memberInfo.class}</p>
+              <h5>{memberInfo.nickname}</h5>
             </span>
           </span>
 

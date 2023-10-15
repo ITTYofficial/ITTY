@@ -327,8 +327,8 @@ const QnaDetail = () => {
             </Modal>
             {/* 글 작성 프로필 */}
             <span className={style.profile_text}>
-              <p>데이터 디자인</p>
-              <h4>수업중몰래롤</h4>
+              <p>{memberInfo.class}</p>
+              <h4>{memberInfo.nickname}</h4>
             </span>
           </span>
 
