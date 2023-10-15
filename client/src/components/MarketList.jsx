@@ -22,35 +22,35 @@ const MarketList = () => {
     }
   };
 
- // 새로운 게시판 리스트 함수
- const getList = async() => {
-  console.log('조회함수 진입');
-  console.time('소요시간');
- await axios.get(`http://localhost:8088/total/findMemberInfo?market=market`)
-    .then(async(res) => {
-      console.log('확인!', res.data);
-      
-      const sortedMarkets = res.data.lists.sort((a, b) => {
-        // 게시글 데이터 작성 일자별 내림차순 정렬
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
+  // 새로운 게시판 리스트 함수
+  const getList = async () => {
+    console.log('조회함수 진입');
+    console.time('소요시간');
+    await axios.get(`http://localhost:8088/total/findMemberInfo?market=market`)
+      .then(async (res) => {
+        console.log('확인!', res.data);
 
-      // 댓글 개수 카운팅
-/*       const counting = sortedMarkets.map((item) => (item._id))
-      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-      const market = sortedMarkets.map((obj, index) => ({
-        ...obj,
-        count: countList[index],
-      })); */
-      setMarketList(sortedMarkets);
-      setMaxPage(sortedMarkets.length);
+        const sortedMarkets = res.data.lists.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
 
-      // setPlayList(res.data.lists);
-      // setMaxPage(res.data.lists.length)
+        // 댓글 개수 카운팅
+        /*       const counting = sortedMarkets.map((item) => (item._id))
+              const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+              const market = sortedMarkets.map((obj, index) => ({
+                ...obj,
+                count: countList[index],
+              })); */
+        setMarketList(sortedMarkets);
+        setMaxPage(sortedMarkets.length);
 
-      console.timeEnd('소요시간');
-    })
-}
+        // setPlayList(res.data.lists);
+        // setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
+      })
+  }
 
   // 장터 리스트 조회 함수
   // const readMarketList = async () => {

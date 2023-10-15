@@ -33,8 +33,8 @@ const QuillComment = ({ update }) => {
       const file = input.files[0];
 
       console.log("파일 크기:", file.size);
-      if (file.size > 10 * 1024 * 1024) {
-        alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
+      if (file.size > 5 * 1024 * 1024) {
+        alert("파일이 너무 큽니다. 5MB 이하의 파일을 업로드하세요.");
         return;
       }
 
