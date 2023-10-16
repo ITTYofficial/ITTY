@@ -24,32 +24,32 @@ const ProjectList = () => {
       e.preventDefault();
     }
   };
-// 새로운 조회함수
-  const getList = async() => {
+  // 새로운 조회함수
+  const getList = async () => {
     console.log('조회함수 진입');
     console.time('소요시간');
-   await axios.get(`http://localhost:8088/total/findMemberInfo?project=project`)
-      .then(async(res) => {
+    await axios.get(`http://localhost:8088/total/findMemberInfo?project=project`)
+      .then(async (res) => {
         console.log('확인!', res.data);
-        
+
         const sortedProjects = res.data.lists.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-  
+
         // 댓글 개수 카운팅
-/*         const counting = sortedProjects.map((item) => (item._id))
-        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-        const procject = sortedProjects.map((obj, index) => ({
-          ...obj,
-          count: countList[index],
-        })); */
+        /*         const counting = sortedProjects.map((item) => (item._id))
+                const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+                const procject = sortedProjects.map((obj, index) => ({
+                  ...obj,
+                  count: countList[index],
+                })); */
         setProjectList(sortedProjects);
         setMaxPage(sortedProjects.length);
-  
+
         // setPlayList(res.data.lists);
         // setMaxPage(res.data.lists.length)
-  
+
         console.timeEnd('소요시간');
       })
   }
@@ -192,31 +192,57 @@ const ProjectList = () => {
 
         <div className={styles.Main_container_list}>
           {/* 글 반복 시작 */}
-          {projectList.slice(startIndex, endIndex).map((item) => (
-            <div className={styles.Main_container_list_detail}>
-              <div>
-                <p className={styles.b_date}>
-                  {getTimeAgoString(item.createdAt)}
-                </p>
-                
-                <Link to={`/projectDetail/${item._id}?id=${item.id}`}>
-                  <h4><FindSomeone/><Completed/>{item.title}</h4>
-                </Link>
-                {/* <div>{item.content}</div> */}
-                <p>👁‍🗨{item.views} 💬{item.comments}</p>
-              </div>
+          {projectList.slice(startIndex, endIndex).map((item) => {
 
-              <div className={styles.Main_grid_profile}>
-                <span className={styles.profile_text}>
-                  <p>{item.writerInfo.class}</p>
-                  <h4>{item.writer}</h4>
-                </span>
-                <span className={styles.profile_img}>
-                  <Image src={item.writerInfo.profileImg} roundedCircle />
-                </span>
+            let visible = [false, false, false, false, false]
+            const positionArr = item.position.split(",");
+            positionArr.map((item) => (visible[item - 1] = true));
+
+            return (
+              <div className={styles.Main_container_list_detail}>
+                <div>
+                  <p className={styles.b_date}>
+                    {getTimeAgoString(item.createdAt)}
+                  </p>
+
+                  <Link to={`/projectDetail/${item._id}?id=${item.id}`}>
+                    <h4>
+                      {item.recruit == 1 ?
+                        <>
+                          <FindSomeone />
+                          {visible.map((isVisible, index) => (
+                            isVisible && (
+                              <>
+                                {index === 0 && <Backend />}
+                                {index === 1 && <Frontend />}
+                                {index === 2 && <Fullstack />}
+                                {index === 3 && <Db />}
+                                {index === 4 && <Uxui />}
+                              </>
+                            )
+                          ))}
+                        </>
+                        :
+                        <Completed />}
+                      {item.title}
+                    </h4>
+                  </Link>
+                  {/* <div>{item.content}</div> */}
+                  <p>👁‍🗨{item.views} 💬{item.comments}</p>
+                </div>
+
+                <div className={styles.Main_grid_profile}>
+                  <span className={styles.profile_text}>
+                    <p>{item.writerInfo.class}</p>
+                    <h4>{item.writer}</h4>
+                  </span>
+                  <span className={styles.profile_img}>
+                    <Image src={item.writerInfo.profileImg} roundedCircle />
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
           {/* 글 반복 끝 */}
           <Pagination
             activePage={page}
