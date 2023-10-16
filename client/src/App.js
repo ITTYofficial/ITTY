@@ -1,57 +1,58 @@
+import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import Header from "./components/Header";
-import Main from "./components/Main";
 import Footer from "./components/Footer";
-import ProjectList from "./components/ProjectList";
-import ProjectDetail from "./components/ProjectDetail";
-import PlayBoardList from "./components/PlayBoardList";
-import PlayBoardDetail from "./components/PlayBoardDetail";
-import "./css/reset.css";
-import MarketList from "./components/MarketList";
-import MarketDetail from "./components/MarketDetail";
-import StudyList from "./components/StudyList";
+import Header from "./components/Header";
 import Join from "./components/Join";
 import Login from "./components/Login";
-import QuillTest from "./components/QuillTest";
-import PlayBoardWrite from "./components/PlayBoardWrite";
-import { QuillContext } from "./context/QuillContext";
-import { useEffect, useState } from "react";
-import TestPage from "./components/TestPage";
-import ProjectWrite from "./components/ProjectWrite";
+import Main from "./components/Main";
+import MarketDetail from "./components/MarketDetail";
+import MarketList from "./components/MarketList";
 import MarketWrite from "./components/MarketWrite";
+import PlayBoardDetail from "./components/PlayBoardDetail";
+import PlayBoardList from "./components/PlayBoardList";
+import PlayBoardWrite from "./components/PlayBoardWrite";
+import ProjectDetail from "./components/ProjectDetail";
+import ProjectList from "./components/ProjectList";
+import ProjectWrite from "./components/ProjectWrite";
+import QuillTest from "./components/QuillTest";
+import StudyList from "./components/StudyList";
 import StudyWrite from "./components/StudyWrite";
+import { QuillContext } from "./context/QuillContext";
+import "./css/reset.css";
 
-import ReviewList from "./components/ReviewList";
-import TipList from "./components/TipList";
-import TipDetail from "./components/TipDetail";
-import TipWrite from "./components/TipWrite";
-import StudyDetail from "./components/StudyDetail";
 import PortDetail from "./components/PortDetail";
 import PortList from "./components/PortList";
 import ReviewDetail from "./components/ReviewDetail";
+import ReviewList from "./components/ReviewList";
 import ReviewWrite from "./components/ReviewWrite";
+import StudyDetail from "./components/StudyDetail";
+import TipDetail from "./components/TipDetail";
+import TipList from "./components/TipList";
+import TipWrite from "./components/TipWrite";
 
+import CropperTest from "./components/CropperTest";
+import MyPage_message from "./components/MyPage_message";
+import MyPage_profile from "./components/MyPage_profile";
+import PortWrite from "./components/PortWrite";
 import QnaDetail from "./components/QnaDetail";
 import QnaList from "./components/QnaList";
 import QnaWrite from "./components/QnaWrite";
-import PortWrite from "./components/PortWrite";
-import MyPage_profile from "./components/MyPage_profile";
-import MyPage_message from "./components/MyPage_message";
-import CropperTest from "./components/CropperTest";
 
-import AnonymityList from "./components/AnonymityList"
-import AnonymityWrite from "./components/AnonymityWrite"
-import AnonymityDetail from "./components/AnonymityDetail"
+import AnonymityDetail from "./components/AnonymityDetail";
+import AnonymityList from "./components/AnonymityList";
+import AnonymityWrite from "./components/AnonymityWrite";
 
-import "./css/quill_content_font_style.css"
-import "./css/Paging.css"
 import axios from "axios";
 import SearchResult from "./components/SearchResult";
+import "./css/Paging.css";
+import "./css/quill_content_font_style.css";
 
 function App() {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
-
-
   const location = useLocation();
 
   const RenderHeaderAndFooter = () => {
@@ -76,22 +77,22 @@ function App() {
 
   const memberSearching = async () => {
     const id = sessionStorage.getItem('memberId')
-    if(id){
+    if (id) {
 
       await axios
-      .get(`http://localhost:8088/member/memberSearching?id=${id}`)
-      .then((res) => {
-        setMyInfo(res.data.member);
-      })
-      .catch((err) => {
-        console.log('err :', err);
-      })
+        .get(`${baseUrl}/member/memberSearching?id=${id}`)
+        .then((res) => {
+          setMyInfo(res.data.member);
+        })
+        .catch((err) => {
+          console.log('err :', err);
+        })
     }
-};
+  };
 
   // 댓글 조회 함수
   const getComment = (id) => {
-    axios.get(`http://localhost:8088/comment/commentList?postId=${id}`)
+    axios.get(`${baseUrl}/comment/commentList?postId=${id}`)
       .then((res) => {
         setCommentList(res.data.comments)
       })
@@ -107,7 +108,7 @@ function App() {
       postId: postId,
       boardType: boardType
     }
-    axios.post(`http://localhost:8088/comment/delete`, obj)
+    axios.post(`${baseUrl}/comment/delete`, obj)
       .then((res) => {
         getComment(postId);
         alert('삭제 완료')
@@ -127,7 +128,7 @@ function App() {
       index: index,
       boardType: boardType
     }
-    axios.post(`http://localhost:8088/comment/deleteReComment`, obj)
+    axios.post(`${baseUrl}/comment/deleteReComment`, obj)
       .then((res) => {
         getComment(postId);
         alert('삭제 완료')
@@ -140,7 +141,7 @@ function App() {
   // 익명 댓글 조회 함수
   const getAnonyComment = (id) => {
     console.log('id 받아옴?', id);
-    axios.get(`http://localhost:8088/anony/anonyCommentList?postId=${id}`)
+    axios.get(`${baseUrl}/anony/anonyCommentList?postId=${id}`)
       .then((res) => {
         console.log('확인!', res.data);
         setAnonyCommentList(res.data.anonyComment)
@@ -154,7 +155,7 @@ function App() {
       commentId: commentId,
       postId: postId
     }
-    axios.post(`http://localhost:8088/anony/commentdelete`, obj)
+    axios.post(`${baseUrl}/anony/commentdelete`, obj)
       .then((res) => {
         getAnonyComment(postId);
       })
@@ -171,7 +172,7 @@ function App() {
       postId: postId,
       index: index
     }
-    axios.post(`http://localhost:8088/anony/deleteReComment`, obj)
+    axios.post(`${baseUrl}/anony/deleteReComment`, obj)
       .then((res) => {
         getAnonyComment(postId);
       })
@@ -222,9 +223,9 @@ function App() {
   //   };
   // }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     memberSearching();
-  },[])
+  }, [])
 
   // QuillContext에 담길 데이터들
   const inQuillContext = {
@@ -250,13 +251,13 @@ function App() {
     deleteAnonyReComment: deleteAnonyReComment,
 
     // 쪽지 정보
-    messageInfo:messageInfo,
-    setMessageInfo:setMessageInfo,
+    messageInfo: messageInfo,
+    setMessageInfo: setMessageInfo,
 
     // 회원 정보
-    myInfo:myInfo,
-    setMyInfo:setMyInfo,
-    memberSearching : memberSearching
+    myInfo: myInfo,
+    setMyInfo: setMyInfo,
+    memberSearching: memberSearching
   }
 
   return (
@@ -282,7 +283,6 @@ function App() {
           <Route path="/marketDetail/:id" element={<MarketDetail />}></Route>
 
           <Route path="/quillTest" element={<QuillTest />}></Route>
-          <Route path="/testPage" element={<TestPage />}></Route>
 
           <Route path="/tipList" element={<TipList />}></Route>
           <Route path="/tipWrite" element={<TipWrite />}></Route>

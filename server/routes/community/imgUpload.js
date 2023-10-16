@@ -6,6 +6,9 @@ const path = require("path");
 
 router.use(express.json());
 
+// 배포용 URL
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 // multer 설정
 const upload = multer({
   storage: multer.diskStorage({
@@ -29,7 +32,7 @@ const upload = multer({
 router.post('/save', upload.single('img'), (req, res) => {
   console.log("save");
   try {
-    const IMG_URL = `http://localhost:8088/uploads/${req.file.filename}`;
+    const IMG_URL = `${baseUrl}/uploads/${req.file.filename}`;
     res.json({ url: IMG_URL });
   } catch (err) {
     console.log("실패", err);
@@ -40,7 +43,7 @@ router.post('/save', upload.single('img'), (req, res) => {
 router.post('/marketsave', upload.single('img'), (req, res) => {
   try {
     console.log(req.file);
-    const IMG_URL = `http://localhost:8088/uploads/${req.file.filename}`;
+    const IMG_URL = `${baseUrl}/uploads/${req.file.filename}`;
     res.json({ url: IMG_URL });
   } catch (err) {
     console.log("실패", err);
