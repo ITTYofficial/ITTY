@@ -157,7 +157,7 @@ const Main = () => {
   const MarketItem = ({ props }) => (
     <div className={style.market_content}>
       <Link
-        to={`/marketDetail/${props._id}??id=${props.id}`}
+        to={`/marketDetail/${props._id}?id=${props.id}`}
         className={style.Market_content_item}
       >
         {/* <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover' }}>
