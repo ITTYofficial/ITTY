@@ -102,14 +102,18 @@ const MyPage_message = () => {
       setMessageInfo(props.writerInfo);
       showMessageListDetail(props.writerInfo.id);
     };
+    const isUnreadMessage = props.read === 0; // 수정된 부분
 
     return (
       <div className={styles.message_profile_box} onClick={messageDetailInfo}>
-        <div>
+        {isUnreadMessage && <div className={styles.unread_indicator}></div>}{" "}
+        <div className={styles.message_img}>
           <Image src={props.writerInfo.profileImg} roundedCircle />
         </div>
         <div>
           <h5>{props.writerInfo.nickname}</h5>
+
+          {/* 수정된 부분 */}
         </div>
       </div>
     );
@@ -254,7 +258,6 @@ const MyPage_message = () => {
       <div className={styles.right_container}>
         <div className={styles.message_container}>
           <h2>받은 쪽지</h2>
-          <hr />
           <div className={styles.message_wrapper}>
             <div>
               <h4>메시지</h4>
