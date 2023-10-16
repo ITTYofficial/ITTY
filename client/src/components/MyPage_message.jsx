@@ -96,7 +96,8 @@ const MyPage_message = () => {
             messageContentRef.current.scrollTop = messageContentRef.current.scrollHeight;
         }
     }, [messageListDetail]);
-
+    
+    
     /* 쪽지 컴포넌트 */
     const MessageCompo = ({ props }) => {
         // 여기서 Link 걸때 쿼리스트링으로 sendUserId 보내면 되겠슴돠
@@ -104,6 +105,7 @@ const MyPage_message = () => {
             setMessageInfo(props.writerInfo)
             showMessageListDetail(props.writerInfo.id)
         }
+        const isUnreadMessage = props.read === 0; // 수정된 부분
 
         return (
             <div className={styles.message_profile_box} onClick={messageDetailInfo}>
@@ -112,7 +114,7 @@ const MyPage_message = () => {
                 </div>
                 <div>
                     <h5>{props.writerInfo.nickname}</h5>
-
+                    {isUnreadMessage && <div className={styles.unread_indicator}></div>} {/* 수정된 부분 */}
                 </div>
             </div>
 
