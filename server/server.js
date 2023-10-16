@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const connect = require("./schemas");
 const path = require("path");
+require('dotenv').config();
 
 connect();
 

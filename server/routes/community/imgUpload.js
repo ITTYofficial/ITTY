@@ -3,11 +3,10 @@ const multer = require('multer');
 const router = express.Router();
 const path = require("path");
 
-
 router.use(express.json());
 
-// 배포용 URL
-const baseUrl = process.env.REACT_APP_BASE_URL;
+  // 배포용 URL
+  const baseUrl = process.env.BASE_URL;
 
 // multer 설정
 const upload = multer({
@@ -19,6 +18,7 @@ const upload = multer({
     // 저장할 이미지의 파일명
     filename(req, file, cb) {
       const ext = path.extname(file.originalname); // 파일의 확장자
+      console.log(ext);
       console.log('file.originalname', file.originalname);
       // 파일명이 절대 겹치지 않도록 해줘야한다.
       // 파일이름 + 현재시간밀리초 + 파일확장자명
@@ -31,8 +31,10 @@ const upload = multer({
 // 글 임시 저장
 router.post('/save', upload.single('img'), (req, res) => {
   console.log("save");
+  console.log("URL확인", baseUrl);
   try {
     const IMG_URL = `${baseUrl}/uploads/${req.file.filename}`;
+    console.log(IMG_URL);
     res.json({ url: IMG_URL });
   } catch (err) {
     console.log("실패", err);
