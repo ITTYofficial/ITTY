@@ -56,17 +56,20 @@
   background-color: #f5f5f5;
   box-shadow: 2px 2px 4px #d7d7d7;
   border-radius: 20px;
-
 }
-
-.left_container_box3 h2{
+.left_container_box3 > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.left_container_box3 > div > h2 {
+  font-family: "Pretendard Variable";
+}
+.left_container_box3 h2 {
   display: inline-block;
   font-size: 16px;
   vertical-align: top;
-  margin-top:3%;
-  margin-left: 3%;
-  font-weight:bold;
-
+  font-weight: bold;
 }
 
 .left_container_box3 div h4 {
@@ -74,18 +77,14 @@
   font-size: 14px;
   vertical-align: top;
 
-  margin-left: 6%;
-  margin-top: 3%;
   font-weight: 500;
 }
 
-
-
-.left_container_box3 img{
-width: 30px;
+.left_container_box3 img {
+  width: 30px;
 }
 .left_container_box3 h3 {
-  font-size: 20px;      
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 8px;
