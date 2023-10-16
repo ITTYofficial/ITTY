@@ -73,6 +73,7 @@ const MyPage_message = () => {
 
 
     const showMessageListDetail = async (e) => {
+        setMessageListDetail('');
         const getUserId = sessionStorage.getItem('memberId');
         const sendUserId = e; // MessageCompo에 Link에 넣은 쿼리 스트링
         console.log('센드유저아이디?', sendUserId);
@@ -171,7 +172,7 @@ const MyPage_message = () => {
             <div className={styles.message_content_wrapper}>
                 <div className={styles.message_content_top_box}>
                     <div>
-                        <Image src='https://i.ibb.co/gPstBjR/Kakao-Talk-20231001-105435265.png' roundedCircle />
+                        <Image src={messageInfo.profileImg} roundedCircle />
                     </div>
                     <div>
                         <h5>{messageInfo.nickname}</h5>
