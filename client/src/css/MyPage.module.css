@@ -271,10 +271,16 @@
   display: flex;
   align-items: center;
   /* margin-bottom: 16px; */
+  justify-content: space-between;
   gap: 8px;
   cursor: pointer;
   transition-duration: 200ms;
   padding: 4px 8px;
+}
+.message_profile_box > div:first-child{
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .message_profile_box:hover {
   background-color: #efefef;

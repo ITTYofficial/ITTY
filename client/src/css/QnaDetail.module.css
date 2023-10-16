@@ -2,6 +2,9 @@
 
 .qna_comment_box {
   display: inline-block;
+  font-size: 12px;
+    /* margin-bottom: 4px; */
+    color: #999999;
 }
 
 .qna_font {
@@ -19,7 +22,7 @@
 
 .qna_time_box {
   font-size: 12px;
-  margin-bottom: 4px;
+  margin-right: 4px;
   color: #999999;
   vertical-align: middle;
   display: inline-block;
@@ -199,8 +202,12 @@
   background-color: #4f8fff;
   border-radius: 50%;
   margin-right: 5px;
+  overflow: hidden;
 }
-
+.profile_pic > img{
+  width: 100%;
+  height: 100%;
+}
 .play_profile > div > span:nth-child(2) p {
   font-size: 14px;
   font-weight: bold;

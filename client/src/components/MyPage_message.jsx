@@ -11,7 +11,6 @@ import Modal from "react-bootstrap/Modal";
 import { QuillContext } from "../context/QuillContext";
 
 const MyPage_message = () => {
-
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -51,9 +50,7 @@ const MyPage_message = () => {
   const showMessageList = async (e) => {
     const getUserId = sessionStorage.getItem("memberId");
     await axios
-      .get(
-        `${baseUrl}/message/showMessageList?getUserId=${getUserId}`
-      )
+      .get(`${baseUrl}/message/showMessageList?getUserId=${getUserId}`)
       .then((res) => {
         /* console.log("메세지 리스트 데이터", res.data.lists); */
         const sortedMessages = res.data.lists.sort((a, b) => {
@@ -110,15 +107,15 @@ const MyPage_message = () => {
 
     return (
       <div className={styles.message_profile_box} onClick={messageDetailInfo}>
-        {isUnreadMessage && <div className={styles.unread_indicator}></div>}{" "}
-        <div className={styles.message_img}>
-          <Image src={props.writerInfo.profileImg} roundedCircle />
-        </div>
         <div>
-          <h5>{props.writerInfo.nickname}</h5>
-
-          {/* 수정된 부분 */}
+          <div className={styles.message_img}>
+            <Image src={props.writerInfo.profileImg} roundedCircle />
+          </div>
+          <div>
+            <h5>{props.writerInfo.nickname}</h5>
+          </div>
         </div>
+        {isUnreadMessage && <div className={styles.unread_indicator}></div>}{" "}
       </div>
     );
   };
