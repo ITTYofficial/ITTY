@@ -217,7 +217,11 @@ const StudyList = () => {
                   {getTimeAgoString(item.createdAt)}
                 </p>
                 <Link to={`/studyDetail/${item._id}?id=${item.id}`}>
-                  <h4><RecruitTag now={item.recruit}/><RecommendTag selected={item.selectedValues} />{item.title}</h4>
+                  <h4>
+                    <RecruitTag now={item.recruit} />
+                    {item.recruit === 1 && <RecommendTag selected={item.selectedValues} />}
+                    {item.title}
+                  </h4>
                 </Link>
                 {/* <p>글 내용 영역</p> */}
                 <p>👁‍🗨{item.views} 💬{item.comments}</p>
