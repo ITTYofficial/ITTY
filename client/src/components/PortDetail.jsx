@@ -288,6 +288,10 @@ const PortDetail = () => {
             <div className={style.profile_img} onClick={() => { setMessage(!message) }}>
               <Image src={memberInfo.profileImg} roundedCircle />
             </div>
+            <div>
+              <p>{memberInfo.class}</p>
+              <p>{portDetail.writer}</p>
+            </div>
             {message &&
               <div className={style.message_dropdown}>
                 <li onClick={handleShow}>
@@ -319,10 +323,6 @@ const PortDetail = () => {
               </form>
             </Modal>
 
-            <div>
-              <p>{memberInfo.class}</p>
-              <p>{portDetail.writer}</p>
-            </div>
           </div>
           <div className={style.profile_view}>
             <p>
