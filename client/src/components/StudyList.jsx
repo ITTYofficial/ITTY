@@ -9,6 +9,9 @@ import Pagination from "react-js-pagination";
 
 const StudyList = () => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   //모집 컴포넌트
   const RecruitTag = ({ now }) => {
     let tagClassName = style.play_title;
@@ -80,7 +83,7 @@ const StudyList = () => {
   const getList = async () => {
     console.log('조회함수 진입');
     console.time('소요시간');
-    await axios.get(`http://localhost:8088/total/findMemberInfo?study=study`)
+    await axios.get(`${baseUrl}/total/findMemberInfo?study=study`)
       .then(async (res) => {
         console.log('확인!', res.data);
 
@@ -91,7 +94,7 @@ const StudyList = () => {
 
         // 댓글 개수 카운팅
         /*       const counting = sortedStudys.map((item) => (item._id))
-              const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+              const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
               const study = sortedStudys.map((obj, index) => ({
                 ...obj,
                 count: countList[index],
@@ -111,14 +114,14 @@ const StudyList = () => {
   // 장터 리스트 조회 함수
   // const readstudyList = async () => {
   //   await axios
-  //     .get("http://localhost:8088/study/studyList")
+  //     .get("${baseUrl}/study/studyList")
   //     .then(async (res) => {
   //       console.log("1. writer :", res.data.study[0].writer);
   //       let memberPromises = res.data.study.map((study) => {
   //         // const nickname = study.writer;
   //         const id = study.id
   //         return axios.get(
-  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //           `${baseUrl}/member/memberSearching?id=${id}`
   //         );
   //       });
 
@@ -140,7 +143,7 @@ const StudyList = () => {
 
   //       // 댓글 개수 카운팅
   //       const counting = sortedStudy.map((item) => (item._id))
-  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
   //       const study = sortedStudy.map((obj, index) => ({
   //         ...obj,
   //         count: countList[index],

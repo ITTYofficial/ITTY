@@ -11,6 +11,10 @@ import Modal from "react-bootstrap/Modal";
 import { QuillContext } from "../context/QuillContext";
 
 const MyPage_message = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const { messageInfo, setMessageInfo } = useContext(QuillContext);
 
   const loginId = sessionStorage.getItem("memberId");
@@ -31,7 +35,7 @@ const MyPage_message = () => {
   const memberSearching = async () => {
     const id = sessionStorage.getItem("memberId");
     await axios
-      .get(`http://localhost:8088/member/memberSearching?id=${id}`)
+      .get(`${baseUrl}/member/memberSearching?id=${id}`)
       .then((res) => {
         setMemberInfo(res.data.member);
       })
@@ -48,7 +52,7 @@ const MyPage_message = () => {
     const getUserId = sessionStorage.getItem("memberId");
     await axios
       .get(
-        `http://localhost:8088/message/showMessageList?getUserId=${getUserId}`
+        `${baseUrl}/message/showMessageList?getUserId=${getUserId}`
       )
       .then((res) => {
         /* console.log("메세지 리스트 데이터", res.data.lists); */
@@ -74,7 +78,7 @@ const MyPage_message = () => {
     console.log("센드유저아이디?", sendUserId);
     await axios
       .get(
-        `http://localhost:8088/message/showMessageListDetail?getUserId=${getUserId}&sendUserId=${sendUserId}`
+        `${baseUrl}/message/showMessageListDetail?getUserId=${getUserId}&sendUserId=${sendUserId}`
       )
       .then((res) => {
         const sortedMessage = res.data.lists.sort((a, b) => {
@@ -151,7 +155,7 @@ const MyPage_message = () => {
     });
     console.log("obj 확인", obj.getUserId);
     await axios
-      .post("http://localhost:8088/message/write", obj)
+      .post(`${baseUrl}/message/write`, obj)
       .then((res) => {
         alert("쪽지 작성 완료");
         showMessageListDetail(obj.getUserId);

@@ -13,6 +13,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 const PlayBoardDetail = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
 
@@ -30,7 +34,7 @@ const PlayBoardDetail = () => {
   const memberSearching = async () => {
     console.log("멤버서칭 함수 쿼리스트링용 닉네임", nickname);
     await axios
-      .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
+      .get(`${baseUrl}/member/memberSearching?id=${nickname}`)
       .then((res) => {
 
         setMemberInfo(res.data.member);
@@ -45,7 +49,7 @@ const PlayBoardDetail = () => {
   const getPlay = async () => {
     // projectRouter랑 통신해서 response에 결과값 저장
     await axios
-      .get(`http://localhost:8088/play/playboardDetail/${id}`)
+      .get(`${baseUrl}/play/playboardDetail/${id}`)
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
         setplayDetail(res.data.detailPlay[0]);
@@ -82,7 +86,7 @@ const PlayBoardDetail = () => {
   // 게시글 삭제
   const deletePlay = async () => {
     await axios
-      .post(`http://localhost:8088/play/delete/${id}`)
+      .post(`${baseUrl}/play/delete/${id}`)
       .then((res) => {
         alert("삭제 완료");
         window.location.href = "/playBoardList";
@@ -98,7 +102,7 @@ const PlayBoardDetail = () => {
 
   // QuillComment 컴포넌트 초기화용 state
   const [commentKey, setCommentKey] = useState(0);
-  
+
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
     if (!sessionStorage.getItem("memberId")) {
@@ -123,7 +127,7 @@ const PlayBoardDetail = () => {
       console.log(obj);
 
       axios
-        .post("http://localhost:8088/comment/write", obj)
+        .post(`${baseUrl}/comment/write`, obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           console.log(res);
@@ -216,7 +220,7 @@ const PlayBoardDetail = () => {
       console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
-    await axios.post('http://localhost:8088/message/write', obj)
+    await axios.post(`${baseUrl}/message/write`, obj)
       .then((res) => {
         alert("글 작성 완료")
         handleClose();
@@ -356,7 +360,7 @@ const PlayBoardDetail = () => {
                   <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
                 </div>
                 <div className={PlayBoard.quillComment_container}>
-                  <QuillComment key={commentKey}/>
+                  <QuillComment key={commentKey} />
                 </div>
               </div>
               <div className={PlayBoard.submit_btn_group}>

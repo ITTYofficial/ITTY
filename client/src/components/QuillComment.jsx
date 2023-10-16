@@ -12,6 +12,9 @@ Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
 const QuillComment = ({ update }) => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const quillRef = useRef(null); // useRef로 ref 생성
 
   const imageHandler = async () => {
@@ -46,7 +49,7 @@ const QuillComment = ({ update }) => {
       console.log("테스트", formData);
       try {
         const result = await axios.post(
-          "http://localhost:8088/save/save",
+          `${baseUrl}/save/save`,
           formData
         );
         console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
@@ -77,7 +80,7 @@ const QuillComment = ({ update }) => {
 
     try {
       const result = await axios.post(
-        "http://localhost:8088/save/save",
+        `${baseUrl}/save/save`,
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);

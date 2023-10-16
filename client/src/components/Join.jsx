@@ -19,6 +19,9 @@ import axios from 'axios';
 
 const Join = () => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 회원가입 '소속선택' 드롭다운 useState 관리
   const [selectedValue, setSelectedValue] = useState(null);
 
@@ -126,7 +129,7 @@ const Join = () => {
       const idChecking = { id: id };
       try {
         //  라우트로 POST 요청 보내기
-        const response = await axios.post('http://localhost:8088/member/idCheck', idChecking);
+        const response = await axios.post(`${baseUrl}/member/idCheck`, idChecking);
         if (response.data.idCheckingSuccess) {
           // 중복체크 중복 O      
           console.log('아이디 중복체크 성공:', response.data.idCheckingId);
@@ -154,7 +157,7 @@ const Join = () => {
     const nicknameChecking = { nickname: nickname };
     try {
       //  라우트로 POST 요청 보내기
-      const response = await axios.post('http://localhost:8088/member/nicknameCheck', nicknameChecking);
+      const response = await axios.post(`${baseUrl}/member/nicknameCheck`, nicknameChecking);
       if (response.data.nicknameCheckingSuccess) {
         // 중복체크 중복 O      
         console.log('아이디 중복체크 성공:', response.data.nicknameCheckingNickname);
@@ -206,7 +209,7 @@ const Join = () => {
       };
       try {
         console.log('제발 들어와주라', member);
-        const response = await axios.post("http://localhost:8088/member/join", member); // 경로 테스트 중...
+        const response = await axios.post(`${baseUrl}/member/join`, member); // 경로 테스트 중...
         if (response.data.message === "회원가입이 완료되었습니다.") {
           // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
           window.location.href = '/login'

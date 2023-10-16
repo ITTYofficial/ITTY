@@ -8,6 +8,9 @@ import QuillReComment from './QuillReComment'
 
 const CommentItem = ({ props, postId, boardType }) => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue, myInfo, setMyInfo } =
     useContext(QuillContext);
@@ -37,7 +40,7 @@ const CommentItem = ({ props, postId, boardType }) => {
       };
 
       axios
-        .post("http://localhost:8088/comment/reWrite", obj)
+        .post(`${baseUrl}/comment/reWrite`, obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           setReCoValue('');

@@ -9,9 +9,10 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { QuillContext } from '../context/QuillContext';
 
-
-
 const StudyWrite = () => {
+
+    // 배포용 URL
+    const baseUrl = process.env.REACT_APP_BASE_URL;
 
     // // 특정 게시글 조회하기 위한 id값 가져오기
     // const { id } = useParams();
@@ -74,14 +75,14 @@ const StudyWrite = () => {
         if (id) {
             obj['_id'] = id
         }
-        
+
         // 입력값 확인
         const inputRule = {
             title: /^.{2,255}$/,
             selectedValues: /^.{1,255}$/,
             persons: /^[0-9]{1,100}$/,
             content: /^.{12,65535}$/
-          };
+        };
 
         for (const key in refList) {
             const check = obj[key];
@@ -96,7 +97,7 @@ const StudyWrite = () => {
                         refList[key].current.textContent = "인원을 입력해주세요.";
                     } else if (key === "content") {
                         refList[key].current.textContent = "내용을 입력해주세요.";
-                    }else if (key === "selectedValues") {
+                    } else if (key === "selectedValues") {
                         refList[key].current.textContent = "카테고리를 선택해주세요.";
                     }
                 }
@@ -119,7 +120,7 @@ const StudyWrite = () => {
         }
         console.log(obj);
 
-        axios.post('http://localhost:8088/study/write', obj)
+        axios.post(`${baseUrl}/study/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
                 console.log(res);
@@ -139,7 +140,7 @@ const StudyWrite = () => {
     const getStudy = async () => {
         if (id) {
             // projectRouter랑 통신해서 response에 결과값 저장
-            await axios.get(`http://localhost:8088/study/detail/${id}`)
+            await axios.get(`${baseUrl}/study/detail/${id}`)
                 .then((res) => {
                     console.log(res);
                     setStudyDetail(res.data.detailStudy[0]);
@@ -174,7 +175,7 @@ const StudyWrite = () => {
                 />
                 <h4>카테고리</h4>
                 <div ref={selectRef}></div>
-                <div className={style.position_content}  style={{ marginTop: '2%' }}>
+                <div className={style.position_content} style={{ marginTop: '2%' }}>
                     <button
                         type="button"
                         onClick={() => changeColor('1')}
@@ -240,7 +241,7 @@ const StudyWrite = () => {
                         <h4>인원</h4>
                         <div ref={personRef}></div>
                         <input
-                         style={{ marginTop: '2%' }}
+                            style={{ marginTop: '2%' }}
                             className="form-control"
                             name='persons'
                             type="number"
@@ -262,8 +263,8 @@ const StudyWrite = () => {
 
                 <h4 className={style.margin_top_p_tag}>내용</h4>
                 <div ref={contentRef}></div>
-                <div   style={{ marginTop: '2%' }} className={style.quill_content}>
-                    
+                <div style={{ marginTop: '2%' }} className={style.quill_content}>
+
                     <QuillTest />
                 </div>
 

@@ -7,6 +7,10 @@ import axios from "axios";
 import { QuillContext } from "../context/QuillContext";
 
 const TipWrite = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 포지션 함수
   function changeColor(value) {
     if (position.includes(value)) {
@@ -93,7 +97,7 @@ const TipWrite = () => {
 
     console.log(obj);
     axios
-      .post("http://localhost:8088/tip/write", obj)
+      .post(`${baseUrl}/tip/write`, obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
@@ -114,7 +118,7 @@ const TipWrite = () => {
     if (id) {
       // projectRouter랑 통신해서 response에 결과값 저장
       await axios
-        .get(`http://localhost:8088/tip/tipDetail/${id}`)
+        .get(`${baseUrl}/tip/tipDetail/${id}`)
         .then((res) => {
           console.log(res);
           setTipDetail(res.data.detailTip[0]);

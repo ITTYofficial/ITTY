@@ -14,6 +14,9 @@ import { QuillContext } from '../context/QuillContext';
 
 const ProjectWrite = () => {
 
+    // 배포용 URL
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     // // 특정 게시글 조회하기 위한 id값 가져오기
     // const { id } = useParams();
     const location = useLocation();
@@ -98,7 +101,7 @@ const ProjectWrite = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent =  "글자수를 더 입력해주세요."
+                refList[key].current.textContent = "글자수를 더 입력해주세요."
                 refList[key].current.style.color = "red";
                 refVisible = true;
                 if (!check) {
@@ -108,11 +111,11 @@ const ProjectWrite = () => {
                         refList[key].current.textContent = "포지션을 선택해주세요.";
                     } else if (key === "content") {
                         refList[key].current.textContent = "내용을 입력해주세요.";
-                    }else if (key === "persons") {
+                    } else if (key === "persons") {
                         refList[key].current.textContent = "인원을 입력해주세요.";
                     }
                 }
-                
+
             } else {
                 refList[key].current.textContent = null;
             }
@@ -131,7 +134,7 @@ const ProjectWrite = () => {
             return;
         }
 
-        axios.post('http://localhost:8088/project/write', obj)
+        axios.post(`${baseUrl}/project/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
                 console.log(res);
@@ -151,7 +154,7 @@ const ProjectWrite = () => {
     const getProject = async () => {
         if (id) {
             // projectRouter랑 통신해서 response에 결과값 저장
-            await axios.get(`http://localhost:8088/project/projectDetail/${id}`)
+            await axios.get(`${baseUrl}/project/projectDetail/${id}`)
                 .then((res) => {
                     console.log(res);
                     setProjectDetail(res.data.detailProject[0]);
@@ -237,13 +240,13 @@ const ProjectWrite = () => {
 
                     <div className={style.date_content}>
                         <h4>프로젝트 종료일  <span ref={dateRef}></span> </h4>
-                        
+
                         <DatePicker
                             className='form-control'
                             {...(id && { defaultValue: projectDetail.endDate })}
                             selected={endDate}
                             onChange={date => setEndDate(date)} />
-                            
+
                     </div>
 
                     <div className={style.frame_work_container}>

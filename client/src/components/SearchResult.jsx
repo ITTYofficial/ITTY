@@ -6,6 +6,10 @@ import Spinner from 'react-bootstrap/Spinner';
 import Pagination from "react-js-pagination";
 
 const SearchResult = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
   const [activeCategory, setActiveCategory] = useState("Study");
@@ -26,7 +30,7 @@ const SearchResult = () => {
     const fetchSearchResults = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8088/board/searchBoard?searchTerm=${searchTerm}`
+          `${baseUrl}/board/searchBoard?searchTerm=${searchTerm}`
         );
         const data = await response.json();
         setSearchResults(data.allBoards);

@@ -11,6 +11,10 @@ import Modal from "react-bootstrap/Modal";
 import { QuillContext } from "../context/QuillContext";
 
 const MyPage_profile = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const { messageInfo, setMessageInfo } = useContext(QuillContext);
   /* 이미지 크롭 스크립트 */
   const [inputPicDisplay, setInputPicDisplay] = useState(true);
@@ -56,7 +60,7 @@ const MyPage_profile = () => {
   const memberSearching = async () => {
     const id = sessionStorage.getItem("memberId");
     await axios
-      .get(`http://localhost:8088/member/memberSearching?id=${id}`)
+      .get(`${baseUrl}/member/memberSearching?id=${id}`)
       .then((res) => {
         console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
@@ -103,7 +107,7 @@ const MyPage_profile = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8088/member/nicknameCheck",
+        `${baseUrl}/member/nicknameCheck`,
         nicknameChecking
       );
       if (response.data.nicknameCheckingSuccess) {
@@ -231,7 +235,7 @@ const MyPage_profile = () => {
     // formData.append("writer",nickname)
     try {
       const result = await axios.post(
-        "http://localhost:8088/save/save",
+        `${baseUrl}/save/save`,
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
@@ -259,7 +263,7 @@ const MyPage_profile = () => {
     obj["imgPath"] = url;
     console.log(obj);
     axios
-      .post("http://localhost:8088/member/update", obj)
+      .post(`${baseUrl}/member/update`, obj)
       .then((res) => {
         alert("회원정보가 수정되었습니다.");
         console.log(res);
@@ -291,7 +295,7 @@ const MyPage_profile = () => {
       try {
         console.log("닉네임:", nickname);
         const response = await axios.post(
-          `http://localhost:8088/member/updateNick`,
+          `${baseUrl}/member/updateNick`,
           obj
         );
         if (response.data.message === "회원정보수정이 완료되었습니다.") {

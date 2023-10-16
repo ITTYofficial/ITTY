@@ -6,6 +6,10 @@ import axios from "axios";
 import Pagination from "react-js-pagination";
 
 const MarketList = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 장터리스트 담을 State
   const [marketList, setMarketList] = useState([]);
 
@@ -26,7 +30,7 @@ const MarketList = () => {
   const getList = async () => {
     console.log('조회함수 진입');
     console.time('소요시간');
-    await axios.get(`http://localhost:8088/total/findMemberInfo?market=market`)
+    await axios.get(`${baseUrl}/total/findMemberInfo?market=market`)
       .then(async (res) => {
         console.log('확인!', res.data);
 
@@ -37,7 +41,7 @@ const MarketList = () => {
 
         // 댓글 개수 카운팅
         /*       const counting = sortedMarkets.map((item) => (item._id))
-              const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+              const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
               const market = sortedMarkets.map((obj, index) => ({
                 ...obj,
                 count: countList[index],
@@ -55,7 +59,7 @@ const MarketList = () => {
   // 장터 리스트 조회 함수
   // const readMarketList = async () => {
   //   await axios
-  //     .get("http://localhost:8088/market/marketList")
+  //     .get("${baseUrl}/market/marketList")
   //     .then(async (res) => {
   //       // 회원정보조회-지홍
   //       console.log("1. writer :", res.data.market[0].writer);
@@ -64,7 +68,7 @@ const MarketList = () => {
   //         const id = market.id
 
   //         return axios.get(
-  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //           `${baseUrl}/member/memberSearching?id=${id}`
   //         );
   //       });
 
@@ -85,7 +89,7 @@ const MarketList = () => {
 
   //       // 댓글 개수 카운팅
   //       const counting = sortedMarkets.map((item) => (item._id))
-  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
   //       const market = sortedMarkets.map((obj, index) => ({
   //         ...obj,
   //         count: countList[index],

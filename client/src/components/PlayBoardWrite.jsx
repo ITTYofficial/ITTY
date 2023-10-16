@@ -9,6 +9,9 @@ import { QuillContext } from '../context/QuillContext';
 
 const PlayBoardWrite = () => {
 
+    // 배포용 URL
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     // 특정 게시글 조회하기 위한 id값 가져오기
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -53,15 +56,15 @@ const PlayBoardWrite = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent ="글자수를 더 입력해주세요.";
+                refList[key].current.textContent = "글자수를 더 입력해주세요.";
                 refList[key].current.style.color = "red";
                 refVisible = true;
 
                 if (!check) {
                     if (key === "title") {
-                      refList[key].current.textContent = "제목을 입력해주세요.";
+                        refList[key].current.textContent = "제목을 입력해주세요.";
                     } else if (key === "content") {
-                      refList[key].current.textContent = "내용을 입력해주세요.";
+                        refList[key].current.textContent = "내용을 입력해주세요.";
                     }
                 }
             } else {
@@ -74,7 +77,7 @@ const PlayBoardWrite = () => {
             return;
         }
 
-        await axios.post('http://localhost:8088/play/write', obj)
+        await axios.post(`${baseUrl}/play/write`, obj)
             .then((res) => {
 
                 alert("글 작성 완료")
@@ -94,7 +97,7 @@ const PlayBoardWrite = () => {
     const getPlay = async () => {
         if (id) {
             // projectRouter랑 통신해서 response에 결과값 저장
-            await axios.get(`http://localhost:8088/play/playboardDetail/${id}`)
+            await axios.get(`${baseUrl}/play/playboardDetail/${id}`)
                 .then((res) => {
                     console.log(res);
                     setPlayDetail(res.data.detailPlay[0]);
@@ -118,7 +121,7 @@ const PlayBoardWrite = () => {
                     <h4>제목</h4>
                     <div ref={titleRef}></div>
                     <input
-                    style={{ marginTop: "2%" }}
+                        style={{ marginTop: "2%" }}
                         className="form-control"
                         type="text"
                         name='title'

@@ -8,6 +8,9 @@ import Image from "react-bootstrap/Image";
 import Pagination from "react-js-pagination";
 const QnaList = () => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // QnA 리스트 담을 State
   const [qnaList, setQnAList] = useState([]);
 
@@ -28,7 +31,7 @@ const QnaList = () => {
   const getList = async () => {
     console.log('조회함수 진입');
     console.time('소요시간');
-    await axios.get(`http://localhost:8088/total/findMemberInfo?qna=qna`)
+    await axios.get(`${baseUrl}/total/findMemberInfo?qna=qna`)
       .then(async (res) => {
         console.log('확인!', res.data);
 
@@ -38,12 +41,12 @@ const QnaList = () => {
         });
 
         // 댓글 개수 카운팅
-/*         const counting = sortedQnAs.map((item) => (item._id))
-        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-        const qna = sortedQnAs.map((obj, index) => ({
-          ...obj,
-          count: countList[index],
-        })); */
+        /*         const counting = sortedQnAs.map((item) => (item._id))
+                const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
+                const qna = sortedQnAs.map((obj, index) => ({
+                  ...obj,
+                  count: countList[index],
+                })); */
         setQnAList(sortedQnAs);
         setMaxPage(sortedQnAs.length);
 
@@ -57,7 +60,7 @@ const QnaList = () => {
   // QnA 리스트 조회 함수
   const readQnAList = async () => {
     await axios
-      .get("http://localhost:8088/qna/qnaList")
+      .get(`${baseUrl}/qna/qnaList`)
       .then(async (res) => {
         // 회원정보조회-지홍
         // console.log("1. writer :", res.data.qna[0].writer);
@@ -66,7 +69,7 @@ const QnaList = () => {
           const id = qna.id
 
           return axios.get(
-            `http://localhost:8088/member/memberSearching?id=${id}`
+            `${baseUrl}/member/memberSearching?id=${id}`
           );
         });
 
@@ -87,7 +90,7 @@ const QnaList = () => {
 
         // 댓글 개수 카운팅
         const counting = sortedQnA.map((item) => (item._id))
-        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+        const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
         const qna = sortedQnA.map((obj, index) => ({
           ...obj,
           count: countList[index],

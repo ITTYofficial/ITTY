@@ -12,6 +12,9 @@ import AnonymityComment from "./AnonymityComment";
 import QuillComment from './QuillComment'
 
 const AnonymityDetail = () => {
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
   console.log("아이디 옴?", id);
@@ -30,7 +33,7 @@ const AnonymityDetail = () => {
   // 게시글 조회함수
   const getAnony = async () => {
     await axios
-      .get(`http://localhost:8088/anony/anonyDetail/${id}`)
+      .get(`${baseUrl}/anony/anonyDetail/${id}`)
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
         /* console.log('res 확인', res.data.detailAnony[0]); */
@@ -70,7 +73,7 @@ const AnonymityDetail = () => {
   // 게시글 삭제
   const deletePlay = async () => {
     await axios
-      .post(`http://localhost:8088/anony/delete/${id}`)
+      .post(`${baseUrl}/anony/delete/${id}`)
       .then((res) => {
         alert("삭제 완료");
         window.location.href = "/anonymityList";
@@ -86,7 +89,7 @@ const AnonymityDetail = () => {
 
   // QuillComment 컴포넌트 초기화용 state
   const [commentKey, setCommentKey] = useState(0);
-  
+
   // 댓글 작성완료 시 호출되는 함수
   function commentSubmit(event) {
     if (!sessionStorage.getItem("memberId")) {
@@ -109,7 +112,7 @@ const AnonymityDetail = () => {
       console.log(obj);
 
       axios
-        .post("http://localhost:8088/anony/commentWrite", obj)
+        .post(`${baseUrl}/anony/commentWrite`, obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           console.log(res);

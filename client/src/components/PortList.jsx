@@ -8,6 +8,10 @@ import axios from "axios";
 import Pagination from "react-js-pagination";
 
 const PortList = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 포트폴리오 리스트 담을 State
   const [portList, setPortList] = useState([]);
 
@@ -28,7 +32,7 @@ const PortList = () => {
   const getList = async () => {
     console.log('조회함수 진입');
     console.time('소요시간');
-    await axios.get(`http://localhost:8088/total/findMemberInfo?port=port`)
+    await axios.get(`${baseUrl}/total/findMemberInfo?port=port`)
       .then(async (res) => {
         console.log('확인!', res.data);
 
@@ -39,7 +43,7 @@ const PortList = () => {
 
         // 댓글 개수 카운팅
         /*         const counting = sortedPorts.map((item) => (item._id))
-                const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+                const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
                 const port = sortedPorts.map((obj, index) => ({
                   ...obj,
                   count: countList[index],
@@ -58,7 +62,7 @@ const PortList = () => {
   // 포트폴리오 리스트 조회 함수
   // const readPortList = async () => {
   //   await axios
-  //     .get("http://localhost:8088/port/portList")
+  //     .get("${baseUrl}/port/portList")
   //     .then(async (res) => {
   //       // 회원정보조회-지홍
   //       console.log("1. writer :", res.data.port[0].writer);
@@ -67,7 +71,7 @@ const PortList = () => {
   //         const id = port.id;
 
   //         return axios.get(
-  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //           `${baseUrl}/member/memberSearching?id=${id}`
   //         );
   //       });
 
@@ -88,7 +92,7 @@ const PortList = () => {
 
   //       // 댓글 개수 카운팅
   //       const counting = sortedPort.map((item) => (item._id))
-  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
   //       const port = sortedPort.map((obj, index) => ({
   //         ...obj,
   //         count: countList[index],

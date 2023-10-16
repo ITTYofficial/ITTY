@@ -9,6 +9,9 @@ import { QuillContext } from '../context/QuillContext';
 
 const AnonymityList = () => {
 
+    // 배포용 URL
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     // 특정 게시글 조회하기 위한 id값 가져오기
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -52,14 +55,14 @@ const AnonymityList = () => {
         for (const key in refList) {
             const check = obj[key];
             if (!check || !inputRule[key].test(check)) {
-                refList[key].current.textContent ="글자수를 더 입력해주세요.";
+                refList[key].current.textContent = "글자수를 더 입력해주세요.";
                 refList[key].current.style.color = "red";
                 refVisible = true;
                 if (!check) {
                     if (key === "title") {
-                      refList[key].current.textContent = "제목을 입력해주세요.";
+                        refList[key].current.textContent = "제목을 입력해주세요.";
                     } else if (key === "content") {
-                      refList[key].current.textContent = "내용을 입력해주세요.";
+                        refList[key].current.textContent = "내용을 입력해주세요.";
                     }
                 }
             } else {
@@ -72,7 +75,7 @@ const AnonymityList = () => {
             return;
         }
 
-        await axios.post('http://localhost:8088/anony/write', obj)
+        await axios.post(`${baseUrl}/anony/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.");
                 window.location.href = `/anonymityDetail/${res.data._id}`
@@ -89,7 +92,7 @@ const AnonymityList = () => {
     const getAnony = async () => {
         if (id) {
             // projectRouter랑 통신해서 response에 결과값 저장
-            await axios.get(`http://localhost:8088/anony/anonyDetail/${id}`)
+            await axios.get(`${baseUrl}/anony/anonyDetail/${id}`)
                 .then((res) => {
                     console.log(res);
                     setAnonyDetail(res.data.detailAnony[0]);
@@ -113,7 +116,7 @@ const AnonymityList = () => {
                     <h4>제목</h4>
                     <div ref={titleRef}></div>
                     <input
-                    style={{ marginTop: "2%" }}
+                        style={{ marginTop: "2%" }}
                         className="form-control"
                         type="text"
                         name='title'

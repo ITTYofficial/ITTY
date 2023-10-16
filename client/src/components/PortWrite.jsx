@@ -12,6 +12,9 @@ import { QuillContext } from '../context/QuillContext';
 
 const PortWrite = () => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // Quill value
   const { value, setValue } = useContext(QuillContext);
 
@@ -47,7 +50,7 @@ const PortWrite = () => {
     if (id) {
       obj["_id"] = id;
     }
-    
+
     // setImgFiles([imgFiles.join(';')]);
     const url = await handlingDataForm(croppedImage)
     console.log(url);
@@ -75,13 +78,13 @@ const PortWrite = () => {
           else if (key === "imgPath") {
             refList[key].current.textContent = "이미지 첨부를 확인해주세요.";
           }
-      }
+        }
 
       } else {
         refList[key].current.textContent = null;
       }
     }
-    
+
     console.log(obj);
     if (refVisible) {
       alert("필수 입력 항목을 확인해주세요.");
@@ -89,7 +92,7 @@ const PortWrite = () => {
     }
 
     axios
-      .post("http://localhost:8088/port/write", obj)
+      .post(`${baseUrl}/port/write`, obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
@@ -110,7 +113,7 @@ const PortWrite = () => {
     if (id) {
       // projectRouter랑 통신해서 response에 결과값 저장
       await axios
-        .get(`http://localhost:8088/port/portDetail/${id}`)
+        .get(`${baseUrl}/port/portDetail/${id}`)
         .then((res) => {
           console.log(res);
           setPortDetail(res.data.detailPort[0]);
@@ -205,7 +208,7 @@ const PortWrite = () => {
       // formData.append("writer",nickname)
       try {
         const result = await axios.post(
-          "http://localhost:8088/save/save",
+          `${baseUrl}/save/save`,
           formData
         );
         console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
@@ -246,7 +249,7 @@ const PortWrite = () => {
         <h4>제목</h4>
         <div ref={titleRef}></div>
         <input
-         style={{ marginTop: '2%' }}
+          style={{ marginTop: '2%' }}
           className="form-control"
           type="text"
           name='title'
@@ -330,7 +333,7 @@ const PortWrite = () => {
         </div>
 
         <h4>내용</h4>
-        <div ref={contentRef}  style={{ marginBottom: '2%' }}></div>
+        <div ref={contentRef} style={{ marginBottom: '2%' }}></div>
         <div className={styles.quill_div}>
           <QuillTest />
         </div>

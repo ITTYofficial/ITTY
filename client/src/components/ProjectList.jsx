@@ -9,6 +9,10 @@ import Pagination from "react-js-pagination";
 import style from "../css/ProjectDetail.module.css";
 
 const ProjectList = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 게시글 리스트 담을 State
   const [projectList, setProjectList] = useState([]);
 
@@ -28,7 +32,7 @@ const ProjectList = () => {
   const getList = async () => {
     console.log('조회함수 진입');
     console.time('소요시간');
-    await axios.get(`http://localhost:8088/total/findMemberInfo?project=project`)
+    await axios.get(`${baseUrl}/total/findMemberInfo?project=project`)
       .then(async (res) => {
         console.log('확인!', res.data);
 
@@ -39,7 +43,7 @@ const ProjectList = () => {
 
         // 댓글 개수 카운팅
         /*         const counting = sortedProjects.map((item) => (item._id))
-                const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+                const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
                 const procject = sortedProjects.map((obj, index) => ({
                   ...obj,
                   count: countList[index],
@@ -89,14 +93,14 @@ const ProjectList = () => {
   // 작성자 정보는 아직 없어서 나중에 추가할 것
   // const readProjectList = async () => {
   //   await axios
-  //     .get("http://localhost:8088/project/projectList")
+  //     .get("${baseUrl}/project/projectList")
   //     .then(async (res) => {
   //       console.log("1. writer :", res.data.project[0].writer);
   //       let memberPromises = res.data.project.map((project) => {
   //         const nickname = project.writer;
   //         const id = project.id
   //         return axios.get(
-  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //           `${baseUrl}/member/memberSearching?id=${id}`
   //         );
   //       });
 
@@ -118,7 +122,7 @@ const ProjectList = () => {
 
   //       // 댓글 개수 카운팅
   //       const counting = sortedProjects.map((item) => (item._id))
-  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
   //       const project = sortedProjects.map((obj, index) => ({
   //         ...obj,
   //         count: countList[index],

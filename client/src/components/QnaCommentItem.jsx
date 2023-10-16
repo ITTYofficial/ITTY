@@ -7,6 +7,9 @@ import { QuillContext } from '../context/QuillContext';
 
 const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
 
+    // 배포용 URL
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     /* QnaCommentItem입니다. 채택 버튼으로 따로 관리합니다! */
 
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
@@ -20,7 +23,7 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
             commentId: props._id,
             userId: sessionStorage.getItem('memberId'),
         }
-        await axios.post('http://localhost:8088/comment/commentLike', obj)
+        await axios.post(`${baseUrl}/comment/commentLike`, obj)
             .then((res) => {
                 console.log(res);
                 setLike(res.data.liker.length)
@@ -37,7 +40,7 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
             commentId: props._id,
             postId: postId
         }
-        await axios.post('http://localhost:8088/comment/commentSelection', obj)
+        await axios.post(`${baseUrl}/comment/commentSelection`, obj)
             .then((res) => {
                 alert("채택되었습니다.")
                 setSelection(res.data.selection)
@@ -78,7 +81,7 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
         };
         console.log(obj);
 
-        axios.post('http://localhost:8088/comment/reWrite', obj)
+        axios.post(`${baseUrl}/comment/reWrite`, obj)
             .then((res) => {
                 alert("댓글이 등록되었습니다.")
                 console.log(res);

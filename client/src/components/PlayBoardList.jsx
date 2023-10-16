@@ -7,6 +7,10 @@ import Image from "react-bootstrap/Image";
 import Pagination from "react-js-pagination";
 
 const PlayBoardList = (props) => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 장터리스트 담을 State
   const [playList, setPlayList] = useState([]);
 
@@ -27,7 +31,7 @@ const PlayBoardList = (props) => {
   const getList = async () => {
     console.log('조회함수 진입');
     console.time('소요시간');
-    await axios.get(`http://localhost:8088/total/findMemberInfo?play=play`)
+    await axios.get(`${baseUrl}/total/findMemberInfo?play=play`)
       .then(async (res) => {
         console.log('확인!', res.data);
 
@@ -37,12 +41,12 @@ const PlayBoardList = (props) => {
         });
 
         // 댓글 개수 카운팅
-/*         const counting = sortedPlays.map((item) => (item._id))
-        const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-        const play = sortedPlays.map((obj, index) => ({
-          ...obj,
-          count: countList[index],
-        })); */
+        /*         const counting = sortedPlays.map((item) => (item._id))
+                const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
+                const play = sortedPlays.map((obj, index) => ({
+                  ...obj,
+                  count: countList[index],
+                })); */
         setPlayList(res.data.lists);
         setMaxPage(sortedPlays.length);
 
@@ -57,7 +61,7 @@ const PlayBoardList = (props) => {
   // 게시판 리스트 조회 함수
   // const readPlayList = async () => {
   //   await axios
-  //     .get("http://localhost:8088/play/playList")
+  //     .get("${baseUrl}/play/playList")
   //     .then(async (res) => {
   //       // 회원정보조회-지홍
   //       console.log("1. writer :", res.data.play[0].writer);
@@ -66,7 +70,7 @@ const PlayBoardList = (props) => {
   //         const id = play.id
 
   //         return axios.get(
-  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //           `${baseUrl}/member/memberSearching?id=${id}`
   //         );
   //       });
 
@@ -88,7 +92,7 @@ const PlayBoardList = (props) => {
 
   //       // 댓글 개수 카운팅
   //       const counting = sortedPlays.map((item) => (item._id))
-  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
   //       const play = sortedPlays.map((obj, index) => ({
   //         ...obj,
   //         count: countList[index],

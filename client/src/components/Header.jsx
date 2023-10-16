@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { QuillContext } from "../context/QuillContext";
 const Header = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 정보 조회 데이터 관리
   const [memberInfo, setMemberInfo] = useState({});
   // 회원정보 조회
   const memberSearching = async () => {
     const id = sessionStorage.getItem("memberId");
     await axios
-      .get(`http://localhost:8088/member/memberSearching?id=${id}`)
+      .get(`${baseUrl}/member/memberSearching?id=${id}`)
       .then((res) => {
         setMemberInfo(res.data.member);
       })
@@ -126,7 +130,7 @@ const Header = () => {
     const sendUserId = e;
     await axios
       .get(
-        `http://localhost:8088/message/countMessage?getUserId=${sessionStorage.getItem(
+        `${baseUrl}/message/countMessage?getUserId=${sessionStorage.getItem(
           "memberId"
         )}`
       )

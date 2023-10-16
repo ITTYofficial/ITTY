@@ -3,10 +3,14 @@ import style from "../css/LeftContainer.module.css";
 import axios from 'axios'
 
 const LeftContainer = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const [top5Members, setTop5Members] = useState([]);
   // top5 조회함수
   const top5List = async () => {
-    await axios.get("http://localhost:8088/member/top5Members")
+    await axios.get(`${baseUrl}/member/top5Members`)
       .then((res) => {
         setTop5Members(res.data.topMembers);
       })
@@ -40,8 +44,8 @@ const LeftContainer = () => {
         <h3> 👑 Best Ranking </h3>
         {top5Members.map((item, index) =>
           <div key={item._id}>
- <img src={rankImages[index]} alt={`Rank ${index + 1}`} />     <h2>{item.nickname}</h2>
-    <h4>{item.point} P</h4>
+            <img src={rankImages[index]} alt={`Rank ${index + 1}`} />     <h2>{item.nickname}</h2>
+            <h4>{item.point} P</h4>
           </div>
         )}
       </div>

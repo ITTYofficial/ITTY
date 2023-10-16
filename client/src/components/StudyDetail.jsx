@@ -12,6 +12,9 @@ import Modal from 'react-bootstrap/Modal';
 
 const StudyDetail = () => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
 
@@ -72,7 +75,7 @@ const StudyDetail = () => {
     let obj = {
       postId: id
     }
-    await axios.post(`http://localhost:8088/study/recruit`, obj)
+    await axios.post(`${baseUrl}/study/recruit`, obj)
       .then((res) => {
         window.location.reload();
         alert('전환 성공')
@@ -151,7 +154,7 @@ const StudyDetail = () => {
   //회원정보 조회 함수 -지홍
   const memberSearching = async () => {
     await axios
-      .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
+      .get(`${baseUrl}/member/memberSearching?id=${nickname}`)
       .then((res) => {
         console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
@@ -166,7 +169,7 @@ const StudyDetail = () => {
   const getStudy = async () => {
     // projectRouter랑 통신해서 response에 결과값 저장
     await axios
-      .get(`http://localhost:8088/study/detail/${id}`)
+      .get(`${baseUrl}/study/detail/${id}`)
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
         setStudyDetail(res.data.detailStudy[0]);
@@ -204,7 +207,7 @@ const StudyDetail = () => {
   // 게시글 삭제
   const deleteStudy = async () => {
     await axios
-      .post(`http://localhost:8088/study/delete/${id}`)
+      .post(`${baseUrl}/study/delete/${id}`)
       .then((res) => {
         alert("삭제 완료");
         window.location.href = "/studyList";
@@ -246,7 +249,7 @@ const StudyDetail = () => {
       console.log(obj);
 
       axios
-        .post("http://localhost:8088/comment/write", obj)
+        .post(`${baseUrl}/comment/write`, obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           console.log(res);
@@ -290,7 +293,7 @@ const StudyDetail = () => {
       console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
-    await axios.post('http://localhost:8088/message/write', obj)
+    await axios.post(`${baseUrl}/message/write`, obj)
       .then((res) => {
         alert("글 작성 완료")
         handleClose();

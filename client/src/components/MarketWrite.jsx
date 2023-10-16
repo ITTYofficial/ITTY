@@ -15,6 +15,10 @@ import "../css/Cropper.css";
 import Button from 'react-bootstrap/Button';
 
 const MarketWrite = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const [imgFiles, setImgFiles] = useState([]);
   const writer = sessionStorage.getItem("nickname");
   const imgRef = useRef();
@@ -50,7 +54,7 @@ const MarketWrite = () => {
       // formData.append("writer",nickname)
       try {
         const result = await axios.post(
-          "http://localhost:8088/save/save",
+          `${baseUrl}/save/save`,
           formData
         );
         console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
@@ -128,17 +132,17 @@ const MarketWrite = () => {
         refVisible = true;
         if (!check) {
           if (key === "market_title") {
-              refList[key].current.textContent = "제목을 입력해주세요.";
+            refList[key].current.textContent = "제목을 입력해주세요.";
           } else if (key === "imgPath") {
-              refList[key].current.textContent = "이미지를 첨부해주세요.";
-          }else if (key === "market_price") {
+            refList[key].current.textContent = "이미지를 첨부해주세요.";
+          } else if (key === "market_price") {
             refList[key].current.textContent = "상품 가격을 입력해주세요.";
-        }else if (key === "content") {
-          refList[key].current.textContent = "상품 설명을 입력해주세요.";
-      }
+          } else if (key === "content") {
+            refList[key].current.textContent = "상품 설명을 입력해주세요.";
+          }
         }
 
-        
+
       } else {
         refList[key].current.textContent = null;
       }
@@ -151,7 +155,7 @@ const MarketWrite = () => {
     }
 
     axios
-      .post("http://localhost:8088/market/write", obj)
+      .post(`${baseUrl}/market/write`, obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
         console.log(res);
@@ -172,7 +176,7 @@ const MarketWrite = () => {
     if (id) {
       // projectRouter랑 통신해서 response에 결과값 저장
       await axios
-        .get(`http://localhost:8088/market/marketDetail/${id}`)
+        .get(`${baseUrl}/market/marketDetail/${id}`)
         .then((res) => {
           console.log(res);
           setmarketDetail(res.data.detailMarket[0]);

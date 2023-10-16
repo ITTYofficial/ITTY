@@ -10,6 +10,9 @@ import { QuillContext } from '../context/QuillContext';
 
 const ReviewWrite = () => {
 
+    // 배포용 URL
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     /* 별점관련 */
     const [star, setStart] = useState(0);
 
@@ -106,15 +109,15 @@ const ReviewWrite = () => {
                 refVisible = true;
                 if (!check) {
                     if (key === "title") {
-                      refList[key].current.textContent = "제목을 입력해주세요.";
+                        refList[key].current.textContent = "제목을 입력해주세요.";
                     } else if (key === "keyWord") {
-                      refList[key].current.textContent = "추천 키워드를 선택해주세요.";
+                        refList[key].current.textContent = "추천 키워드를 선택해주세요.";
                     } else if (key === "position") {
-                      refList[key].current.textContent = "전공 여부를 선택해주세요.";
+                        refList[key].current.textContent = "전공 여부를 선택해주세요.";
                     } else if (key === "content") {
                         refList[key].current.textContent = "내용을 입력해주세요.";
-                      }
-                  }
+                    }
+                }
             } else {
                 refList[key].current.textContent = null;
             }
@@ -127,7 +130,7 @@ const ReviewWrite = () => {
 
         console.log(obj);
         axios
-            .post("http://localhost:8088/review/write", obj)
+            .post(`${baseUrl}/review/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.");
                 console.log(res);
@@ -148,7 +151,7 @@ const ReviewWrite = () => {
         if (id) {
             // projectRouter랑 통신해서 response에 결과값 저장
             await axios
-                .get(`http://localhost:8088/review/reviewDetail/${id}`)
+                .get(`${baseUrl}/review/reviewDetail/${id}`)
                 .then((res) => {
                     console.log(res);
                     setReviewDetail(res.data.detailReview[0]);

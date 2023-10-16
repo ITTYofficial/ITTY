@@ -7,6 +7,10 @@ import axios from "axios";
 import KaKaoLogin from "react-kakao-login";
 
 const Login = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
@@ -40,7 +44,7 @@ const Login = () => {
     try {
       // 로그인 라우트로 POST 요청 보내기
       const response = await axios.post(
-        "http://localhost:8088/member/login",
+        `${baseUrl}/member/login`,
         member
       );
       if (response.data.loginSuccess) {
@@ -118,7 +122,7 @@ const Login = () => {
             </div>
 
             <div className={style.Login_kakao_box}>
-            <button
+              <button
                 className={style.Join_kakao_box}
                 type="submit"
               >

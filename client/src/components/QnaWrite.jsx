@@ -9,6 +9,9 @@ import { QuillContext } from '../context/QuillContext';
 
 const QnaWrite = () => {
 
+    // 배포용 URL
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     // 포지션 함수
     function changeColor(value) {
         if (position.includes(value)) {
@@ -78,7 +81,7 @@ const QnaWrite = () => {
                         refList[key].current.textContent = "제목을 입력해주세요.";
                     } else if (key === "content") {
                         refList[key].current.textContent = "내용을 입력해주세요.";
-                    }else if (key === "category") {
+                    } else if (key === "category") {
                         refList[key].current.textContent = "카테고리를 선택해주세요.";
                     }
                 }
@@ -95,7 +98,7 @@ const QnaWrite = () => {
 
         console.log(obj);
         axios
-            .post("http://localhost:8088/qna/write", obj)
+            .post(`${baseUrl}/qna/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.");
                 console.log(res);
@@ -116,7 +119,7 @@ const QnaWrite = () => {
         if (id) {
             // projectRouter랑 통신해서 response에 결과값 저장
             await axios
-                .get(`http://localhost:8088/qna/qnaDetail/${id}`)
+                .get(`${baseUrl}/qna/qnaDetail/${id}`)
                 .then((res) => {
                     console.log(res);
                     setQnADetail(res.data.detailQnA[0]);

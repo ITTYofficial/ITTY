@@ -19,6 +19,9 @@ import Modal from 'react-bootstrap/Modal';
 
 const MarketDetail = () => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
   const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
 
@@ -51,7 +54,7 @@ const MarketDetail = () => {
       };
 
       axios
-        .post("http://localhost:8088/comment/write", obj)
+        .post(`${baseUrl}/comment/write`, obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           setCoValue("");
@@ -93,7 +96,7 @@ const MarketDetail = () => {
   const getMarket = async () => {
     // projectRouter랑 통신해서 response에 결과값 저장
     await axios
-      .get(`http://localhost:8088/market/marketDetail/${id}`)
+      .get(`${baseUrl}/market/marketDetail/${id}`)
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
         console.log(res.data);
@@ -108,7 +111,7 @@ const MarketDetail = () => {
   // 회원 정보 조회 함수
   const memberSearching = async () => {
     await axios
-      .get(`http://localhost:8088/member/memberSearching?id=${nickname}`)
+      .get(`${baseUrl}/member/memberSearching?id=${nickname}`)
       .then((res) => {
         console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
@@ -154,7 +157,7 @@ const MarketDetail = () => {
   // 게시글 삭제
   const deleteMarket = async () => {
     await axios
-      .post(`http://localhost:8088/market/delete/${id}`)
+      .post(`${baseUrl}/market/delete/${id}`)
       .then((res) => {
         alert("삭제 완료");
         window.location.href = "/MarketList";
@@ -168,7 +171,7 @@ const MarketDetail = () => {
   // 판매 완료 전환
   const soldMarket = async () => {
     await axios
-      .get(`http://localhost:8088/market/sold/${id}`)
+      .get(`${baseUrl}/market/sold/${id}`)
       .then((res) => {
         alert("전환 완료");
       })
@@ -245,7 +248,7 @@ const MarketDetail = () => {
       console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
-    await axios.post('http://localhost:8088/message/write', obj)
+    await axios.post(`${baseUrl}/message/write`, obj)
       .then((res) => {
         alert("글 작성 완료")
         handleClose();

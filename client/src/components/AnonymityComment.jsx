@@ -8,6 +8,9 @@ import QuillReComment from './QuillReComment'
 
 const AnonymityComment = ({ props, postId }) => {
 
+    // 배포용 URL
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
     const { getAnonyComment, deleteAnonyComment, deleteAnonyReComment, reCoValue, setReCoValue } = useContext(QuillContext);
     console.log('게시글 id 넘어옴?', postId);
@@ -37,7 +40,7 @@ const AnonymityComment = ({ props, postId }) => {
             };
             console.log(obj);
 
-            axios.post('http://localhost:8088/anony/reCommentWrite', obj)
+            axios.post(`${baseUrl}/anony/reCommentWrite`, obj)
                 .then((res) => {
                     alert("댓글이 등록되었습니다.")
                     setReCoValue('');

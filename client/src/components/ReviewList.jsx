@@ -6,6 +6,10 @@ import axios from "axios";
 import Pagination from "react-js-pagination";
 
 const ReviewList = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  
   // 회원만 작성 할 수 있도록 제한하는 함수-지홍
   const checkSessionStorage = (e) => {
     // sessionStorage에서 값을 가져옴
@@ -71,40 +75,40 @@ const ReviewList = () => {
   const [reviewList, setReviewList] = useState([]);
 
 
-// 새로운 조회함수
-const getList = async() => {
-  console.log('조회함수 진입');
-  console.time('소요시간');
- await axios.get(`http://localhost:8088/total/findMemberInfo?review=review`)
-    .then(async(res) => {
-      console.log('확인!', res.data);
-      
-      const sortedReviews = res.data.lists.sort((a, b) => {
-        // 게시글 데이터 작성 일자별 내림차순 정렬
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
+  // 새로운 조회함수
+  const getList = async () => {
+    console.log('조회함수 진입');
+    console.time('소요시간');
+    await axios.get(`${baseUrl}/total/findMemberInfo?review=review`)
+      .then(async (res) => {
+        console.log('확인!', res.data);
 
-      // 댓글 개수 카운팅
-/*       const counting = sortedReviews.map((item) => (item._id))
-      const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
-      const review = sortedReviews.map((obj, index) => ({
-        ...obj,
-        count: countList[index],
-      })); */
-      setReviewList(sortedReviews);
-      setMaxPage(sortedReviews.length);
+        const sortedReviews = res.data.lists.sort((a, b) => {
+          // 게시글 데이터 작성 일자별 내림차순 정렬
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
 
-      // setPlayList(res.data.lists);
-      // setMaxPage(res.data.lists.length)
+        // 댓글 개수 카운팅
+        /*       const counting = sortedReviews.map((item) => (item._id))
+              const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
+              const review = sortedReviews.map((obj, index) => ({
+                ...obj,
+                count: countList[index],
+              })); */
+        setReviewList(sortedReviews);
+        setMaxPage(sortedReviews.length);
 
-      console.timeEnd('소요시간');
-    })
-}
+        // setPlayList(res.data.lists);
+        // setMaxPage(res.data.lists.length)
+
+        console.timeEnd('소요시간');
+      })
+  }
 
   // 리뷰 리스트 조회 함수
   // const readReviewList = async () => {
   //   await axios
-  //     .get("http://localhost:8088/review/reviewList")
+  //     .get("${baseUrl}/review/reviewList")
   //     .then(async (res) => {
   //       // 회원정보조회-지홍
   //       console.log("1. writer :", res.data.review[0].writer);
@@ -113,7 +117,7 @@ const getList = async() => {
   //         const id = review.id;
 
   //         return axios.get(
-  //           `http://localhost:8088/member/memberSearching?id=${id}`
+  //           `${baseUrl}/member/memberSearching?id=${id}`
   //         );
   //       });
 
@@ -134,7 +138,7 @@ const getList = async() => {
 
   //       // 댓글 개수 카운팅
   //       const counting = sortedReview.map((item) => (item._id))
-  //       const countList = (await axios.post(`http://localhost:8088/comment/commentCount`, counting)).data.countList
+  //       const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
   //       const review = sortedReview.map((obj, index) => ({
   //         ...obj,
   //         count: countList[index],
@@ -180,7 +184,7 @@ const getList = async() => {
       <div>
         <span>
           <div className={style.cateBox}>
-            <span className={`${style.play_title} ${style.star}`}>⭐{props.score/2}</span>
+            <span className={`${style.play_title} ${style.star}`}>⭐{props.score / 2}</span>
             <RecommendTag keyWord={props.keyWord} />
             <PositionTag position={props.position} />
           </div>

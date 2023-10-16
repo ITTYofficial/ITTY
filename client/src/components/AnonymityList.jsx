@@ -7,6 +7,10 @@ import Image from "react-bootstrap/Image";
 import Pagination from "react-js-pagination";
 
 const AnonymityList = (props) => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 장터리스트 담을 State
   const [anonyList, setAnonyList] = useState([]);
 
@@ -26,7 +30,7 @@ const AnonymityList = (props) => {
   // 게시판 리스트 조회 함수
   const readAnonyList = async () => {
     await axios
-      .get("http://localhost:8088/anony/anonyList")
+      .get(`${baseUrl}/anony/anonyList`)
       .then(async (res) => {
         /* console.log('res확인 ', res.data.anony); */
         const sortedAnony = res.data.anony.sort((a, b) => {

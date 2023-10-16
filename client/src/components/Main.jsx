@@ -16,6 +16,10 @@ import { FreeMode } from 'swiper/modules';
 // import "../css/Community.css";
 
 const Main = () => {
+
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // 슬라이더 관련
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [marketpreview, setMarketpreview] = useState(4.6);
@@ -52,20 +56,20 @@ const Main = () => {
   // 메인 페이지 게시물 리스트 조회함수
   const mainList = async () => {
     console.time('시간체크')
-    await axios.get("http://localhost:8088/main/mainList")
-    .then((res) => {
-      console.log('데이터 확인', res.data.main);
-      setPlayList(res.data.main.play);
-      setProStuList(res.data.main.proStu);
-      setMarketList(res.data.main.market);
-      setPortList(res.data.main.port);
-      console.timeEnd('시간체크')
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    await axios.get(`${baseUrl}/main/mainList`)
+      .then((res) => {
+        console.log('데이터 확인', res.data.main);
+        setPlayList(res.data.main.play);
+        setProStuList(res.data.main.proStu);
+        setMarketList(res.data.main.market);
+        setPortList(res.data.main.port);
+        console.timeEnd('시간체크')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
-  
+
 
 
 
@@ -76,7 +80,7 @@ const Main = () => {
     const timeDifference = now - createdAt;
     const minutesDifference = Math.floor(timeDifference / (1000 * 60));
     const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-  
+
     if (minutesDifference < 1) {
       return "방금 전";
     } else if (minutesDifference < 60) {
@@ -88,7 +92,7 @@ const Main = () => {
       return `${daysDifference}일 전`;
     }
   };
-  
+
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {

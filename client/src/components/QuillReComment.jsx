@@ -12,6 +12,9 @@ Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
 const QuillReComment = ({ update }) => {
 
+  // 배포용 URL
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const quillRef = useRef(null); // useRef로 ref 생성
 
   const imageHandler = async () => {
@@ -39,13 +42,13 @@ const QuillReComment = ({ update }) => {
       }
       // multer에 맞는 형식으로 데이터 만들어준다.
       const formData = new FormData();
-      console.log("file: ",file);
+      console.log("file: ", file);
       formData.append("img", file); // formData는 키-밸류 구조
       // 백엔드 multer라우터에 이미지를 보낸다.
       console.log("테스트", formData);
       try {
         const result = await axios.post(
-          "http://localhost:8088/save/save",
+          `${baseUrl}/save/save`,
           formData
         );
         console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
@@ -76,7 +79,7 @@ const QuillReComment = ({ update }) => {
 
     try {
       const result = await axios.post(
-        "http://localhost:8088/save/save",
+        `${baseUrl}/save/save`,
         formData
       );
       console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
@@ -126,7 +129,7 @@ const QuillReComment = ({ update }) => {
     "image",
   ];
 
-  const {reCoValue, setReCoValue} = useContext(QuillContext);
+  const { reCoValue, setReCoValue } = useContext(QuillContext);
   return (
     <div>
       <ReactQuill
@@ -136,7 +139,7 @@ const QuillReComment = ({ update }) => {
         value={reCoValue}
         onChange={setReCoValue}
         modules={modules}
-        /* formats={formats} */
+      /* formats={formats} */
       />
     </div>
   );
