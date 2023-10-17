@@ -16,7 +16,6 @@
 }
 
 .qna_font a {
-
   text-decoration-line: none;
 }
 
@@ -75,8 +74,7 @@
   margin: 20px 0;
 }
 
-
-.division_line>div {
+.division_line > div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -140,7 +138,7 @@
 }
 
 .others {
-  background-color: #F3F90B;
+  background-color: #f3f90b;
   color: #443807;
 }
 
@@ -158,7 +156,7 @@
   margin: 16px 0;
 }
 
-.play_profile>span>h4 {
+.play_profile > span > h4 {
   font-size: 20px;
   font-weight: bold;
   margin: 8px 0;
@@ -168,7 +166,7 @@
   /* letter-spacing: -1px; */
 }
 
-.play_profile>span>p {
+.play_profile > span > p {
   font-size: 14px;
   font-weight: bold;
   margin: 8px 0;
@@ -186,20 +184,23 @@
   position: relative;
 }
 
-.profile_text>p {
+.profile_text > p {
   font-size: 12px;
   margin-bottom: 4px;
   text-align: left;
   color: #999999;
 }
 
-.profile_text>h4 {
+.profile_text > h4 {
   font-size: 16px;
   font-weight: bold;
   text-align: right;
 }
 
-.profile_text>h5 {
+.profile_text > h5 {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
   cursor: pointer;
 }
 
@@ -212,12 +213,12 @@
   overflow: hidden;
 }
 
-.profile_pic>img {
+.profile_pic > img {
   width: 100%;
   height: 100%;
 }
 
-.play_profile>div>span:nth-child(2) p {
+.play_profile > div > span:nth-child(2) p {
   font-size: 14px;
   font-weight: bold;
   text-align: right;
@@ -230,7 +231,6 @@
   position: relative;
 }
 
-
 /* 댓글 시작 */
 .division_line_ant {
   position: relative;
@@ -241,10 +241,9 @@
   display: flex;
   margin: 32px 0;
   margin-top: 50px;
-
 }
 
-.division_line_comment>div {
+.division_line_comment > div {
   position: relative;
   background-color: white;
   color: #999999;
@@ -280,14 +279,11 @@
 
 /* 댓글 끝 */
 
-
-
 .meatball {
   position: absolute;
   right: 0;
   cursor: pointer;
 }
-
 
 .meat_dropdown {
   font-size: 14px;
@@ -313,11 +309,11 @@
   margin-right: 8px;
 }
 
-.meat_dropdown>li:hover svg {
+.meat_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.meat_dropdown>li:hover span {
+.meat_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -329,7 +325,6 @@
 
 /* 리댓 */
 
-
 /* 댓글 작성 quill버전 css */
 .comment_write_profile {
   margin-right: 16px;
@@ -340,10 +335,9 @@
   height: 65px;
 }
 
-.comment_write>div {
+.comment_write > div {
   display: flex;
 }
-
 
 .quillComment_container {
   width: 90%;
@@ -374,32 +368,26 @@
 
 /* 댓글 작성 quill버전 css */
 
-
-
-
 @media (max-width: 768px) {
-
   .right_container {
     width: 88%;
     margin-top: 3%;
     margin-left: 4%;
   }
 
-  .play_profile>span>h4 {
+  .play_profile > span > h4 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .profile_text>p {
+  .profile_text > p {
     white-space: nowrap;
   }
 
-  .profile_text>h4 {
+  .profile_text > h4 {
     white-space: nowrap;
   }
-
-
 
   .qna_comment_box {
     white-space: nowrap;
@@ -409,21 +397,16 @@
     white-space: nowrap;
   }
 
-
   .play_title {
     white-space: nowrap;
   }
-
 }
 
 @media (max-width: 430px) {
   .right_container {
     margin-top: 10%;
   }
-
 }
-
-
 
 @media (max-width: 1024px) {
   .right_container {
@@ -431,8 +414,6 @@
     padding: 5% 0;
   }
 }
-
-
 
 /* 쪽지보내기 css */
 
@@ -461,11 +442,11 @@
   margin-right: 8px;
 }
 
-.message_dropdown>li:hover svg {
+.message_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.message_dropdown>li:hover span {
+.message_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -490,6 +471,5 @@
   overflow-y: hidden;
   font-size: 14px;
 }
-
 
 /* 쪽지보내기 css */
