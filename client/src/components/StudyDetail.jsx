@@ -399,6 +399,11 @@ const StudyDetail = () => {
               <span className={style.profile_view}>
                 <p>👁‍🗨 {studyDetail.views} 💬 {studyDetail.comments}</p>
               </span>
+              <div className={style.send_msg_btn}>
+                <div className={style.send_msg_btn} onClick={handleShow}>
+                  채팅하기
+                </div>
+              </div>
               {(nowUser === studyDetail.id ?
                 <span onClick={handleRecruit} className={style.mem_completed}>
                   모집완료 ✔

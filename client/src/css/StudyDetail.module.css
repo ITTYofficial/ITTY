@@ -72,7 +72,7 @@
   margin: 32px 0;
 }
 
-.division_line > div {
+.division_line>div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -120,7 +120,7 @@
 /* 상단 구분선 끝 */
 
 /* 모집완료 버튼 */
-.mem_completed{
+.mem_completed {
   padding: 10px 16px;
   font-weight: bold;
   border-radius: 1px;
@@ -128,8 +128,9 @@
   cursor: pointer;
   background-color: rgb(255, 230, 7);
   box-shadow: 1px 1px 2px rgb(144, 144, 144);
-  display: inline-block; /* 요소를 인라인 블록 요소로 설정 */
-  margin-top:12px;
+  display: inline-block;
+  /* 요소를 인라인 블록 요소로 설정 */
+  margin-top: 12px;
 
 }
 
@@ -153,10 +154,11 @@
 
 .findsomeone {
   background-color: #247DFF;
-  color:  #FFFFFF;
+  color: #FFFFFF;
 }
+
 .completed {
-  background-color: #c5c5c5 ;
+  background-color: #c5c5c5;
   color: #000000;
 }
 
@@ -210,7 +212,7 @@
   font-size: 14px;
 }
 
-.comment_list div:nth-child(3) > p {
+.comment_list div:nth-child(3)>p {
   font-size: 14px;
   font-weight: bold;
   color: #999999;
@@ -260,7 +262,7 @@
   cursor: pointer;
 }
 
-.meatball > ul {
+.meatball>ul {
   position: relative;
 }
 
@@ -287,11 +289,11 @@
   margin-right: 8px;
 }
 
-.meat_dropdown > li:hover svg {
+.meat_dropdown>li:hover svg {
   fill: #1f6cf1;
 }
 
-.meat_dropdown > li:hover span {
+.meat_dropdown>li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -303,7 +305,7 @@
 
 /* 수정삭제 버튼 */
 
-.Top_container > div h4 {
+.Top_container>div h4 {
   font-family: ui-monospace;
   font-size: 20px;
   font-weight: bold;
@@ -311,7 +313,7 @@
   letter-spacing: -1px;
 }
 
-.Top_container > div >p {
+.Top_container>div>p {
   font-size: 14px;
   font-weight: bold;
   margin: 12px 0;
@@ -335,25 +337,27 @@
   font-family: "Pretendard Variable";
 }
 
-.Top_right_container > div:first-child {
+.Top_right_container>div:first-child {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.Top_right_container > div:last-child p {
+.Top_right_container>div:last-child p {
   margin: 0;
 }
 
 .text_content_wrapper {
   position: relative;
 }
-.profile_view > p{
+
+.profile_view>p {
   font-size: 12px;
   text-align: right;
   color: #999999;
   font-family: "Pretendard Variable";
 }
+
 /* 댓글 작성 quill버전 css */
 .comment_write_profile {
   margin-right: 16px;
@@ -369,7 +373,7 @@
 }
 
 
-.quillComment_container{
+.quillComment_container {
   width: 90%;
 }
 
@@ -395,6 +399,7 @@
 .submit_btn_group button:hover {
   background-color: #2474ff;
 }
+
 /* 댓글 작성 quill버전 css */
 
 @media (max-width: 1024px) {
@@ -462,10 +467,25 @@
 }
 
 @media (max-width:1024px) {
-  .message_dropdown{
+  .message_dropdown {
     top: 20%;
     right: 12%;
   }
+}
+
+.send_msg_btn {
+  display: flex;
+  justify-content: center;
+}
+
+.send_msg_btn>div {
+  background-color: #2A72FF;
+  width: 80px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 18px;
+  padding: 6px 8px;
+  color: white;
 }
 
 /* 쪽지보내기 css */
