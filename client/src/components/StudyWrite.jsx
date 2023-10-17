@@ -20,7 +20,7 @@ const StudyWrite = () => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
 
-    const { value, setValue } = useContext(QuillContext);
+    const { value, setValue, cancel } = useContext(QuillContext);
 
     const [selectedValues, setSelectedValues] = useState([]);
 
@@ -269,7 +269,7 @@ const StudyWrite = () => {
                 </div>
 
                 <div className={style.button_group}>
-                    <button className={style.cancel_btn} type='submit'>
+                    <button onClick={cancel} className={style.cancel_btn} type='button'>
                         취소
                     </button>
                     <button className={style.submit_btn} type='submit'>

@@ -71,7 +71,7 @@ const MarketWrite = () => {
 
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
-  const { value, setValue } = useContext(QuillContext);
+  const { value, setValue, cancel } = useContext(QuillContext);
 
   // 경고메세지 출력을 위한 Ref
   const titleRef = useRef(null)
@@ -403,7 +403,7 @@ const MarketWrite = () => {
         />
 
         <div className={styles.button_group}>
-          <button className={styles.cancel_btn} type="submit">
+          <button onClick={cancel} className={styles.cancel_btn} type="button">
             취소
           </button>
           <button className={styles.submit_btn} type="submit">
