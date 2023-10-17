@@ -102,7 +102,7 @@
 
 /* 모집완료 버튼 */
 
-.mem_completed{
+.mem_completed {
   padding: 10px 16px;
   font-weight: bold;
   border-radius: 1px;
@@ -113,7 +113,7 @@
   box-shadow: 1px 1px 2px rgb(144, 144, 144);
   display: inline-block; /* 요소를 인라인 블록 요소로 설정 */
   vertical-align: bottom; /* 아래로 정렬 */
-  margin-top:12px;
+  margin-top: 12px;
 }
 
 .play_title {
@@ -129,14 +129,13 @@
 /* 왜 자유게시판에 프로젝트 버튼 css가 있을까유..?우선 여기에서 수정..~ */
 
 .findsomeone {
-  background-color: #247DFF;
-  color:  #FFFFFF;
+  background-color: #247dff;
+  color: #ffffff;
 }
 .frontend {
-  background-color: #c5c5c5 ;
+  background-color: #c5c5c5;
   color: #000000;
 }
-
 
 .frontend {
   background-color: #2eff55;
@@ -159,7 +158,7 @@
 }
 
 .fullstack {
-  background-color: #F3F90B;
+  background-color: #f3f90b;
   color: #443807;
 }
 
@@ -210,7 +209,7 @@
   font-family: "Pretendard Variable";
   /* letter-spacing: -1px; */
 }
-.profile_view > p{
+.profile_view > p {
   font-size: 12px;
   text-align: right;
   color: #999999;
@@ -380,7 +379,6 @@
 
 /* 수정삭제 버튼 */
 
-
 /* 댓글 구분선 */
 
 .division_line_comment {
@@ -437,12 +435,11 @@
   height: 65px;
 }
 
-.comment_write>div {
+.comment_write > div {
   display: flex;
 }
 
-
-.quillComment_container{
+.quillComment_container {
   width: 90%;
 }
 
@@ -469,7 +466,6 @@
   background-color: #2474ff;
 }
 /* 댓글 작성 quill버전 css */
-
 
 /* 쪽지보내기 css */
 
@@ -498,11 +494,11 @@
   margin-right: 8px;
 }
 
-.message_dropdown>li:hover svg {
+.message_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.message_dropdown>li:hover span {
+.message_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -528,8 +524,8 @@
   font-size: 14px;
 }
 
-@media (max-width:1024px) {
-  .message_dropdown{
+@media (max-width: 1024px) {
+  .message_dropdown {
     top: 20%;
     right: 12%;
   }
@@ -537,3 +533,25 @@
 
 /* 쪽지보내기 css */
 
+.send_msg_btn {
+  background-color: white;
+  border: 2px solid #999999;
+  color: #333333;
+  text-align: center;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px;
+  /* width: 51%; */
+  /* color: white; */
+  cursor: pointer;
+  /* box-sizing: border-box; */
+  margin-left: 4.3rem;
+  margin-top: 16px;
+  transition-duration: 100ms;
+}
+.send_msg_btn:hover {
+  background-color: #2474ff;
+  color: white;
+  border: 2px solid #2474ff;
+}

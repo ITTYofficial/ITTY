@@ -3,8 +3,8 @@
 .qna_comment_box {
   display: inline-block;
   font-size: 12px;
-    /* margin-bottom: 4px; */
-    color: #999999;
+  /* margin-bottom: 4px; */
+  color: #999999;
 }
 
 .qna_font {
@@ -15,8 +15,7 @@
   text-align: center;
 }
 
-.qna_font a{
-
+.qna_font a {
   text-decoration-line: none;
 }
 
@@ -39,6 +38,7 @@
   right: 45px;
   top: 70px;
 }
+
 /* ============================================================ */
 
 .clearfix::before,
@@ -73,7 +73,6 @@
   display: flex;
   margin: 20px 0;
 }
-
 
 .division_line > div {
   background-color: white;
@@ -137,8 +136,9 @@
   background-color: #00ffaa;
   color: #103a27;
 }
+
 .others {
-  background-color: #F3F90B;
+  background-color: #f3f90b;
   color: #443807;
 }
 
@@ -181,6 +181,7 @@
 
 .profile_text {
   margin-right: 8px;
+  position: relative;
 }
 
 .profile_text > p {
@@ -196,6 +197,13 @@
   text-align: right;
 }
 
+.profile_text > h5 {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+}
+
 .profile_pic {
   width: 40px;
   height: 40px;
@@ -204,10 +212,12 @@
   margin-right: 5px;
   overflow: hidden;
 }
-.profile_pic > img{
+
+.profile_pic > img {
   width: 100%;
   height: 100%;
 }
+
 .play_profile > div > span:nth-child(2) p {
   font-size: 14px;
   font-weight: bold;
@@ -221,18 +231,16 @@
   position: relative;
 }
 
-
 /* 댓글 시작 */
 .division_line_ant {
   position: relative;
 }
 
-.division_line_comment{
+.division_line_comment {
   position: relative;
-    display: flex;
-    margin: 32px 0;
-    margin-top: 50px;
-    
+  display: flex;
+  margin: 32px 0;
+  margin-top: 50px;
 }
 
 .division_line_comment > div {
@@ -268,16 +276,14 @@
   margin: 0 auto;
   margin-top: 8px;
 }
+
 /* 댓글 끝 */
-
-
 
 .meatball {
   position: absolute;
   right: 0;
   cursor: pointer;
 }
-
 
 .meat_dropdown {
   font-size: 14px;
@@ -303,11 +309,11 @@
   margin-right: 8px;
 }
 
-.meat_dropdown>li:hover svg {
+.meat_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.meat_dropdown>li:hover span {
+.meat_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -319,7 +325,6 @@
 
 /* 리댓 */
 
-
 /* 댓글 작성 quill버전 css */
 .comment_write_profile {
   margin-right: 16px;
@@ -330,12 +335,11 @@
   height: 65px;
 }
 
-.comment_write>div {
+.comment_write > div {
   display: flex;
 }
 
-
-.quillComment_container{
+.quillComment_container {
   width: 90%;
 }
 
@@ -361,54 +365,48 @@
 .submit_btn_group button:hover {
   background-color: #2474ff;
 }
+
 /* 댓글 작성 quill버전 css */
 
-
-
-
 @media (max-width: 768px) {
-
   .right_container {
-    width:88%;
+    width: 88%;
     margin-top: 3%;
     margin-left: 4%;
-    }
-
-  .play_profile > span > h4{
-    white-space: nowrap;
-    overflow: hidden;  	
-    text-overflow: ellipsis; 
   }
+
+  .play_profile > span > h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .profile_text > p {
     white-space: nowrap;
   }
-  
+
   .profile_text > h4 {
     white-space: nowrap;
   }
 
-  .qna_comment_box{
-    white-space: nowrap;
-  }
-  .qna_time_box{
+  .qna_comment_box {
     white-space: nowrap;
   }
 
-  
-  .play_title{
+  .qna_time_box {
     white-space: nowrap;
   }
 
+  .play_title {
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 430px) {
   .right_container {
-  margin-top: 10%;
+    margin-top: 10%;
   }
-
 }
-
-
 
 @media (max-width: 1024px) {
   .right_container {
@@ -417,15 +415,13 @@
   }
 }
 
-
-
 /* 쪽지보내기 css */
 
 .message_dropdown {
   font-size: 14px;
   position: absolute;
   right: 2%;
-  top: 21%;
+  top: 128%;
   box-shadow: 1px 1px 8px gray;
   padding: 4px 8px;
   width: 125px;
@@ -446,11 +442,11 @@
   margin-right: 8px;
 }
 
-.message_dropdown>li:hover svg {
+.message_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.message_dropdown>li:hover span {
+.message_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -474,13 +470,6 @@
   background-color: #f0f9ff;
   overflow-y: hidden;
   font-size: 14px;
-}
-
-@media (max-width:1024px) {
-  .message_dropdown{
-    top: 20%;
-    right: 12%;
-  }
 }
 
 /* 쪽지보내기 css */

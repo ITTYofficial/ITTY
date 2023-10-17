@@ -223,7 +223,7 @@ const Join = () => {
         console.error("오류 발생:", error);
       }
     } else {
-      return alert("다시");
+      return alert("잘못된 양식입니다.");
     }
 
   };

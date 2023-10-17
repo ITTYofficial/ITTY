@@ -120,7 +120,7 @@
 /* 상단 구분선 끝 */
 
 /* 모집완료 버튼 */
-.mem_completed{
+.mem_completed {
   padding: 10px 16px;
   font-weight: bold;
   border-radius: 1px;
@@ -128,11 +128,10 @@
   cursor: pointer;
   background-color: rgb(255, 230, 7);
   box-shadow: 1px 1px 2px rgb(144, 144, 144);
-  display: inline-block; /* 요소를 인라인 블록 요소로 설정 */
-  margin-top:12px;
-
+  display: inline-block;
+  /* 요소를 인라인 블록 요소로 설정 */
+  margin-top: 12px;
 }
-
 
 /* 키워드 css */
 
@@ -152,18 +151,18 @@
 }
 
 .findsomeone {
-  background-color: #247DFF;
-  color:  #FFFFFF;
+  background-color: #247dff;
+  color: #ffffff;
 }
+
 .completed {
-  background-color: #c5c5c5 ;
+  background-color: #c5c5c5;
   color: #000000;
 }
 
-
 .purpose {
-  background-color: #71FFFF;
-  color: #003A47;
+  background-color: #71ffff;
+  color: #003a47;
 }
 
 .getajob {
@@ -187,7 +186,6 @@
 }
 
 /* 키워드 css */
-
 
 /* 댓글 */
 
@@ -311,7 +309,7 @@
   letter-spacing: -1px;
 }
 
-.Top_container > div >p {
+.Top_container > div > p {
   font-size: 14px;
   font-weight: bold;
   margin: 12px 0;
@@ -348,12 +346,14 @@
 .text_content_wrapper {
   position: relative;
 }
-.profile_view > p{
+
+.profile_view > p {
   font-size: 12px;
   text-align: right;
   color: #999999;
   font-family: "Pretendard Variable";
 }
+
 /* 댓글 작성 quill버전 css */
 .comment_write_profile {
   margin-right: 16px;
@@ -364,12 +364,11 @@
   height: 65px;
 }
 
-.comment_write>div {
+.comment_write > div {
   display: flex;
 }
 
-
-.quillComment_container{
+.quillComment_container {
   width: 90%;
 }
 
@@ -395,6 +394,7 @@
 .submit_btn_group button:hover {
   background-color: #2474ff;
 }
+
 /* 댓글 작성 quill버전 css */
 
 @media (max-width: 1024px) {
@@ -402,7 +402,6 @@
     margin: 0 auto;
   }
 }
-
 
 /* 쪽지보내기 css */
 
@@ -431,11 +430,11 @@
   margin-right: 8px;
 }
 
-.message_dropdown>li:hover svg {
+.message_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.message_dropdown>li:hover span {
+.message_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -461,11 +460,34 @@
   font-size: 14px;
 }
 
-@media (max-width:1024px) {
-  .message_dropdown{
+@media (max-width: 1024px) {
+  .message_dropdown {
     top: 20%;
     right: 12%;
   }
+}
+
+.send_msg_btn {
+  background-color: white;
+  border: 2px solid #999999;
+  color: #333333;
+  text-align: center;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px;
+  /* width: 51%; */
+  /* color: white; */
+  cursor: pointer;
+  /* box-sizing: border-box; */
+  margin-left: 4.3rem;
+  margin-top: 16px;
+  transition-duration: 100ms;
+}
+.send_msg_btn:hover {
+  background-color: #2474ff;
+  color: white;
+  border: 2px solid #2474ff;
 }
 
 /* 쪽지보내기 css */

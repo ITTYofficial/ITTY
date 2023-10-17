@@ -157,6 +157,7 @@
 }
 
 .play_detail_profile {
+  position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 8px;
@@ -181,7 +182,7 @@
   /* letter-spacing: -1px; */
 }
 
-.profile_view > p{
+.profile_view>p {
   font-size: 12px;
   text-align: right;
   color: #999999;
@@ -624,8 +625,7 @@
 .message_dropdown {
   font-size: 14px;
   position: absolute;
-  right: 2%;
-  top: 21%;
+  top: 115%;
   box-shadow: 1px 1px 8px gray;
   padding: 4px 8px;
   width: 125px;
@@ -676,11 +676,8 @@
   font-size: 14px;
 }
 
-@media (max-width:1024px) {
-  .message_dropdown{
-    top: 20%;
-    right: 12%;
-  }
+.profile_text>h4 {
+  cursor: pointer;
 }
 
 /* 쪽지보내기 css */
