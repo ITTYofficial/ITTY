@@ -27,7 +27,7 @@ const TipWrite = () => {
   // 글 작성 관련
 
   // Quill value
-  const { value, setValue } = useContext(QuillContext);
+  const { value, setValue, cancel } = useContext(QuillContext);
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const location = useLocation();
@@ -211,7 +211,7 @@ const TipWrite = () => {
             </div>
 
             <div className={style.button_group}>
-              <button className={style.cancel_btn} type="submit">
+              <button onClick={cancel} className={style.cancel_btn} type="button">
                 취소
               </button>
               <button className={style.submit_btn} type="submit">

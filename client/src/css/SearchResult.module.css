@@ -117,8 +117,8 @@
   cursor: pointer;
 }
 .search_detail span:last-child h5 {
-  font-family: sans-serif;
-  letter-spacing: -1px;
+  font-family: "Pretendard Variable";
+  font-weight: 500;
 }
 .list_title {
   font-size: 18px;
@@ -143,8 +143,7 @@
   background-color: burlywood;
 }
 
-
-.spinner_container{
+.spinner_container {
   display: flex;
   justify-content: center;
   width: 100%;

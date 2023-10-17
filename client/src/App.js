@@ -90,6 +90,14 @@ function App() {
     }
   };
 
+  // 게시글 작성 취소 함수
+  const cancel = () => {
+    const choice = window.confirm('게시글 작성을 취소하시겠습니까?');
+    if (choice) {
+      window.history.back();
+    }
+  }
+
   // 댓글 조회 함수
   const getComment = (id) => {
     axios.get(`${baseUrl}/comment/commentList?postId=${id}`)
@@ -232,6 +240,7 @@ function App() {
     // 게시판 Quill 
     value: value,
     setValue: setValue,
+    cancel: cancel,
     // 댓글 Quill
     coValue: coValue,
     setCoValue: setCoValue,

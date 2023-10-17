@@ -269,19 +269,49 @@ const Header = () => {
           </li>
         </ul>
 
-        <button className={Nav.Member_mobile}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            class="bi bi-person-circle"
-            viewBox="0 0 16 16"
+        <button className={Nav.Member_mobile} onClick={profileOn}>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+          </div>
+          <ul
+            className={`${Nav.Member_profile_dropdown} ${profile ? Nav.profile_active : ""
+              }`}
           >
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-            <path
-              fill-rule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-            />
-          </svg>
+
+            {loginOk ?
+              <>
+                <li>
+                  <Link to={"/myPage/profile"}>
+                    마이페이지
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/myPage/message"}>
+                    받은쪽지함
+                  </Link>
+                </li>
+                <li className={Nav.profile_logout} onClick={goLogout}>
+                  로그아웃
+                </li>
+              </>
+              :
+              <>
+                <li>
+                  <Link to={"/login"}>
+                    로그인
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/join"}>
+                    회원가입
+                  </Link>
+                </li>
+              </>
+            }
+          </ul>
         </button>
         <button className={Nav.hamburger_content} onClick={showSidebar}>
           <svg

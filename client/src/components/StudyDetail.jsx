@@ -7,11 +7,10 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
-import QuillComment from './QuillComment'
-import Modal from 'react-bootstrap/Modal';
+import QuillComment from "./QuillComment";
+import Modal from "react-bootstrap/Modal";
 
 const StudyDetail = () => {
-
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -22,68 +21,61 @@ const StudyDetail = () => {
   const RecruitTag = ({ now }) => {
     let tagClassName = style.play_title;
     const tagMap = {
-      '1': '모집중',
-      '-1': '모집완료',
+      1: "모집중",
+      "-1": "모집완료",
     };
     const tagStyleMap = {
-      '1': style.findsomeone,
-      '-1': style.completed,
+      1: style.findsomeone,
+      "-1": style.completed,
     };
 
     if (tagStyleMap[now]) {
       tagClassName = `${tagClassName} ${tagStyleMap[now]}`;
     }
 
-    return (
-      <span className={tagClassName}>
-        {tagMap[now] || ''}
-      </span>
-    );
+    return <span className={tagClassName}>{tagMap[now] || ""}</span>;
   };
 
   // 태그 컴포넌트들
   const RecommendTag = ({ selected }) => {
     let tagClassName = style.play_title;
     const tagMap = {
-      '1': '코딩테스트 대비 📖',
-      '2': '취업 준비 😋',
-      '3': '개발 공부 🔎',
-      '4': '자격증 공부 📝',
-      '5': '그룹 / 모임 🙋🏻‍♀️'
+      1: "코딩테스트 대비 📖",
+      2: "취업 준비 😋",
+      3: "개발 공부 🔎",
+      4: "자격증 공부 📝",
+      5: "그룹 / 모임 🙋🏻‍♀️",
     };
     const tagStyleMap = {
-      '1': style.purpose,
-      '2': style.getajob,
-      '3': style.develope,
-      '4': style.certificate,
-      '5': style.groupstudy
+      1: style.purpose,
+      2: style.getajob,
+      3: style.develope,
+      4: style.certificate,
+      5: style.groupstudy,
     };
 
     if (tagStyleMap[selected]) {
       tagClassName = `${tagClassName} ${tagStyleMap[selected]}`;
     }
 
-    return (
-      <span className={tagClassName}>
-        {tagMap[selected] || ''}
-      </span>
-    );
+    return <span className={tagClassName}>{tagMap[selected] || ""}</span>;
   };
 
   // 모집 상태 변경
   const handleRecruit = async () => {
     let obj = {
-      postId: id
-    }
-    await axios.post(`${baseUrl}/study/recruit`, obj)
+      postId: id,
+    };
+    await axios
+      .post(`${baseUrl}/study/recruit`, obj)
       .then((res) => {
         window.location.reload();
-        alert('전환 성공')
+        alert("전환 성공");
       })
       .catch((err) => {
-        alert('전환 실패')
-      })
-  }
+        alert("전환 실패");
+      });
+  };
 
   /* 수정삭제 버튼 */
 
@@ -135,7 +127,6 @@ const StudyDetail = () => {
 
   // 함수들
 
-
   // 게시글정보 저장할 State
   const [studyDetail, setStudyDetail] = useState([]);
   const [visible, setVisible] = useState([false, false, false, false, false]);
@@ -146,7 +137,7 @@ const StudyDetail = () => {
   const nickname = params.get("id");
 
   // 현재 로그인 회원 정보 조회
-  const nowUser = sessionStorage.getItem("memberId")
+  const nowUser = sessionStorage.getItem("memberId");
 
   // 회원정보 저장할 state -지홍
   const [memberInfo, setMemberInfo] = useState({});
@@ -219,7 +210,15 @@ const StudyDetail = () => {
   };
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
+  const {
+    commentList,
+    setCommentList,
+    getComment,
+    coValue,
+    setCoValue,
+    myInfo,
+    setMyInfo,
+  } = useContext(QuillContext);
 
   // QuillComment 컴포넌트 초기화용 state
   const [commentKey, setCommentKey] = useState(0);
@@ -240,11 +239,11 @@ const StudyDetail = () => {
       }
 
       const obj = {
-        id: sessionStorage.getItem('memberId'),
+        id: sessionStorage.getItem("memberId"),
         writer: sessionStorage.getItem("memberNickname"),
         postid: id,
         content: coValue,
-        boardType: 'study'
+        boardType: "study",
       };
       console.log(obj);
 
@@ -253,7 +252,7 @@ const StudyDetail = () => {
         .then((res) => {
           alert("댓글이 등록되었습니다.");
           console.log(res);
-          setCoValue('');
+          setCoValue("");
           getComment(id);
           setCommentKey(commentKey + 1);
         })
@@ -271,7 +270,6 @@ const StudyDetail = () => {
     };
   }, []);
 
-
   /* 쪽지 */
 
   const [message, setMessage] = useState(false);
@@ -280,12 +278,12 @@ const StudyDetail = () => {
     if (message) {
       setMessage(false);
     }
-  }
+  };
 
   const messageSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    formData.append('sendUserId', sessionStorage.getItem('memberId'));
+    formData.append("sendUserId", sessionStorage.getItem("memberId"));
     console.log("데이터 확인", e.target);
 
     const obj = {};
@@ -293,41 +291,32 @@ const StudyDetail = () => {
       console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
-    await axios.post(`${baseUrl}/message/write`, obj)
+    await axios
+      .post(`${baseUrl}/message/write`, obj)
       .then((res) => {
-        alert("글 작성 완료")
+        alert("글 작성 완료");
         handleClose();
-
-      }).catch((err) => {
-        alert("작성에 실패했습니다.")
-
       })
-  }
-
+      .catch((err) => {
+        alert("작성에 실패했습니다.");
+      });
+  };
 
   /* 모달 */
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
     setShow(false);
-
-  }
+  };
   const handleShow = () => {
     /* setCroppedImage(null); */
     setShow(true);
     /* handleCropperClick(); */
-  }
+  };
 
   /* 모달 */
 
-
   /* 쪽지 */
-
-
-
-
-
-
 
   return (
     <div className={style.Main_container}>
@@ -362,28 +351,45 @@ const StudyDetail = () => {
                   <h5>{memberInfo.nickname}</h5>
                 </span>
 
-                <span className={style.Profile_img} onClick={() => { setMessage(!message) }}>
+                <span
+                  className={style.Profile_img}
+                  onClick={() => {
+                    setMessage(!message);
+                  }}
+                >
                   <Image src={memberInfo.profileImg} roundedCircle />
                 </span>
-                {message &&
+                {message && (
                   <div className={style.message_dropdown}>
                     <li onClick={handleShow}>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="bi bi-chat-left-dots"
+                        viewBox="0 0 16 16"
+                      >
                         <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                         <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                       </svg>
                       <span>쪽지보내기</span>
                     </li>
                   </div>
-                }
+                )}
                 <Modal show={show} onHide={handleClose}>
                   <form onSubmit={messageSubmit}>
                     <Modal.Header closeButton>
                       <Modal.Title>쪽지 보내기</Modal.Title>
-                      <input type="hidden" name='getUserId' value={memberInfo.id}></input>
+                      <input
+                        type="hidden"
+                        name="getUserId"
+                        value={memberInfo.id}
+                      ></input>
                     </Modal.Header>
                     <Modal.Body>
-                      <textarea className={style.message_modal_input} name="content" placeholder="쪽지입력" />
+                      <textarea
+                        className={style.message_modal_input}
+                        name="content"
+                        placeholder="쪽지입력"
+                      />
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="secondary" onClick={handleClose}>
@@ -397,20 +403,32 @@ const StudyDetail = () => {
                 </Modal>
               </div>
               <span className={style.profile_view}>
-                <p>👁‍🗨 {studyDetail.views} 💬 {studyDetail.comments}</p>
+                <p>
+                  👁‍🗨 {studyDetail.views} 💬 {studyDetail.comments}
+                </p>
               </span>
-              {(nowUser === studyDetail.id ?
+              <div className={style.send_msg_btn} onClick={handleShow}>
+                쪽지보내기
+              </div>
+              {nowUser === studyDetail.id ? (
                 <span onClick={handleRecruit} className={style.mem_completed}>
                   모집완료 ✔
                 </span>
-                :
-                null)}
+              ) : null}
             </div>
           </div>
 
           <hr />
           <div className={style.text_content_wrapper}>
-            <div className={style.meatball} style={{ display: studyDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
+            <div
+              className={style.meatball}
+              style={{
+                display:
+                  studyDetail.id === sessionStorage.getItem("memberId")
+                    ? "block"
+                    : "none",
+              }}
+            >
               <ul>
                 <svg
                   onClick={() => {
@@ -446,8 +464,15 @@ const StudyDetail = () => {
           <form onSubmit={commentSubmit}>
             <div className={style.comment_write}>
               <div>
-                <div className={style.comment_write_profile} >
-                  <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
+                <div className={style.comment_write_profile}>
+                  <Image
+                    src={
+                      myInfo.profileImg
+                        ? myInfo.profileImg
+                        : "https://i.ibb.co/XsypSbQ/profile-01.png"
+                    }
+                    roundedCircle
+                  />
                 </div>
                 <div className={style.quillComment_container}>
                   <QuillComment key={commentKey} />
@@ -466,7 +491,12 @@ const StudyDetail = () => {
 
           {/* 댓글부분 */}
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} boardType='study' />
+            <CommentItem
+              key={item._id}
+              props={item}
+              postId={id}
+              boardType="study"
+            />
           ))}
           {/* 댓글부분 */}
         </div>

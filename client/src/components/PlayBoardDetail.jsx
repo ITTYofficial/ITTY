@@ -272,9 +272,9 @@ const PlayBoardDetail = () => {
                 <span className={PlayBoard.play_detail_profile}>
                   <span className={PlayBoard.profile_text}>
                     <p>{memberInfo.class}</p>
-                    <h4>{memberInfo.nickname}</h4>
+                    <h4 onClick={() => { setMessage(!message) }}>{memberInfo.nickname}</h4>
                   </span>
-                  <span className={PlayBoard.profile_pic} onClick={() => { setMessage(!message) }}>
+                  <span className={PlayBoard.profile_pic}>
                     <Image src={memberInfo.profileImg} roundedCircle />
                   </span>
                   {message &&
