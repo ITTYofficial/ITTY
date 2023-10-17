@@ -52,7 +52,6 @@ const MyPage_message = () => {
     await axios
       .get(`${baseUrl}/message/showMessageList?getUserId=${getUserId}`)
       .then((res) => {
-        /* console.log("메세지 리스트 데이터", res.data.lists); */
         const sortedMessages = res.data.lists.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
@@ -72,7 +71,6 @@ const MyPage_message = () => {
     setMessageListDetail("");
     const getUserId = sessionStorage.getItem("memberId");
     const sendUserId = e; // MessageCompo에 Link에 넣은 쿼리 스트링
-    console.log("센드유저아이디?", sendUserId);
     await axios
       .get(
         `${baseUrl}/message/showMessageListDetail?getUserId=${getUserId}&sendUserId=${sendUserId}`
@@ -86,7 +84,6 @@ const MyPage_message = () => {
       });
   };
 
-  console.log("머머 들어있음?", messageListDetail);
 
   // 스크롤을 맨 아래로 이동
   useEffect(() => {
@@ -150,7 +147,6 @@ const MyPage_message = () => {
     formData.forEach((value, key) => {
       obj[key] = value;
     });
-    console.log("obj 확인", obj.getUserId);
     await axios
       .post(`${baseUrl}/message/write`, obj)
       .then((res) => {

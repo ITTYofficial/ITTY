@@ -54,7 +54,6 @@ const TipWrite = () => {
     formData.append("id", sessionStorage.getItem("memberId"));
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     obj["content"] = value;
@@ -95,12 +94,10 @@ const TipWrite = () => {
       return;
     }
 
-    console.log(obj);
     axios
       .post(`${baseUrl}/tip/write`, obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
-        console.log(res);
         window.location.href = `/tipDetail/${res.data._id}?${res.data.id}`;
       })
       .catch((err) => {
@@ -120,7 +117,6 @@ const TipWrite = () => {
       await axios
         .get(`${baseUrl}/tip/tipDetail/${id}`)
         .then((res) => {
-          console.log(res);
           setTipDetail(res.data.detailTip[0]);
           setValue(res.data.detailTip[0].content);
           const positionArr = res.data.detailTip[0].category.split(",");

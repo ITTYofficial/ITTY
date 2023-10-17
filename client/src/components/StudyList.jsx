@@ -81,86 +81,26 @@ const StudyList = () => {
   };
   // 새로운 조회함수
   const getList = async () => {
-    console.log('조회함수 진입');
     console.time('소요시간');
     await axios.get(`${baseUrl}/total/findMemberInfo?study=study`)
       .then(async (res) => {
-        console.log('확인!', res.data);
 
         const sortedStudys = res.data.lists.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
 
-        // 댓글 개수 카운팅
-        /*       const counting = sortedStudys.map((item) => (item._id))
-              const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
-              const study = sortedStudys.map((obj, index) => ({
-                ...obj,
-                count: countList[index],
-              })); */
         setstudyList(res.data.lists);
         setMaxPage(sortedStudys.length);
-
-        // setPlayList(res.data.lists);
-        // setMaxPage(res.data.lists.length)
 
         console.timeEnd('소요시간');
       })
   }
 
-  console.log('스터디 리스트 확인', studyList);
 
-  // 장터 리스트 조회 함수
-  // const readstudyList = async () => {
-  //   await axios
-  //     .get("${baseUrl}/study/studyList")
-  //     .then(async (res) => {
-  //       console.log("1. writer :", res.data.study[0].writer);
-  //       let memberPromises = res.data.study.map((study) => {
-  //         // const nickname = study.writer;
-  //         const id = study.id
-  //         return axios.get(
-  //           `${baseUrl}/member/memberSearching?id=${id}`
-  //         );
-  //       });
-
-  //       let memberResponses = await Promise.all(memberPromises);
-  //       let member = memberResponses.map((response) => ({
-  //         member: response.data.member,
-  //       }));
-
-  //       console.log("member 내용물 : ", member.member);
-  //       let fusion = member.map((item, index) => {
-  //         return { ...item, ...res.data.study[index] };
-  //       });
-  //       console.log("퓨전", fusion);
-
-  //       const sortedStudy = fusion.sort((a, b) => {
-  //         // 게시글 데이터 작성 일자별 내림차순 정렬
-  //         return new Date(b.createdAt) - new Date(a.createdAt);
-  //       });
-
-  //       // 댓글 개수 카운팅
-  //       const counting = sortedStudy.map((item) => (item._id))
-  //       const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
-  //       const study = sortedStudy.map((obj, index) => ({
-  //         ...obj,
-  //         count: countList[index],
-  //       }));
-
-  //       setstudyList(study);
-  //       setMaxPage(sortedStudy.length);
-  //     })
-  //     .catch((err) => {
-  //       alert("통신에 실패했습니다.");
-  //       console.log(err);
-  //     });
-  // };
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    // readstudyList();
     getList();
   }, []);
 
@@ -189,7 +129,6 @@ const StudyList = () => {
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
     setPage(page);
-    console.log('페이지 확인', page);
   };
 
   const itemsPerPage = 10;

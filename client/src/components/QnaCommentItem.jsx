@@ -25,7 +25,6 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
         }
         await axios.post(`${baseUrl}/comment/commentLike`, obj)
             .then((res) => {
-                console.log(res);
                 setLike(res.data.liker.length)
             })
             .catch((err) => {
@@ -69,7 +68,6 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
     // 대댓글 작성완료 시 호출되는 함수
     function reCommentSubmit(event, _id) {
         event.preventDefault();
-        console.log(_id);
         const createdAt = new Date().toISOString();
         const obj = {
             id: sessionStorage.getItem("memberId"),
@@ -79,12 +77,10 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
             createdAt: createdAt,
             boardType: boardType
         };
-        console.log(obj);
 
         axios.post(`${baseUrl}/comment/reWrite`, obj)
             .then((res) => {
                 alert("댓글이 등록되었습니다.")
-                console.log(res);
                 getComment(postId);
             })
             .catch((err) => {
@@ -99,7 +95,6 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
     // 대댓글 내용 가져오는 함수
     const reCommentChange = (e) => {
         setReComment(e.target.value);
-        console.log(e.target.value);
     }
 
     // 대댓글 작성 칸 출력 조절 State

@@ -43,7 +43,6 @@ const PortWrite = () => {
 
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     obj["content"] = value;
@@ -53,7 +52,6 @@ const PortWrite = () => {
 
     // setImgFiles([imgFiles.join(';')]);
     const url = await handlingDataForm(croppedImage)
-    console.log(url);
     obj["imgPath"] = url;
 
     // 입력값 확인
@@ -85,7 +83,6 @@ const PortWrite = () => {
       }
     }
 
-    console.log(obj);
     if (refVisible) {
       alert("필수 입력 항목을 확인해주세요.");
       return;
@@ -95,7 +92,6 @@ const PortWrite = () => {
       .post(`${baseUrl}/port/write`, obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
-        console.log(res);
         window.location.href = `/portDetail/${res.data._id}?id=${res.data.id}`
       })
       .catch((err) => {
@@ -115,7 +111,6 @@ const PortWrite = () => {
       await axios
         .get(`${baseUrl}/port/portDetail/${id}`)
         .then((res) => {
-          console.log(res);
           setPortDetail(res.data.detailPort[0]);
           setValue(res.data.detailPort[0].content);
           setCroppedImage(res.data.detailPort[0].imgPath);
@@ -211,11 +206,9 @@ const PortWrite = () => {
           `${baseUrl}/save/save`,
           formData
         );
-        console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
         const url = result.data.url;
         return url;
       } catch (error) {
-        console.log("실패했어요ㅠ");
         console.log(error);
       }
     } else {

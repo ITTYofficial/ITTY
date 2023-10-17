@@ -34,7 +34,6 @@ const ProjectWrite = () => {
         } else {
             // 누른 버튼 값 추가
             setposition([...position, value]);
-            console.log(value);
         }
     }
 
@@ -67,22 +66,17 @@ const ProjectWrite = () => {
         event.preventDefault();
 
         // 작성된 값 확인할수 있는곳
-        // console.log('선택한 포지션:', position);
-        // console.log('프로젝트 시작일:', startDate);
-        // console.log('프로젝트 종료일:', endDate);
         const formData = new FormData(event.target);
         formData.append('id', sessionStorage.getItem('memberId'));
         formData.append('writer', sessionStorage.getItem('memberNickname'));
 
         const obj = {};
         formData.forEach((value, key) => {
-            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj['startDate'] = startDate;
         obj['endDate'] = endDate;
         obj['content'] = value;
-        // console.log(obj);
         if (id) {
             obj['_id'] = id
         }
@@ -137,7 +131,6 @@ const ProjectWrite = () => {
         axios.post(`${baseUrl}/project/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
-                console.log(res);
                 window.location.href = `/projectDetail/${res.data._id}?id=${res.data.id}`
             })
             .catch((err) => {
@@ -156,7 +149,6 @@ const ProjectWrite = () => {
             // projectRouter랑 통신해서 response에 결과값 저장
             await axios.get(`${baseUrl}/project/projectDetail/${id}`)
                 .then((res) => {
-                    console.log(res);
                     setProjectDetail(res.data.detailProject[0]);
                     setStartDate(new Date(res.data.detailProject[0].startDate));
                     setEndDate(new Date(res.data.detailProject[0].endDate));

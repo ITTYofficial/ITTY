@@ -55,7 +55,6 @@ const QnaWrite = () => {
         formData.append('id', sessionStorage.getItem('memberId'));
         const obj = {};
         formData.forEach((value, key) => {
-            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj["content"] = value;
@@ -96,12 +95,10 @@ const QnaWrite = () => {
             return;
         }
 
-        console.log(obj);
         axios
             .post(`${baseUrl}/qna/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.");
-                console.log(res);
                 window.location.href = `/qnaDetail/${res.data._id}?id=${res.data.id}`
             })
             .catch((err) => {
@@ -121,7 +118,6 @@ const QnaWrite = () => {
             await axios
                 .get(`${baseUrl}/qna/qnaDetail/${id}`)
                 .then((res) => {
-                    console.log(res);
                     setQnADetail(res.data.detailQnA[0]);
                     setValue(res.data.detailQnA[0].content);
                     const positionArr = res.data.detailQnA[0].category.split(',');

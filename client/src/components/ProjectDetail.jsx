@@ -126,7 +126,6 @@ const ProjectDetail = () => {
     await axios
       .get(`${baseUrl}/member/memberSearching?id=${nickname}`)
       .then((res) => {
-        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -190,7 +189,6 @@ const ProjectDetail = () => {
       .post(`${baseUrl}/project/recruit`, obj)
       .then((res) => {
         // 글 정보 자체가 변하는거니까 새로고침으로 했슴다
-        console.log(res.data);
         setProjectDetail(res.data.detailProject);
         const positionArr = res.data.detailProject.position.split(",");
         positionArr.map((item) => (visible[item - 1] = true));
@@ -263,11 +261,9 @@ const ProjectDetail = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     formData.append("sendUserId", sessionStorage.getItem("memberId"));
-    console.log("데이터 확인", e.target);
 
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     await axios
