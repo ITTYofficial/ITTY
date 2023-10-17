@@ -9,14 +9,6 @@ const Join = () => {
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  // 회원가입 '소속선택' 드롭다운 useState 관리
-  const [selectedValue, setSelectedValue] = useState(null);
-
-  const handleDropdownClick = (value) => {
-    setSelectedValue(value);
-  };
-
-
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [name, setName] = useState("");

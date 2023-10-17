@@ -14,9 +14,6 @@ const TipList = () => {
   // 팁 리스트 담을 State
   const [tipList, setTipList] = useState([]);
 
-  // 댓글 개수 담을 State
-  const [commentCount, setCommentCount] = useState();
-
   // 회원만 작성 할 수 있도록 제한하는 함수-지홍
   const checkSessionStorage = (e) => {
     // sessionStorage에서 값을 가져옴
@@ -50,7 +47,6 @@ const TipList = () => {
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    // readTipList();
     getList();
   }, []);
 
@@ -143,7 +139,7 @@ const TipList = () => {
       <LeftContainer />
       <div className={styles.right_container}>
         <div className={style.Main_container_banner}>
-          <img src="https://i.ibb.co/Stt16Jf/tip.png"></img>
+          <img src="https://i.ibb.co/Stt16Jf/tip.png" alt="이미지"></img>
         </div>
         <div className={styles.right_container_button}>
           <div></div>

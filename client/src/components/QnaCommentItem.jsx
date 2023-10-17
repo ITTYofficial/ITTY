@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from "../css/QnaCommentItem.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
@@ -13,7 +13,7 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
     /* QnaCommentItem입니다. 채택 버튼으로 따로 관리합니다! */
 
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-    const { getComment, deleteComment, deleteReComment, reCoValue, setReCoValue } =
+    const { deleteComment, deleteReComment } =
         useContext(QuillContext);
 
     // 좋아요 기능
@@ -64,48 +64,6 @@ const QnaCommentItem = ({ props, postId, boardType, postWriter, nowUser }) => {
             return `${daysDifference}일 전`;
         }
     };
-
-    // 대댓글 작성완료 시 호출되는 함수
-    function reCommentSubmit(event, _id) {
-        event.preventDefault();
-        const createdAt = new Date().toISOString();
-        const obj = {
-            id: sessionStorage.getItem("memberId"),
-            writer: sessionStorage.getItem("memberNickname"),
-            content: reCoValue,
-            commentId: _id,
-            createdAt: createdAt,
-            boardType: boardType
-        };
-
-        axios.post(`${baseUrl}/comment/reWrite`, obj)
-            .then((res) => {
-                alert("댓글이 등록되었습니다.")
-                getComment(postId);
-            })
-            .catch((err) => {
-                console.log(err);
-                alert("게시글 작성 실패")
-            })
-    }
-
-    // 대댓글 내용 담을 State
-    const [reComment, setReComment] = useState();
-
-    // 대댓글 내용 가져오는 함수
-    const reCommentChange = (e) => {
-        setReComment(e.target.value);
-    }
-
-    // 대댓글 작성 칸 출력 조절 State
-    const [recommentVisible, setRecommentVisible] = useState(false);
-
-    // 대댓글 작성 칸 함수
-    const showRecommentWrite = () => {
-        setRecommentVisible(!recommentVisible);
-    }
-
-
 
     // 대댓글 컴포넌트
     const ReComment = ({ commentId, props, index }) => {

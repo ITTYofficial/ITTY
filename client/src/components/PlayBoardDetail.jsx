@@ -96,7 +96,7 @@ const PlayBoardDetail = () => {
   };
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo } = useContext(QuillContext);
 
   // QuillComment 컴포넌트 초기화용 state
   const [commentKey, setCommentKey] = useState(0);
@@ -137,8 +137,6 @@ const PlayBoardDetail = () => {
         });
     }
   }
-
-
 
   // 페이지 빠져나갈 때 댓글 리스트 초기화
   useEffect(() => {

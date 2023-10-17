@@ -189,48 +189,6 @@ function App() {
       })
   }
 
-
-
-
-  // // 새창을 열었을 로그인이 풀리는 문제 해결하기위한 코드
-  // useEffect(() => {
-  //   // 컴포넌트가 마운트될 때 실행할 코드 작성
-  //   const localKey = 'protect-memberId';
-  //   const sessionKey = 'protect-nickname';
-
-  //   const handleStorageChange = (event) => {
-  //     if (!event.newValue) return;
-
-  //     // 세션 스토리지에 값이 있을 때, 로컬 스토리지에 데이터를 저장하고 삭제
-  //     if (event.key === sessionKey && sessionStorage.getItem('memberId')) {
-  //       localStorage.setItem(localKey, event.newValue);
-  //       localStorage.removeItem(localKey);
-  //     } else if (
-  //       (event.key === localKey || event.key === sessionKey) &&
-  //       (!sessionStorage.getItem('memberId') || !sessionStorage.getItem('nickname'))
-  //     ) {
-  //       // 로그인 상태가 아니라면 로컬 스토리지에서 세션 스토리지로 데이터를 옮김
-  //       const memberId = event.key === localKey ? event.newValue : sessionStorage.getItem('memberId');
-  //       const nickname = event.key === sessionKey ? event.newValue : sessionStorage.getItem('nickname');
-  //       sessionStorage.setItem('memberId', memberId);
-  //       sessionStorage.setItem('nickname', nickname);
-  //     }
-  //   };
-
-  //   window.addEventListener('storage', handleStorageChange);
-
-  //   // 세션 스토리지에 데이터가 없을 경우 로컬 스토리지에서 데이터 가져오기
-  //   if (!sessionStorage.getItem('memberId') || !sessionStorage.getItem('nickname')) {
-  //     localStorage.setItem('protect-temp', '1');
-  //     localStorage.removeItem('protect-temp');
-  //   }
-
-  //   // 컴포넌트가 언마운트될 때 실행할 코드 작성
-  //   return () => {
-  //     window.removeEventListener('storage', handleStorageChange);
-  //   };
-  // }, []);
-
   useEffect(() => {
     memberSearching();
   }, [])

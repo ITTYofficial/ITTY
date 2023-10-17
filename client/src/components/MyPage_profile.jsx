@@ -1,21 +1,18 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../css/MyPage.module.css";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
-import { Link, useLocation } from "react-router-dom";
-import CropperTest from "./CropperTest";
+import { Link } from "react-router-dom";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { QuillContext } from "../context/QuillContext";
 
 const MyPage_profile = () => {
 
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const { messageInfo, setMessageInfo } = useContext(QuillContext);
   /* 이미지 크롭 스크립트 */
   const [inputPicDisplay, setInputPicDisplay] = useState(true);
 
@@ -166,11 +163,6 @@ const MyPage_profile = () => {
       setImage(null);
     }
     setShow(false);
-  };
-
-  const handleCancelCrop = () => {
-    setImage(null);
-    setInputPicDisplay(true); // 이미지 입력을 취소하면 display를 다시 block으로 변경
   };
 
   /* 크로퍼 */

@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useMemo, useRef } from "react";
+import React, { useContext, useMemo, useRef } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
-import { useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
-const QuillComment = ({ update }) => {
+const QuillComment = () => {
 
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -109,16 +108,6 @@ const QuillComment = ({ update }) => {
     };
   }, []);
 
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "image",
-  ];
-
   const { coValue, setCoValue } = useContext(QuillContext);
 
 
@@ -131,7 +120,6 @@ const QuillComment = ({ update }) => {
         value={coValue}
         onChange={setCoValue}
         modules={modules}
-      /* formats={formats} */
       />
     </div>
   );

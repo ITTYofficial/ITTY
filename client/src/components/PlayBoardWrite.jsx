@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import QuillTest from './QuillTest'
 import style from "../css/PlayBoardWrite.module.css";
-import LeftContainer from './LeftContainer';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import { QuillContext } from '../context/QuillContext';
 
 const PlayBoardWrite = () => {

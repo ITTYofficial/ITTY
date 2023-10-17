@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import QuillTest from './QuillTest';
-import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { QuillContext } from '../context/QuillContext';

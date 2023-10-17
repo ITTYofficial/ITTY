@@ -3,7 +3,7 @@ import LeftContainer from "./LeftContainer";
 import Button from "react-bootstrap/Button";
 import styles from "../css/ProjectDetail.module.css";
 import axios from "axios";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
@@ -52,7 +52,6 @@ const ProjectDetail = () => {
     coValue,
     setCoValue,
     myInfo,
-    setMyInfo,
   } = useContext(QuillContext);
 
   // QuillComment 컴포넌트 초기화용 state
@@ -251,12 +250,6 @@ const ProjectDetail = () => {
 
   const [message, setMessage] = useState(false);
 
-  const toggleMessage = () => {
-    if (message) {
-      setMessage(false);
-    }
-  };
-
   const messageSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -342,7 +335,7 @@ const ProjectDetail = () => {
                       setMessage(!message);
                     }}
                   >
-                    <img src={memberInfo.profileImg} />
+                    <img src={memberInfo.profileImg} alt="이미지"/>
                   </span>
                   {message && (
                     <div className={styles.message_dropdown}>
