@@ -93,7 +93,6 @@ const PlayBoardDetail = () => {
       })
       .catch((err) => {
         alert("삭제 실패");
-        console.log(err);
       });
   };
 
@@ -130,7 +129,6 @@ const PlayBoardDetail = () => {
         .post(`${baseUrl}/comment/write`, obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
-          console.log(res);
           setCoValue('');
           getComment(id);
           setCommentKey(commentKey + 1);
