@@ -48,7 +48,8 @@ router.post('/write', async (req, res) => {
     }
     res.json({
       message: true,
-      _id: _id
+      _id: _id,
+      id: req.body.id
     });
     // res.json({ message: "게시글이 업로드 되었습니다." });
   } catch (err) {

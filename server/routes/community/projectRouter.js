@@ -89,7 +89,8 @@ router.post('/write', upload.single('img'), async (req, res) => {
     }
     res.json({
       message: true,
-      _id: _id
+      _id: _id,
+      id: req.body.id
     });
   } catch (err) {
     console.log(err);
