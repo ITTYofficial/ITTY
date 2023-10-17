@@ -32,13 +32,11 @@ const AnonymityList = (props) => {
     await axios
       .get(`${baseUrl}/anony/anonyList`)
       .then(async (res) => {
-        /* console.log('res확인 ', res.data.anony); */
         const sortedAnony = res.data.anony.sort((a, b) => {
 
           // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-        console.log(sortedAnony);
         setAnonyList(sortedAnony);
         setMaxPage(sortedAnony.length);
       })
@@ -105,7 +103,6 @@ const AnonymityList = (props) => {
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
     setPage(page);
-    console.log('페이지 확인', page);
   };
 
   const itemsPerPage = 10;

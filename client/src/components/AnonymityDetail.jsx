@@ -17,7 +17,6 @@ const AnonymityDetail = () => {
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
-  console.log("아이디 옴?", id);
 
   // 특정 게시글 조회하기위한 nickname값 가져오기
   const location = useLocation();
@@ -27,7 +26,6 @@ const AnonymityDetail = () => {
   // 회원정보 저장할 state
   const [memberInfo, setMemberInfo] = useState({});
 
-  // console.log('디테일상단 니크네임', nickname);
 
   const [anonyDetail, setAnonyDetail] = useState([]);
   // 게시글 조회함수
@@ -36,7 +34,6 @@ const AnonymityDetail = () => {
       .get(`${baseUrl}/anony/anonyDetail/${id}`)
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
-        /* console.log('res 확인', res.data.detailAnony[0]); */
         setAnonyDetail(res.data.detailAnony[0]);
       })
       .catch((err) => {
@@ -109,13 +106,11 @@ const AnonymityDetail = () => {
         postId: id,
         content: coValue,
       };
-      console.log(obj);
 
       axios
         .post(`${baseUrl}/anony/commentWrite`, obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
-          console.log(res);
           setCoValue("");
           getAnonyComment(id);
           setCommentKey(commentKey + 1);

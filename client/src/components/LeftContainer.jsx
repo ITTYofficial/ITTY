@@ -25,8 +25,6 @@ const LeftContainer = () => {
     top5List();
   }, []);
 
-  console.log('탑5확인', top5Members);
-
   return (
     <div className={style.left_container}>
       <div className={style.left_container_box1}>

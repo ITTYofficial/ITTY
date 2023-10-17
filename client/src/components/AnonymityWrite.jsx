@@ -17,7 +17,6 @@ const AnonymityList = () => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
     const { value, setValue, cancel } = useContext(QuillContext);
-    console.log("id :", id);
 
     // 경고메세지 출력을 위한 Ref
     const titleRef = useRef(null)
@@ -34,11 +33,9 @@ const AnonymityList = () => {
 
         const formData = new FormData(e.target);
         formData.append('id', sessionStorage.getItem('memberId'));
-        console.log(e.target);
 
         const obj = {};
         formData.forEach((value, key) => {
-            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj['content'] = value;
@@ -94,7 +91,6 @@ const AnonymityList = () => {
             // projectRouter랑 통신해서 response에 결과값 저장
             await axios.get(`${baseUrl}/anony/anonyDetail/${id}`)
                 .then((res) => {
-                    console.log(res);
                     setAnonyDetail(res.data.detailAnony[0]);
                     setValue(res.data.detailAnony[0].content)
                 });

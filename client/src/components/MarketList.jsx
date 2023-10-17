@@ -28,11 +28,8 @@ const MarketList = () => {
 
   // 새로운 게시판 리스트 함수
   const getList = async () => {
-    console.log('조회함수 진입');
-    console.time('소요시간');
     await axios.get(`${baseUrl}/total/findMemberInfo?market=market`)
       .then(async (res) => {
-        console.log('확인!', res.data);
 
         const sortedMarkets = res.data.lists.sort((a, b) => {
           // 게시글 데이터 작성 일자별 내림차순 정렬
@@ -103,7 +100,6 @@ const MarketList = () => {
   //       console.log(err);
   //     });
   // };
-  console.log('마켓리스트 검사', marketList);
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
@@ -136,7 +132,6 @@ const MarketList = () => {
   // 각 장터 게시글 정보를 담을 내부 컴포넌트
   // 날짜 바꾸기
   const MarketItem = ({ props }) => {
-    console.log('프롭스 확인', props.sold);
     return (
       <Link
         to={`/marketDetail/${props._id}?id=${props.id}`}
@@ -177,7 +172,6 @@ const MarketList = () => {
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
     setPage(page);
-    console.log('페이지 확인', page);
   };
 
   const itemsPerPage = 15;
