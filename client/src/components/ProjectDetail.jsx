@@ -7,11 +7,10 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
-import QuillComment from './QuillComment'
-import Modal from 'react-bootstrap/Modal';
+import QuillComment from "./QuillComment";
+import Modal from "react-bootstrap/Modal";
 
 const ProjectDetail = () => {
-
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -20,15 +19,11 @@ const ProjectDetail = () => {
   // 내부 컴포넌트
 
   const FindSomeone = () => (
-    <span className={`${styles.play_title} ${styles.findsomeone}`}>
-      모집중
-    </span>
+    <span className={`${styles.play_title} ${styles.findsomeone}`}>모집중</span>
   );
 
   const Completed = () => (
-    <span className={`${styles.play_title} ${styles.completed}`}>
-      모집완료
-    </span>
+    <span className={`${styles.play_title} ${styles.completed}`}>모집완료</span>
   );
   const Frontend = () => (
     <span className={`${styles.play_title} ${styles.frontend}`}>
@@ -50,7 +45,15 @@ const ProjectDetail = () => {
   /* 키워드 컴포넌트 */
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
+  const {
+    commentList,
+    setCommentList,
+    getComment,
+    coValue,
+    setCoValue,
+    myInfo,
+    setMyInfo,
+  } = useContext(QuillContext);
 
   // QuillComment 컴포넌트 초기화용 state
   const [commentKey, setCommentKey] = useState(0);
@@ -65,7 +68,6 @@ const ProjectDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-
       // 댓글 빈값 막기
       if (coValue == "" || coValue == "<p><br></p>") {
         alert("내용을 입력해주세요");
@@ -73,11 +75,11 @@ const ProjectDetail = () => {
       }
 
       const obj = {
-        id: sessionStorage.getItem('memberId'),
+        id: sessionStorage.getItem("memberId"),
         writer: sessionStorage.getItem("memberNickname"),
         postid: id,
         content: coValue,
-        boardType: 'project'
+        boardType: "project",
       };
 
       axios
@@ -114,7 +116,7 @@ const ProjectDetail = () => {
   const [visible, setVisible] = useState([false, false, false, false, false]);
 
   // 현재 로그인 회원 정보 조회
-  const nowUser = sessionStorage.getItem("memberId")
+  const nowUser = sessionStorage.getItem("memberId");
 
   // 회원정보 저장할 state -지홍
   const [memberInfo, setMemberInfo] = useState({});
@@ -136,9 +138,7 @@ const ProjectDetail = () => {
   // 작성자 정보는 아직 없어서 나중에 추가할 것
   const getProject = async () => {
     // projectRouter랑 통신해서 response에 결과값 저장
-    const response = await axios.get(
-      `${baseUrl}/project/projectDetail/${id}`
-    );
+    const response = await axios.get(`${baseUrl}/project/projectDetail/${id}`);
     // respnse에서 데이터 꺼내서 State에 저장
     setProjectDetail(response.data.detailProject[0]);
     const positionArr = response.data.detailProject[0].position.split(",");
@@ -184,22 +184,23 @@ const ProjectDetail = () => {
   // 모집 상태 변경
   const handleRecruit = async () => {
     let obj = {
-      postId: id
-    }
-    await axios.post(`${baseUrl}/project/recruit`, obj)
+      postId: id,
+    };
+    await axios
+      .post(`${baseUrl}/project/recruit`, obj)
       .then((res) => {
         // 글 정보 자체가 변하는거니까 새로고침으로 했슴다
         console.log(res.data);
         setProjectDetail(res.data.detailProject);
         const positionArr = res.data.detailProject.position.split(",");
         positionArr.map((item) => (visible[item - 1] = true));
-        alert('전환 성공')
+        alert("전환 성공");
       })
       .catch((err) => {
         console.log(err);
-        alert('전환 실패')
-      })
-  }
+        alert("전환 실패");
+      });
+  };
 
   /* 수정삭제 버튼 */
   const [meat, setMeat] = useState(false);
@@ -248,8 +249,6 @@ const ProjectDetail = () => {
 
   /* 수정삭제 버튼 */
 
-
-
   /* 쪽지 */
 
   const [message, setMessage] = useState(false);
@@ -258,12 +257,12 @@ const ProjectDetail = () => {
     if (message) {
       setMessage(false);
     }
-  }
+  };
 
   const messageSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    formData.append('sendUserId', sessionStorage.getItem('memberId'));
+    formData.append("sendUserId", sessionStorage.getItem("memberId"));
     console.log("데이터 확인", e.target);
 
     const obj = {};
@@ -271,36 +270,32 @@ const ProjectDetail = () => {
       console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
-    await axios.post(`${baseUrl}/message/write`, obj)
+    await axios
+      .post(`${baseUrl}/message/write`, obj)
       .then((res) => {
-        alert("글 작성 완료")
+        alert("글 작성 완료");
         handleClose();
-
-      }).catch((err) => {
-        alert("작성에 실패했습니다.")
-
       })
-  }
-
+      .catch((err) => {
+        alert("작성에 실패했습니다.");
+      });
+  };
 
   /* 모달 */
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
     setShow(false);
-
-  }
+  };
   const handleShow = () => {
     /* setCroppedImage(null); */
     setShow(true);
     /* handleCropperClick(); */
-  }
+  };
 
   /* 모달 */
 
-
   /* 쪽지 */
-
 
   return (
     <div className={styles.Main_container}>
@@ -345,28 +340,45 @@ const ProjectDetail = () => {
                     <p>{memberInfo.class}</p>
                     <h4>{memberInfo.nickname}</h4>
                   </span>
-                  <span className={styles.profile_pic} onClick={() => { setMessage(!message) }}>
+                  <span
+                    className={styles.profile_pic}
+                    onClick={() => {
+                      setMessage(!message);
+                    }}
+                  >
                     <img src={memberInfo.profileImg} />
                   </span>
-                  {message &&
+                  {message && (
                     <div className={styles.message_dropdown}>
                       <li onClick={handleShow}>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="bi bi-chat-left-dots"
+                          viewBox="0 0 16 16"
+                        >
                           <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                           <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                         </svg>
                         <span>쪽지보내기</span>
                       </li>
                     </div>
-                  }
+                  )}
                   <Modal show={show} onHide={handleClose}>
                     <form onSubmit={messageSubmit}>
                       <Modal.Header closeButton>
                         <Modal.Title>쪽지 보내기</Modal.Title>
-                        <input type="hidden" name='getUserId' value={memberInfo.id}></input>
+                        <input
+                          type="hidden"
+                          name="getUserId"
+                          value={memberInfo.id}
+                        ></input>
                       </Modal.Header>
                       <Modal.Body>
-                        <textarea className={styles.message_modal_input} name="content" placeholder="쪽지입력" />
+                        <textarea
+                          className={styles.message_modal_input}
+                          name="content"
+                          placeholder="쪽지입력"
+                        />
                       </Modal.Body>
                       <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
@@ -378,18 +390,23 @@ const ProjectDetail = () => {
                       </Modal.Footer>
                     </form>
                   </Modal>
-
                 </span>
                 <span className={styles.profile_view}>
-                  <p>👁‍🗨 {projectDetail.views} 💬 {projectDetail.comments}</p>
+                  <p>
+                    👁‍🗨 {projectDetail.views} 💬 {projectDetail.comments}
+                  </p>
                 </span>
-                {(nowUser === projectDetail.id ?
-                  <span className={styles.mem_completed} onClick={handleRecruit}>
+                <div className={styles.send_msg_btn} onClick={handleShow}>
+                  쪽지보내기
+                </div>
+                {nowUser === projectDetail.id ? (
+                  <span
+                    className={styles.mem_completed}
+                    onClick={handleRecruit}
+                  >
                     모집완료 ✔
                   </span>
-                  :
-                  null)}
-
+                ) : null}
               </div>
             </div>
           </div>
@@ -398,7 +415,15 @@ const ProjectDetail = () => {
           {/* 게시글 content 시작 */}
 
           <div className={styles.play_content}>
-            <div className={styles.meatball} style={{ display: projectDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
+            <div
+              className={styles.meatball}
+              style={{
+                display:
+                  projectDetail.id === sessionStorage.getItem("memberId")
+                    ? "block"
+                    : "none",
+              }}
+            >
               <ul>
                 <svg
                   onClick={() => {
@@ -434,7 +459,14 @@ const ProjectDetail = () => {
             <div className={styles.comment_write}>
               <div>
                 <div className={styles.comment_write_profile}>
-                  <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
+                  <Image
+                    src={
+                      myInfo.profileImg
+                        ? myInfo.profileImg
+                        : "https://i.ibb.co/XsypSbQ/profile-01.png"
+                    }
+                    roundedCircle
+                  />
                 </div>
                 <div className={styles.quillComment_container}>
                   <QuillComment key={commentKey} />
@@ -453,7 +485,12 @@ const ProjectDetail = () => {
           {/* 댓글달기 끝 */}
 
           {commentList.map((item) => (
-            <CommentItem key={item._id} props={item} postId={id} boardType='project' />
+            <CommentItem
+              key={item._id}
+              props={item}
+              postId={id}
+              boardType="project"
+            />
           ))}
         </div>
       </div>
