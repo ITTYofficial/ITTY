@@ -280,19 +280,37 @@ const Header = () => {
             className={`${Nav.Member_profile_dropdown} ${profile ? Nav.profile_active : ""
               }`}
           >
-            <li>
-              <Link to={"/myPage/profile"}>
-                마이페이지
-              </Link>
-            </li>
-            <li>
-              <Link to={"/myPage/message"}>
-                받은쪽지함
-              </Link>
-            </li>
-            <li className={Nav.profile_logout} onClick={goLogout}>
-              로그아웃
-            </li>
+
+            {loginOk ?
+              <>
+                <li>
+                  <Link to={"/myPage/profile"}>
+                    마이페이지
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/myPage/message"}>
+                    받은쪽지함
+                  </Link>
+                </li>
+                <li className={Nav.profile_logout} onClick={goLogout}>
+                  로그아웃
+                </li>
+              </>
+              :
+              <>
+                <li>
+                  <Link to={"/login"}>
+                    로그인
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/join"}>
+                    회원가입
+                  </Link>
+                </li>
+              </>
+            }
           </ul>
         </button>
         <button className={Nav.hamburger_content} onClick={showSidebar}>
