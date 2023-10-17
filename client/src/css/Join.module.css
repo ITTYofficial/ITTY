@@ -36,12 +36,12 @@
 .Join_content_box3 {
     width: 400px;
     background-color: #ffffff;
-    height: 800px;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    margin-top: 3%;
+    /* margin-top: 3%; */
 }
 
 
@@ -89,6 +89,7 @@
 .Login_kakao_box{
     text-align: center;
     font-weight: bold;
+    display: none;
 }
 
 .Join_font_box {
