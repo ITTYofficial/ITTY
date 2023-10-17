@@ -45,7 +45,6 @@ router.get('/mainList', async (req, res) => {
         
         const proStu = proStu1.slice(0,5);
         
-        console.log('prostu확인', proStu);
 
         // 프로젝트 +스터디 작성자 정보 조회
         const proStuWriterInfo = proStu.map(item => {

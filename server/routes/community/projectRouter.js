@@ -15,7 +15,6 @@ const upload = multer({
     // 저장할 이미지의 파일명
     filename(req, file, cb) {
       const ext = path.extname(file.originalname); // 파일의 확장자
-      console.log('file.originalname', file.originalname);
       // 파일명이 절대 겹치지 않도록 해줘야한다.
       // 파일이름 + 현재시간밀리초 + 파일확장자명
       cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
@@ -100,7 +99,6 @@ router.post('/write', upload.single('img'), async (req, res) => {
 
 // 글 삭제
 router.post("/delete/:_id", async (req, res) => {
-  console.log('delete진입');
   try {
     const id = req.params._id;
     await Project.deleteOne({

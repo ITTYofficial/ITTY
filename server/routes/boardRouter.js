@@ -7,7 +7,6 @@ const Board = require("../schemas/board");
 // 글 삭제
 // :_id값 받아오는거 확인
 router.post("/delete/:_id", async (req, res) => {
-  console.log('delete진입');
   try {
     const id = req.params._id;
     await Board.deleteOne({

@@ -69,7 +69,6 @@ router.post('/write', async (req, res) => {
 
 // 글 삭제
 router.post("/delete/:_id", async (req, res) => {
-  console.log('delete진입');
   try {
     const id = req.params._id;
     await Study.deleteOne({

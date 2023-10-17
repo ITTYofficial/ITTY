@@ -32,8 +32,6 @@ router.post('/join', async (req, res) => {
 router.post('/update', async (req, res) => {
   try {
     let pw = req.body.pw;
-    console.log('정보수정 도착', req.body.pw);
-    console.log('정보수정 도착', req.body.imgPath);
     if (pw) {
       await Member.updateOne(
         { id: req.body.id },
@@ -63,13 +61,9 @@ router.post('/update', async (req, res) => {
 router.post('/updateNick', async (req, res) => {
   try {
 
-    // console.log('닉네임 도착',req.query.nickname);
-    // const nickname = {
-    //   nickname: nickname,
 
     // };
     let obj;
-    console.log('서버도착 닉네임:', req.body.nickname);
     await Member.updateOne(
       { id: req.body.id },
       {
@@ -140,11 +134,8 @@ router.post('/nicknameCheck', async (req, res) => {
 // 닉네임 값으로 특정 회원 조회
 router.get('/memberSearching', async (req, res) => {
   try {
-    /* console.log('쿼리스트링',req.query); */
     const id = req.query.id;
-    /* console.log('회원조회도착 id', id); */
     const member = await Member.findOne({ id: id });
-    /* console.log('회원조회도착 class :', member); */
     if (member) {
       res.json({
         member: member
@@ -207,8 +198,7 @@ router.post('/login', async (req, res) => {
         message: '제공된 이메일에 해당하는 유저가 없습니다.',
       });
     }
-    console.log("db속 비밀번호 :", member.pw);
-    console.log("페이지 입력한 비밀번호 :", req.body.pw);
+
     // 요청된 이메일이 데이터베이스에 있다면 비밀번호가 맞는지 확인.
     if (member.pw !== req.body.pw) {
       return res.json({

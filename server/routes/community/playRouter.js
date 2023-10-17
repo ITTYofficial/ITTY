@@ -8,8 +8,7 @@ router.post('/write', async (req, res) => {
 
     // 해당 라우터가 정상적으로 작동하면 public/uploads에 이미지가 업로드된다.
     // 업로드된 이미지의 URL 경로를 프론트엔드로 반환한다.
-    // console.log('전달받은 파일', req.file);
-    // console.log('저장된 파일의 이름', req.file.filename);
+
 
     let obj;
     let _id;
@@ -74,7 +73,6 @@ router.get('/playList', async (req, res) => {
 router.get("/playboardDetail/:_id", async (req, res) => {
   try {
     const id = req.params._id;
-    console.log(id);
     const detailPlay = await Play.find({
       _id: id
     });
@@ -99,7 +97,6 @@ router.get("/playboardDetail/:_id", async (req, res) => {
 
 // 글 삭제
 router.post("/delete/:_id", async (req, res) => {
-  console.log('delete진입');
   try {
     const id = req.params._id;
     await Play.deleteOne({

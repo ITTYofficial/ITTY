@@ -64,7 +64,6 @@ router.get('/portList', async (req, res) => {
 router.get("/portDetail/:_id", async (req, res) => {
     try {
         const id = req.params._id;
-        console.log(id);
         const detailPort = await Port.find({
             _id: id
         });
@@ -89,7 +88,6 @@ router.get("/portDetail/:_id", async (req, res) => {
 
 // 글 삭제
 router.post("/delete/:_id", async (req, res) => {
-    console.log('delete진입');
     try {
         const id = req.params._id;
         await Port.deleteOne({

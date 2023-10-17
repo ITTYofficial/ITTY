@@ -14,10 +14,8 @@ const Market = require('../../schemas/community/market')
 
 // 전체를 한번에?
 router.get('/findMemberInfo', async (req, res) => {
-    console.time('걸린시간');
     try {
-        console.time("게시판 리스트조회 도착")
-        console.log('플레이 쿼리스트링', req.query);
+        
 
         let lists = [];
 
@@ -42,7 +40,6 @@ router.get('/findMemberInfo', async (req, res) => {
         } else if (req.query.market == 'market') {
             lists = await Market.find();
         } else {
-            console.log('엘스조건');
         }
         // 리스트 작성자 아이디 수집
         lists.forEach(list => {
@@ -61,7 +58,6 @@ router.get('/findMemberInfo', async (req, res) => {
             };
         });
         res.json({ lists: getWriterInformation });
-        console.timeEnd('걸린시간');
     } catch (err) {
         console.log('에러 : ', err);
         res.json({ message: false })

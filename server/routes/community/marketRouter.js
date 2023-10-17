@@ -68,7 +68,6 @@ router.get('/marketList', async (req, res) => {
 router.get("/marketDetail/:_id", async (req, res) => {
   try {
     const id = req.params._id;
-    console.log(id);
     const detailMarket = await Market.find({
       _id: id
     });
@@ -93,7 +92,6 @@ router.get("/marketDetail/:_id", async (req, res) => {
 
 // 글 삭제
 router.post("/delete/:_id", async (req, res) => {
-  console.log('delete진입');
   try {
     const id = req.params._id;
     await Market.deleteOne({

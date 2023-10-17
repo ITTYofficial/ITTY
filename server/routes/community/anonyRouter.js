@@ -232,7 +232,6 @@ router.post('/reCommentWrite', async (req, res) => {
 
         // 작성자의 anonyIndex를 가져와서 anonymousIndex에 저장
         const anonymousIndex = updatedPost.anonyIndex.indexOf(writer);
-        console.log('어나니인덱스', anonymousIndex);
 
 
         let obj = {
@@ -271,7 +270,6 @@ router.post('/reCommentWrite', async (req, res) => {
 // 댓글 리스트 조회
 router.get('/anonyCommentList', async (req, res) => {
     try {
-        console.log('조회함수 확인', req.query.postId);
         const postId = req.query.postId;
         const anonyComment = await AnonyComment.find({ postId: postId });
         res.json({ anonyComment })
@@ -283,7 +281,6 @@ router.get('/anonyCommentList', async (req, res) => {
 
 // 댓글 삭제
 router.post("/commentdelete", async (req, res) => {
-    console.log('delete진입');
     try {
         const commentinfo = await AnonyComment.findOneAndDelete(
             {
@@ -308,7 +305,6 @@ router.post("/commentdelete", async (req, res) => {
 
 // 대댓글 삭제
 router.post("/deleteRecomment/", async (req, res) => {
-    console.log('deleteReComment진입');
     try {
         const index = req.body.index;
         const commentId = req.body.commentId;

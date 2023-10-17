@@ -4,9 +4,7 @@ const Message = require('../schemas/message')
 const Member = require('../schemas/member/member')
 
 router.get('/showMessageList', async (req, res) => {
-  console.log('메세지리스트조회 시작');
   try {
-    console.log('보낸사람 쿼리스트링', req.query);
     const getUserId = req.query.getUserId;
     const myId =req.query.getUserId;
     // 메시지 리스트 보낸 아이디 모음
@@ -27,7 +25,6 @@ router.get('/showMessageList', async (req, res) => {
     ];
 
     let lists = await Message.aggregate(aggregation);
-    console.log(lists);
     // 메세지 리스트 메세지 보낸사람 아이디 수집
     // lists.forEach(list => {
     //   if (list.doc.sendUserId) {
@@ -44,15 +41,12 @@ router.get('/showMessageList', async (req, res) => {
         writerId.push(list.doc.getUserId);
       }
     });
-    console.log('writerId 확인1', writerId);
 
     // 작성자 정보 일괄 조회    
     const writerInfos = await Member.find({ id: { $in: writerId } });
-    console.log('writerInfos 확인2', writerInfos);
 
     let getWriterInformation = lists.map(list => {
       const writerInfo = writerInfos.find(info => info.id === list.doc.sendUserId || info.id === list.doc.getUserId);
-      console.log('writerInfos 확인3', writerInfo);
       return {
         ...list.doc,
         writerInfo: writerInfo,
@@ -70,8 +64,6 @@ router.get('/showMessageListDetail', async (req, res) => {
   try {
     const sendUserId = req.query.sendUserId;
     const getUserId = req.query.getUserId;
-    console.log("디테일 센드아이디", sendUserId);
-    console.log("디테일 겟아이디", getUserId);
     let lists = [];
 
 
@@ -91,7 +83,6 @@ router.get('/showMessageListDetail', async (req, res) => {
       read: 0 // read가 0인 메시지만 업데이트
     }, { $set: { read: 1 } });
 
-    /* console.log('lists 확인0:', lists); */
     // 메세지 리스트 메세지 보낸사람 아이디 수집
     lists.forEach(list => {
       if (list.sendUserId) {
@@ -100,10 +91,8 @@ router.get('/showMessageListDetail', async (req, res) => {
     });
     // 작성자 정보 일괄 조회    
     const writerInfos = await Member.find({ id: { $in: writerId } });
-    /* console.log('writerInfos 확인2', writerInfos); */
     const getWriterInformation = lists.map(list => {
       const writerInfo = writerInfos.find(info => info.id === list.sendUserId);
-      /* console.log('writerInfos 확인3', writerInfo); */
       return {
         ...list.toJSON(),
         writerInfo: writerInfo.toJSON(),

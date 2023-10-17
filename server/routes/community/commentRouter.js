@@ -25,7 +25,6 @@ const schemas = {
 // 댓글 작성
 router.post('/write', async (req, res) => {
 
-  console.log('확인', req.body);
   try {
     let obj;
 
@@ -41,7 +40,6 @@ router.post('/write', async (req, res) => {
 
     for (const key in schemas) {
       if (req.body.boardType === key) {
-        console.log('어디임?', schemas[key]);
         await schemas[key].updateOne(
           { _id: req.body.postid },
           {
@@ -68,7 +66,6 @@ router.post('/write', async (req, res) => {
 
 // 대댓글 작성
 router.post('/reWrite', async (req, res) => {
-  console.log('대댓글 작성 req값', req.body);
   try {
 
     let obj;
@@ -94,7 +91,6 @@ router.post('/reWrite', async (req, res) => {
 
     for (const key in schemas) {
       if (req.body.boardType === key) {
-        console.log('어디임?', schemas[key]);
         await schemas[key].updateOne(
           { _id: commentinfo.postId },
           {
@@ -188,7 +184,6 @@ router.post('/commentSelection', async (req, res) => {
 router.get('/commentList', async (req, res) => {
   const postId = req.query.postId;
   try {
-    console.log('댓글 리스트 도착', postId);
 
     // 댓글 및 대댓글 작성자 아이디 모음
     const writerIds = [];
@@ -251,7 +246,6 @@ router.post("/commentCount", async (req, res) => {
     });
 
     const countList = await Promise.all(promises);
-    console.log(countList);
     res.json({ countList });
   } catch (err) {
     console.log(err);
@@ -262,9 +256,7 @@ router.post("/commentCount", async (req, res) => {
 
 // 댓글 삭제
 router.post("/delete/", async (req, res) => {
-  console.log('댓삭 req 확인', req.body);
   try {
-    /*  const id = req.body.postId; */
     const commentinfo = await Comment.findOneAndDelete(
       {
         _id: req.body.commentId
@@ -274,7 +266,6 @@ router.post("/delete/", async (req, res) => {
 
     for (const key in schemas) {
       if (req.body.boardType === key) {
-        console.log('어디임?', schemas[key]);
         await schemas[key].updateOne(
           { _id: req.body.postId },
           {
@@ -298,7 +289,6 @@ router.post("/delete/", async (req, res) => {
 
 // 대댓글 삭제
 router.post("/deleteRecomment/", async (req, res) => {
-  console.log('req 확인', req.body);
   try {
     const index = req.body.index;
     const commentId = req.body.commentId;
@@ -321,7 +311,6 @@ router.post("/deleteRecomment/", async (req, res) => {
 
     for (const key in schemas) {
       if (req.body.boardType === key) {
-        console.log('어디임?', schemas[key]);
         await schemas[key].updateOne(
           { _id: req.body.postId },
           {
