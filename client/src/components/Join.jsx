@@ -2,20 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import style from "../css/Join.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dropdown from "bootstrap/js/dist/dropdown";
 import axios from 'axios';
-
-
-/* 
-회원가입 form태그 
-
-아이디:id // 비밀번호:pw // 비밀번호확인 pw_check
-이름: name // 닉네임: nickname
-
-라디오버튼: 남 male  //여 female
-드롭다운 박스 : 데이터디자인반 datadesign, 빅데이터분석 bigdata, 풀스택반 full stack
-
-*/
 
 const Join = () => {
 
@@ -81,16 +68,14 @@ const Join = () => {
   const onSkillHandler = (e) => {
     setSkill(e.target.value);
   }
-  // ****************************
-  // 아이디 중복체크 + 영문숫자 조합확인
-  const engNum = /^[A-Za-z0-9]{5,16}$/; // 영문-숫자 + 5글자이상 15미만으로 제한
+
+  const engNum = /^[A-Za-z0-9]{5,16}$/;
 
   const engNumCheck = (e) => {
     if (messageElement1.current) {
       const inputValue = e.target.value
       if (engNum.test(inputValue)) {
         messageElement1.current.textContent = "";
-        //    messageElement.current.style.color = "green";
         setIdCheckResult(true);
       } else {
         messageElement1.current.textContent = "아이디는 영문, 숫자 조합입니다";
@@ -107,7 +92,6 @@ const Join = () => {
       const inputValue = e.target.value
       if (engNumPw.test(inputValue)) {
         messageElement2.current.textContent = "";
-        //      messageElement.current.style.color = "blue";
         setPwCheckResult(true);
       } else {
         messageElement2.current.textContent = "비밀번호에는 문자와 숫자를 모두 포함해야 합니다.";
@@ -125,15 +109,12 @@ const Join = () => {
 
       const idChecking = { id: id };
       try {
-        //  라우트로 POST 요청 보내기
         const response = await axios.post(`${baseUrl}/member/idCheck`, idChecking);
         if (response.data.idCheckingSuccess) {
-          // 중복체크 중복 O      
           messageElement1.current.textContent = response.data.message; // 사용가능한 아이디입니다.
           messageElement1.current.style.color = "blue";
           setIdCheckResult(true);
         } else {
-          // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
           messageElement1.current.textContent = response.data.message; // 중복된 아이디입니다.
           messageElement1.current.style.color = "red";
           setIdCheckResult(false)
@@ -152,15 +133,12 @@ const Join = () => {
 
     const nicknameChecking = { nickname: nickname };
     try {
-      //  라우트로 POST 요청 보내기
       const response = await axios.post(`${baseUrl}/member/nicknameCheck`, nicknameChecking);
       if (response.data.nicknameCheckingSuccess) {
-        // 중복체크 중복 O      
         messageElement4.current.textContent = response.data.message; // 사용가능한 아이디입니다.
         messageElement4.current.style.color = "blue";
         setNicknameCheckResult(true);
       } else {
-        // 중복체크 중복 x: 서버에서 받은 메시지를 알림으로 표시
         messageElement4.current.textContent = response.data.message; // 중복된 아이디입니다.
         messageElement4.current.style.color = "red";
         setNicknameCheckResult(false)
@@ -186,9 +164,7 @@ const Join = () => {
     }
   }
 
-  // ******************************************************** 
   // 회원가입 함수
-
   const joinMember = async (e) => {
     e.preventDefault();
     if (idCheckResult && pwCheckResult && nicknameCheckResult && name && nickname && gender) {
@@ -203,14 +179,12 @@ const Join = () => {
         skill: skill,
       };
       try {
-        const response = await axios.post(`${baseUrl}/member/join`, member); // 경로 테스트 중...
+        const response = await axios.post(`${baseUrl}/member/join`, member);
         if (response.data.message === "회원가입이 완료되었습니다.") {
-          // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
           window.location.href = '/login'
 
 
         } else {
-          // 오류 처리
           console.error("회원가입에 실패했습니다.");
         }
       } catch (error) {

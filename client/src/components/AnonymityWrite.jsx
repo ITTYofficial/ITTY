@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import QuillTest from './QuillTest'
 import style from "../css/PlayBoardWrite.module.css";
-import LeftContainer from './LeftContainer';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import { QuillContext } from '../context/QuillContext';
 
 const AnonymityList = () => {
@@ -43,7 +41,6 @@ const AnonymityList = () => {
             obj['_id'] = id
         }
 
-        // 입력값 확인
         const inputRule = {
             title: /^.{2,255}$/,
             content: /^.{12,65535}$/
@@ -88,13 +85,11 @@ const AnonymityList = () => {
     // 수정 요청시 기존 게시글 데이터 가져올 함수
     const getAnony = async () => {
         if (id) {
-            // projectRouter랑 통신해서 response에 결과값 저장
             await axios.get(`${baseUrl}/anony/anonyDetail/${id}`)
                 .then((res) => {
                     setAnonyDetail(res.data.detailAnony[0]);
                     setValue(res.data.detailAnony[0].content)
                 });
-            // respnse에서 데이터 꺼내서 State에 저장
         }
     };
 
@@ -122,7 +117,6 @@ const AnonymityList = () => {
                     <div className={style.quill_div}>
                         <QuillTest />
                     </div>
-                    {/* 전송 버튼 */}
                     <div className={style.button_group}>
                         <button onClick={cancel} className={style.cancel_btn} type='button'>
                             취소

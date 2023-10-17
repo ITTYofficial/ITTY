@@ -4,18 +4,9 @@ import footer from "../css/Footer.module.css";
 const Footer = () => {
   return (
     <div className={footer.Wrap_footer}>
-      {/* <p>
-        "버그와 제안사항은 ITTY 메일로 문의주시길 바랍니다.
-        <br />
-        여러분들의 피드백과 요청사항을 모니터링하고 반영할 수 있도록
-        노력하겠습니다."
-      </p> */}
 
       <div>
         <div className={footer.Wrap_footer_left}>
-          {/* <div>
-            <h4>ITTY</h4>
-          </div> */}
           <div className={footer.Footer_flex}>
             <div>
               <h4>Information</h4>
@@ -96,7 +87,6 @@ const Footer = () => {
             여러분들의 피드백과 요청사항을 모니터링하고 반영할 수 있도록
             노력하겠습니다."
           </p>
-          {/* <p>지식을 나누고, 함께 성장하는 커뮤니티</p> */}
         </div>
       </div>
       <div>

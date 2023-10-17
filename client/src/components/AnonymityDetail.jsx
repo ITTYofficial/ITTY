@@ -3,10 +3,8 @@ import LeftContainer from "./LeftContainer";
 import styles from "../css/AnonymityDetail.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
-import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate, useParams, useLocation, Link } from "react-router-dom";
 import axios from "axios";
-import CommentItem from "./CommentItem";
 import { QuillContext } from "../context/QuillContext";
 import AnonymityComment from "./AnonymityComment";
 import QuillComment from './QuillComment'
@@ -20,9 +18,7 @@ const AnonymityDetail = () => {
 
   // 특정 게시글 조회하기위한 nickname값 가져오기
   const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  // 게시글정보 저장할 State
-  /* const [anonyDetail, setanonyDetail] = useState([]); */
+  
   // 회원정보 저장할 state
   const [memberInfo, setMemberInfo] = useState({});
 
@@ -33,7 +29,6 @@ const AnonymityDetail = () => {
     await axios
       .get(`${baseUrl}/anony/anonyDetail/${id}`)
       .then((res) => {
-        // respnse에서 데이터 꺼내서 State에 저장
         setAnonyDetail(res.data.detailAnony[0]);
       })
       .catch((err) => {
@@ -45,7 +40,6 @@ const AnonymityDetail = () => {
   useEffect(() => {
     getAnony();
     getAnonyComment(id);
-    /* memberSearching(); */
     return () => {
       setAnonyCommentList([]);
     };
@@ -181,13 +175,6 @@ const AnonymityDetail = () => {
     <div className={styles.Main_container}>
       <LeftContainer />
       <div className={styles.right_container} onClick={toggleMeat}>
-        {/*                 <div className={styles.division_line}>
-                    <div>
-                        <Link>Community🌐</Link> /{" "}
-                        <Link to={"/stylesList"}>자유게시판⚽</Link>
-                    </div>
-                </div> */}
-
         <div className={styles.play_wrap_content}>
           {/* 자유게시판 상세페이지 상단 제목부분 START!!!!! */}
           <div className={styles.play_wrap_top}>
@@ -216,10 +203,7 @@ const AnonymityDetail = () => {
               </div>
             </div>
           </div>
-          {/* 자유게시판 상세페이지 상단 제목부분 END!!!!! */}
-
           {/* 게시글 content 시작 */}
-
           <div className={styles.play_content}>
             <div className={styles.meatball} style={{ display: anonyDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
               <ul>

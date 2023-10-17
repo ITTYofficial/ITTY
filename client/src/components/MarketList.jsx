@@ -15,10 +15,8 @@ const MarketList = () => {
 
   // 회원만 작성 할 수 있도록 제한하는 함수-지홍
   const checkSessionStorage = (e) => {
-    // sessionStorage에서 값을 가져옴
     var value = sessionStorage.getItem("memberId");
 
-    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
     if (!value || value === "") {
       alert("로그인해야합니다");
       window.location.href = "/login";
@@ -32,74 +30,15 @@ const MarketList = () => {
       .then(async (res) => {
 
         const sortedMarkets = res.data.lists.sort((a, b) => {
-          // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
 
-        // 댓글 개수 카운팅
-        /*       const counting = sortedMarkets.map((item) => (item._id))
-              const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
-              const market = sortedMarkets.map((obj, index) => ({
-                ...obj,
-                count: countList[index],
-              })); */
         setMarketList(sortedMarkets);
         setMaxPage(sortedMarkets.length);
-
-        // setPlayList(res.data.lists);
-        // setMaxPage(res.data.lists.length)
 
         console.timeEnd('소요시간');
       })
   }
-
-  // 장터 리스트 조회 함수
-  // const readMarketList = async () => {
-  //   await axios
-  //     .get("${baseUrl}/market/marketList")
-  //     .then(async (res) => {
-  //       // 회원정보조회-지홍
-  //       console.log("1. writer :", res.data.market[0].writer);
-  //       let memberPromises = res.data.market.map((market) => {
-  //         const nickname = market.writer;
-  //         const id = market.id
-
-  //         return axios.get(
-  //           `${baseUrl}/member/memberSearching?id=${id}`
-  //         );
-  //       });
-
-  //       let memberResponses = await Promise.all(memberPromises);
-  //       let member = memberResponses.map((response) => ({
-  //         member: response.data.member,
-  //       }));
-
-  //       console.log("member 내용물 : ", member.member);
-  //       let fusion = member.map((item, index) => {
-  //         return { ...item, ...res.data.market[index] };
-  //       });
-  //       console.log("퓨전", fusion);
-  //       const sortedMarkets = fusion.sort((a, b) => {
-  //         // 게시글 데이터 작성 일자별 내림차순 정렬
-  //         return new Date(b.createdAt) - new Date(a.createdAt);
-  //       });
-
-  //       // 댓글 개수 카운팅
-  //       const counting = sortedMarkets.map((item) => (item._id))
-  //       const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
-  //       const market = sortedMarkets.map((obj, index) => ({
-  //         ...obj,
-  //         count: countList[index],
-  //       }));
-
-  //       setMarketList(sortedMarkets);
-  //       setMaxPage(sortedMarkets.length);
-  //     })
-  //     .catch((err) => {
-  //       alert("통신에 실패했습니다.");
-  //       console.log(err);
-  //     });
-  // };
 
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
@@ -137,13 +76,6 @@ const MarketList = () => {
         to={`/marketDetail/${props._id}?id=${props.id}`}
         className={style.Market_content_item}
       >
-        {/* <div className={style.Market_content_img} style={{width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover'}}> */}
-
-        {/*       <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url("https://files.itworld.co.kr/2021/09_01/annepro-100900624-orig.jpgautowebp.jpeg") no-repeat center`, backgroundSize: 'cover', position: 'relative', filter: 'grayscale(1)' }}>
-        <div>
-          <h4>판매완료</h4>
-        </div>
-      </div> */}
 
         {props.sold !== 1 ?
           <div className={style.Market_content_img} style={{ width: '100%', height: '75%', paddingTop: '110%', background: `url(${props.imgPath[0]}) no-repeat center`, backgroundSize: 'cover', position: 'relative', filter: 'grayscale(1)' }}>

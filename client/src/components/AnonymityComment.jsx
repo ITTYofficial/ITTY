@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from "../css/CommentItem.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
@@ -23,10 +23,9 @@ const AnonymityComment = ({ props, postId }) => {
         } else {
             event.preventDefault();
 
-            // 댓글 빈값 막기
             if (reCoValue == "" || reCoValue == "<p><br></p>") {
                 alert("내용을 입력해주세요");
-                return; // 댓글이 비어있으면 함수를 여기서 끝내기
+                return;
             }
 
             const createdAt = new Date().toISOString();
@@ -112,7 +111,6 @@ const AnonymityComment = ({ props, postId }) => {
         )
     };
 
-    // 익명댓글 색깔 - 잇티 키워드 백그라운드 컬러 10가지 적용!
     const getColorByIndex = (index) => {
         const colors = ['#71FFFF', '#F3F90B', '#FF6D00', '#247DFF', '#B3A1FF', '#2EFF55', '#E0E0E0',
             '#FF78F5', '#00FFAA', '#FF316C'];
