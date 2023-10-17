@@ -16,7 +16,7 @@ const PortWrite = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   // Quill value
-  const { value, setValue } = useContext(QuillContext);
+  const { value, setValue, cancel } = useContext(QuillContext);
 
   // 특정 게시글 조회하기 위한 id값 가져오기
   const location = useLocation();
@@ -333,7 +333,7 @@ const PortWrite = () => {
 
         {/* 전송 버튼 */}
         <div className={styles.button_group}>
-          <button className={styles.cancel_btn} type='submit'>
+          <button onClick={cancel} className={styles.cancel_btn} type='button'>
             취소
           </button>
           <button className={styles.submit_btn} type='submit'>

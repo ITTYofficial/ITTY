@@ -24,7 +24,7 @@ const ProjectWrite = () => {
     const id = searchParams.get('id');
 
     const [position, setposition] = useState([]);
-    const { value, setValue } = useContext(QuillContext);
+    const { value, setValue, cancel } = useContext(QuillContext);
 
     // 포지션 함수
     function changeColor(value) {
@@ -310,7 +310,7 @@ const ProjectWrite = () => {
 
                 {/* 전송 버튼 */}
                 <div className={style.button_group}>
-                    <button className={style.cancel_btn} type='submit'>
+                    <button onClick={cancel} className={style.cancel_btn} type='button'>
                         취소
                     </button>
                     <button className={style.submit_btn} type='submit'>

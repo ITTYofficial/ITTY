@@ -92,7 +92,6 @@ const PlayBoardDetail = () => {
       })
       .catch((err) => {
         alert("삭제 실패");
-        console.log(err);
       });
   };
 

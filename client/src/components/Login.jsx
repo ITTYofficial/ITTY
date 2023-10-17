@@ -21,18 +21,6 @@ const Login = () => {
     setPw(e.target.value);
   };
 
-  // const responseKaKao = (response) => {
-  //   if (response.profile) {
-  //     // 카카오 로그인 성공
-  //     console.log(response.profile);
-  //     // 서버로 카카오로부터 받은 정보를 전송하고 사용자 인증을 처리
-  //     // ...
-  //   } else {
-  //     // 카카오 로그인 실패
-  //     console.error("카카오 로그인 실패");
-  //   }
-  // };
-
   const loginMember = async (e) => {
     e.preventDefault();
 
@@ -49,8 +37,6 @@ const Login = () => {
       );
       if (response.data.loginSuccess) {
         // 로그인 성공: memberId를 콘솔에 출력하고 로그인 페이지로 이동
-        // console.log('로그인 성공 아이디:', response.data.memberId);
-        // console.log('로그인 성공 닉네임:', response.data.memberNickname);
         sessionStorage.setItem("memberId", response.data.memberId);
         sessionStorage.setItem("memberNickname", response.data.memberNickname);
         window.location.href = "/";

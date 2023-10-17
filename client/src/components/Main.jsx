@@ -58,7 +58,6 @@ const Main = () => {
     console.time('시간체크')
     await axios.get(`${baseUrl}/main/mainList`)
       .then((res) => {
-        console.log('데이터 확인', res.data.main);
         setPlayList(res.data.main.play);
         setProStuList(res.data.main.proStu);
         setMarketList(res.data.main.market);

@@ -13,7 +13,6 @@ const AnonymityComment = ({ props, postId }) => {
 
     // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
     const { getAnonyComment, deleteAnonyComment, deleteAnonyReComment, reCoValue, setReCoValue } = useContext(QuillContext);
-    console.log('게시글 id 넘어옴?', postId);
 
     // 대댓글 작성완료 시 호출되는 함수
     function reCommentSubmit(event, _id) {
@@ -38,7 +37,6 @@ const AnonymityComment = ({ props, postId }) => {
                 commentId: _id,
                 createdAt: createdAt
             };
-            console.log(obj);
 
             axios.post(`${baseUrl}/anony/reCommentWrite`, obj)
                 .then((res) => {

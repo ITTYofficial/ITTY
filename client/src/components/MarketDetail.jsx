@@ -99,7 +99,6 @@ const MarketDetail = () => {
       .get(`${baseUrl}/market/marketDetail/${id}`)
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
-        console.log(res.data);
         setmarketDetail(res.data.detailMarket[0]);
       })
       .catch((err) => {
@@ -107,13 +106,11 @@ const MarketDetail = () => {
       });
   };
 
-  console.log("확인!!", marketDetail.imgPath);
   // 회원 정보 조회 함수
   const memberSearching = async () => {
     await axios
       .get(`${baseUrl}/member/memberSearching?id=${nickname}`)
       .then((res) => {
-        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -126,7 +123,6 @@ const MarketDetail = () => {
     getMarket();
     getComment(id);
     memberSearching();
-    console.log(marketDetail.imgPath);
   }, []);
 
   // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
@@ -241,11 +237,9 @@ const MarketDetail = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     formData.append('sendUserId', sessionStorage.getItem('memberId'));
-    console.log("데이터 확인", e.target);
 
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     await axios.post(`${baseUrl}/message/write`, obj)

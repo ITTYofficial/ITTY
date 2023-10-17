@@ -31,7 +31,6 @@ const MarketWrite = () => {
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
     if (dataURI.length > 200) {
-      console.log(dataURI.length);
       // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
       const byteString = atob(dataURI.split(",")[1]);
       // const nickname = sessionStorage.getItem("memberNickname");
@@ -44,9 +43,7 @@ const MarketWrite = () => {
       const blob = new Blob([ia], {
         type: "image/jpeg",
       });
-      console.log(blob);
       const file = new File([blob], "image.jpg");
-      console.log(file);
       // 위 과정을 통해 만든 image폼을 FormData에
       // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
       const formData = new FormData();
@@ -57,10 +54,8 @@ const MarketWrite = () => {
           `${baseUrl}/save/save`,
           formData
         );
-        console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
         return result.data.url;
       } catch (error) {
-        console.log("실패했어요ㅠ");
         console.log(error);
       }
     } else {
@@ -71,7 +66,7 @@ const MarketWrite = () => {
 
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
-  const { value, setValue } = useContext(QuillContext);
+  const { value, setValue, cancel } = useContext(QuillContext);
 
   // 경고메세지 출력을 위한 Ref
   const titleRef = useRef(null)
@@ -88,13 +83,11 @@ const MarketWrite = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
     const formData = new FormData(e.target);
     formData.append("id", sessionStorage.getItem("memberId"));
 
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     obj["content"] = value;
@@ -107,12 +100,10 @@ const MarketWrite = () => {
     const imgPaths = await Promise.all(
       croppedImage.map(async (base64data) => {
         const result = await handlingDataForm(base64data);
-        console.log("화기이이", result);
         return result;
       })
     );
 
-    console.log("임패쓰", imgPaths);
 
     obj["imgPath"] = imgPaths;
 
@@ -147,7 +138,6 @@ const MarketWrite = () => {
         refList[key].current.textContent = null;
       }
     }
-    console.log(obj);
 
     if (refVisible) {
       alert('필수 입력 항목을 확인해주세요.')
@@ -158,7 +148,6 @@ const MarketWrite = () => {
       .post(`${baseUrl}/market/write`, obj)
       .then((res) => {
         alert("게시글이 등록되었습니다.");
-        console.log(res);
         window.location.href = `/marketDetail/${res.data._id}?id=${res.data.id}`;
       })
       .catch((err) => {
@@ -178,7 +167,6 @@ const MarketWrite = () => {
       await axios
         .get(`${baseUrl}/market/marketDetail/${id}`)
         .then((res) => {
-          console.log(res);
           setmarketDetail(res.data.detailMarket[0]);
           setValue(res.data.detailMarket[0].content);
           setCroppedImage(res.data.detailMarket[0].imgPath)
@@ -237,7 +225,6 @@ const MarketWrite = () => {
   };
 
 
-  console.log('크롭이미지 배열 확인', croppedImage);
   /* 크로퍼 */
 
   /* 모달 */
@@ -403,7 +390,7 @@ const MarketWrite = () => {
         />
 
         <div className={styles.button_group}>
-          <button className={styles.cancel_btn} type="submit">
+          <button onClick={cancel} className={styles.cancel_btn} type="button">
             취소
           </button>
           <button className={styles.submit_btn} type="submit">

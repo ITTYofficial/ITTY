@@ -27,7 +27,6 @@ const Join = () => {
 
   const handleDropdownClick = (value) => {
     setSelectedValue(value);
-    console.log(value);
   };
 
 
@@ -89,7 +88,6 @@ const Join = () => {
   const engNumCheck = (e) => {
     if (messageElement1.current) {
       const inputValue = e.target.value
-      // console.log(inputValue);
       if (engNum.test(inputValue)) {
         messageElement1.current.textContent = "";
         //    messageElement.current.style.color = "green";
@@ -107,7 +105,6 @@ const Join = () => {
   const engNumPwCheck = (e) => {
     if (messageElement2.current) {
       const inputValue = e.target.value
-      // console.log(inputValue);
       if (engNumPw.test(inputValue)) {
         messageElement2.current.textContent = "";
         //      messageElement.current.style.color = "blue";
@@ -132,7 +129,6 @@ const Join = () => {
         const response = await axios.post(`${baseUrl}/member/idCheck`, idChecking);
         if (response.data.idCheckingSuccess) {
           // 중복체크 중복 O      
-          console.log('아이디 중복체크 성공:', response.data.idCheckingId);
           messageElement1.current.textContent = response.data.message; // 사용가능한 아이디입니다.
           messageElement1.current.style.color = "blue";
           setIdCheckResult(true);
@@ -160,7 +156,6 @@ const Join = () => {
       const response = await axios.post(`${baseUrl}/member/nicknameCheck`, nicknameChecking);
       if (response.data.nicknameCheckingSuccess) {
         // 중복체크 중복 O      
-        console.log('아이디 중복체크 성공:', response.data.nicknameCheckingNickname);
         messageElement4.current.textContent = response.data.message; // 사용가능한 아이디입니다.
         messageElement4.current.style.color = "blue";
         setNicknameCheckResult(true);
@@ -208,7 +203,6 @@ const Join = () => {
         skill: skill,
       };
       try {
-        console.log('제발 들어와주라', member);
         const response = await axios.post(`${baseUrl}/member/join`, member); // 경로 테스트 중...
         if (response.data.message === "회원가입이 완료되었습니다.") {
           // 성공적으로 삽입되면 리다이렉트 또는 다른 작업 수행
