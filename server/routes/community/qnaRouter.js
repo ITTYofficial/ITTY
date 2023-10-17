@@ -52,7 +52,8 @@ router.post('/write', async (req, res) => {
         }
         res.json({
             message: true,
-            _id: _id
+            _id: _id,
+            id: req.body.id
         });
     } catch (err) {
         console.log(err);
