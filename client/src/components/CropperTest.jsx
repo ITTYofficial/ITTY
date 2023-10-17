@@ -38,7 +38,7 @@ const CropperTest = React.forwardRef(({ onCrop, onFileSelect  }, ref) => {
             const croppedDataUrl = cropperRef.current.cropper.getCroppedCanvas().toDataURL();
             setCroppedImage(croppedDataUrl);
             setImage(null);
-            onCrop(croppedDataUrl); // onCrop prop을 호출하여 croppedImage를 MyPage 컴포넌트로 전달
+            onCrop(croppedDataUrl);
         }
     };
 
@@ -59,7 +59,7 @@ const CropperTest = React.forwardRef(({ onCrop, onFileSelect  }, ref) => {
                         <div className="content">
                             <Cropper
                                 ref={cropperRef}
-                                aspectRatio={1} // 크롭 영역을 정사각형으로 제한
+                                aspectRatio={1}
                                 src={image}
                                 viewMode={1}
                                 width={800}
@@ -81,12 +81,6 @@ const CropperTest = React.forwardRef(({ onCrop, onFileSelect  }, ref) => {
 
                 </div>
             )}
-{/*             {croppedImage && (
-                <div>
-                    <h3>크롭된 이미지</h3>
-                    <img src={croppedImage} alt="크롭된 이미지" />
-                </div>
-            )} */}
         </div>
     );
 });

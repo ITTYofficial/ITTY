@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import LeftContainer from "./LeftContainer";
 import styles from "../css/MarketWrite.module.css";
 import QuillTest from "./QuillTest";
 import { useState } from "react";
@@ -7,7 +6,6 @@ import { useRef } from "react";
 import { QuillContext } from "../context/QuillContext";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import Form from "react-bootstrap/Form";
 import Modal from 'react-bootstrap/Modal';
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -19,9 +17,8 @@ const MarketWrite = () => {
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const [imgFiles, setImgFiles] = useState([]);
   const writer = sessionStorage.getItem("nickname");
-  const imgRef = useRef();
+
   // 특정 게시글 조회하기 위한 id값 가져오기
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -31,10 +28,7 @@ const MarketWrite = () => {
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
     if (dataURI.length > 200) {
-      // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
       const byteString = atob(dataURI.split(",")[1]);
-      // const nickname = sessionStorage.getItem("memberNickname");
-      // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
       const ab = new ArrayBuffer(byteString.length);
       const ia = new Uint8Array(ab);
       for (let i = 0; i < byteString.length; i++) {
@@ -44,11 +38,8 @@ const MarketWrite = () => {
         type: "image/jpeg",
       });
       const file = new File([blob], "image.jpg");
-      // 위 과정을 통해 만든 image폼을 FormData에
-      // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
       const formData = new FormData();
       formData.append("img", file);
-      // formData.append("writer",nickname)
       try {
         const result = await axios.post(
           `${baseUrl}/save/save`,
@@ -163,7 +154,6 @@ const MarketWrite = () => {
   // 수정 요청시 기존 게시글 데이터 가져올 함수
   const getMarket = async () => {
     if (id) {
-      // projectRouter랑 통신해서 response에 결과값 저장
       await axios
         .get(`${baseUrl}/market/marketDetail/${id}`)
         .then((res) => {
@@ -171,12 +161,10 @@ const MarketWrite = () => {
           setValue(res.data.detailMarket[0].content);
           setCroppedImage(res.data.detailMarket[0].imgPath)
         });
-      // respnse에서 데이터 꺼내서 State에 저장
     }
   };
 
   useEffect(() => {
-    // const writer = sessionStorage.getItem('nickname');
     setValue(null);
     getMarket();
   }, []);
@@ -235,9 +223,7 @@ const MarketWrite = () => {
     setImage(null);
   }
   const handleShow = () => {
-    /* setCroppedImage(null); */
     setShow(true);
-    /* handleCropperClick(); */
   }
 
   /* 모달 */
@@ -369,14 +355,6 @@ const MarketWrite = () => {
             className="form-control"
           />
         </div>
-        {/*           <div>
-            <h4>판매 상태</h4>
-            <select className='form-control' name="market_condition">
-              <option value={0}>판매중</option>
-              <option value={1}>판매완료</option>
-            </select>
-          </div>
- */}
 
         <div className={styles.market_content}>
           <h4 >상품 설명</h4>

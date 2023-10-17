@@ -10,6 +10,7 @@ const Header = () => {
 
   // 정보 조회 데이터 관리
   const [memberInfo, setMemberInfo] = useState({});
+
   // 회원정보 조회
   const memberSearching = async () => {
     const id = sessionStorage.getItem("memberId");
@@ -27,11 +28,6 @@ const Header = () => {
   const { myInfo, setMyInfo } = useContext(QuillContext)
 
   const [loginOk, setLoginOk] = useState(false);
-  // const [hoverStates, setHoverStates] = useState({
-  //   cate: false,
-  //   share: false,
-  //   job: false,
-  // });
 
   // 프로필 이미지 클릭시 세부정보 On/Off
   const [profile, setProfile] = useState(false);
@@ -82,27 +78,6 @@ const Header = () => {
     setMyInfo({ profileImg: null });
   };
 
-  let cateHoverTimer;
-
-  // const handleHoverIn = (target) => {
-  //   clearTimeout(cateHoverTimer);
-  //   setHoverStates({
-  //     cate: target === "cate",
-  //     share: target === "share",
-  //     job: target === "job",
-  //   });
-  // };
-
-  // const handleHoverOut = (target) => {
-  //   cateHoverTimer = setTimeout(() => {
-  //     setHoverStates((prev) => ({ ...prev, [target]: false }));
-  //   }, 300);
-  // };
-
-  // const handleHoverOut_im = (target) => {
-  //   setHoverStates((prev) => ({ ...prev, [target]: false }));
-  // };
-
   // sideBar를 위해 필요
   const [sidebar, setSidebar] = useState(false);
 
@@ -126,8 +101,6 @@ const Header = () => {
 
   // 안읽은 쪽지 카운팅
   const showMessageListDetail = async (e) => {
-    const getUserId = sessionStorage.getItem("memberId");
-    const sendUserId = e;
     await axios
       .get(
         `${baseUrl}/message/countMessage?getUserId=${sessionStorage.getItem(
@@ -151,7 +124,6 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* className={`${Nav.aside} ${sidebar ? Nav.button_transform : ""}`} */}
       <div className={Nav.Category}>
         <ul>
           <li className={Nav.nav_hover}>
@@ -228,10 +200,6 @@ const Header = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  // 엔터 키를 눌렀을 때 searchingList 페이지로 이동
-                  {
-                    /* <Link to={`/searchResult/${searchTerm}`} />; */
-                  }
                   window.location.href = `/searchResult/${searchTerm}`;
                 }
               }}
@@ -240,7 +208,6 @@ const Header = () => {
 
           <li>
             {loginOk ? (
-              // <button>로그아웃</button>
               <div className={Nav.massenger_wrapper}>
                 <Link to={"/myPage/message"}>
                   <div className={Nav.messenger}>
@@ -253,7 +220,6 @@ const Header = () => {
                     </svg>
                   </div>
                 </Link>
-                {/* 안읽은 쪽지 표시부분 */}
                 {countMessage > 0 && (
                   <div className={Nav.count_message_box}>{countMessage}</div>
                 )}
@@ -380,21 +346,6 @@ const Header = () => {
         </button>
       </div>
 
-      {/* <div className={Nav.hamburger_content}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-list"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-          />
-        </svg>
-      </div> */}
     </div>
   );
 };

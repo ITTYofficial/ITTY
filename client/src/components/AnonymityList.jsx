@@ -16,10 +16,8 @@ const AnonymityList = (props) => {
 
   // 회원만 작성 할 수 있도록 제한하는 함수-지홍
   const checkSessionStorage = (e) => {
-    // sessionStorage에서 값을 가져옴
     var value = sessionStorage.getItem("memberId");
 
-    // 값이 없으면 alert 창을 표시하고 /login 페이지로 이동
     if (!value || value === "") {
       alert("로그인해야합니다");
       window.location.href = "/login";
@@ -34,7 +32,6 @@ const AnonymityList = (props) => {
       .then(async (res) => {
         const sortedAnony = res.data.anony.sort((a, b) => {
 
-          // 게시글 데이터 작성 일자별 내림차순 정렬
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
         setAnonyList(sortedAnony);
@@ -78,13 +75,11 @@ const AnonymityList = (props) => {
         <Link to={`/anonymityDetail/${props._id}?id=${props.id}`}>
           <h4>{props.title}</h4>
         </Link>
-        {/* <p>글 내용 영역</p> */}
         <p>👁‍🗨{props.views} 💬{props.comments}</p>
       </div>
 
       <div className={PlayBoard.Main_grid_profile}>
         <span className={PlayBoard.profile_text}>
-          {/* <p>데이터 디자인</p> */}
           <h4>익명</h4>
         </span>
         <span className={PlayBoard.profile_pic}>

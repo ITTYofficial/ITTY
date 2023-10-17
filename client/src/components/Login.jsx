@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../css/Join.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Dropdown from "react-bootstrap/Dropdown";
 import axios from "axios";
-import KaKaoLogin from "react-kakao-login";
 
 const Login = () => {
 
@@ -30,18 +28,15 @@ const Login = () => {
     };
 
     try {
-      // 로그인 라우트로 POST 요청 보내기
       const response = await axios.post(
         `${baseUrl}/member/login`,
         member
       );
       if (response.data.loginSuccess) {
-        // 로그인 성공: memberId를 콘솔에 출력하고 로그인 페이지로 이동
         sessionStorage.setItem("memberId", response.data.memberId);
         sessionStorage.setItem("memberNickname", response.data.memberNickname);
         window.location.href = "/";
       } else {
-        // 로그인 실패: 서버에서 받은 메시지를 알림으로 표시
         alert(response.data.message);
       }
     } catch (error) {
@@ -114,12 +109,6 @@ const Login = () => {
               >
                 카카오 로그인
               </button>
-              {/* <KaKaoLogin 
-                token={"099aa0e936256b3cc87375787f141a4f"}
-                onSuccess={responseKaKao}
-                onFail={(error) => console.error("카카오 로그인 실패", error)}>
-              <img src='img/kakaologo.png' className={style.Join_font_box3} ></img>
-              </KaKaoLogin> */}
             </div>
           </form>
         </div>

@@ -3,10 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import LeftContainer from "./LeftContainer";
-// import style from "../css/MarketDetail.module.css";
 import style from "../css/MarketRemake.module.css";
 import { Link } from "react-router-dom";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
@@ -38,11 +36,9 @@ const MarketDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-
-      // 댓글 빈값 막기
       if (coValue == "" || coValue == "<p><br></p>") {
         alert("내용을 입력해주세요");
-        return; // 댓글이 비어있으면 함수를 여기서 끝내기
+        return;
       }
 
       const obj = {
@@ -92,13 +88,10 @@ const MarketDetail = () => {
   // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
   // 게시글 조회함수
-  // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
   const getMarket = async () => {
-    // projectRouter랑 통신해서 response에 결과값 저장
     await axios
       .get(`${baseUrl}/market/marketDetail/${id}`)
       .then((res) => {
-        // respnse에서 데이터 꺼내서 State에 저장
         setmarketDetail(res.data.detailMarket[0]);
       })
       .catch((err) => {
@@ -194,22 +187,19 @@ const MarketDetail = () => {
   // 수정 버튼 클릭 시 동작할 함수
   const handleModifyClick = () => {
     if (isOwner) {
-      // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 수정 가능
       moveUpdate();
     } else {
-      alert("작성자만 수정할 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
+      alert("작성자만 수정할 수 있습니다.");
     }
   };
 
   // 삭제 버튼 클릭 시 동작할 함수
   const handleDeleteClick = () => {
     if (isOwner) {
-      // 작성자와 세션 스토리지의 닉네임이 일치하는 경우에만 삭제 가능
       deleteMarket();
     } else {
-      alert("작성자만 삭제할 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
+      alert("작성자만 삭제할 수 있습니다.");
     }
-    // 신고 버튼도 추가하는 게 어떨런지..?
   };
 
   // 판매 완료 버튼 클릭 시 동작할 함수
@@ -217,14 +207,13 @@ const MarketDetail = () => {
     if (isOwner) {
       soldMarket();
     } else {
-      alert("작성자만 바꿀 수 있습니다."); //  안보이게 하려면 다른 코드 추가해야함
+      alert("작성자만 바꿀 수 있습니다.");
     }
   }
 
 
 
   /* 쪽지 */
-
   const [message, setMessage] = useState(false);
 
   const toggleMessage = () => {
@@ -262,16 +251,12 @@ const MarketDetail = () => {
 
   }
   const handleShow = () => {
-    /* setCroppedImage(null); */
     setShow(true);
-    /* handleCropperClick(); */
   }
 
   /* 모달 */
 
-
   /* 쪽지 */
-
 
   return (
     <div className={style.Main_container}>
@@ -377,37 +362,6 @@ const MarketDetail = () => {
           </div>
         </div>
 
-        {/* 댓글부분 */}
-        {/* <div className={style.division_line}>
-          <div>
-            <p>댓글 3</p>
-          </div>
-        </div>
-        <form onSubmit={commentSubmit}>
-          <div className={style.comment_write}>
-            <div>
-              <div>
-                <Image
-                  src="https://i1.ruliweb.com/img/22/07/28/18242f82cc7547de2.png"
-                  roundedCircle
-                />
-              </div>
-              <textarea
-                onChange={commnetChange}
-                placeholder="댓글을 쓰려면 로그인이 필요합니다."
-                value={comment}
-              ></textarea>
-            </div>
-            <Button type="submit" variant="outline-primary">
-              댓글쓰기
-            </Button>{" "}
-          </div>
-        </form> */}
-        {/* 댓글부분 */}
-        {/* {commentList.map((item) => (
-          <CommentItem key={item._id} props={item} postId={id} />
-        ))} */}
-        {/* 댓글부분 */}
         {/* 댓글달기 시작 */}
         <div className={style.division_line_comment}>
           <div>
