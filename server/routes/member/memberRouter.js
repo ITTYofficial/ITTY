@@ -46,7 +46,6 @@ router.post('/update', async (req, res) => {
         { id: req.body.id },
         {
           $set: {
-
             profileImg: req.body.imgPath,
           }
         })

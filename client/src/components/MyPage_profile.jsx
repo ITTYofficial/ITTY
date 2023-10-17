@@ -195,6 +195,7 @@ const MyPage_profile = () => {
 
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
+    if (dataURI !== null) {
     // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
     const byteString = atob(dataURI.split(",")[1]);
     // const nickname = sessionStorage.getItem("memberNickname");
@@ -222,9 +223,12 @@ const MyPage_profile = () => {
       return url;
     } catch (error) {
       console.log(error);
+    }}else {
+      return dataURI;
     }
   };
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
+
   const updateSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -235,7 +239,11 @@ const MyPage_profile = () => {
       obj[key] = value;
     });
     const url = await handlingDataForm(croppedImage);
-    obj["imgPath"] = url;
+    if(!url) {
+      obj["imgPath"] = memberInfo.profileImg;
+    }else{
+      obj["imgPath"] = url;
+    }
     axios
       .post(`${baseUrl}/member/update`, obj)
       .then((res) => {
