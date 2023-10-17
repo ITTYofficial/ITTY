@@ -72,7 +72,7 @@
   margin: 32px 0;
 }
 
-.division_line>div {
+.division_line > div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -131,9 +131,7 @@
   display: inline-block;
   /* 요소를 인라인 블록 요소로 설정 */
   margin-top: 12px;
-
 }
-
 
 /* 키워드 css */
 
@@ -153,8 +151,8 @@
 }
 
 .findsomeone {
-  background-color: #247DFF;
-  color: #FFFFFF;
+  background-color: #247dff;
+  color: #ffffff;
 }
 
 .completed {
@@ -162,10 +160,9 @@
   color: #000000;
 }
 
-
 .purpose {
-  background-color: #71FFFF;
-  color: #003A47;
+  background-color: #71ffff;
+  color: #003a47;
 }
 
 .getajob {
@@ -190,7 +187,6 @@
 
 /* 키워드 css */
 
-
 /* 댓글 */
 
 .comment_list {
@@ -212,7 +208,7 @@
   font-size: 14px;
 }
 
-.comment_list div:nth-child(3)>p {
+.comment_list div:nth-child(3) > p {
   font-size: 14px;
   font-weight: bold;
   color: #999999;
@@ -262,7 +258,7 @@
   cursor: pointer;
 }
 
-.meatball>ul {
+.meatball > ul {
   position: relative;
 }
 
@@ -289,11 +285,11 @@
   margin-right: 8px;
 }
 
-.meat_dropdown>li:hover svg {
+.meat_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.meat_dropdown>li:hover span {
+.meat_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -305,7 +301,7 @@
 
 /* 수정삭제 버튼 */
 
-.Top_container>div h4 {
+.Top_container > div h4 {
   font-family: ui-monospace;
   font-size: 20px;
   font-weight: bold;
@@ -313,7 +309,7 @@
   letter-spacing: -1px;
 }
 
-.Top_container>div>p {
+.Top_container > div > p {
   font-size: 14px;
   font-weight: bold;
   margin: 12px 0;
@@ -337,13 +333,13 @@
   font-family: "Pretendard Variable";
 }
 
-.Top_right_container>div:first-child {
+.Top_right_container > div:first-child {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.Top_right_container>div:last-child p {
+.Top_right_container > div:last-child p {
   margin: 0;
 }
 
@@ -351,7 +347,7 @@
   position: relative;
 }
 
-.profile_view>p {
+.profile_view > p {
   font-size: 12px;
   text-align: right;
   color: #999999;
@@ -368,10 +364,9 @@
   height: 65px;
 }
 
-.comment_write>div {
+.comment_write > div {
   display: flex;
 }
-
 
 .quillComment_container {
   width: 90%;
@@ -408,7 +403,6 @@
   }
 }
 
-
 /* 쪽지보내기 css */
 
 .message_dropdown {
@@ -436,11 +430,11 @@
   margin-right: 8px;
 }
 
-.message_dropdown>li:hover svg {
+.message_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.message_dropdown>li:hover span {
+.message_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -466,7 +460,7 @@
   font-size: 14px;
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .message_dropdown {
     top: 20%;
     right: 12%;
@@ -474,18 +468,26 @@
 }
 
 .send_msg_btn {
-  display: flex;
-  justify-content: center;
-}
-
-.send_msg_btn>div {
-  background-color: #2A72FF;
-  width: 80px;
+  background-color: white;
+  border: 2px solid #999999;
+  color: #333333;
   text-align: center;
-  border-radius: 4px;
-  font-size: 18px;
-  padding: 6px 8px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px;
+  width: 51%;
+  /* color: white; */
+  cursor: pointer;
+  /* box-sizing: border-box; */
+  margin-left: 4.3rem;
+  margin-top: 16px;
+  transition-duration: 100ms;
+}
+.send_msg_btn:hover {
+  background-color: #2474ff;
   color: white;
+  border: 2px solid #2474ff;
 }
 
 /* 쪽지보내기 css */

@@ -13,7 +13,7 @@
   margin: 32px 0;
 }
 
-.division_line>div {
+.division_line > div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -82,32 +82,32 @@
   margin: 12px 0;
 }
 
-.market_title>h2 {
+.market_title > h2 {
   font-size: 24px;
   font-weight: 600;
   font-family: "Pretendard Variable";
   letter-spacing: -1px;
 }
 
-.market_title>p {
+.market_title > p {
   color: #999999;
   font-size: 14px;
   font-weight: 500;
 }
 
 /* 가격 */
-.right_main_content>div:nth-child(2)>div>h2 {
+.right_main_content > div:nth-child(2) > div > h2 {
   font-size: 40px;
   font-weight: 500;
   margin: 12px 0;
 }
 
-.right_main_content>div:nth-child(2)>div>h2>span {
+.right_main_content > div:nth-child(2) > div > h2 > span {
   font-size: 28px;
   font-weight: 600;
 }
 
-.right_main_content>div:nth-child(2)>div>h2::after {
+.right_main_content > div:nth-child(2) > div > h2::after {
   content: "";
   clear: both;
   display: block;
@@ -123,7 +123,7 @@
   justify-content: space-between;
 }
 
-.market_profile>div:first-child {
+.market_profile > div:first-child {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -137,24 +137,24 @@
   cursor: pointer;
 }
 
-.profile_img>img {
+.profile_img > img {
   width: 100%;
 }
 
-.market_profile>div:last-child>p {
+.market_profile > div:last-child > p {
   color: #999999;
   font-size: 14px;
   font-weight: 500;
 }
 
-.market_profile>div:first-child>div:last-child>p {
+.market_profile > div:first-child > div:last-child > p {
   font-size: 14px;
   margin-bottom: 6px;
   text-align: left;
   color: #999999;
 }
 
-.market_profile>div:first-child>div:last-child>h5 {
+.market_profile > div:first-child > div:last-child > h5 {
   font-size: 18px;
   /* margin-bottom: 8px; */
   text-align: left;
@@ -174,7 +174,7 @@
   justify-content: flex-end;
 }
 
-.market_buttons>button {
+.market_buttons > button {
   padding: 16px 24px;
   font-size: 1rem;
   font-weight: 600;
@@ -184,27 +184,27 @@
   transition-duration: 200ms;
 }
 
-.market_buttons>button:first-child {
+.market_buttons > button:first-child {
   background-color: #e8c32d;
 }
 
-.market_buttons>button:first-child:hover {
+.market_buttons > button:first-child:hover {
   background-color: #ffcf11;
 }
 
-.market_buttons>button:nth-child(2) {
+.market_buttons > button:nth-child(2) {
   background-color: #999999;
 }
 
-.market_buttons>button:nth-child(2):hover {
+.market_buttons > button:nth-child(2):hover {
   background-color: #585858;
 }
 
-.market_buttons>button:last-child {
+.market_buttons > button:last-child {
   background-color: #ff8c00;
 }
 
-.market_buttons>button:last-child:hover {
+.market_buttons > button:last-child:hover {
   background-color: #ff6f0f;
 }
 
@@ -213,13 +213,13 @@
   padding: 4px 16px;
 }
 
-.market_content>h3 {
+.market_content > h3 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 16px;
 }
 
-.market_content>h3::after {
+.market_content > h3::after {
   content: "";
   clear: both;
   display: block;
@@ -229,7 +229,6 @@
   margin: 12px 0;
 }
 
-
 /* 댓글 구분선 */
 
 .division_line_comment {
@@ -238,7 +237,7 @@
   margin: 32px 0;
 }
 
-.division_line_comment>div {
+.division_line_comment > div {
   background-color: white;
   color: #999999;
   display: inline-block;
@@ -274,7 +273,6 @@
   color: #7cacff;
 }
 
-
 /* 댓글 작성 quill버전 css */
 .comment_write_profile {
   margin-right: 16px;
@@ -285,10 +283,9 @@
   height: 65px;
 }
 
-.comment_write>div {
+.comment_write > div {
   display: flex;
 }
-
 
 .quillComment_container {
   width: 90%;
@@ -320,7 +317,6 @@
 .market_buttons button {
   white-space: nowrap;
 }
-
 
 /* 댓글 작성 quill버전 css */
 @media (max-width: 1024px) {
@@ -354,14 +350,13 @@
     align-content: space-between;
     gap: 32px;
   }
-  
-.market_buttons>button {
-  padding: 12px 16px;
-  font-size: 16px;
-  font-weight: 500;
-}
-}
 
+  .market_buttons > button {
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
 
 /* 쪽지보내기 css */
 
@@ -369,7 +364,7 @@
   font-size: 14px;
   position: absolute;
   left: 1rem;
-  bottom: -2rem;
+  /* bottom: -2rem; */
   box-shadow: 1px 1px 8px gray;
   padding: 4px 8px;
   width: 125px;
@@ -390,11 +385,11 @@
   margin-right: 8px;
 }
 
-.message_dropdown>li:hover svg {
+.message_dropdown > li:hover svg {
   fill: #1f6cf1;
 }
 
-.message_dropdown>li:hover span {
+.message_dropdown > li:hover span {
   color: #1f6cf1;
   font-weight: 600;
 }
@@ -420,12 +415,11 @@
   font-size: 14px;
 }
 
-@media (max-width:1024px) {
-  .message_dropdown{
+@media (max-width: 1024px) {
+  .message_dropdown {
     top: 20%;
     right: 12%;
   }
 }
 
 /* 쪽지보내기 css */
-
