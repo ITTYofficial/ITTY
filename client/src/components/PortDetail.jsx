@@ -7,13 +7,12 @@ import axios from "axios";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 import CommentItem from "./CommentItem";
-import QuillComment from './QuillComment'
+import QuillComment from "./QuillComment";
 import { Link } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const PortDetail = () => {
-
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -24,11 +23,18 @@ const PortDetail = () => {
   const [memberInfo, setMemberInfo] = useState([]);
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
+  const {
+    commentList,
+    setCommentList,
+    getComment,
+    coValue,
+    setCoValue,
+    myInfo,
+    setMyInfo,
+  } = useContext(QuillContext);
 
   // QuillComment 컴포넌트 초기화용 state
   const [commentKey, setCommentKey] = useState(0);
-
 
   // 댓글 작성 시 호출되는 함수
   function commentSubmit(event) {
@@ -40,7 +46,6 @@ const PortDetail = () => {
       window.location.href = "/login";
       event.preventDefault();
     } else {
-
       // 댓글 빈값 막기
       if (coValue == "" || coValue == "<p><br></p>") {
         alert("내용을 입력해주세요");
@@ -48,11 +53,11 @@ const PortDetail = () => {
       }
 
       const obj = {
-        id: sessionStorage.getItem('memberId'),
+        id: sessionStorage.getItem("memberId"),
         writer: sessionStorage.getItem("memberNickname"),
         postid: id,
         content: coValue,
-        boardType: 'port'
+        boardType: "port",
       };
 
       axios
@@ -219,7 +224,6 @@ const PortDetail = () => {
 
   /* 수정삭제 버튼 */
 
-
   /* 쪽지 */
 
   const [message, setMessage] = useState(false);
@@ -228,12 +232,12 @@ const PortDetail = () => {
     if (message) {
       setMessage(false);
     }
-  }
+  };
 
   const messageSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    formData.append('sendUserId', sessionStorage.getItem('memberId'));
+    formData.append("sendUserId", sessionStorage.getItem("memberId"));
     console.log("데이터 확인", e.target);
 
     const obj = {};
@@ -241,33 +245,30 @@ const PortDetail = () => {
       console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
-    await axios.post(`${baseUrl}/message/write`, obj)
+    await axios
+      .post(`${baseUrl}/message/write`, obj)
       .then((res) => {
-        alert("글 작성 완료")
+        alert("글 작성 완료");
         handleClose();
-
-      }).catch((err) => {
-        alert("작성에 실패했습니다.")
-
       })
-  }
-
+      .catch((err) => {
+        alert("작성에 실패했습니다.");
+      });
+  };
 
   /* 모달 */
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
     setShow(false);
-
-  }
+  };
   const handleShow = () => {
     /* setCroppedImage(null); */
     setShow(true);
     /* handleCropperClick(); */
-  }
+  };
 
   /* 모달 */
-
 
   /* 쪽지 */
 
@@ -285,32 +286,50 @@ const PortDetail = () => {
         </div>
         <div className={style.top_container}>
           <div className={style.top_container_sub}>
-            <div className={style.profile_img} onClick={() => { setMessage(!message) }}>
+            <div className={style.profile_img}>
               <Image src={memberInfo.profileImg} roundedCircle />
             </div>
             <div>
               <p>{memberInfo.class}</p>
-              <p>{portDetail.writer}</p>
+              <p
+                onClick={() => {
+                  setMessage(!message);
+                }}
+              >
+                {portDetail.writer}
+              </p>
             </div>
-            {message &&
+            {message && (
               <div className={style.message_dropdown}>
                 <li onClick={handleShow}>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bi bi-chat-left-dots"
+                    viewBox="0 0 16 16"
+                  >
                     <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                     <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                   </svg>
                   <span>쪽지보내기</span>
                 </li>
               </div>
-            }
+            )}
             <Modal show={show} onHide={handleClose}>
               <form onSubmit={messageSubmit}>
                 <Modal.Header closeButton>
                   <Modal.Title>쪽지 보내기</Modal.Title>
-                  <input type="hidden" name='getUserId' value={memberInfo.id}></input>
+                  <input
+                    type="hidden"
+                    name="getUserId"
+                    value={memberInfo.id}
+                  ></input>
                 </Modal.Header>
                 <Modal.Body>
-                  <textarea className={style.message_modal_input} name="content" placeholder="쪽지입력" />
+                  <textarea
+                    className={style.message_modal_input}
+                    name="content"
+                    placeholder="쪽지입력"
+                  />
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
@@ -322,16 +341,24 @@ const PortDetail = () => {
                 </Modal.Footer>
               </form>
             </Modal>
-
           </div>
           <div className={style.profile_view}>
             <p>
-              {getTimeAgoString(portDetail.createdAt)} 👁‍🗨 {portDetail.views} 💬 {portDetail.comments}
+              {getTimeAgoString(portDetail.createdAt)} 👁‍🗨 {portDetail.views} 💬{" "}
+              {portDetail.comments}
             </p>
           </div>
         </div>
         <hr />
-        <div className={style.meatball} style={{ display: portDetail.id === sessionStorage.getItem("memberId") ? 'block' : 'none' }}>
+        <div
+          className={style.meatball}
+          style={{
+            display:
+              portDetail.id === sessionStorage.getItem("memberId")
+                ? "block"
+                : "none",
+          }}
+        >
           <ul>
             <svg
               onClick={() => {
@@ -368,24 +395,33 @@ const PortDetail = () => {
         </div>
         <form onSubmit={commentSubmit}>
           <div className={style.comment_write}>
-
             <div>
               <div className={style.comment_write_profile}>
-
-                <Image src={myInfo.profileImg ? myInfo.profileImg : "https://i.ibb.co/XsypSbQ/profile-01.png"} roundedCircle />
+                <Image
+                  src={
+                    myInfo.profileImg
+                      ? myInfo.profileImg
+                      : "https://i.ibb.co/XsypSbQ/profile-01.png"
+                  }
+                  roundedCircle
+                />
               </div>
               <div className={style.quillComment_container}>
                 <QuillComment key={commentKey} />
               </div>
             </div>
             <div className={style.submit_btn_group}>
-
               <button type="submit">댓글쓰기</button>
             </div>
           </div>
         </form>
         {commentList.map((item) => (
-          <CommentItem key={item._id} props={item} postId={id} boardType='port' />
+          <CommentItem
+            key={item._id}
+            props={item}
+            postId={id}
+            boardType="port"
+          />
         ))}
       </div>
     </div>
