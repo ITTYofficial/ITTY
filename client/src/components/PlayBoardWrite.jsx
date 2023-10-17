@@ -17,7 +17,7 @@ const PlayBoardWrite = () => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
     const nickname = sessionStorage.getItem("memberNickname");
-    const { value, setValue, cancel } = useContext(QuillContext);
+    const { value, setValue } = useContext(QuillContext);
     console.log("id :", id);
 
     // 경고메세지 출력을 위한 Ref
@@ -133,7 +133,7 @@ const PlayBoardWrite = () => {
                     </div>
                     {/* 전송 버튼 */}
                     <div className={style.button_group}>
-                        <button onClick={cancel} className={style.cancel_btn} type='button'>
+                        <button className={style.cancel_btn} type='submit'>
                             취소
                         </button>
                         <button className={style.submit_btn} type='submit'>
