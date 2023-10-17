@@ -32,7 +32,6 @@ const PlayBoardDetail = () => {
 
   //회원정보 조회 함수 -지홍
   const memberSearching = async () => {
-    console.log("멤버서칭 함수 쿼리스트링용 닉네임", nickname);
     await axios
       .get(`${baseUrl}/member/memberSearching?id=${nickname}`)
       .then((res) => {
@@ -134,7 +133,6 @@ const PlayBoardDetail = () => {
           setCommentKey(commentKey + 1);
         })
         .catch((err) => {
-          console.log(err);
           alert("게시글 작성 실패");
         });
     }
@@ -211,11 +209,9 @@ const PlayBoardDetail = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     formData.append('sendUserId', sessionStorage.getItem('memberId'));
-    console.log("데이터 확인", e.target);
 
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     await axios.post(`${baseUrl}/message/write`, obj)

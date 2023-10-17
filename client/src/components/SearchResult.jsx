@@ -34,7 +34,6 @@ const SearchResult = () => {
         );
         const data = await response.json();
         setSearchResults(data.allBoards);
-        console.log("쳌", data.allBoards);
         setMaxPage(data.allBoards[6].posts.length);
       } catch (error) {
         console.error("Error fetching search results:", error);
@@ -44,9 +43,6 @@ const SearchResult = () => {
 
     fetchSearchResults();
   }, [searchTerm]);
-
-  console.log("받아온 값 확인", searchResults);
-  console.log("길이 확인", maxPage);
 
   // 검색한 값 하이라이트
   const boldSearchTerm = (text, searchTerm) => {
@@ -76,7 +72,6 @@ const SearchResult = () => {
   const [page, setPage] = useState(1);
   const handlePageChange = (page) => {
     setPage(page);
-    console.log("페이지 확인", page);
   };
 
   const itemsPerPage = 5;

@@ -18,7 +18,6 @@ const PlayBoardWrite = () => {
     const id = searchParams.get('id');
     const nickname = sessionStorage.getItem("memberNickname");
     const { value, setValue } = useContext(QuillContext);
-    console.log("id :", id);
 
     // 경고메세지 출력을 위한 Ref
     const titleRef = useRef(null)
@@ -35,11 +34,9 @@ const PlayBoardWrite = () => {
         const formData = new FormData(e.target);
         formData.append('writer', nickname);
         formData.append('id', sessionStorage.getItem('memberId'));
-        console.log(e.target);
 
         const obj = {};
         formData.forEach((value, key) => {
-            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj['content'] = value;
@@ -99,7 +96,6 @@ const PlayBoardWrite = () => {
             // projectRouter랑 통신해서 response에 결과값 저장
             await axios.get(`${baseUrl}/play/playboardDetail/${id}`)
                 .then((res) => {
-                    console.log(res);
                     setPlayDetail(res.data.detailPlay[0]);
                     setValue(res.data.detailPlay[0].content)
                 });

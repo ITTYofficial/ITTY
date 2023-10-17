@@ -20,7 +20,6 @@ const ReviewWrite = () => {
         const value = event.target.value;
         document.querySelector(`.${styles.star} span`).style.width = `${value * 10}%`;
         setStart(value);
-        console.log('별확인', star);
     }
     /* 별점관련 */
 
@@ -84,7 +83,6 @@ const ReviewWrite = () => {
         formData.append('writer', sessionStorage.getItem('memberNickname'));
         const obj = {};
         formData.forEach((value, key) => {
-            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj["content"] = value;
@@ -128,12 +126,10 @@ const ReviewWrite = () => {
             return;
         }
 
-        console.log(obj);
         axios
             .post(`${baseUrl}/review/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.");
-                console.log(res);
                 window.location.href = `/reviewDetail/${res.data._id}?id=${res.data.id}`
             })
             .catch((err) => {
@@ -153,11 +149,8 @@ const ReviewWrite = () => {
             await axios
                 .get(`${baseUrl}/review/reviewDetail/${id}`)
                 .then((res) => {
-                    console.log(res);
                     setReviewDetail(res.data.detailReview[0]);
                     setValue(res.data.detailReview[0].content);
-                    // const positionArr = res.data.detailReview[0].keyWord.split(',');
-                    // setPosition(positionArr);
                 });
             // respnse에서 데이터 꺼내서 State에 저장
         }

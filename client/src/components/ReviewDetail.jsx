@@ -59,7 +59,6 @@ const ReviewDetail = () => {
       .get(`${baseUrl}/review/reviewDetail/${id}`)
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
-        console.log(res.data);
         setReviewDetail(res.data.detailReview[0]);
       })
       .catch((err) => {
@@ -71,7 +70,6 @@ const ReviewDetail = () => {
     await axios
       .get(`${baseUrl}/member/memberSearching?id=${nickname}`)
       .then((res) => {
-        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -245,11 +243,9 @@ const ReviewDetail = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     formData.append("sendUserId", sessionStorage.getItem("memberId"));
-    console.log("데이터 확인", e.target);
 
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     await axios

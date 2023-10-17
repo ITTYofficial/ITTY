@@ -62,7 +62,6 @@ const MyPage_profile = () => {
     await axios
       .get(`${baseUrl}/member/memberSearching?id=${id}`)
       .then((res) => {
-        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -75,7 +74,6 @@ const MyPage_profile = () => {
   const engNumPwCheck = (e) => {
     if (messageElement2.current) {
       const inputValue = e.target.value;
-      // console.log(inputValue);
       if (engNumPw.test(inputValue)) {
         messageElement2.current.textContent = "";
         //      messageElement.current.style.color = "blue";
@@ -100,7 +98,6 @@ const MyPage_profile = () => {
         "닉네임은 최소 2글자 이상이어야 합니다.";
       messageElement4.current.style.color = "red";
       setNicknameCheckResult(false);
-      console.log("닉네임 사용 불가시:", nicknameCheckResult);
       return; // 함수 종료
     }
     const nicknameChecking = { nickname: newNickname };
@@ -111,16 +108,13 @@ const MyPage_profile = () => {
         nicknameChecking
       );
       if (response.data.nicknameCheckingSuccess) {
-        console.log("닉네임 중복체크 성공:", response.data);
         messageElement4.current.textContent = response.data.message;
         messageElement4.current.style.color = "blue";
         setNicknameCheckResult(true);
-        console.log("닉네임 사용 가능할때:", nicknameCheckResult);
       } else {
         messageElement4.current.textContent = response.data.message;
         messageElement4.current.style.color = "red";
         setNicknameCheckResult(false);
-        console.log("닉네임 사용 불가시:", nicknameCheckResult);
       }
     } catch (error) {
       console.error("오류 발생:", error);
@@ -129,7 +123,6 @@ const MyPage_profile = () => {
 
   // 비밀번호 확인 (-> 이러면 한번 인풋창을 건드리면 비밀번호를 맞춰야한다는 단점이있음)
   const pwCheck = (e) => {
-    console.log("유즈스테이트pw:", pw);
 
     if (pw !== checkPw) {
       messageElement3.current.textContent = "비밀번호가 일치하지 않습니다.";
@@ -154,13 +147,10 @@ const MyPage_profile = () => {
     e.preventDefault();
 
     const files = e.target.files;
-    console.log("1.handleFileChange->file:", files);
     if (!files) return;
     handleShow();
     const reader = new FileReader();
-    console.log("2.handleFileChange->reader:", reader);
     reader.onload = () => {
-      console.log("2.handleFileChange->reader.result:", reader.result);
       setImage(reader.result);
       setInputPicDisplay(false);
     };
@@ -213,7 +203,6 @@ const MyPage_profile = () => {
 
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
-    console.log("데이터유알아이", dataURI);
     // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
     const byteString = atob(dataURI.split(",")[1]);
     // const nickname = sessionStorage.getItem("memberNickname");
@@ -227,7 +216,6 @@ const MyPage_profile = () => {
       type: "image/jpeg",
     });
     const file = new File([blob], "image.jpg");
-    console.log("베이스64->form데이터:", file);
     // 위 과정을 통해 만든 image폼을 FormData에
     // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
     const formData = new FormData();
@@ -238,39 +226,31 @@ const MyPage_profile = () => {
         `${baseUrl}/save/save`,
         formData
       );
-      console.log("성공 시, 백엔드가 보내주는 데이터", result.data.url);
       const url = result.data.url;
       return url;
     } catch (error) {
-      console.log("실패했어요ㅠ");
       console.log(error);
     }
   };
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
   const updateSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
     const formData = new FormData(e.target);
     formData.append("id", sessionStorage.getItem("memberId"));
 
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     const url = await handlingDataForm(croppedImage);
-    console.log(url);
     obj["imgPath"] = url;
-    console.log(obj);
     axios
       .post(`${baseUrl}/member/update`, obj)
       .then((res) => {
         alert("회원정보가 수정되었습니다.");
-        console.log(res);
         window.location.href = `/`
       })
       .catch((err) => {
-        console.log(err);
         alert("회원정보 수정 실패");
         window.location.href = `/myPage`
       });
@@ -293,7 +273,6 @@ const MyPage_profile = () => {
       obj["id"] = sessionStorage.getItem("memberId");
 
       try {
-        console.log("닉네임:", nickname);
         const response = await axios.post(
           `${baseUrl}/member/updateNick`,
           obj

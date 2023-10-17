@@ -58,15 +58,11 @@ const StudyWrite = () => {
         event.preventDefault();
 
         // 작성된 값 확인할수 있는곳
-        console.log('선택한 포지션:', selectedValues);
-        console.log('프로젝트 시작일:', startDate);
-        console.log('프로젝트 종료일:', endDate);
         const formData = new FormData(event.target);
         formData.append('id', sessionStorage.getItem('memberId'));
         formData.append('writer', sessionStorage.getItem('memberNickname'));
         const obj = {};
         formData.forEach((value, key) => {
-            console.log(`폼 요소 이름: ${key}, 값: ${value}`);
             obj[key] = value;
         });
         obj['startDate'] = startDate;
@@ -118,16 +114,13 @@ const StudyWrite = () => {
             alert('필수 입력 항목을 확인해주세요.')
             return;
         }
-        console.log(obj);
 
         axios.post(`${baseUrl}/study/write`, obj)
             .then((res) => {
                 alert("게시글이 등록되었습니다.")
-                console.log(res);
                 window.location.href = `/studyDetail/${res.data._id}?id=${res.data.id}`
             })
             .catch((err) => {
-                console.log(err);
                 alert("게시글 작성에 실패했습니다.")
                 window.location.href = `/studyList`
             })
@@ -142,7 +135,6 @@ const StudyWrite = () => {
             // projectRouter랑 통신해서 response에 결과값 저장
             await axios.get(`${baseUrl}/study/detail/${id}`)
                 .then((res) => {
-                    console.log(res);
                     setStudyDetail(res.data.detailStudy[0]);
                     setStartDate(new Date(res.data.detailStudy[0].periodStart));
                     setEndDate(new Date(res.data.detailStudy[0].periodEnd));

@@ -147,7 +147,6 @@ const StudyDetail = () => {
     await axios
       .get(`${baseUrl}/member/memberSearching?id=${nickname}`)
       .then((res) => {
-        console.log("axios다음 니크네임", res.data.member.nickname);
         setMemberInfo(res.data.member);
       })
       .catch((err) => {
@@ -164,7 +163,6 @@ const StudyDetail = () => {
       .then((res) => {
         // respnse에서 데이터 꺼내서 State에 저장
         setStudyDetail(res.data.detailStudy[0]);
-        console.log(res.data.detailStudy[0]);
         const positionArr = res.data.detailStudy[0].selectedValues.split(",");
         positionArr.map((item) => (visible[item - 1] = true));
       })
@@ -245,13 +243,11 @@ const StudyDetail = () => {
         content: coValue,
         boardType: "study",
       };
-      console.log(obj);
 
       axios
         .post(`${baseUrl}/comment/write`, obj)
         .then((res) => {
           alert("댓글이 등록되었습니다.");
-          console.log(res);
           setCoValue("");
           getComment(id);
           setCommentKey(commentKey + 1);
@@ -284,11 +280,9 @@ const StudyDetail = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     formData.append("sendUserId", sessionStorage.getItem("memberId"));
-    console.log("데이터 확인", e.target);
 
     const obj = {};
     formData.forEach((value, key) => {
-      console.log(`폼 요소 이름: ${key}, 값: ${value}`);
       obj[key] = value;
     });
     await axios
