@@ -3,11 +3,7 @@ import styles from "../css/MyPage.module.css";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
 import { Link, useLocation } from "react-router-dom";
-import CropperTest from "./CropperTest";
-import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import { QuillContext } from "../context/QuillContext";
 
 const MyPage_message = () => {
@@ -65,7 +61,6 @@ const MyPage_message = () => {
       });
   };
   const location = useLocation();
-  const query = new URLSearchParams(location.search);
 
   const showMessageListDetail = async (e) => {
     setMessageListDetail("");

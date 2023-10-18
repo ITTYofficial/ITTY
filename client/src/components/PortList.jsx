@@ -77,7 +77,7 @@ const PortList = () => {
     <div className={styles.port_content}>
       <div className={styles.port_content_img}>
         <Link to={`/portDetail/${props._id}?id=${props.writerInfo.id}`}>
-          <img src={props.imgPath}></img>
+          <img src={props.imgPath} alt="이미지"></img>
         </Link>
       </div>
       <div className={styles.port_content_bottom}>
@@ -103,9 +103,7 @@ const PortList = () => {
       </div>
     </div>
   );
-
-
-
+  
   // 페이징 부분
   const [maxPage, setMaxPage] = useState();
   const [page, setPage] = useState(1);

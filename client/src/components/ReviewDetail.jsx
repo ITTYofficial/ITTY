@@ -233,12 +233,6 @@ const ReviewDetail = () => {
 
   const [message, setMessage] = useState(false);
 
-  const toggleMessage = () => {
-    if (message) {
-      setMessage(false);
-    }
-  };
-
   const messageSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);

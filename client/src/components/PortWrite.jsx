@@ -165,11 +165,6 @@ const PortWrite = () => {
     setShow(false);
   };
 
-  const handleCancelCrop = () => {
-    setImage(null);
-    setInputPicDisplay(true); // 이미지 입력을 취소하면 display를 다시 block으로 변경
-  };
-
   /* 크로퍼 */
 
   useEffect(() => {
@@ -183,10 +178,7 @@ const PortWrite = () => {
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
     if (dataURI !== null && dataURI.length > 200) {
-      // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
       const byteString = atob(dataURI.split(",")[1]);
-      // const nickname = sessionStorage.getItem("memberNickname");
-      // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
       const ab = new ArrayBuffer(byteString.length);
       const ia = new Uint8Array(ab);
       for (let i = 0; i < byteString.length; i++) {
@@ -196,11 +188,8 @@ const PortWrite = () => {
         type: "image/jpeg",
       });
       const file = new File([blob], "image.jpg");
-      // 위 과정을 통해 만든 image폼을 FormData에
-      // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
       const formData = new FormData();
       formData.append("img", file);
-      // formData.append("writer",nickname)
       try {
         const result = await axios.post(
           `${baseUrl}/save/save`,
@@ -226,13 +215,9 @@ const PortWrite = () => {
     setInputPicDisplay(true);
   }
   const handleShow = () => {
-    /* setCroppedImage(null); */
     setShow(true);
-    /* handleCropperClick(); */
   }
-
   /* 모달 */
-
 
   return (
 

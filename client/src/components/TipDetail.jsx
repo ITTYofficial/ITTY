@@ -45,13 +45,10 @@ const TipDetail = () => {
   const [visible, setVisible] = useState([false, false, false, false]);
 
   // 게시글 조회함수
-  // 작성자 정보는 아직 없어서 나중에 추가할 것 => 지홍 추가함 (member.nickname활용)
   const getTip = async () => {
-    // projectRouter랑 통신해서 response에 결과값 저장
     await axios
       .get(`${baseUrl}/tip/tipDetail/${id}`)
       .then((res) => {
-        // respnse에서 데이터 꺼내서 State에 저장
         setTipDetail(res.data.detailTip[0]);
         const positionArr = res.data.detailTip[0].category.split(",");
         positionArr.map((item) => (visible[item - 1] = true));
@@ -69,17 +66,9 @@ const TipDetail = () => {
   // 회원정보 저장할 state-지홍
   const [memberInfo, setMemberInfo] = useState([]);
 
-  // 댓글 내용 담을 State
-  const [comment, setComment] = useState();
-
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } =
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo } =
     useContext(QuillContext);
-
-  // 댓글 내용 가져오는 함수
-  const commentChange = (e) => {
-    setComment(e.target.value);
-  };
 
   // 회원 정보 조회 함수
   const memberSearching = async () => {

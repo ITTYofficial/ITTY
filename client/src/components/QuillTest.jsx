@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useMemo, useRef } from "react";
+import React, { useContext, useMemo, useRef } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import "../css/Quill.css";
-import { useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
-const QuillTest = ({ update }) => {
+const QuillTest = () => {
 
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -20,9 +19,7 @@ const QuillTest = ({ update }) => {
 
   const imageHandler = async () => {
 
-    // 1. 이미지를 저장할 input type=file DOM을 만든다.
     const input = document.createElement("input");
-    // 속성 써주기
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
     input.click(); // 에디터 이미지버튼을 클릭하면 이 input이 클릭된다.
@@ -107,16 +104,6 @@ const QuillTest = ({ update }) => {
       },
     };
   }, []);
-
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "image",
-  ];
 
   const { value, setValue } = useContext(QuillContext);
 

@@ -3,7 +3,7 @@ import LeftContainer from "./LeftContainer";
 import styles from "../css/AnonymityDetail.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "react-bootstrap/Image";
-import { useNavigate, useParams, useLocation, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { QuillContext } from "../context/QuillContext";
 import AnonymityComment from "./AnonymityComment";
@@ -16,9 +16,6 @@ const AnonymityDetail = () => {
   // 특정 게시글 조회하기 위한 id값 가져오기
   const { id } = useParams();
 
-  // 특정 게시글 조회하기위한 nickname값 가져오기
-  const location = useLocation();
-  
   // 회원정보 저장할 state
   const [memberInfo, setMemberInfo] = useState({});
 

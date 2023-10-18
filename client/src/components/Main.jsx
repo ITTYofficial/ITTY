@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import style from "../css/Main.module.css";
 import axios from "axios";
@@ -181,7 +181,7 @@ const Main = () => {
     <div className={style.port_content}>
       <Link to={`/portDetail/${props._id}?id=${props.writerInfo.id}`}>
         <div className={style.port_content_img}>
-          <img src={props.imgPath}></img>
+          <img src={props.imgPath} alt="이미지"></img>
         </div>
         <div className={style.port_content_bottom}>
           <div>

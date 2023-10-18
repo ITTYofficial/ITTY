@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useMemo, useRef } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
-import { useLocation } from "react-router-dom";
 import { QuillContext } from "../context/QuillContext";
 
 Quill.register("modules/ImageResize", ImageResize);
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
-const QuillReComment = ({ update }) => {
+const QuillReComment = () => {
 
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -107,16 +106,6 @@ const QuillReComment = ({ update }) => {
       },
     };
   }, []);
-
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "image",
-  ];
 
   const { reCoValue, setReCoValue } = useContext(QuillContext);
   return (

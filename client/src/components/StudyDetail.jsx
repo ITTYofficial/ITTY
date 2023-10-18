@@ -215,7 +215,6 @@ const StudyDetail = () => {
     coValue,
     setCoValue,
     myInfo,
-    setMyInfo,
   } = useContext(QuillContext);
 
   // QuillComment 컴포넌트 초기화용 state

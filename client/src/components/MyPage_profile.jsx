@@ -1,21 +1,18 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../css/MyPage.module.css";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
-import { Link, useLocation } from "react-router-dom";
-import CropperTest from "./CropperTest";
+import { Link } from "react-router-dom";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { QuillContext } from "../context/QuillContext";
 
 const MyPage_profile = () => {
 
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  const { messageInfo, setMessageInfo } = useContext(QuillContext);
   /* 이미지 크롭 스크립트 */
   const [inputPicDisplay, setInputPicDisplay] = useState(true);
 
@@ -168,11 +165,6 @@ const MyPage_profile = () => {
     setShow(false);
   };
 
-  const handleCancelCrop = () => {
-    setImage(null);
-    setInputPicDisplay(true); // 이미지 입력을 취소하면 display를 다시 block으로 변경
-  };
-
   /* 크로퍼 */
 
   useEffect(() => {
@@ -203,6 +195,7 @@ const MyPage_profile = () => {
 
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
+    if (dataURI !== null) {
     // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
     const byteString = atob(dataURI.split(",")[1]);
     // const nickname = sessionStorage.getItem("memberNickname");
@@ -230,9 +223,12 @@ const MyPage_profile = () => {
       return url;
     } catch (error) {
       console.log(error);
+    }}else {
+      return dataURI;
     }
   };
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
+
   const updateSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -243,7 +239,11 @@ const MyPage_profile = () => {
       obj[key] = value;
     });
     const url = await handlingDataForm(croppedImage);
-    obj["imgPath"] = url;
+    if(!url) {
+      obj["imgPath"] = memberInfo.profileImg;
+    }else{
+      obj["imgPath"] = url;
+    }
     axios
       .post(`${baseUrl}/member/update`, obj)
       .then((res) => {

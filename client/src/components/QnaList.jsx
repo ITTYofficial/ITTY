@@ -45,54 +45,8 @@ const QnaList = () => {
       })
   }
 
-  // QnA 리스트 조회 함수
-  const readQnAList = async () => {
-    await axios
-      .get(`${baseUrl}/qna/qnaList`)
-      .then(async (res) => {
-        // 회원정보조회-지홍
-        let memberPromises = res.data.qna.map((qna) => {
-
-          const id = qna.id
-
-          return axios.get(
-            `${baseUrl}/member/memberSearching?id=${id}`
-          );
-        });
-
-        let memberResponses = await Promise.all(memberPromises);
-        let member = memberResponses.map((response) => ({
-          member: response.data.member,
-        }));
-
-        let fusion = member.map((item, index) => {
-          return { ...item, ...res.data.qna[index] };
-        });
-        const sortedQnA = fusion.sort((a, b) => {
-          // 게시글 데이터 작성 일자별 내림차순 정렬
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-
-        // 댓글 개수 카운팅
-        const counting = sortedQnA.map((item) => (item._id))
-        const countList = (await axios.post(`${baseUrl}/comment/commentCount`, counting)).data.countList
-        const qna = sortedQnA.map((obj, index) => ({
-          ...obj,
-          count: countList[index],
-        }));
-
-        setQnAList(qna);
-        setMaxPage(sortedQnA.length);
-      })
-      .catch((err) => {
-        alert("통신에 실패했습니다.");
-        console.log(err);
-      });
-  };
-
   // 페이지 렌더링시 조회 함수 실행
   useEffect(() => {
-    // readQnAList();
     getList();
   }, []);
 
@@ -117,7 +71,7 @@ const QnaList = () => {
   };
 
   /* 글 제목 앞에 쓰일 카테고리 아이콘(글 작성시 선택 가능-개발/공부/취업/생활 및 기타 ) */
-  const Develope = ({ }) => (
+  const Develope = () => (
     <span className={`${style.play_title} ${style.develope}`}>개발 👩🏻‍💻</span>
   );
   const Study = () => (
@@ -184,7 +138,7 @@ const QnaList = () => {
       <LeftContainer />
       <div className={styles.right_container}>
         <div className={style.Main_container_banner}>
-          <img src="https://i.ibb.co/VD0ryhf/QnA.png"></img>
+          <img src="https://i.ibb.co/VD0ryhf/QnA.png" alt="이미지"></img>
         </div>
         <div className={styles.right_container_button}>
           <div></div>

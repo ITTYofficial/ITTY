@@ -79,6 +79,15 @@ const SearchResult = () => {
   const endIndex = startIndex + itemsPerPage;
   // 페이징 부분
 
+  // 날짜 변환 함수
+  const getTimeAgoString = (dateString) => {
+    const createdAt = new Date(dateString);
+    const year = createdAt.getFullYear();
+    const month = createdAt.getMonth() + 1;
+    const day = createdAt.getDate();
+
+    return `${year}년 ${month}월 ${day}일`;
+  };
 
   return (
     <div className={styles.Main_container}>
@@ -124,7 +133,7 @@ const SearchResult = () => {
                   <div>
                     <div className={styles.search_detail}>
                       <span>
-                        <p>{item.createdAt}</p>
+                        <p>{getTimeAgoString(item.createdAt)}</p>
                         <h4>
                           <div
                             dangerouslySetInnerHTML={{

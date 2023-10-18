@@ -138,7 +138,7 @@ const ReviewList = () => {
             <h4>{props.writer}</h4>
           </div>
           <div>
-            <img src={props.writerInfo.profileImg} />
+            <img src={props.writerInfo.profileImg} alt="이미지" />
           </div>
         </span>
       </div>

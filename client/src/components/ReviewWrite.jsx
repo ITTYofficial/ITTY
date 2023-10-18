@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import LeftContainer from './LeftContainer'
 import styles from '../css/ReviewWrite.module.css'
 import QuillTest from './QuillTest';
-import Button from 'react-bootstrap/Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { QuillContext } from '../context/QuillContext';
@@ -58,7 +56,6 @@ const ReviewWrite = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get("id");
-    const nickname = sessionStorage.getItem("memberNickname");
 
     // 경고메세지 출력을 위한 Ref
     const titleRef = useRef(null)

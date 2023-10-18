@@ -21,7 +21,7 @@ const MarketDetail = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   // 댓글 리스트 저장할 State, 댓글 조회, 삭제 함수
-  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo, setMyInfo } = useContext(QuillContext);
+  const { commentList, setCommentList, getComment, coValue, setCoValue, myInfo } = useContext(QuillContext);
 
   // QuillComment 컴포넌트 초기화용 state
   const [commentKey, setCommentKey] = useState(0);
@@ -215,12 +215,6 @@ const MarketDetail = () => {
 
   /* 쪽지 */
   const [message, setMessage] = useState(false);
-
-  const toggleMessage = () => {
-    if (message) {
-      setMessage(false);
-    }
-  }
 
   const messageSubmit = async (e) => {
     e.preventDefault();

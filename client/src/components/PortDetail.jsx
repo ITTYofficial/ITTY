@@ -30,7 +30,6 @@ const PortDetail = () => {
     coValue,
     setCoValue,
     myInfo,
-    setMyInfo,
   } = useContext(QuillContext);
 
   // QuillComment 컴포넌트 초기화용 state
@@ -133,27 +132,6 @@ const PortDetail = () => {
     return `${year}년 ${month}월 ${day}일`;
   };
 
-  // 날짜를 "몇 시간 전" 형식으로 변환하는 함수
-  const getTime = (dateString) => {
-    const createdAt = new Date(dateString);
-    const now = new Date();
-    const timeDifference = now - createdAt;
-    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
-    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-    const daysDifference = Math.floor(hoursDifference / 24);
-
-    if (daysDifference === 0) {
-      if (hoursDifference === 0) {
-        return "방금 전";
-      } else {
-        return `${minutesDifference}분 전`;
-      }
-    } else if (hoursDifference < 24) {
-      return `${hoursDifference}시간 전`;
-    } else {
-      return `${daysDifference}일 전`;
-    }
-  };
 
   // 수정 페이지 이동
   const nav = useNavigate();
@@ -225,12 +203,6 @@ const PortDetail = () => {
   /* 쪽지 */
 
   const [message, setMessage] = useState(false);
-
-  const toggleMessage = () => {
-    if (message) {
-      setMessage(false);
-    }
-  };
 
   const messageSubmit = async (e) => {
     e.preventDefault();
@@ -373,7 +345,7 @@ const PortDetail = () => {
           </ul>
         </div>
         <div className={style.middle_container}>
-          <img src={portDetail.imgPath}></img>
+          <img src={portDetail.imgPath} alt="이미지"></img>
         </div>
 
         {/* 글 내용 부분 */}

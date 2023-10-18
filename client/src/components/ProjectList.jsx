@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import LeftContainer from "./LeftContainer";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import "../css/Community.css";
 import styles from "../css/Community.module.css";
 import Image from "react-bootstrap/Image";
 import Pagination from "react-js-pagination";
-import style from "../css/ProjectDetail.module.css";
 
 const ProjectList = () => {
 
