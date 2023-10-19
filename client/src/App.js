@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import RouteChangeTracker from "./RouteChangeTracker";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Join from "./components/Join";
@@ -51,6 +52,9 @@ function App() {
 
   // 배포용 URL
   const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  // 방문자 추적
+  RouteChangeTracker();
 
   // 회원가입과 로그인부분 헤더/푸터 렌더링 유무 함수
   const location = useLocation();

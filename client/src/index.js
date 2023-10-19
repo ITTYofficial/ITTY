@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
+import ReactGA from "react-ga4";
 import App from "./App";
-// import App from './DBtestApp';
 import reportWebVitals from "./reportWebVitals";
-
 import { BrowserRouter } from "react-router-dom";
+
+// 구글 애널리틱스 운영서버만 적용
+if (process.env.REACT_APP_GOOGLE_ANALYTICS) {
+  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
