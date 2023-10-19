@@ -4,12 +4,16 @@
 /node_modules
 /.pnp
 .pnp.js
+.env
 
 # testing
 /coverage
 
 # production
 /build
+
+# dotenv environment variable files
+.env
 
 # misc
 .DS_Store
