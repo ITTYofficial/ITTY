@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 // 몽고DB랑 연결하는 곳 (-> myBatis-config랑 유사)
+const MONGOOSE_ID = process.env.MONGOOSE_ID;
 
 module.exports = () => {
     const connect = () => {
@@ -8,7 +9,7 @@ module.exports = () => {
         }
 
         mongoose
-            .connect("mongodb+srv://hr:1234@cluster0.bjwmlof.mongodb.net/test_data", {
+            .connect(`${MONGOOSE_ID}`, {
                 dbName: "test_data",
                 useNewUrlParser: true, 
                 useUnifiedTopology: true, // 아직 무슨옵션인지 모름..
