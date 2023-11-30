@@ -7,6 +7,8 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../Firebase";
 
 const MyPage_profile = () => {
 
@@ -196,38 +198,61 @@ const MyPage_profile = () => {
   // base64 -> formdata
   const handlingDataForm = async (dataURI) => {
     if (dataURI !== null) {
-    // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
-    const byteString = atob(dataURI.split(",")[1]);
-    // const nickname = sessionStorage.getItem("memberNickname");
-    // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([ia], {
-      type: "image/jpeg",
-    });
-    const file = new File([blob], "image.jpg");
-    // 위 과정을 통해 만든 image폼을 FormData에
-    // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
-    const formData = new FormData();
-    formData.append("img", file);
-    // formData.append("writer",nickname)
-    try {
-      const result = await axios.post(
-        `${baseUrl}/save/save`,
-        formData
-      );
-      const url = result.data.url;
-      return url;
-    } catch (error) {
-      console.log(error);
-    }}else {
+      // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
+      const byteString = atob(dataURI.split(",")[1]);
+      // const nickname = sessionStorage.getItem("memberNickname");
+      // Blob를 구성하기 위한 준비, 잘은 모르겠음.. 코드존나어려워
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ia], {
+        type: "image/jpeg",
+      });
+      const file = new File([blob], "image.jpg");
+      // 위 과정을 통해 만든 image폼을 FormData에
+      // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야함
+      const formData = new FormData();
+      formData.append("img", file);
+      // formData.append("writer",nickname)
+      try {
+        const result = await axios.post(
+          `${baseUrl}/save/save`,
+          formData
+        );
+        const url = result.data.url;
+        return url;
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
       return dataURI;
     }
   };
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
+
+
+  /* 파이어베이스 시작 */
+  const handleSaveCroppedImage = async (croppedImageDataUrl) => {
+    const imageDataBlob = await fetch(croppedImageDataUrl).then((res) =>
+      res.blob()
+    );
+
+    try {
+      const storageRef = ref(storage, `image/${Date.now()}`);
+      const snapshot = await uploadBytes(storageRef, imageDataBlob);
+      const url = await getDownloadURL(snapshot.ref);
+      return url;
+    } catch (error) {
+      console.error(
+        "Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.",
+        error
+      );
+      return null;
+    }
+  };
+  /* 파이어베이스 끝 */
 
   const updateSubmit = async (e) => {
     e.preventDefault();
@@ -238,10 +263,10 @@ const MyPage_profile = () => {
     formData.forEach((value, key) => {
       obj[key] = value;
     });
-    const url = await handlingDataForm(croppedImage);
-    if(!url) {
+    const url = await handleSaveCroppedImage(croppedImage);
+    if (!url) {
       obj["imgPath"] = memberInfo.profileImg;
-    }else{
+    } else {
       obj["imgPath"] = url;
     }
     axios
