@@ -9,6 +9,8 @@ import Modal from 'react-bootstrap/Modal';
 import Cropper from "react-cropper";
 import "../css/Cropper.css";
 import { QuillContext } from '../context/QuillContext';
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../Firebase";
 
 const PortWrite = () => {
 
@@ -34,6 +36,29 @@ const PortWrite = () => {
   }
   let refVisible = false
 
+
+  /* 파이어베이스 시작 */
+  const handleSaveCroppedImage = async (croppedImageDataUrl) => {
+    const imageDataBlob = await fetch(croppedImageDataUrl).then((res) =>
+      res.blob()
+    );
+
+    try {
+      const storageRef = ref(storage, `image/${Date.now()}`);
+      const snapshot = await uploadBytes(storageRef, imageDataBlob);
+      const url = await getDownloadURL(snapshot.ref);
+      return url;
+    } catch (error) {
+      console.error(
+        "Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.",
+        error
+      );
+      return null;
+    }
+  };
+  /* 파이어베이스 끝 */
+
+
   // 게시글 작성 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +76,7 @@ const PortWrite = () => {
     }
 
     // setImgFiles([imgFiles.join(';')]);
-    const url = await handlingDataForm(croppedImage)
+    const url = await handleSaveCroppedImage(croppedImage)
     obj["imgPath"] = url;
 
     // 입력값 확인

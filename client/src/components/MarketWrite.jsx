@@ -11,6 +11,8 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import "../css/Cropper.css";
 import Button from 'react-bootstrap/Button';
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../Firebase";
 
 const MarketWrite = () => {
 
@@ -54,6 +56,27 @@ const MarketWrite = () => {
     }
   };
 
+    /* 파이어베이스 시작 */
+    const handleSaveCroppedImage = async (croppedImageDataUrl) => {
+      const imageDataBlob = await fetch(croppedImageDataUrl).then((res) =>
+        res.blob()
+      );
+  
+      try {
+        const storageRef = ref(storage, `image/${Date.now()}`);
+        const snapshot = await uploadBytes(storageRef, imageDataBlob);
+        const url = await getDownloadURL(snapshot.ref);
+        return url;
+      } catch (error) {
+        console.error(
+          "Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.",
+          error
+        );
+        return null;
+      }
+    };
+    /* 파이어베이스 끝 */
+
 
   //===== div클릭시 이미지 업로드 대리 클릭 및 업로드한 이미지 미리보기를 위한 문법 =====
 
@@ -90,7 +113,7 @@ const MarketWrite = () => {
     // 이미지를 서버에 업로드하고 URL을 받아오는 부분
     const imgPaths = await Promise.all(
       croppedImage.map(async (base64data) => {
-        const result = await handlingDataForm(base64data);
+        const result = await handleSaveCroppedImage(base64data);
         return result;
       })
     );
