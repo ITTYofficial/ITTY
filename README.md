@@ -35,10 +35,14 @@
 
 ### 🛠 시스템 아키텍쳐
 ---
-![시스템수정](https://github.com/ITTYofficial/ITTY/assets/134522033/4c4cabe9-dcba-4a0c-9adc-82551e18e7dd)
+![시스템수정3](https://github.com/ITTYofficial/ITTY/assets/134522033/636a5dc1-3d01-4c59-82fe-9cb2a2859608)
 
 
-## ⛏️ 기술스택
+
+
+
+### ⛏️ 기술스택
+---
 <table>
     <tr>
         <th>구분</th>
