@@ -1,10 +1,12 @@
-import React, { useContext, useMemo, useRef } from "react";
+import React, { useContext, useMemo, useRef, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import "../css/Quill.css";
+import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
+import { storage } from "../Firebase";
 import { QuillContext } from "../context/QuillContext";
 
 Quill.register("modules/ImageResize", ImageResize);
@@ -17,37 +19,35 @@ const QuillTest = () => {
 
   const quillRef = useRef(null); // useRef로 ref 생성
 
-  const imageHandler = async () => {
+  const [imageUrl, setImageUrl] = useState("");
 
+  const imageHandler = () => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
-    input.click(); // 에디터 이미지버튼을 클릭하면 이 input이 클릭된다.
-    // input이 클릭되면 파일 선택창이 나타난다.
-
-    // input에 변화가 생긴다면 = 이미지를 선택
+    input.click();
     input.addEventListener("change", async () => {
+      const editor = quillRef.current.getEditor();
       const file = input.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        alert("파일이 너무 큽니다. 5MB 이하의 파일을 업로드하세요.");
-        return;
-      }
-      // multer에 맞는 형식으로 데이터 만들어준다.
-      const formData = new FormData();
-      formData.append("img", file); // formData는 키-밸류 구조
-      // 백엔드 multer라우터에 이미지를 보낸다.
+      const range = editor.getSelection(true);
       try {
-        const result = await axios.post(
-          `${baseUrl}/save/save`,
-          formData
+        // 파일명을 "image/Date.now()"로 저장
+        const storageRef = ref(
+          storage,
+          `image/${Date.now()}`
         );
-        const IMG_URL = result.data.url;
+        // Firebase Method : uploadBytes, getDownloadURL
+        await uploadBytes(storageRef, file).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((url) => {
+            // 이미지 URL 에디터에 삽입
+            editor.insertEmbed(range.index, "image", url);
+            // URL 삽입 후 커서를 이미지 뒷 칸으로 이동
+            editor.setSelection(range.index + 1);
+            console.log('url 확인', url);
+            setImageUrl(url);
+          });
+        });
 
-        const editor = quillRef.current.getEditor(); // 에디터 객체 가져오기
-
-        const range = editor.getSelection();
-        // 가져온 위치에 이미지를 삽입한다
-        editor.insertEmbed(range.index, "image", IMG_URL);
       } catch (error) {
         console.log(error);
       }
@@ -55,32 +55,44 @@ const QuillTest = () => {
   };
 
   const imageDropHandler = async (imageDataUrl, type, imageData) => {
-    const formData = new FormData();
-    const blob = imageData.toBlob();
-
-    if (blob.size > 10 * 1024 * 1024) {
-      alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
-      return;
-    }
-
-    formData.append("img", blob);
+    // if (blob.size > 10 * 1024 * 1024) {
+    //   alert("파일이 너무 큽니다. 10MB 이하의 파일을 업로드하세요.");
+    //   return;
+    // }
 
     try {
-      const result = await axios.post(
-        `${baseUrl}/save/save`,
-        formData
-      );
-      const IMG_URL = result.data.url;
-
+      const IMG_URL = await handleSaveCroppedImage(imageDataUrl);;
       const editor = quillRef.current.getEditor(); // 에디터 객체 가져오기
 
       const range = editor.getSelection();
       // 가져온 위치에 이미지를 삽입한다
       editor.insertEmbed(range.index, "image", IMG_URL);
+    } catch (error) { }
+  };
+
+  const [savedUrl, setSavedUrl] = useState("");
+
+  const uploadImageToFirebase = async (croppedImageDataUrl) => {
+    const imageDataBlob = await fetch(croppedImageDataUrl).then((res) => res.blob());
+
+    try {
+      const storageRef = ref(storage, `image/${Date.now()}`);
+      const snapshot = await uploadBytes(storageRef, imageDataBlob);
+      const url = await getDownloadURL(snapshot.ref);
+      return url;
     } catch (error) {
+      console.error("Firebase에 이미지를 업로드하는 동안 오류가 발생했습니다.", error);
+      return null;
     }
   };
 
+  const handleSaveCroppedImage = async (croppedImageDataUrl) => {
+    const imageUrl = await uploadImageToFirebase(croppedImageDataUrl);
+    setSavedUrl(imageUrl);
+    return imageUrl;
+  };
+
+  
   const modules = useMemo(() => {
     return {
       toolbar: {
