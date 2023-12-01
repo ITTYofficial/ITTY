@@ -1,4 +1,5 @@
 # ITTY_official
+# http://itty-kr.site/
 
 # 💻 요즘 개발자 커뮤니티 ITTY 잇티
 ![image](https://github.com/ITTYofficial/ITTY/assets/134522033/486e6e4e-afbf-4367-a16a-7c6c3177b64f)
